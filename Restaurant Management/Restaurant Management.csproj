@@ -96,6 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Control\" />
+    <Folder Include="ViewModel\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
