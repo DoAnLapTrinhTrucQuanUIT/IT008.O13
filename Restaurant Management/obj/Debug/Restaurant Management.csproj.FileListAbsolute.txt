@@ -1,6 +1,0 @@
-\\Mac\Home\Github\quan-ly-quan-an\Restaurant Management\obj\Debug\Restaurant Management.csproj.AssemblyReference.cache
-\\Mac\Home\Github\quan-ly-quan-an\Restaurant Management\obj\Debug\Restaurant Management.csproj.SuggestedBindingRedirects.cache
-\\Mac\Home\Github\quan-ly-quan-an\Restaurant Management\obj\Debug\MainWindow.g.cs
-\\Mac\Home\Github\quan-ly-quan-an\Restaurant Management\obj\Debug\App.g.cs
-\\Mac\Home\Github\quan-ly-quan-an\Restaurant Management\obj\Debug\Restaurant Management_MarkupCompile.cache
-\\Mac\Home\Github\quan-ly-quan-an\Restaurant Management\obj\Debug\Restaurant Management_MarkupCompile.lref
