@@ -1,4 +1,5 @@
-﻿using Restaurant_Management.ViewModels;
+﻿using MaterialDesignThemes.Wpf;
+using Restaurant_Management.ViewModels;
 using Restaurant_Management.Views;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,6 @@ namespace Restaurant_Management
     /// </summary>
     public partial class App : Application
     {
-        public App()
-        {
-            var view = new MainView { 
-                DataContext = Activator.CreateInstance<MainViewModel>()
-            };
-            view.Show();
-        }
-
+        
     }
 }
