@@ -7,9 +7,9 @@
         xmlns:views="clr-namespace:Restaurant_Management.Views"
         mc:Ignorable="d" 
         Width="1080" 
-        Height="720" 
+        Height="512" 
         Name="Window">
     <Grid>
-        <views:SampleView/>
+        <views:LoginView/>
     </Grid>
 </Window>
