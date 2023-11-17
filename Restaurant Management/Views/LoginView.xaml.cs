@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace Restaurant_Management.Views
 {
     /// <summary>
-    /// Interaction logic for SampleView.xaml
+    /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class SampleView : UserControl
+    public partial class LoginView : UserControl
     {
-        public SampleView()
+        public LoginView()
         {
             InitializeComponent();
+        }
+
+        private void SignInWithFacebookButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
