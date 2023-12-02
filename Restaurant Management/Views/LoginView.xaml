@@ -9,16 +9,14 @@
     <StackPanel 
         x:Name="SignInScreen" 
         Orientation="Horizontal" 
-        Width="1080" 
-        Height="512" 
         Background="#FFF5E4">
         <Grid>
             <Grid.Effect>
                 <DropShadowEffect Color="LightGray" Direction="1" ShadowDepth="0" Opacity="10" BlurRadius="30"/>
             </Grid.Effect>
-            <Image Source="../Assets/Images/thumbnail.jpeg" Opacity="0.96" Stretch="Fill">
+            <Image Source="../Assets/Images/thumbnail.jpeg" Width="400" Height="400" Opacity="0.96" Stretch="Fill">
                 <Image.Clip>
-                    <RectangleGeometry RadiusX="40" RadiusY="40" Rect="-40,0,520,480"/>
+                    <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,400,400"/>
                 </Image.Clip>
             </Image>
             <Border CornerRadius="0,40,40,0" BorderThickness="0" BorderBrush="Black" Width="500" Height="478">
@@ -152,7 +150,7 @@
                 x:Name="Or" 
                 HorizontalAlignment="Center" 
                 Text="Or" 
-                Margin="0,15,0,0"
+                Margin="0,15,0,15"
                 Foreground="#959895" 
                 FontSize="16" 
                 FontFamily="Poppins" 
@@ -190,7 +188,7 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" x:Name="SignInWithGoogleButton" Margin="26,0,0,0">
+                <StackPanel Orientation="Horizontal" x:Name="SignInWithGoogleButton" Margin="30,0,0,0">
                     <Button 
                         Width="205" 
                         Height="40" 
