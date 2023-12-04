@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Management.Models
 {
-    internal class MenuModel
+    public class Menu
     {
+
     }
 }
