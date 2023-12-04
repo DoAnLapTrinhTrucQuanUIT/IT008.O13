@@ -204,6 +204,9 @@
     <Compile Include="Views\Component\AddCustomer.xaml.cs">
       <DependentUpon>AddCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Component\Add_EditProduct.xaml.cs">
+      <DependentUpon>Add_EditProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Component\Add_EditStaff.xaml.cs">
       <DependentUpon>Add_EditStaff.xaml</DependentUpon>
     </Compile>
@@ -294,6 +297,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\AddCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\Add_EditProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -444,6 +451,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Add image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\IsActive.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
