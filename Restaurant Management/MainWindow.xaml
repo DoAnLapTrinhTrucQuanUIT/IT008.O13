@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Restaurant_Management" 
         xmlns:views="clr-namespace:Restaurant_Management.Views"
+        xmlns:components="clr-namespace:Restaurant_Management.Views.Component"
         xmlns:viewmodels="clr-namespace:Restaurant_Management.ViewModels"
         mc:Ignorable="d" 
         Name="Window"
@@ -19,20 +20,13 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <!-- Left Sidebar -->
             <ColumnDefinition Width="*"/>
-            <!-- Main Content -->
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            
-        </Grid.RowDefinitions>
-        <views:LeftSidebarView/>
 
-        <Grid Grid.Column="1">
-            <ContentControl x:Name="Pages"
-                            Content="{Binding CurrentView}"/>
-        </Grid>
-
+        <views:LeftSidebarView Grid.Column="0"/>
+        <Canvas Grid.Column="1">
+            <components:NavigationBar Canvas.Top="0"/>
+            <ContentControl x:Name="Pages" Content="{Binding CurrentView}" Canvas.Top="91"/>
+        </Canvas>
     </Grid>
-
 </Window>
