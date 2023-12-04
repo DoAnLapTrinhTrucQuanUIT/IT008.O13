@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Management.ViewModels
 {
-    internal class ScheduleVM
+    public class ScheduleVM : Utilities.ViewModelBase
     {
     }
 }
