@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
+             xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="984"
-             d:DesignWidth="1560">
+             d:DesignWidth="1560"
+             Style="{StaticResource Page_Style}">
+    <UserControl.DataContext>
+        <vm:SettingsVM/>
+    </UserControl.DataContext>
+    
     <Border Width="1560"
             Height="984"
             Padding="358.5,115"
@@ -25,10 +31,10 @@
                             Height="200"
                             Background="#DEDEDE"
                             CornerRadius="100">
-
+                        <Image Source="{Binding}"/>
                     </Border>
                     <Grid Margin="0,70,0,0">
-                        <TextBlock Text="Nguyen Quoc Thang"
+                        <TextBlock Text="{Binding}"
                                    Foreground="Black"
                                    FontSize="24"
                                    FontFamily="Roboto"
@@ -36,7 +42,7 @@
                                    TextAlignment="Center" />
                     </Grid>
                     <Grid Margin="0,10,0,0">
-                        <TextBlock Text="Lao cong"
+                        <TextBlock Text="{Binding}"
                                    Foreground="#666666"
                                    FontSize="18"
                                    FontFamily="Roboto"
@@ -62,7 +68,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="example@gmail.com"
+                                <TextBlock Text="{Binding}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -89,7 +95,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="+84 328 329  999"
+                                <TextBlock Text="{Binding}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -116,7 +122,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="31-2-2030"
+                                <TextBlock Text="{Binding}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -143,7 +149,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="Male"
+                                <TextBlock Text="{Binding}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -170,7 +176,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="Đường Hàn Thuyên, khu phố 6 P, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam"
+                                <TextBlock Text="{Binding}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
