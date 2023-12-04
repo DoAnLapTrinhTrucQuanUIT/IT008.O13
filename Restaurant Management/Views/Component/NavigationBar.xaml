@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d" 
              d:DesignHeight="91" d:DesignWidth="1560">
-    <Border CornerRadius="24"
-            Background="#ffffff">
+    <Border Background="#ffffff">
         <StackPanel Margin="20" Orientation="Horizontal">
             <Grid Margin="1222,0,0,0">
                 <StackPanel Orientation="Horizontal">
