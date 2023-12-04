@@ -13,13 +13,8 @@
         <vm:SettingsVM/>
     </UserControl.DataContext>
     
-    <Border Width="1560"
-            Height="984"
-            Padding="358.5,115"
-            Background="#F3EEEA"
-            CornerRadius="12"
-            Margin="0">
-        <StackPanel>
+    <Border Background="#F3EEEA" Padding="359,115,359,114">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"> 
             <Border Width="843"
                     Height="645"
                     Padding="50"
