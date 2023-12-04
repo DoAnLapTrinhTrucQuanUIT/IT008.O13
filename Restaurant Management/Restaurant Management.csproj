@@ -201,8 +201,17 @@
     <Compile Include="ViewModels\StaffInformationVM.cs" />
     <Compile Include="ViewModels\TableVM.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Component\AddCustomer.xaml.cs">
+      <DependentUpon>AddCustomer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\Add_EditStaff.xaml.cs">
+      <DependentUpon>Add_EditStaff.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Component\CategoryCard.xaml.cs">
       <DependentUpon>CategoryCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\ChangePassword.xaml.cs">
+      <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
@@ -284,7 +293,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Component\AddCustomer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\Add_EditStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Component\CategoryCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\ChangePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -420,6 +441,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\SelectGender.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Add image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
