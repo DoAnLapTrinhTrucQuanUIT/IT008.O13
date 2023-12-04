@@ -8,8 +8,31 @@
         xmlns:viewmodels="clr-namespace:Restaurant_Management.ViewModels"
         mc:Ignorable="d" 
         Name="Window"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="ThreeDBorderWindow"
-        Background="White"
-        >
+        WindowState="Maximized"
+        WindowStyle="None"
+        Background="White">
+    <Window.DataContext>
+        <viewmodels:NavigationVM/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Left Sidebar -->
+            <ColumnDefinition Width="*"/>
+            <!-- Main Content -->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            
+        </Grid.RowDefinitions>
+        <views:LeftSidebarView/>
+
+        <Grid Grid.Column="1">
+            <ContentControl x:Name="Pages"
+                            Content="{Binding CurrentView}"/>
+        </Grid>
+
+    </Grid>
+
 </Window>
