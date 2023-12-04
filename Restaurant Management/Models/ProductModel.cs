@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Management.Models
 {
-    public class PageModel
+    internal class ProductsModel
     {
-        public int CustomerCount { get; set; }
     }
 }
