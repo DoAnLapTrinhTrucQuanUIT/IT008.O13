@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Restaurant_Management.Views.Component.NavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
+             mc:Ignorable="d" 
+             d:DesignHeight="91" d:DesignWidth="1560">
+    <Border CornerRadius="24"
+            Background="#ffffff">
+        <StackPanel Margin="20" Orientation="Horizontal">
+            <Grid Margin="1222,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Image Source="../Assets/Images/Notification Icon.png"
+                               Width="30"
+                               Height="24" />
+                    </Grid>
+                    <Grid Margin="50,0,0,0">
+                        <Image Source="../Assets/Images/Person.png"
+                               Width="49"
+                               Height="45" />
+                    </Grid>
+                    <StackPanel Orientation="Vertical"
+                                Margin="30,0,0,0"
+                                Width="81"
+                                Height="51">
+                        <Grid Height="28">
+                            <TextBlock Text="Name"
+                                       Foreground="Black"
+                                       FontSize="16"
+                                       FontFamily="Poppins"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Left"/>
+                        </Grid>
+                        <Grid Height="23">
+                            <TextBlock Text="Role"
+                                       Foreground="Black"
+                                       FontSize="13"
+                                       FontFamily="Poppins"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Left"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>
