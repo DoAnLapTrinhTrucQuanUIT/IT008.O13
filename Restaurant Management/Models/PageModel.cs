@@ -8,6 +8,6 @@ namespace Restaurant_Management.Models
 {
     public class PageModel
     {
-        
+        public int CustomerCount { get; set; }
     }
 }
