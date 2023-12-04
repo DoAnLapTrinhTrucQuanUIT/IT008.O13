@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Management.Models
 {
-    internal class StaffInformationModel
+    public class StaffInformation
     {
     }
 }
