@@ -18,12 +18,18 @@
         <viewmodels:NavigationVM/>
     </Window.DataContext>
     <Grid>
+        
         <Grid.ColumnDefinitions>
+            <!--Left Sidebar-->
             <ColumnDefinition Width="Auto"/>
+            <!--Main Page-->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
+        
+        <!--Left Sidebar-->
         <views:LeftSidebarView Grid.Column="0"/>
+        
+        <!--Main Page-->
         <Canvas Grid.Column="1">
             <components:NavigationBar Canvas.Top="0"/>
             <ContentControl x:Name="Pages" 
