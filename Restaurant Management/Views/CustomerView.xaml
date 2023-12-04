@@ -4,9 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views"
+             xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="450" d:DesignWidth="800"
+             Style="{StaticResource Page_Style}">
+    
+    <UserControl.DataContext>
+        <vm:CustomerVM/>
+    </UserControl.DataContext>
+    
+    <Grid Background="Beige">
+        <TextBlock Text="Customer"/>
     </Grid>
 </UserControl>
