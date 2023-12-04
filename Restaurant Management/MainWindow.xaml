@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Restaurant_Management" 
         xmlns:views="clr-namespace:Restaurant_Management.Views"
+        xmlns:viewmodels="clr-namespace:Restaurant_Management.ViewModels"
         mc:Ignorable="d" 
-        Width="1080" 
-        Height="512" 
-        Name="Window">
-    <Grid>
-        <views:LoginView/>
-    </Grid>
+        Name="Window"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="ThreeDBorderWindow"
+        Background="White"
+        >
 </Window>
