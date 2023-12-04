@@ -92,21 +92,32 @@
                                        FontWeight="Medium"
                                        VerticalAlignment="Center" />
                         </Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <Grid>
-                                <Border Width="300"
-                                        Height="62"
-                                        Background="#ffff"
-                                        CornerRadius="10"
-                                        BorderThickness="2"
-                                        BorderBrush="#D9D9D9" />
-                            </Grid>
-                            <Grid>
-                                <Image Source="../Assets/Images/calender.png"
-                                       Width="32"
-                                       Height="32" />
-                            </Grid>
-                        </StackPanel>
+                        <Grid>
+                            <Border Width="300"
+                                    Height="62"
+                                    Background="#ffff"
+                                    CornerRadius="10"
+                                    BorderThickness="2"
+                                    BorderBrush="#D9D9D9"
+                                    Padding="20,0,20,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="228"
+                                          Height="61.5">
+                                        <TextBlock Text="30-2-2099"
+                                                   Foreground="#999"
+                                                   FontSize="20"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Normal"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Grid>
+                                        <Image Source="../Assets/Images/calender.png"
+                                               Width="32"
+                                               Height="32" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </StackPanel>
                 </Grid>
                 <!--Gender-->
@@ -128,7 +139,25 @@
                                     Background="#ffff"
                                     CornerRadius="10"
                                     BorderThickness="2"
-                                    BorderBrush="#D9D9D9" />
+                                    BorderBrush="#D9D9D9"
+                                    Padding="15,0,20,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="240"
+                                          Height="61.5">
+                                        <TextBlock Text="Select"
+                                                   Foreground="#999"
+                                                   FontSize="20"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Normal"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Grid>
+                                        <Image Source="../Assets/Images/SelectGender.png"
+                                               Width="30"
+                                               Height="30" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
                         </Grid>
                     </StackPanel>
                 </Grid>
