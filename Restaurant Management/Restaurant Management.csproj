@@ -183,11 +183,68 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\SampleModel.cs" />
-    <Compile Include="ViewModels\SampleViewModel.cs" />
+    <Compile Include="Utilities\Btn.cs" />
+    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Utilities\ViewModelBase.cs" />
+    <Compile Include="ViewModels\CustomerVM.cs" />
+    <Compile Include="ViewModels\InventoryOverviewVM.cs" />
+    <Compile Include="ViewModels\InvoicesVM.cs" />
+    <Compile Include="ViewModels\MenuVM.cs" />
+    <Compile Include="ViewModels\NavigationVM.cs" />
+    <Compile Include="ViewModels\ProductsVM.cs" />
+    <Compile Include="ViewModels\SalaryVM.cs" />
+    <Compile Include="ViewModels\SalesOverviewVM.cs" />
+    <Compile Include="ViewModels\ScheduleVM.cs" />
+    <Compile Include="ViewModels\SettingsVM.cs" />
+    <Compile Include="ViewModels\StaffInformationVM.cs" />
+    <Compile Include="ViewModels\TableVM.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Component\CategoryCard.xaml.cs">
+      <DependentUpon>CategoryCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomerView.xaml.cs">
+      <DependentUpon>CustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\FoodCard.xaml.cs">
+      <DependentUpon>FoodCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InventoryOverviewView.xaml.cs">
+      <DependentUpon>InventoryOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InvoicesView.xaml.cs">
+      <DependentUpon>InvoicesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\LeftSidebarView.xaml.cs">
+      <DependentUpon>LeftSidebarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SalaryView.xaml.cs">
+      <DependentUpon>SalaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SalesOverviewView.xaml.cs">
+      <DependentUpon>SalesOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScheduleView.xaml.cs">
+      <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StaffInformationView.xaml.cs">
+      <DependentUpon>StaffInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TableView.xaml.cs">
+      <DependentUpon>TableView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -201,7 +258,83 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Styles\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Image.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Text.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\DataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\CategoryCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\FoodCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventoryOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InvoicesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\LeftSidebarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SalaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SalesOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StaffInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,7 +376,24 @@
     <Resource Include="Assets\Images\thumbnail.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\thumbnail2.jpeg" />
+    <Resource Include="Assets\Images\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\inventory.png" />
+    <Resource Include="Assets\Images\invoices.png" />
+    <Resource Include="Assets\Images\menu.png" />
+    <Resource Include="Assets\Images\product.png" />
+    <Resource Include="Assets\Images\salary.png" />
+    <Resource Include="Assets\Images\sales.png" />
+    <Resource Include="Assets\Images\schedule.png" />
+    <Resource Include="Assets\Images\staffinfo.png" />
+    <Resource Include="Assets\Images\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\customer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\Fruits.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
