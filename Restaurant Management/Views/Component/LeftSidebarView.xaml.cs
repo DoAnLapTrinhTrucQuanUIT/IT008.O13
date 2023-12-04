@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using Restaurant_Management.Utilities;
+using Restaurant_Management.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

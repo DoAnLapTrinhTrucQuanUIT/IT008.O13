@@ -25,26 +25,35 @@
                 </StackPanel>
             </Border>
             <!--Menu-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/menu.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Menu" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding MenuCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/menu.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Menu" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Table-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/table.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Table" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding TableCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/table.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Table" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Customer-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/customer.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Customer" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding CustomerCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/customer.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Customer" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Staff Management-->
             <Border Padding="8,8,8,8" BorderBrush="#d9d9d9" BorderThickness="0 1 0 0">
                 <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -52,26 +61,35 @@
                 </StackPanel>
             </Border>
             <!--Schedule-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/schedule.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Schedule" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding ScheduleCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/schedule.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Schedule" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Staff Information-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/staffinfo.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Staff Information" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding StaffInformationCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/staffinfo.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Staff Information" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Salary-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/salary.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Salary" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding SalaryCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/salary.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Salary" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Stocks and Products-->
             <Border Padding="8,8,8,8" BorderBrush="#d9d9d9" BorderThickness="0 1 0 0">
                 <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -79,19 +97,25 @@
                 </StackPanel>
             </Border>
             <!--Inventory Overview-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/inventory.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Inventory Overview" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding InventoryOverviewCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/inventory.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Inventory Overview" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Products-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/product.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Products" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding ProductCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/product.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Products" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Sales and Finances-->
             <Border Padding="8,8,8,8" BorderBrush="#d9d9d9" BorderThickness="0 1 0 0">
                 <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -99,13 +123,15 @@
                 </StackPanel>
             </Border>
             <!--Sales Overview-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/sales.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Sales Overview" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
-
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding ProductCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/sales.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Sales Overview" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
             <!--Invoices-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InvoiceCommand}">
