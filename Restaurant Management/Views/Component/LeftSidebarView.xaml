@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views"
+             xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             xmlns:Menu="clr-namespace:Restaurant_Management.Utilities" d:DataContext="{d:DesignInstance Type=vm:NavigationVM}"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="360">
+
     <Grid Background="White" Margin="10" VerticalAlignment="Top">
         <StackPanel Orientation="Vertical">
             <!--Business Title and Logo-->
@@ -102,16 +105,29 @@
                     <TextBlock Padding="20,0,0,0" Text="Sales Overview" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
                 </StackPanel>
             </Border>
+
             <!--Invoices-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Image Source="../Assets/Images/invoices.png" Width="24" Height="24"/>
-                    <TextBlock Padding="20,0,0,0" Text="Invoices" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
-                </StackPanel>
-            </Border>
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding InvoiceCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/invoices.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Invoices" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
+            <!--Settings-->
+            <Menu:Btn Style="{StaticResource BtnStyle}"
+                      Command="{Binding SettingCommand}">
+                <Border Padding="8,8,8,8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Image Source="../Assets/Images/settings.png" Width="24" Height="24"/>
+                        <TextBlock Padding="20,0,0,0" Text="Settings" Foreground="#49454F" FontSize="14" FontFamily="Roboto" FontWeight="Regular" Height="15"/>
+                    </StackPanel>
+                </Border>
+            </Menu:Btn>
+
         </StackPanel>
-
-
     </Grid>
 
 </UserControl>
