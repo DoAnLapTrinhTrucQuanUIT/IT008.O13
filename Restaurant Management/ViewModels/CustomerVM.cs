@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Restaurant_Management.Models;
 namespace Restaurant_Management.ViewModels
 {
-    class CustomerVM : Utilities.ViewModelBase
+    public class CustomerVM : Utilities.ViewModelBase
     {
 
     }
