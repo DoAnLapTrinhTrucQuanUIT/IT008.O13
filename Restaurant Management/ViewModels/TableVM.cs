@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Restaurant_Management.ViewModels
 {
-    internal class TableVM
+    public class TableVM : Utilities.ViewModelBase
     {
+        
     }
 }
