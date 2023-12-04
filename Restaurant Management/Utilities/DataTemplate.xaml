@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:view="clr-namespace:Restaurant_Management.Views"
+                    xmlns:vm="clr-namespace:Restaurant_Management.ViewModels">
+    <DataTemplate DataType="{x:Type vm:MenuVM}">
+        <view:MenuView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TableVM}">
+        <view:TableView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CustomerVM}">
+        <view:CustomerView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ScheduleVM}">
+        <view:ScheduleView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:StaffInformationVM}">
+        <view:StaffInformationView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SalaryVM}">
+        <view:SalaryView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:InventoryOverviewVM}">
+        <view:InventoryOverviewView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProductsVM}">
+        <view:ProductsView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SalesOverviewVM}">
+        <view:SalesOverviewView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:InvoicesVM}">
+        <view:InvoicesView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SettingsVM}">
+        <view:SettingsView/>
+    </DataTemplate>
+
+
+</ResourceDictionary>
