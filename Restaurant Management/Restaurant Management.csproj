@@ -454,6 +454,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Resource Include="Assets\Images\SelectionClicker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
