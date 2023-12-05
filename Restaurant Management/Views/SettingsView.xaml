@@ -6,26 +6,24 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="984"
-             d:DesignWidth="1560"
+             d:Width="1920" d:Height="1080"
              Style="{StaticResource Page_Style}">
     <UserControl.DataContext>
         <vm:SettingsVM/>
     </UserControl.DataContext>
-    
-    <Border Background="#F3EEEA" Padding="359,115,359,114">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"> 
-            <Border Width="843"
-                    Height="645"
-                    Padding="50"
-                    Background="#ffff"
+
+    <Border Background="#F3EEEA"
+            CornerRadius="12">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border Background="#FFFFFF"
                     CornerRadius="20"
-                    Margin="0">
+                    Padding="50">
                 <StackPanel>
-                    <Border Width="200"
-                            Height="200"
+                    <Border Width="150"
+                            Height="150"
                             Background="#DEDEDE"
                             CornerRadius="100">
+
                         <Image Source="{Binding}"/>
                     </Border>
                     <Grid Margin="0,70,0,0">
@@ -181,11 +179,10 @@
                     </Grid>
                 </StackPanel>
             </Border>
-
-            <StackPanel Margin="0,50,0,0"  Orientation="Horizontal">
+            <StackPanel Margin="0,30,0,0"  Orientation="Horizontal">
                 <!--Log out-->
                 <Border Width="396.5"
-                        Height="60"
+                        Height="50"
                         Background="#000"
                         CornerRadius="10"
                         Margin="0">
@@ -200,7 +197,7 @@
                 </Border>
                 <!--Update profile-->
                 <Border Width="396.5"
-                        Height="60"
+                        Height="50"
                         Background="#FF7F50"
                         CornerRadius="10"
                         Margin="50, 0, 0, 0">
@@ -211,7 +208,7 @@
                                FontSize="18"
                                FontFamily="Roboto"
                                FontWeight="SemiBold"
-                               TextAlignment="Center" />
+                               TextAlignment="Center"/>
                 </Border>
             </StackPanel>
         </StackPanel>
