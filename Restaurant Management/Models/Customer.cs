@@ -8,5 +8,6 @@ namespace Restaurant_Management.Models
 {
     public class Customer
     {
+
     }
 }
