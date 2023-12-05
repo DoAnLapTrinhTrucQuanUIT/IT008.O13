@@ -1,19 +1,204 @@
 ﻿<UserControl x:Class="Restaurant_Management.Views.TableView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             mc:Ignorable="d"
+             d:DesignHeight="989"
+             d:DesignWidth="1560"
              Style="{StaticResource Page_Style}">
 
     <UserControl.DataContext>
-        <vm:TableVM/>
+        <vm:TableVM />
     </UserControl.DataContext>
-    
-    <Grid Background="DodgerBlue">
-        <TextBlock Text="Table"/>
-    </Grid>
+
+    <Border>
+        <StackPanel Orientation="Horizontal">
+            <!--Table-->
+            <Border Padding="50"
+                    Background="#F3EEEA"
+                    Width="990">
+                <StackPanel>
+
+                </StackPanel>
+            </Border>
+            <!--Table Information-->
+            <Border Padding="50"
+                    Background="White"
+                    Width="570">
+                <StackPanel>
+                    <Border Height="86"
+                            CornerRadius="18 18 0 0"
+                            Background="#FF9494"
+                            BorderThickness="1 1 1 0"
+                            BorderBrush="#484964">
+                        <TextBlock Text="Table 1"
+                                   Foreground="#fff"
+                                   FontSize="32"
+                                   FontFamily="Roboto"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </Border>
+                    <Border Height="571"
+                            CornerRadius="0 0 18 18"
+                            Background="#fff"
+                            BorderThickness="1 0 1 1"
+                            BorderBrush="#484964">
+                        <StackPanel Orientation="Vertical">
+                            <Border Height="41">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0"
+                                            BorderThickness="0 0 1 1"
+                                            BorderBrush="#D9D9D9">
+                                        <TextBlock Text="No."
+                                                   Foreground="#484964"
+                                                   FontSize="12"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Normal"
+                                                   VerticalAlignment="Center"
+                                                   Margin="20,13,78.5,12" />
+                                    </Border>
+                                    <Border Grid.Column="1"
+                                            BorderThickness="0 0 1 1"
+                                            BorderBrush="#D9D9D9">
+                                        <TextBlock Text="Name"
+                                                   Foreground="#484964"
+                                                   FontSize="12"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Normal"
+                                                   VerticalAlignment="Center"
+                                                   Margin="20,13,65.5,12" />
+                                    </Border>
+                                    <Border Grid.Column="2"
+                                            BorderThickness="0 0 1 1"
+                                            BorderBrush="#D9D9D9">
+                                        <TextBlock Text="Quantity"
+                                                   Foreground="#484964"
+                                                   FontSize="12"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Normal"
+                                                   VerticalAlignment="Center"
+                                                   Margin="20,13,52.5,12" />
+                                    </Border>
+                                    <Border Grid.Column="3"
+                                            BorderThickness="0 0 1 1"
+                                            BorderBrush="#D9D9D9">
+                                        <TextBlock Text="Price"
+                                                   Foreground="#484964"
+                                                   FontSize="12"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Normal"
+                                                   VerticalAlignment="Center"
+                                                   Margin="20,13,69.5,12" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Height="36"
+                                Margin="0, 30, 0 ,0"
+                                Orientation="Horizontal">
+                        <TextBlock Width="218"
+                                   Height="24"
+                                   Text="Total"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <TextBlock Width="139"
+                                   Height="24"
+                                   Text="100.000.000"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Width="50"
+                                   Height="26"
+                                   Text="VND"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </StackPanel>
+
+                    <!--Paid-->
+                    <Border Height="55"
+                            Background="#FF7F50"
+                            CornerRadius="10"
+                            Margin="0, 30, 0, 0">
+                        <TextBlock Height="20.5"
+                                   Text="Paid"
+                                   Foreground="#fff"
+                                   FontSize="18"
+                                   FontFamily="Roboto"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center" />
+                    </Border>
+
+                    <StackPanel Height="50"
+                                Margin="0,30,0,0"
+                                Orientation="Horizontal">
+                        <Border Width="220"
+                                Background="#fff"
+                                CornerRadius="10"
+                                BorderThickness="1"
+                                BorderBrush="#484964">
+                            <TextBlock Height="20.5"
+                                       Text="Switch Table"
+                                       Foreground="#000"
+                                       FontSize="18"
+                                       FontFamily="Roboto"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Center" />
+                        </Border>
+
+                        <Border Width="220"
+                                Background="#fff"
+                                CornerRadius="10"
+                                BorderThickness="1"
+                                BorderBrush="#484964"
+                                Margin="30,0,0,0"
+                                Padding="13.5, 11">
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="120">
+                                    <TextBlock Height="20.5"
+                                               Text="Empty Table"
+                                               Foreground="#9E9E9E"
+                                               FontSize="16"
+                                               FontFamily="Roboto"
+                                               FontWeight="Normal"
+                                               TextAlignment="Left" />
+                                </Grid>
+                                <Grid Width="70">
+                                    <Image Source="../Assets/Images/SelectionClicker.png"
+                                           Width="24"
+                                           Height="24" 
+                                           HorizontalAlignment="Right"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Border>
 </UserControl>

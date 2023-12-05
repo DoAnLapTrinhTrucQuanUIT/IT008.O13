@@ -20,7 +20,7 @@
                     Padding="50">
                 <StackPanel>
                     <Border Width="150"
-                            Height="150"
+                     Height="150"
                             Background="#DEDEDE"
                             CornerRadius="100">
 
