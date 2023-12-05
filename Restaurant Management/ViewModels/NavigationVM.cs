@@ -7,13 +7,13 @@ using Restaurant_Management.Utilities;
 using System.Windows.Input;
 namespace Restaurant_Management.ViewModels
 {
-    class NavigationVM : ViewModelBase
+    class NavigationVM : Utilities.ViewModelBase
     {
         private object _currentView;
         public object CurrentView
         {
             get { return _currentView; }
-            set { _currentView = value; OnPropertyChange(); }
+            set { _currentView = value; OnPropertyChanged(); }
         }
         public ICommand MenuCommand { get; set; }
         public ICommand TableCommand { get; set; }

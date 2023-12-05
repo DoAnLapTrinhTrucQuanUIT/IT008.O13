@@ -200,7 +200,6 @@
     <Compile Include="ViewModels\SettingsVM.cs" />
     <Compile Include="ViewModels\StaffInformationVM.cs" />
     <Compile Include="ViewModels\TableVM.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Component\AddCustomer.xaml.cs">
       <DependentUpon>AddCustomer.xaml</DependentUpon>
     </Compile>

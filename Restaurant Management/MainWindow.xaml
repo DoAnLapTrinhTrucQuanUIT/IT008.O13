@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Restaurant_Management" 
         xmlns:views="clr-namespace:Restaurant_Management.Views"
-        xmlns:components="clr-namespace:Restaurant_Management.Views.Component"
-        xmlns:viewmodels="clr-namespace:Restaurant_Management.ViewModels"
+        xmlns:component="clr-namespace:Restaurant_Management.Views.Component"
+        xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
         mc:Ignorable="d" 
         Name="Window"
         AllowsTransparency="True"
@@ -15,8 +15,8 @@
         WindowStyle="None"
         Background="White">
     <Window.DataContext>
-        <viewmodels:NavigationVM/>
-    </Window.DataContext>
+        <vm:NavigationVM/>
+    </Window.DataContext>   
     <Grid>
         
         <Grid.ColumnDefinitions>
