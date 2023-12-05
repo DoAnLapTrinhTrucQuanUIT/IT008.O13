@@ -5,36 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-             xmlns:Menu="clr-namespace:Restaurant_Management.Utilities" d:DataContext="{d:DesignInstance Type=vm:NavigationVM}"
-             mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="360">
+             xmlns:Menu="clr-namespace:Restaurant_Management.Utilities"
+             mc:Ignorable="d"
+             d:Width="1920"
+             d:Height="1080">
 
-    <Grid Background="White">
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Background="White">
             <!--Business Title and Logo-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Orientation="Horizontal" 
-                            Margin="12,12,12,12" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Left">
+            <Border Padding="20,30,20,20">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="BUSINESS TITLE &amp; LOGO" 
                                Foreground="#49454F" 
                                FontSize="14" 
                                FontFamily="Roboto" 
                                FontWeight="Regular" 
-                               LineHeight="20"
-                               Padding="0,0,120,0" />
-                    <Image Width="24" 
-                           Height="24"
-                           Source="../Assets/Images/settings.png" />
+                               LineHeight="20"/>
                 </StackPanel>
             </Border>
             <!--Core Operations-->
-            <Border Padding="8,8,8,8">
-                <StackPanel Orientation="Horizontal" 
-                            Margin="12,12,12,12" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Left">
+            <Border Padding="20,20,20,10">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Core Operations" 
                                Foreground="#49454F" 
                                FontSize="14" 
@@ -45,11 +35,8 @@
             <!--Menu-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding MenuCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12"  
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image  Width="24" 
                                 Height="24" 
                                 Source="../Assets/Images/menu.png"/>
@@ -65,11 +52,8 @@
             <!--Table-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding TableCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left" 
-                                Margin="12,12,12,12" >
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image  Width="24" 
                                 Height="24" 
                                 Source="../Assets/Images/table.png"/>
@@ -85,11 +69,8 @@
             <!--Customer-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding CustomerCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24" 
                                Source="../Assets/Images/customer.png"/>
@@ -103,13 +84,10 @@
                 </Border>
             </Menu:Btn>
             <!--Staff Management-->
-            <Border Padding="8,8,8,8" 
+            <Border Padding="20,20,20,10" 
                     BorderBrush="#d9d9d9" 
                     BorderThickness="0 1 0 0">
-                <StackPanel Orientation="Horizontal" 
-                            Margin="12,12,12,12" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Staff Management" 
                                Foreground="#49454F" 
                                FontSize="14" FontFamily="Roboto" 
@@ -120,11 +98,8 @@
             <!--Schedule-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ScheduleCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24" 
                                Source="../Assets/Images/schedule.png"/>
@@ -140,11 +115,8 @@
             <!--Staff Information-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding StaffInformationCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left" 
-                                Margin="12,12,12,12">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24" 
                                Source="../Assets/Images/staffinfo.png" />
@@ -160,11 +132,8 @@
             <!--Salary-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SalaryCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12"  
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24" 
                                Source="../Assets/Images/salary.png"/>
@@ -178,13 +147,10 @@
                 </Border>
             </Menu:Btn>
             <!--Stocks and Products-->
-            <Border Padding="8,8,8,8" 
+            <Border Padding="20,20,20,10" 
                     BorderBrush="#d9d9d9" 
                     BorderThickness="0 1 0 0">
-                <StackPanel Orientation="Horizontal" 
-                            Margin="12,12,12,12" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Stocks and Products" 
                                Foreground="#49454F" 
                                FontSize="14" 
@@ -196,11 +162,8 @@
             <!--Inventory Overview-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InventoryOverviewCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24"
                                Source="../Assets/Images/inventory.png"/>
@@ -216,11 +179,8 @@
             <!--Products-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ProductCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12" 
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24"
                                Source="../Assets/Images/product.png"/>
@@ -234,13 +194,10 @@
                 </Border>
             </Menu:Btn>
             <!--Sales and Finances-->
-            <Border Padding="8,8,8,8" 
+            <Border Padding="20,20,20,10" 
                     BorderBrush="#d9d9d9" 
                     BorderThickness="0 1 0 0">
-                <StackPanel Orientation="Horizontal"
-                            Margin="12,12,12,12" 
-                            VerticalAlignment="Center" 
-                            HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Sales and Finances" 
                                Foreground="#49454F" 
                                FontSize="14" 
@@ -252,11 +209,8 @@
             <!--Sales Overview-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ProductCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12"  
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24"
                                Source="../Assets/Images/sales.png"/>
@@ -272,11 +226,8 @@
             <!--Invoices-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InvoiceCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12" 
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image  Width="24" 
                                 Height="24"
                                 Source="../Assets/Images/invoices.png"/>
@@ -292,11 +243,8 @@
             <!--Settings-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SettingCommand}">
-                <Border Padding="8,8,8,8">
-                    <StackPanel Orientation="Horizontal" 
-                                Margin="12,12,12,12" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Left">
+                <Border Padding="20,20,20,20">
+                    <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
                                Height="24"
                                Source="../Assets/Images/settings.png"/>
@@ -305,13 +253,11 @@
                                    FontSize="14" 
                                    FontFamily="Roboto"
                                    FontWeight="Regular" 
-                                   Height="15"
                                    Padding="20,0,0,0" />
                     </StackPanel>
                 </Border>
             </Menu:Btn>
 
         </StackPanel>
-    </Grid>
 
 </UserControl>

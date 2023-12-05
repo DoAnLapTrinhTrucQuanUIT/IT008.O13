@@ -4,45 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
-             mc:Ignorable="d" 
-             d:DesignHeight="91" d:DesignWidth="1560">
-    <Border Background="#ffffff">
-        <StackPanel Margin="20" Orientation="Horizontal">
-            <Grid Margin="1222,0,0,0">
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <Image Source="../Assets/Images/Notification Icon.png"
+             xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             mc:Ignorable="d">
+    
+    <UserControl.DataContext>
+        <vm:StaffInformationVM/>
+    </UserControl.DataContext>
+
+    <Border Padding="0 20 100 20" Background="#ffffff">
+        <Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <!--Notification icon-->
+                <Grid>
+                    <Image Source="../Assets/Images/Notification Icon.png"
                                Width="30"
-                               Height="24" />
-                    </Grid>
-                    <Grid Margin="50,0,0,0">
-                        <Image Source="../Assets/Images/Person.png"
-                               Width="49"
-                               Height="45" />
-                    </Grid>
-                    <StackPanel Orientation="Vertical"
-                                Margin="30,0,0,0"
-                                Width="81"
-                                Height="51">
-                        <Grid Height="28">
-                            <TextBlock Text="Name"
+                               Height="30" />
+                </Grid>
+                <!--Avatar Image-->
+                <Grid Margin="50,0,0,0">
+                    <Image Source="../Assets/Images/Person.png"
+                               Width="30"
+                               Height="30"/>
+                </Grid>
+                <!--Name & Role-->
+                <StackPanel Orientation="Vertical"
+                                Margin="30,0,0,0">
+                    <Grid>
+                        <TextBlock Padding="0 0 0 10"  Text="{Binding}"
                                        Foreground="Black"
-                                       FontSize="16"
-                                       FontFamily="Poppins"
+                                       FontSize="14"
+                                       FontFamily="Roboto"
                                        FontWeight="SemiBold"
                                        TextAlignment="Left"/>
-                        </Grid>
-                        <Grid Height="23">
-                            <TextBlock Text="Role"
-                                       Foreground="Black"
-                                       FontSize="13"
-                                       FontFamily="Poppins"
-                                       FontWeight="SemiBold"
-                                       TextAlignment="Left"/>
-                        </Grid>
-                    </StackPanel>
+                    </Grid>
+                    <Grid>
+                        <TextBlock Text="{Binding}"
+                                    Foreground="Black"
+                                    FontSize="12"
+                                    FontFamily="Roboto"
+                                    FontWeight="Regular"
+                                    TextAlignment="Left"/>
+                    </Grid>
                 </StackPanel>
-            </Grid>
-        </StackPanel>
+            </StackPanel>
+        </Grid>
     </Border>
 </UserControl>
