@@ -10,31 +10,34 @@
         mc:Ignorable="d" 
         Name="Window"
         AllowsTransparency="True"
-        WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         WindowStyle="None"
-        Background="White">
+        Background="White"
+        Loaded="Window_Loaded">
     <Window.DataContext>
         <vm:NavigationVM/>
     </Window.DataContext>   
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <!--Left Sidebar-->
             <ColumnDefinition Width="Auto"/>
             <!--Main Page-->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
         <!--Left Sidebar-->
         <views:LeftSidebarView Grid.Column="0"/>
         
         <!--Main Page-->
-        <Canvas Grid.Column="1">
-            <components:NavigationBar Canvas.Top="0"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <component:NavigationBar Grid.Row="0"/>
             <ContentControl x:Name="Pages" 
-                            Content="{Binding CurrentView}" 
-                            Canvas.Top="91"/>
-        </Canvas>
+                            Content="{Binding CurrentView}"
+                            Grid.Row="1"/>
+        </Grid>
     </Grid>
 </Window>
