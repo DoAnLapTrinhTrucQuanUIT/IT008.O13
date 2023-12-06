@@ -24,5 +24,25 @@ namespace Restaurant_Management.Views.Component
         {
             InitializeComponent();
         }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            var parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
+        }
+
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            var parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                MessageBox.Show("Password updated successfully");
+                parentWindow.Close();
+            }
+
+        }
     }
 }
