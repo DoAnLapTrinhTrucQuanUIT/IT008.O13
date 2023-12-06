@@ -7,8 +7,6 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:components="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d"
-             d:DesignHeight="989"
-             d:DesignWidth="1560"
              Style="{StaticResource Page_Style}">
 
     <Border>
@@ -57,6 +55,7 @@
 
                     <!--Table 9-->
                     <components:Table Text="Table 9" Grid.Column="0" Grid.Row="2"/>
+                    
                 </Grid>
             </Border>
             <!--Table Information-->
