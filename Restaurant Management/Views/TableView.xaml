@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             xmlns:components="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d"
              d:DesignHeight="989"
              d:DesignWidth="1560"
@@ -31,364 +32,31 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <!--Table 1-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#FFBAB0"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="0"
-                            Grid.Row="0">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 1"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 1" Grid.Column="0" Grid.Row="0"/>
 
                     <!--Table 2-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="1"
-                            Grid.Row="0">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 2"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
-
-                    <!--Table 1-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#FFBAB0"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="0"
-                            Grid.Row="0">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 1"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 2" Grid.Column="1" Grid.Row="0"/>
 
                     <!--Table 3-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="2"
-                            Grid.Row="0">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 3"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 3" Grid.Column="2" Grid.Row="0"/>
 
                     <!--Table 4-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="3"
-                            Grid.Row="0">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 4"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 4" Grid.Column="3" Grid.Row="0"/>
 
                     <!--Table 5-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="0"
-                            Grid.Row="1">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 5"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 5" Grid.Column="0" Grid.Row="1"/>
 
                     <!--Table 6-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="1"
-                            Grid.Row="1">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 6"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 6" Grid.Column="1" Grid.Row="1"/>
 
                     <!--Table 7-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="2"
-                            Grid.Row="1">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 7"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 7" Grid.Column="2" Grid.Row="1"/>
 
                     <!--Table 8-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="3"
-                            Grid.Row="1">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 8"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
-                    
+                    <components:Table Text="Table 8" Grid.Column="3" Grid.Row="1"/>
+
                     <!--Table 9-->
-                    <Border Width="200"
-                            Height="200"
-                            Background="#fff"
-                            CornerRadius="12"
-                            Padding="50"
-                            Grid.Column="0"
-                            Grid.Row="2">
-                        <StackPanel Orientation="Vertical">
-                            <Grid Height="48"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center">
-                                <Image Source="../Assets/Images/table_restaurant.png"
-                                       Width="48"
-                                       Height="48" />
-                            </Grid>
-                            <Grid Height="27"
-                                  Margin="0, 25, 0, 0">
-                                <TextBlock Text="Table 9"
-                                           Foreground="#000"
-                                           FontSize="24"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Grid>
-                        </StackPanel>
-                        <Border.Effect>
-                            <DropShadowEffect Color="Black"
-                                              Opacity="0.25"
-                                              Direction="270"
-                                              ShadowDepth="4"
-                                              BlurRadius="4" />
-                        </Border.Effect>
-                    </Border>
+                    <components:Table Text="Table 9" Grid.Column="0" Grid.Row="2"/>
                 </Grid>
             </Border>
             <!--Table Information-->

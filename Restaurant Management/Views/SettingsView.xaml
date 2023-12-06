@@ -194,12 +194,11 @@
             </Border>
             <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
                 <!-- Log out -->
-                <Button Width="396.5"
-                        Height="50"
-                        Background="#B31312"
+                <Button Background="#B31312"
                         Foreground="#fff"
                         Style="{StaticResource RoundedButtonStyle}" Click="LogoutButton_Click"> 
-                    <Border CornerRadius="10">
+                    <Border CornerRadius="10"
+                            Padding="100 20 100 20">
                         <TextBlock Text="Log out"
                                    FontSize="18"
                                    FontFamily="Roboto"
@@ -208,13 +207,12 @@
                     </Border>
                 </Button>
                 <!-- Change Password -->
-                <Button Width="396.5"
-                        Height="50"
-                        Background="#000"
+                <Button Background="#000000"
                         Foreground="#fff"
-                        Margin="50 0 0 0"
+                        Margin="30 0 0 0"
                         Style="{StaticResource RoundedButtonStyle}" Click="ChangePasswordButton_Click">
-                    <Border CornerRadius="10">
+                    <Border CornerRadius="10"
+                            Padding="60 20 60 20">
                         <TextBlock Text="Change Password"
                                    FontSize="18"
                                    FontFamily="Roboto"
@@ -224,17 +222,14 @@
                 </Button>
 
                 <!-- Update profile -->
-                <Button Width="396.5"
-                        Height="50"
-                        Background="#FF7F50"
+                <Button Background="#FF7F50"
                         Foreground="#fff"
                         Style="{StaticResource RoundedButtonStyle}"
-                        Margin="50, 0, 0, 0"
+                        Margin="30, 0, 0, 0"
                         Click="UpdateProfileButton_Click">              
-                    <Border CornerRadius="10">
-                        <TextBlock Height="20.5"
-                       Width="118"
-                       Text="Update Profile"
+                    <Border CornerRadius="10"
+                            Padding="65 20 65 20">
+                        <TextBlock Text="Update Profile"
                        FontSize="18"
                        FontFamily="Roboto"
                        FontWeight="SemiBold"
