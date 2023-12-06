@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Menu="clr-namespace:Restaurant_Management.Utilities"
              mc:Ignorable="d"
-             d:Width="1920"
+             d:Width="360"
              d:Height="1080">
 
         <StackPanel Orientation="Vertical" Background="White">
@@ -208,7 +208,7 @@
             </Border>
             <!--Sales Overview-->
             <Menu:Btn Style="{StaticResource BtnStyle}"
-                      Command="{Binding ProductCommand}">
+                      Command="{Binding SalesOverviewCommand}">
                 <Border Padding="20,20,20,20">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="24" 
