@@ -6,12 +6,253 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="889" d:DesignWidth="1460"
              Style="{StaticResource Page_Style}">
     <UserControl.DataContext>
         <vm:SalaryVM/>
     </UserControl.DataContext>
-    <Grid Background="Coral">
-        <TextBlock Text="Salary"/>
-    </Grid>
+    <Border Background="#F3EEEA"
+            Padding="50">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Background="#F9F9FC"
+                    CornerRadius="20">
+                <StackPanel Orientation="Vertical">
+                    <Border Height="147"
+                            Background="#FF9494"
+                            CornerRadius="20"
+                            Padding="21,29">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Profile"
+                                       Foreground="#fff"
+                                       FontSize="18"
+                                       FontFamily="Roboto"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                            <StackPanel Margin="0,20,0,0"
+                                        Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="88" />
+                                        <ColumnDefinition Width="410" />
+                                        <ColumnDefinition Width="131" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+                                        <Image Source="../Assets/Images/Avatar.png"
+                                               Width="48"
+                                               Height="48"
+                                               Margin="20,0,20,0" />
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Bottom">
+                                            <TextBlock Text="James Ronald"
+                                                       Foreground="#fff"
+                                                       FontSize="16"
+                                                       FontFamily="Roboto"
+                                                       FontWeight="Bold"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center" />
+                                        </Grid>
+                                        <Grid Grid.Row="1"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Top">
+                                            <TextBlock Text="Freelance Worker"
+                                                       Foreground="#fff"
+                                                       FontSize="14"
+                                                       FontFamily="Roboto"
+                                                       FontWeight="Normal"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Border Width="131"
+                                                Height="44"
+                                                Padding="20,10"
+                                                Background="#fff"
+                                                CornerRadius="22">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Grid>
+                                                    <TextBlock Text="Edit salary"
+                                                               Foreground="#000"
+                                                               FontSize="12"
+                                                               FontFamily="Roboto"
+                                                               FontWeight="Medium"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Center" />
+                                                </Grid>
+
+                                                <Grid Margin="10 0 0 0">
+                                                    <Image Source="../Assets/Images/tune.png"
+                                                           Width="24"
+                                                           Height="24" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                        <Border.Effect>
+                            <DropShadowEffect Color="Black"
+                                              Opacity="0.25"
+                                              Direction="270"
+                                              ShadowDepth="4"
+                                              BlurRadius="4" />
+                        </Border.Effect>
+                    </Border>
+
+                    <Grid Margin="0 40 0 0"
+                          Height="88">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0"
+                              Grid.Column="0"
+                              Margin="20 0 0 0">
+                            <TextBlock Text="Date of Joining"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Normal"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="1"
+                              Grid.Column="0"
+                              Margin="20 0 0 0">
+                            <TextBlock Text="Pay Period"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Normal"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="2"
+                              Grid.Column="0"
+                              Margin="20 0 0 0">
+                            <TextBlock Text="Worked Days"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Normal"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="0"
+                              Grid.Column="1"
+                              Margin="20 0 0 0">
+                            <TextBlock Text=":"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Normal"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="1"
+                              Grid.Column="1"
+                              Margin="20 0 0 0">
+                            <TextBlock Text=":"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Normal"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="2"
+                              Grid.Column="1"
+                              Margin="20 0 0 0">
+                            <TextBlock Text=":"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Normal"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="0"
+                              Grid.Column="2"
+                              Margin="20 0 0 0">
+                            <TextBlock Text="2018-06-23"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="1"
+                              Grid.Column="2"
+                              Margin="20 0 0 0">
+                            <TextBlock Text="August 2021"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+
+                        <Grid Grid.Row="2"
+                              Grid.Column="2"
+                              Margin="20 0 0 0">
+                            <TextBlock Text="26"
+                                       Foreground="#000"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+                        </Grid>
+                    </Grid>
+
+                    <Border Height="56"
+                            Margin="0 40 0 0"
+                            BorderThickness="0 1 0 1"
+                            BorderBrush="#D9D9D9">
+                        <TextBlock Text="Details"
+                                   Foreground="#000"
+                                   FontSize="20"
+                                   FontFamily="Roboto"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </Border>
+                    
+                    
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </UserControl>
