@@ -16,28 +16,28 @@
         Loaded="Window_Loaded">
     <Window.DataContext>
         <vm:NavigationVM/>
-    </Window.DataContext>   
+    </Window.DataContext>
     <Grid>
 
         <Grid.ColumnDefinitions>
             <!--Left Sidebar-->
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
             <!--Main Page-->
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!--Left Sidebar-->
-        <views:LeftSidebarView Grid.Column="0"/>
-        
+        <views:LeftSidebarView Grid.Column="0" />
+
         <!--Main Page-->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <component:NavigationBar Grid.Row="0"/>
-            <ContentControl x:Name="Pages" 
+            <component:NavigationBar Grid.Row="0" />
+            <ContentControl x:Name="Pages"
                             Content="{Binding CurrentView}"
-                            Grid.Row="1"/>
+                            Grid.Row="1" />
         </Grid>
     </Grid>
 </Window>

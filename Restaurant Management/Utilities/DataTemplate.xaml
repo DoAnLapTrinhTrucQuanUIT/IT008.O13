@@ -6,7 +6,7 @@
         <view:MenuView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:TableVM}">
-        <view:TableView/>
+        <view:TableView />
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:CustomerVM}">
         <view:CustomerView/>
