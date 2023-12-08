@@ -7,7 +7,8 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="989" d:DesignWidth="1560"
-             Style="{StaticResource Page_Style}">
+             Style="{StaticResource Page_Style}"
+             xmlns:Component="clr-namespace:Restaurant_Management.Views.Component">
     
     <UserControl.DataContext>
         <vm:CustomerVM/>
@@ -15,68 +16,37 @@
 
     <Border Background="#F3EEEA"
             Padding="50">
-        <StackPanel>
+        <StackPanel Orientation="Vertical">
             <Border Background="#fff"
                     CornerRadius="20"
                     Height="226"
                     Padding="30">
-                <StackPanel Width="400"
-                            
-                            Orientation="Horizontal">
-                    <Grid Height="100"
-                          Width="100">
-                        <Image Source="../Assets/Images/group.png" />
+                <StackPanel Orientation="Horizontal">
+                    <Grid Margin="0 0 50 0">
+                        <Component:Customer TextHeader="Total Customer"
+                                            TextofNumber="10000000"
+                                            TextofPercent="5%"
+                                            ImagePathSymbol="../Assets/Images/group.png"
+                                            ImagePathStatus="../Assets/Images/arrow_upward.png" />
                     </Grid>
+
+                    <Grid Margin="50 0 50 0">
+                        <Component:Customer TextHeader="New Customer"
+                                            TextofNumber="100"
+                                            TextofPercent="1%"
+                                            ImagePathSymbol="../Assets/Images/person_check.png"
+                                            ImagePathStatus="../Assets/Images/arrow_downward.png" />
+                    </Grid>
+
                     <Grid Margin="50 0 0 0">
-                        <StackPanel Orientation="Vertical">
-                            <Grid VerticalAlignment="Top">
-                                <TextBlock Text="Total Customer"
-                                           Foreground="#999"
-                                           FontSize="30"
-                                           FontFamily="Roboto"
-                                           FontWeight="Light"
-                                           VerticalAlignment="Center" />
-                            </Grid>
-                            <Grid Margin="0 10 0 0"
-                                  VerticalAlignment="Center">
-                                <TextBlock Text="Total Customer"
-                                           Foreground="#999"
-                                           FontSize="50"
-                                           FontFamily="Roboto"
-                                           FontWeight="Light"
-                                           VerticalAlignment="Top"
-                                           Margin="1050,196,-1050,0" />
-                            </Grid>
-                            <Grid Margin="0 10 0 0"
-                                  VerticalAlignment="Bottom">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid>
-                                        <Image Source="../Assets/Images/arrow_upward.png" />
-                                    </Grid>
-
-                                    <Grid Margin="20 0 0 0">
-                                        <TextBlock Text="5%"
-                                                   Foreground="#02A932"
-                                                   FontSize="24"
-                                                   FontFamily="Roboto"
-                                                   FontWeight="Bold"
-                                                   VerticalAlignment="Center" />
-                                    </Grid>
-
-                                    <Grid Margin="20 0 0 0">
-                                        <TextBlock Text="This month"
-                                                   Foreground="#999"
-                                                   FontSize="30"
-                                                   FontFamily="Roboto"
-                                                   FontWeight="Light"
-                                                   VerticalAlignment="Center" />
-                                    </Grid>
-                                </StackPanel>
-                            </Grid>
-                        </StackPanel>
+                        <Component:Customer TextHeader="Potential Customer"
+                                            TextofNumber="20"
+                                            TextofPercent="5%"
+                                            ImagePathSymbol="../Assets/Images/person_celebrate.png"
+                                            ImagePathStatus="../Assets/Images/arrow_upward.png" />
                     </Grid>
                 </StackPanel>
-            </Border>
+            </Border>  
         </StackPanel>
     </Border>
 </UserControl>
