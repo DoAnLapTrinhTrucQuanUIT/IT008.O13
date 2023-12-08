@@ -201,7 +201,7 @@
     <Compile Include="Views\Component\AddCustomer.xaml.cs">
       <DependentUpon>AddCustomer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Component\Add_EditProduct.xaml.cs">
+    <Compile Include="ViewModels\Add_EditProduct.xaml.cs">
       <DependentUpon>Add_EditProduct.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\Add_EditStaff.xaml.cs">
@@ -304,7 +304,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Component\Add_EditProduct.xaml">
+    <Page Include="ViewModels\Add_EditProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
