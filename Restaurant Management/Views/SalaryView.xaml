@@ -1,15 +1,17 @@
 ﻿<UserControl x:Class="Restaurant_Management.Views.SalaryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignHeight="889" d:DesignWidth="1460"
-             Style="{StaticResource Page_Style}">
+             mc:Ignorable="d"
+             d:DesignHeight="889"
+             d:DesignWidth="1460"
+             Style="{StaticResource Page_Style}"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.DataContext>
-        <vm:SalaryVM/>
+        <vm:SalaryVM />
     </UserControl.DataContext>
     <Border Background="#F3EEEA"
             Padding="50">
@@ -411,6 +413,53 @@
                         </Border>
                     </StackPanel>
                 </Border>
+            </Border>
+
+            <Border Margin="15 0 0 0"
+                    Grid.Column="1"
+                    Background="#fff"
+                    CornerRadius="20"
+                    Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="56" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <DatePicker Width="296"
+                                    Height="48"
+                                    materialDesign:HintAssist.Hint="Date"
+                                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                    HorizontalAlignment="Left" />
+                    </Grid>
+
+                    <DataGrid Grid.Row="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto">
+                                
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="#"
+                                                IsReadOnly="True"
+                                                CanUserResize="False"
+                                                Width="auto">
+
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="#"
+                                                IsReadOnly="True"
+                                                CanUserResize="False"
+                                                Width="auto">
+
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="#"
+                                                IsReadOnly="True"
+                                                CanUserResize="False"
+                                                Width="auto">
+
+                            </DataGridTextColumn>
+                            
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Border>
         </Grid>
     </Border>
