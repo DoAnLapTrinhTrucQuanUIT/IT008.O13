@@ -46,7 +46,32 @@
                                             ImagePathStatus="../Assets/Images/arrow_upward.png" />
                     </Grid>
                 </StackPanel>
-            </Border>  
+            </Border>
+            <!--Main Section-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                
+                <!--Research TextBox-->
+                <Grid Width="372" HorizontalAlignment="Left">
+                    <TextBlock Margin="20 6" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
+                               Panel.ZIndex="1"
+                               Text="Search Customer">
+                        
+                    </TextBlock>
+                    <TextBox x:Name="txtSearch" />
+                    <Image Source="../Assets/Images/Search icon.png"
+                           Width="20"
+                           Height="20"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Margin="0 0 20 0" />
+                </Grid>
+            </Grid>
         </StackPanel>
     </Border>
 </UserControl>
