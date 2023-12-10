@@ -48,30 +48,114 @@
                 </StackPanel>
             </Border>
             <!--Main Section-->
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                
-                <!--Research TextBox-->
-                <Grid Width="372" HorizontalAlignment="Left">
-                    <TextBlock Margin="20 6" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
-                               Panel.ZIndex="1"
-                               Text="Search Customer">
-                        
-                    </TextBlock>
-                    <TextBox x:Name="txtSearch" />
-                    <Image Source="../Assets/Images/Search icon.png"
-                           Width="20"
-                           Height="20"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Right"
-                           Margin="0 0 20 0" />
+            <Border Background="#fff"
+                    Margin="0 30 0 0"
+                    Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--Research TextBox - Add - Import-->
+                    <Grid Height="55" Grid.Row="0">
+                        <Border Width="372"
+                                HorizontalAlignment="Left"
+                                Background="#fff"
+                                BorderBrush="#D9D9D9"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="20 0 20 0">
+                            <Grid>
+                                <TextBlock Text="Search Customer"
+                                           Foreground="#959895"
+                                           FontSize="18"
+                                           FontFamily="Roboto"
+                                           FontWeight="Normal"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left" />
+                                <Image Source="../Assets/Images/Search Icon.png"
+                                       HorizontalAlignment="Right"
+                                       Width="20"
+                                       Height="20" />
+                            </Grid>
+                        </Border>
+
+                        <Grid HorizontalAlignment="Right"
+                              Width="340">
+                            <Border Width="142"
+                                    Padding="50 10"
+                                    Background="#fff"
+                                    BorderBrush="#D9D9D9"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    HorizontalAlignment="Left">
+                                <TextBlock Text="Add"
+                                           Foreground="#000"
+                                           FontSize="20"
+                                           FontFamily="Roboto"
+                                           FontWeight="Medium"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left" />
+                            </Border>
+                            <Border Width="168"
+                                    Padding="50 10"
+                                    Background="#fff"
+                                    BorderBrush="#D9D9D9"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    HorizontalAlignment="Right">
+                                <TextBlock Text="Import"
+                                           Foreground="#000"
+                                           FontSize="20"
+                                           FontFamily="Roboto"
+                                           FontWeight="Medium"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left" />
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    
+                    <!--Members Datagrid-->
+                    <DataGrid Grid.Row="1"
+                              Margin="0 30 0 0">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn CanUserResize="False"
+                                                    Width="auto">
+                                <DataGridCheckBoxColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <CheckBox />
+                                    </DataTemplate>
+                                </DataGridCheckBoxColumn.HeaderTemplate>
+                            </DataGridCheckBoxColumn>
+
+                            <DataGridTextColumn Header="Customer ID"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Name"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Address"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Phone Number"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Email"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Gender"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Registration Date"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Sales"
+                                                IsReadOnly="true"
+                                                Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
-            </Grid>
+            </Border>
         </StackPanel>
     </Border>
 </UserControl>

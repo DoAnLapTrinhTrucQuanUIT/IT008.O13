@@ -8,7 +8,7 @@
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="FontSize"
-                Value="12" />
+                Value="18" />
         <Setter Property="Padding"
                 Value="15 10" />
         <Setter Property="VerticalAlignment"
@@ -18,7 +18,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBoxBase">
-                    <Border x:Name="border" CornerRadius="20" Background="Black" SnapsToDevicePixels="True"
+                    <Border x:Name="border" CornerRadius="40" Background="Black" SnapsToDevicePixels="True"
                             BorderThickness="1" BorderBrush="#e0e6ed">
                         <ScrollViewer x:Name="Part_ContentHost"
                                       Focusable="False"
