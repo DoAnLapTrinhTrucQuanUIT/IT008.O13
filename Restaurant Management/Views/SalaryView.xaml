@@ -433,30 +433,58 @@
                                     HorizontalAlignment="Left" />
                     </Grid>
 
-                    <DataGrid Grid.Row="1">
+                    <DataGrid Grid.Row="1" Margin="0 20 0 0"
+                              SelectionChanged="DataGrid_SelectionChanged">
+                        <!--Datagrid header styles-->
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="BorderBrush"
+                                        Value="#DEDEDE"/>
+                                <Setter Property="BorderThickness" 
+                                        Value="1 1 0 1"/>
+                                <Setter Property="Height"
+                                        Value="60"/>
+                                <Setter Property="Padding"
+                                        Value="20"/>
+                                <Setter Property="FontWeight"
+                                        Value="Bold" />
+                                <Setter Property="FontFamily"
+                                        Value="Roboto"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto">
+                            <DataGridTextColumn Header="Staff ID" 
+                                                IsReadOnly="True" 
+                                                CanUserResize="False" 
+                                                Width="*">
                                 
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="#"
+                            <DataGridTextColumn Header="Name"
                                                 IsReadOnly="True"
                                                 CanUserResize="False"
-                                                Width="auto">
+                                                Width="*">
 
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="#"
+                            <DataGridTextColumn Header="Email"
                                                 IsReadOnly="True"
                                                 CanUserResize="False"
-                                                Width="auto">
+                                                Width="*">
 
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="#"
+                            <DataGridTextColumn Header="Salary"
                                                 IsReadOnly="True"
                                                 CanUserResize="False"
-                                                Width="auto">
+                                                Width="*">
 
                             </DataGridTextColumn>
-                            
+
+                            <DataGridTextColumn Header=""
+                                                IsReadOnly="True"
+                                                CanUserResize="False"
+                                                Width="*">
+
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
