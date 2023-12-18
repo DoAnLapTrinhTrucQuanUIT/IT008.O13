@@ -6,12 +6,55 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="989" d:DesignWidth="1560"
              Style="{StaticResource Page_Style}">
     <UserControl.DataContext>
         <vm:MenuVM/>
     </UserControl.DataContext>
-    <Grid Background="Aqua">
-        <TextBlock Text="Menu"/>
-    </Grid>
+    <Border Background="#fff">
+        <StackPanel Orientation="Horizontal">
+            <!--Menu Category-->
+            <StackPanel Orientation="Vertical">
+                <Border Width="1131"
+                        Height="430"
+                        Background="#F3EEEA"
+                        CornerRadius="20"
+                        Padding="50">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Menu Category"
+                                       Foreground="#000"
+                                       FontSize="40"
+                                       FontFamily="Roboto"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left" />
+
+                            <Border Width="283"
+                                    HorizontalAlignment="Left"
+                                    Background="#fff"
+                                    BorderBrush="#D9D9D9"
+                                    BorderThickness="1"
+                                    CornerRadius="23"
+                                    Padding="30 0 30 0">
+                                <Grid>
+                                    <Image Source="../Assets/Images/Search Icon.png"
+                                           HorizontalAlignment="Left"
+                                           Width="20"
+                                           Height="20" />
+                                    <TextBlock Text="Search by food name"
+                                               Foreground="#959895"
+                                               FontSize="18"
+                                               FontFamily="Roboto"
+                                               FontWeight="Normal"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right" />
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </Border>
 </UserControl>
