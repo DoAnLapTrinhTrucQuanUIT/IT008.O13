@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignHeight="889"
              d:DesignWidth="1460"
@@ -433,58 +434,38 @@
                                     HorizontalAlignment="Left" />
                     </Grid>
 
-                    <DataGrid Grid.Row="1" Margin="0 20 0 0"
-                              SelectionChanged="DataGrid_SelectionChanged">
-                        <!--Datagrid header styles-->
-                        <DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="BorderBrush"
-                                        Value="#DEDEDE"/>
-                                <Setter Property="BorderThickness" 
-                                        Value="1 1 0 1"/>
-                                <Setter Property="Height"
-                                        Value="60"/>
-                                <Setter Property="Padding"
-                                        Value="20"/>
-                                <Setter Property="FontWeight"
-                                        Value="Bold" />
-                                <Setter Property="FontFamily"
-                                        Value="Roboto"/>
-                            </Style>
-                        </DataGrid.Resources>
-                        
+                    <DataGrid x:Name="salaryDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Staff ID" 
-                                                IsReadOnly="True" 
-                                                CanUserResize="False" 
-                                                Width="*">
-                                
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Name"
-                                                IsReadOnly="True"
-                                                CanUserResize="False"
-                                                Width="*">
+                           
 
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Email"
-                                                IsReadOnly="True"
-                                                CanUserResize="False"
-                                                Width="*">
 
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Salary"
-                                                IsReadOnly="True"
-                                                CanUserResize="False"
-                                                Width="*">
 
-                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
+                            <DataGridTemplateColumn Header="ID" IsReadOnly="True" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="Red">
+                                                <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                            </Border>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                            <DataGridTextColumn Header=""
-                                                IsReadOnly="True"
-                                                CanUserResize="False"
-                                                Width="*">
+                            <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Salary" IsReadOnly="True" Width="*" Binding="{Binding Salary}"/>
 
-                            </DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Actions" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource paidButton}">
+                                            <TextBlock Text="Paid"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
