@@ -15,7 +15,7 @@
         <view:ScheduleView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:StaffInformationVM}">
-        <view:StaffInformationView/>
+        <view:StaffView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:SalaryVM}">
         <view:SalaryView/>
