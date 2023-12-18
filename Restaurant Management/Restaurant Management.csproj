@@ -351,6 +351,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Models\Invoices.cs" />
+    <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Salary.cs" />
+    <Compile Include="Models\Sales.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\Table.cs" />
     <Compile Include="Utilities\Btn.cs" />
     <Compile Include="Utilities\MongoDbService.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
@@ -641,9 +650,7 @@
   <ItemGroup>
     <Resource Include="Assets\Images\SelectionClicker.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
