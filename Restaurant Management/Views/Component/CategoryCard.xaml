@@ -3,29 +3,105 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="220" d:DesignWidth="130">
-    <Border CornerRadius="24" Background="#ffffff">
-        <StackPanel Margin="24" Orientation="Vertical">
-            <Grid>
-                <Image Source="../Assets/Images/Fruits.png" Width="64" Height="64"/>
+             mc:Ignorable="d" >
+    <Border x:Name="mainBorder" CornerRadius="24" Background="#ffffff" Margin="6" Padding="12">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="#ffffff"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsChecked, ElementName=arrowButton}" Value="True">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#ff9494" Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#ffffff" Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <Image Source="{Binding CategoryImage}" Width="48" Height="48"/>
             </Grid>
-            <Grid Margin="0,24,0,0">
-                <TextBlock Width="50" Height="20" Text="Fruits" FontSize="16" FontWeight="Medium" FontFamily="Roboto" TextAlignment="Center"/>
+            
+            <Grid Grid.Row="1" Margin="0,24,0,0">
+                <TextBlock Text="{Binding Text,RelativeSource={RelativeSource AncestorType={x:Type local:CategoryCard}}}" FontSize="14" FontWeight="Medium" FontFamily="Roboto" TextAlignment="Center"/>
             </Grid>
-            <Grid Margin="0,12,0,0">
-                <Separator Width="32" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#FF9494"/>
+
+            <Grid Grid.Row="2" Margin="0,12,0,0">
+                <Separator x:Name="separator" Width="32" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Separator.Style>
+                        <Style TargetType="Separator">
+                            <Setter Property="Background" Value="#FF9494"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked, ElementName=arrowButton}" Value="True">
+                                    <Setter Property="Background" Value="White"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Separator.Style>
+                </Separator>
             </Grid>
-            <Grid Margin="0,12,0,0">
-                <Border Width="24" Height="24" CornerRadius="100" Background="#ff9494">
-                    <Grid Margin="6">
-                        <Viewbox>
-                            <Path Data="M1.24194,1.5 L4.74194,5 L1.24194,8.5" Stroke="White" StrokeLineJoin="Round"/>
-                        </Viewbox>
-                    </Grid>
-                </Border>
+
+
+            <Grid Grid.Row="3" Margin="0 12 0 0">
+                <ToggleButton x:Name="arrowButton" Width="24" Height="24" Background="Transparent" BorderBrush="Transparent">
+                    <ToggleButton.Resources>
+                        <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="border" Background="#FF9494" CornerRadius="50" Padding="6">
+                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="White"/>
+                                                <Setter TargetName="contentPresenter" Property="LayoutTransform">
+                                                    <Setter.Value>
+                                                        <RotateTransform Angle="90"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Resources>
+                    <Icon:PackIconUnicons x:Name="Arrow" Width="7" Height="7" Kind="AngleRight">
+                        <Icon:PackIconUnicons.Style>
+                            <Style TargetType="Icon:PackIconUnicons">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}" Value="True">
+                                        <Setter Property="Foreground" Value="#ff9494"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Icon:PackIconUnicons.Style>
+                    </Icon:PackIconUnicons>
+                </ToggleButton>
             </Grid>
-        </StackPanel>   
+        </Grid>   
     </Border>
 </UserControl>
