@@ -5,29 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
-    <Border Width="200"
-            Height="200"
-            Background="#FFFFFF"
-            CornerRadius="12"
-            Padding="50">
-        <StackPanel Orientation="Vertical">
-            <Grid VerticalAlignment="Center"
+    <Border Background="#FFFFFF"
+            Padding="30"
+            Margin="30"
+            CornerRadius="12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                  VerticalAlignment="Center"
                   HorizontalAlignment="Center">
-                <Image Source="../Assets/Images/table_restaurant.png"
-                       Width="48"
-                       Height="48"/>
+                <Icon:PackIconMaterial Kind="TableFurniture" Width="36" Height="36" />
             </Grid>
-            <Grid Margin="0, 25, 0, 0">
+            <Grid Grid.Row="1">
                 <TextBlock Text="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type local:Table}}}"
-                           Foreground="#000"
-                           FontSize="24"
+                           Foreground="#000000"
+                           FontSize="16"
                            FontFamily="Roboto"
                            FontWeight="SemiBold"
-                           VerticalAlignment="Center"
                            HorizontalAlignment="Center"/>
             </Grid>
-        </StackPanel>
+        </Grid>
         <Border.Effect>
             <DropShadowEffect Color="Black"
                               Opacity="0.25"
