@@ -23,43 +23,37 @@ namespace Restaurant_Management.Views.Component
             DataContext = this;
         }
 
-        public static readonly DependencyProperty TextHeaderProperty = DependencyProperty.Register("TextHeader", typeof(string), typeof(Customer), new PropertyMetadata(""));
-        public string TextHeader
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(string), typeof(Customer));
+        public string Icon
         {
-            get { return (string)GetValue(TextHeaderProperty); }
-            set { SetValue(TextHeaderProperty, value); }
+            get { return (string)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(Customer), new PropertyMetadata(""));
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
         }
 
-        public static readonly DependencyProperty TextofNumberProperty = DependencyProperty.Register("TextofNumber", typeof(string), typeof(Customer), new PropertyMetadata(""));
-        public string TextofNumber
+        public static readonly DependencyProperty QuantityProperty = DependencyProperty.Register("Quantity", typeof(string), typeof(Customer), new PropertyMetadata(""));
+        public string Quantity
         {
-            get { return (string)GetValue(TextofNumberProperty); }
-            set { SetValue(TextofNumberProperty, value); }
+            get { return (string)GetValue(QuantityProperty); }
+            set { SetValue(QuantityProperty, value); }
         }
 
-        public static readonly DependencyProperty TextofPercentProperty = DependencyProperty.Register("TextofPercent", typeof(string), typeof(Customer), new PropertyMetadata(""));
-        public string TextofPercent
+        public static readonly DependencyProperty PercentageProperty = DependencyProperty.Register("Percentage", typeof(string), typeof(Customer), new PropertyMetadata(""));
+        public string Percentage
         {
-            get { return (string)GetValue(TextofPercentProperty); }
-            set { SetValue(TextofPercentProperty, value); }
+            get { return (string)GetValue(PercentageProperty); }
+            set { SetValue(PercentageProperty, value); }
         }
-
-        public static readonly DependencyProperty ImagePathStatusProperty =
-            DependencyProperty.Register("ImagePathStatus", typeof(string), typeof(Customer));
-
-        public string ImagePathStatus
+        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(string), typeof(Customer), new PropertyMetadata(""));
+        public string Foreground
         {
-            get { return (string)GetValue(ImagePathStatusProperty); }
-            set { SetValue(ImagePathStatusProperty, value); }
-        }
-
-        public static readonly DependencyProperty ImagePathSymbolProperty =
-            DependencyProperty.Register("ImagePathSymbol", typeof(string), typeof(Customer));
-
-        public string ImagePathSymbol
-        {
-            get { return (string)GetValue(ImagePathSymbolProperty); }
-            set { SetValue(ImagePathSymbolProperty, value); }
+            get { return (string)GetValue(ForegroundProperty); }
+            set { SetValue(ForegroundProperty, value); }
         }
 
     }

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="989" d:DesignWidth="1560"
@@ -13,42 +14,88 @@
     <UserControl.DataContext>
         <vm:CustomerVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style x:Key="TextboxSearch" TargetType="TextBox">
+            <Setter Property="Background" Value="#ffffff"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
 
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBoxBase">
+                        <Grid>
+                            <Border x:Name="border"
+                                CornerRadius="10" 
+                                Padding="10"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="1"
+                                BorderBrush="#d9d9d9">
+                                <TextBlock x:Name="placeholder" Margin="25 0 0 0" Text="Search by customer ID" FontSize="18" Foreground="#808080" VerticalAlignment="Center" Visibility="Visible"/>
+                            </Border>
+                            <ScrollViewer MaxWidth="310" Padding="20" VerticalAlignment="Center" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="placeholder" Property="Visibility" Value="Hidden"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#007acc"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </UserControl.Resources>
     <Border Background="#F3EEEA"
             Padding="50">
-        <StackPanel Orientation="Vertical">
-            <Border Background="#fff"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <!--Overview-->
+            <Border Grid.Row="0" Background="#fff"
                     CornerRadius="20"
-                    Height="226"
                     Padding="30">
-                <StackPanel Orientation="Horizontal">
-                    <Grid Margin="0 0 50 0">
-                        <Component:Customer TextHeader="Total Customer"
-                                            TextofNumber="10000000"
-                                            TextofPercent="5%"
-                                            ImagePathSymbol="../Assets/Images/group.png"
-                                            ImagePathStatus="../Assets/Images/arrow_upward.png" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="0 0 50 0">
+                        <Component:Customer Title="Total Customer"
+                                            Quantity="{Binding TotalCustomer}"
+                                            Percentage="{Binding Percent}"
+                                            Icon="AccountMultiple"
+                                            Foreground="#06F"/>
+
                     </Grid>
 
-                    <Grid Margin="50 0 50 0">
-                        <Component:Customer TextHeader="New Customer"
-                                            TextofNumber="100"
-                                            TextofPercent="1%"
-                                            ImagePathSymbol="../Assets/Images/person_check.png"
-                                            ImagePathStatus="../Assets/Images/arrow_downward.png" />
+                    <Grid Grid.Column="1" Margin="50 0 50 0">
+                        <Component:Customer Title="New Customer"
+                                            Quantity="{Binding TotalCustomer}"
+                                            Percentage="{Binding Percent}"
+                                            Icon="AccountMultipleCheck"
+                                            Foreground="#11D200"/>
                     </Grid>
 
-                    <Grid Margin="50 0 0 0">
-                        <Component:Customer TextHeader="Potential Customer"
-                                            TextofNumber="20"
-                                            TextofPercent="5%"
-                                            ImagePathSymbol="../Assets/Images/person_celebrate.png"
-                                            ImagePathStatus="../Assets/Images/arrow_upward.png" />
+                    <Grid Grid.Column="2" Margin="50 0 0 0">
+                        <Component:Customer Title="Potential Customer"
+                                            Quantity="{Binding TotalCustomer}"
+                                            Percentage="{Binding Percent}"
+                                            Icon="AccountStar"
+                                            Foreground="#6100FF"/>
                     </Grid>
-                </StackPanel>
+                </Grid>
             </Border>
             <!--Main Section-->
-            <Border Background="#fff"
+            <Border Grid.Row="1" Background="#fff"
                     Margin="0 30 0 0"
                     Padding="20">
                 <Grid>
@@ -56,62 +103,61 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <!--Research TextBox - Add - Import-->
+                    <!--Search TextBox - Add - Import-->
                     <Grid Height="55" Grid.Row="0">
-                        <Border Width="372"
-                                HorizontalAlignment="Left"
-                                Background="#fff"
-                                BorderBrush="#D9D9D9"
-                                BorderThickness="1"
-                                CornerRadius="10"
-                                Padding="20 0 20 0">
-                            <Grid>
-                                <TextBlock Text="Search Customer"
-                                           Foreground="#959895"
-                                           FontSize="18"
-                                           FontFamily="Roboto"
-                                           FontWeight="Normal"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left" />
-                                <Image Source="../Assets/Images/Search Icon.png"
-                                       HorizontalAlignment="Right"
-                                       Width="20"
-                                       Height="20" />
-                            </Grid>
-                        </Border>
+                        <!-- Search TextBox -->
+                        <Grid HorizontalAlignment="Left">
+                            <TextBox x:Name="txtSearch" Style="{StaticResource TextboxSearch}" Width="400"/>
+                            <Icon:PackIconMaterial Kind="Magnify"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Foreground="#000000"
+                                                   Margin="0 0 20 0"
+                                                   Width="16"
+                                                   Height="16"/>
+                        </Grid>
 
-                        <Grid HorizontalAlignment="Right"
-                              Width="340">
-                            <Border Width="142"
-                                    Padding="50 10"
-                                    Background="#fff"
-                                    BorderBrush="#D9D9D9"
-                                    BorderThickness="1"
-                                    CornerRadius="10"
-                                    HorizontalAlignment="Left">
-                                <TextBlock Text="Add"
-                                           Foreground="#000"
-                                           FontSize="20"
-                                           FontFamily="Roboto"
-                                           FontWeight="Medium"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left" />
-                            </Border>
-                            <Border Width="168"
-                                    Padding="50 10"
-                                    Background="#fff"
-                                    BorderBrush="#D9D9D9"
-                                    BorderThickness="1"
-                                    CornerRadius="10"
-                                    HorizontalAlignment="Right">
-                                <TextBlock Text="Import"
-                                           Foreground="#000"
-                                           FontSize="20"
-                                           FontFamily="Roboto"
-                                           FontWeight="Medium"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left" />
-                            </Border>
+                        <Grid Grid.Column="1" HorizontalAlignment="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" Style="{StaticResource addButton}" Margin="0 0 30 0">
+                                <Border Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Icon:PackIconMaterial Kind="Plus" 
+                                                           Grid.Column="0"
+                                                           VerticalAlignment="Center" 
+                                                           Width="20" 
+                                                           Height="20" 
+                                                           Margin="0 0 20 0"/>
+                                        <TextBlock Grid.Column="1" Text="Add new customer"/>
+                                    </Grid>
+                                </Border>
+                            </Button>
+
+                            <Button Grid.Column="1" Style="{StaticResource addButton}">
+                                <Border Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Icon:PackIconMaterial Kind="FileExcel" 
+                                                           Grid.Column="0"
+                                                           VerticalAlignment="Center" 
+                                                           Width="20" 
+                                                           Height="20" 
+                                                           Margin="0 0 20 0"/>
+                                        <TextBlock Grid.Column="1" Text="Import from excel"/>
+                                    </Grid>
+                                </Border>
+                            </Button>
                         </Grid>
                     </Grid>
                     
@@ -156,6 +202,6 @@
                     </DataGrid>
                 </Grid>
             </Border>
-        </StackPanel>
+        </Grid>
     </Border>
 </UserControl>
