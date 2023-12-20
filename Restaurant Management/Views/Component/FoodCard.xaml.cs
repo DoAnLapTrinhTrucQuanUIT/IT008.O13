@@ -43,11 +43,11 @@ namespace Restaurant_Management.Views
         }
 
         public static readonly DependencyProperty FoodPriceProperty =
-            DependencyProperty.Register("FoodPrice", typeof(string), typeof(FoodCard));
+            DependencyProperty.Register("FoodPrice", typeof(decimal), typeof(FoodCard));
 
-        public string FoodPrice
+        public decimal FoodPrice
         {
-            get { return (string)GetValue(FoodPriceProperty); }
+            get { return (decimal)GetValue(FoodPriceProperty); }
             set { SetValue(FoodPriceProperty, value); }
         }
 

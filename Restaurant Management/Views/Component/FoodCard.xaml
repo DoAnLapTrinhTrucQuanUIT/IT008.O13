@@ -64,15 +64,30 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
-                                        <Border CornerRadius="100" 
+                                        <Border x:Name="border" CornerRadius="100" 
                                                 Background="{TemplateBinding Background}">
                                             <ContentPresenter HorizontalAlignment="Center" 
                                                               VerticalAlignment="Center"/>
                                         </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="border" Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <TranslateTransform Y="1"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="Black" BlurRadius="4" Opacity="0.2" ShadowDepth="2"/>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
+                        
                     </Button.Style>
                     <Icon:PackIconUnicons Kind="Plus" 
                                           Foreground="White"

@@ -89,7 +89,7 @@
                             </Setter>
                         </Style>
                     </ToggleButton.Resources>
-                    <Icon:PackIconUnicons x:Name="Arrow" Width="7" Height="7" Kind="AngleRight">
+                    <Icon:PackIconUnicons x:Name="Arrow" Width="8" Height="8" Kind="AngleRight">
                         <Icon:PackIconUnicons.Style>
                             <Style TargetType="Icon:PackIconUnicons">
                                 <Style.Triggers>
