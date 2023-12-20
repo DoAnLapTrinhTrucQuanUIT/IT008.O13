@@ -436,16 +436,12 @@
 
                     <DataGrid x:Name="salaryDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
                         <DataGrid.Columns>
-                           
-
-
-
                             <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
                             <DataGridTemplateColumn Header="ID" IsReadOnly="True" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="Red">
+                                            <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="{Binding BgColor}">
                                                 <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
                                             </Border>
                                         </StackPanel>
@@ -454,12 +450,12 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Email" IsReadOnly="True" Width="*" Binding="{Binding Email}"/>
                             <DataGridTextColumn Header="Salary" IsReadOnly="True" Width="*" Binding="{Binding Salary}"/>
-
-                            <DataGridTemplateColumn Header="Actions" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn Header="Actions" IsReadOnly="True" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Style="{StaticResource paidButton}">
+                                        <Button Style="{StaticResource paidSalaryButton}">
                                             <TextBlock Text="Paid"/>
                                         </Button>
                                     </DataTemplate>
