@@ -26,35 +26,5 @@ namespace Restaurant_Management.Views
         {
             InitializeComponent();
         }
-
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-        private void UpdateProfileButton_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateProfile updateProfile = new UpdateProfile();
-            var window = new Window
-            {
-                Content = updateProfile,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStyle = WindowStyle.None,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            window.ShowDialog();
-        }
-
-        private void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePassword changePassword = new ChangePassword();
-            var window = new Window
-            {
-                Content = changePassword,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStyle = WindowStyle.None,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            window.ShowDialog();
-        }
     }
 }

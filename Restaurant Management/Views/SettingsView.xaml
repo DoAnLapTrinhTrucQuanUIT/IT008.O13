@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
+             x:Name="SettingsWindow"
              d:Width="1920" d:Height="1080"
              Style="{StaticResource Page_Style}">
     <UserControl.DataContext>
@@ -32,21 +34,36 @@
                     CornerRadius="20"
                     Padding="50">
                 <StackPanel>
-                    <Border Width="150"
-                     Height="150"
-                            Background="#DEDEDE"
-                            CornerRadius="100">
-
-                        <Image Source="{Binding}"/>
+                    <!--Avatar-->
+                    <Border>
+                        <Ellipse Height="150"
+                                 Width="150"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 StrokeThickness="5">
+                            <Ellipse.Effect>
+                                <DropShadowEffect ShadowDepth="0"
+                                                  Color="Black"
+                                                  Opacity="10"
+                                                  BlurRadius="10" />
+                            </Ellipse.Effect>
+                            <Ellipse.Fill>
+                                <ImageBrush x:Name="image"
+                                            ImageSource="{Binding HinhAnh}" />
+                            </Ellipse.Fill>
+                        </Ellipse>
                     </Border>
+
+                    <!--Name-->
                     <Grid Margin="0,70,0,0">
-                        <TextBlock Text="{Binding}"
+                        <TextBlock Text="{Binding }"
                                    Foreground="Black"
                                    FontSize="24"
                                    FontFamily="Roboto"
                                    FontWeight="SemiBold"
                                    TextAlignment="Center" />
                     </Grid>
+                    <!--Role-->
                     <Grid Margin="0,10,0,0">
                         <TextBlock Text="{Binding}"
                                    Foreground="#666666"
@@ -196,7 +213,7 @@
                 <!-- Log out -->
                 <Button Background="#B31312"
                         Foreground="#fff"
-                        Style="{StaticResource RoundedButtonStyle}" Click="LogoutButton_Click"> 
+                        Style="{StaticResource RoundedButtonStyle}">
                     <Border CornerRadius="10"
                             Padding="100 20 100 20">
                         <TextBlock Text="Log out"
@@ -205,28 +222,39 @@
                                    FontWeight="SemiBold"
                                    TextAlignment="Center" />
                     </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding LogoutCommand}"
+                                                   CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
                 <!-- Change Password -->
                 <Button Background="#000000"
                         Foreground="#fff"
                         Margin="30 0 0 0"
-                        Style="{StaticResource RoundedButtonStyle}" Click="ChangePasswordButton_Click">
+                        Style="{StaticResource RoundedButtonStyle}">
                     <Border CornerRadius="10"
                             Padding="60 20 60 20">
                         <TextBlock Text="Change Password"
                                    FontSize="18"
                                    FontFamily="Roboto"
                                    FontWeight="SemiBold"
-                                   TextAlignment="Center" />   
+                                   TextAlignment="Center" />
                     </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ChangePassCommand}"
+                                                   CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
 
                 <!-- Update profile -->
                 <Button Background="#FF7F50"
                         Foreground="#fff"
                         Style="{StaticResource RoundedButtonStyle}"
-                        Margin="30, 0, 0, 0"
-                        Click="UpdateProfileButton_Click">              
+                        Margin="30, 0, 0, 0" >              
                     <Border CornerRadius="10"
                             Padding="65 20 65 20">
                         <TextBlock Text="Update Profile"
@@ -235,6 +263,13 @@
                        FontWeight="SemiBold"
                        TextAlignment="Center"/>
                     </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding UpdateProfileCommand}"
+                                                   CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
         </StackPanel>
