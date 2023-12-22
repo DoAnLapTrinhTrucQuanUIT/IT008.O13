@@ -1,17 +1,15 @@
 ﻿using Restaurant_Management.Utilities;
 using Restaurant_Management.Views.Component;
 using Restaurant_Management.Views;
-using Restaurant_Management.Utilities.MongoDBManager;
 using System;
 using System.Text;
 using System.Windows.Input;
 using System.Windows;
 using System.Security.Cryptography;
 using System.Windows.Controls;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using Restaurant_Management.Models;
 using System.Collections.ObjectModel;
+using System.Security.Principal;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -46,7 +44,6 @@ namespace Restaurant_Management.ViewModels
         public ICommand LoginCM { get; set; }
         public ICommand PasswordchangeCM { get; set; }
         public ICommand ForgetpasswordCM { get; set; }
-        
         public LoginVM()
         {
             IsLogin = false;
@@ -59,69 +56,12 @@ namespace Restaurant_Management.ViewModels
 
         void _Login(LoginWindow p)
         {
-            var hashedPassword = HashPassword(_password);
-            try
-            {
-                if (p == null) return;
 
-                var dbContext = new MongoDbContext("mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/", "Restaurant_Management_Application");
-
-                var username_filter = Builders<Account>.Filter.Eq("Username", Username);
-                var username = dbContext.Accounts.Find(username_filter).FirstOrDefault();
-                if (username == null)
-                {
-                    MessageBox.Show("Username is not exist!", "Announcement", MessageBoxButton.OK);
-                }
-                else
-                {
-                    var acc_filter = Builders<Account>.Filter.Eq("Username", Username) & Builders<Account>.Filter.Eq("Password", HashPassword(Password));
-                    var account = dbContext.Accounts.Find(acc_filter).FirstOrDefault();
-                    if (account != null)
-                    {
-                        IsLogin = true;
-                        Const.UserName = Username;
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
-                        Username = "";
-                        Password = "";
-                        p.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Password is incorrect!", "Announcement", MessageBoxButton.OK);
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Announcement", MessageBoxButton.OK);
-            }
         }
 
-
-        void _ForgetPassword(LoginWindow parameter)
+        void _ForgetPassword(LoginWindow p)
         {
-            ForgetPasswordView forgetPassControl = new ForgetPasswordView();
 
-            Window forgetPassWindow = new Window
-            {
-                Content = forgetPassControl,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStyle = WindowStyle.None,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-
-            forgetPassWindow.ShowDialog();
-        }
-
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-            }
         }
     }
 }

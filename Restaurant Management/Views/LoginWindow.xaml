@@ -14,7 +14,7 @@
     <Window.DataContext>
         <viewmodels:LoginVM />
     </Window.DataContext>
-    
+
     <StackPanel x:Name="SignInScreen"
                 Orientation="Horizontal"
                 Background="#FFF5E4">
@@ -124,12 +124,6 @@
                                      MaterialDesign:HintAssist.Hint="Enter Your Password"
                                      MaterialDesign:HintAssist.Foreground="Transparent"
                                      MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PasswordChanged">
-                                    <i:InvokeCommandAction Command="{Binding PasswordchangeCM}"
-                                                           CommandParameter="{Binding ElementName=password}"></i:InvokeCommandAction>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                         </PasswordBox>
                     </Border>
                 </Grid>
@@ -141,12 +135,6 @@
                        FontSize="16"
                        FontFamily="Poppins"
                        FontWeight="Normal">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding ForgetpasswordCM}"
-                                           CommandParameter="{Binding ElementName=LoginWD}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Foreground"
@@ -185,13 +173,6 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding LoginCM}"
-                                               CommandParameter="{Binding ElementName=LoginWD}"></i:InvokeCommandAction>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
             </Button>
             <!--Or-->
             <TextBlock x:Name="Or"
