@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Restaurant_Management.Views
+namespace Restaurant_Management.Views.Component
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for ForgetPasswordView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class ForgetPasswordView 
     {
-        public LoginView()
+        public ForgetPasswordView()
         {
             InitializeComponent();
-        }
-
-        private void SignInWithFacebookButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using Restaurant_Management.Views.Component;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Restaurant_Management.Views
+namespace Restaurant_Management.Views.Component
 {
     /// <summary>
-    /// Interaction logic for SettingsView.xaml
+    /// Interaction logic for ForgetPasswordView.xaml
     /// </summary>
-    public partial class SettingsView : UserControl
+    public partial class ForgetPasswordView 
     {
-        public SettingsView()
+        public ForgetPasswordView()
         {
             InitializeComponent();
         }
