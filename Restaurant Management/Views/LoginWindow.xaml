@@ -5,8 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Restaurant_Management.Views"
         xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewmodels="clr-namespace:Restaurant_Management.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         d:DesignHeight="512"
         d:DesignWidth="1080"
@@ -14,7 +14,6 @@
     <Window.DataContext>
         <viewmodels:LoginVM />
     </Window.DataContext>
-    
     <StackPanel x:Name="SignInScreen"
                 Orientation="Horizontal"
                 Background="#FFF5E4">
@@ -66,7 +65,7 @@
                 <Grid x:Name="UsernameInputContainer"
                       Width="440"
                       Height="100">
-                    <TextBlock Text="Username"
+                    <TextBlock Text="Employee ID"
                                Foreground="#959895"
                                FontSize="16"
                                FontFamily="Poppins"
@@ -80,7 +79,7 @@
                             BorderBrush="#FF9494"
                             Background="White"
                             Margin="0,20,0,0">
-                        <TextBox x:Name="username"
+                        <TextBox Text="{Binding EmployeeId}"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Stretch"
                                  Width="400"
@@ -88,7 +87,7 @@
                                  Background="Transparent"
                                  Foreground="Black"
                                  FontSize="18"
-                                 MaterialDesign:HintAssist.Hint="Enter Your Username"
+                                 MaterialDesign:HintAssist.Hint="Enter Your Employee ID"
                                  MaterialDesign:HintAssist.Foreground="Transparent"
                                  MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Border>
@@ -97,8 +96,7 @@
                 <Grid x:Name="PasswordInputContainer"
                       Width="440"
                       Height="100">
-                    <TextBlock x:Name="Password"
-                               Text="Password"
+                    <TextBlock Text="Password"
                                Foreground="#959895"
                                FontSize="16"
                                FontFamily="Poppins"
@@ -141,12 +139,12 @@
                        FontSize="16"
                        FontFamily="Poppins"
                        FontWeight="Normal">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding ForgetpasswordCM}"
-                                           CommandParameter="{Binding ElementName=LoginWD}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding ForgetpasswordCM}"
+                                               CommandParameter="{Binding ElementName=LoginWD}"></i:InvokeCommandAction>
+                    </i:EventTrigger>   
+                </i:Interaction.Triggers>
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Foreground"
@@ -172,8 +170,15 @@
                     VerticalAlignment="Center"
                     Foreground="#FF6666"
                     FontWeight="Bold"
-                    Margin="0 20 0 0"
-                    Click="LoginButton_Click">
+                    Margin="0 20 0 0" >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding LoginCM}"
+                                               CommandParameter="{Binding ElementName=LoginWD}"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="#FFE3E1"
@@ -185,13 +190,6 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding LoginCM}"
-                                               CommandParameter="{Binding ElementName=LoginWD}"></i:InvokeCommandAction>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
             </Button>
             <!--Or-->
             <TextBlock x:Name="Or"

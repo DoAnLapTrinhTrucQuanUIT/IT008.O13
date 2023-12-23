@@ -1,37 +1,32 @@
 ﻿using Restaurant_Management.Utilities;
 using Restaurant_Management.Views.Component;
 using Restaurant_Management.Views;
-using Restaurant_Management.Utilities.MongoDBManager;
 using System;
 using System.Text;
 using System.Windows.Input;
 using System.Windows;
 using System.Security.Cryptography;
 using System.Windows.Controls;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using Restaurant_Management.Models;
 using System.Collections.ObjectModel;
+using System.Security.Principal;
+using MongoDB.Driver;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Restaurant_Management.ViewModels
 {
     public class LoginVM : Utilities.ViewModelBase
     {
-        private readonly LoginWindow _loginWindow;
-        public LoginVM(LoginWindow loginWindow)
-        {
-            _loginWindow = loginWindow ?? throw new ArgumentNullException(nameof(loginWindow));
-        }
         public static bool IsLogin { get; set; }
-        private string _username;
+        private string _employeeId;
         private string _password;
-        public string Username
+        public string EmployeeId
         {
-            get => _username;
+            get => _employeeId;
             set
             {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
+                _employeeId = value;
+                OnPropertyChanged(nameof(EmployeeId));
             }
         }
         public string Password
@@ -46,61 +41,71 @@ namespace Restaurant_Management.ViewModels
         public ICommand LoginCM { get; set; }
         public ICommand PasswordchangeCM { get; set; }
         public ICommand ForgetpasswordCM { get; set; }
-        
+
+        private readonly IMongoCollection<Employees> _Employees;
         public LoginVM()
         {
+            _Employees = GetMongoCollection();
             IsLogin = false;
             Password = "";
-            Username = "";
-            LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login(p));
+            EmployeeId = "";
+            LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login());
             PasswordchangeCM = new RelayCommand<PasswordBox>((p) => true, (p) => { Password = p.Password; });
             ForgetpasswordCM = new RelayCommand<LoginWindow>((p) => true, (p) => _ForgetPassword(p));
         }
 
-        void _Login(LoginWindow p)
+        private IMongoCollection<Employees> GetMongoCollection()
         {
-            var hashedPassword = HashPassword(_password);
-            try
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Employees>("Employees");
+        }
+
+       
+        private void _Login()
+        {
+            if (EmployeeId != null && !string.IsNullOrEmpty(Password))
             {
-                if (p == null) return;
+                var user = GetUser(EmployeeId);
 
-                var dbContext = new MongoDbContext("mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/", "Restaurant_Management_Application");
-
-                var username_filter = Builders<Account>.Filter.Eq("Username", Username);
-                var username = dbContext.Accounts.Find(username_filter).FirstOrDefault();
-                if (username == null)
+                if (user == null)
                 {
-                    MessageBox.Show("Username is not exist!", "Announcement", MessageBoxButton.OK);
+                    MessageBox.Show("Sai tên tài khoản hoặc mật khẩu.");
+                    return;
+                }
+
+                if (Password == user.Password)
+                {
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    CloseAction?.Invoke();
                 }
                 else
                 {
-                    var acc_filter = Builders<Account>.Filter.Eq("Username", Username) & Builders<Account>.Filter.Eq("Password", HashPassword(Password));
-                    var account = dbContext.Accounts.Find(acc_filter).FirstOrDefault();
-                    if (account != null)
-                    {
-                        IsLogin = true;
-                        Const.UserName = Username;
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
-                        Username = "";
-                        Password = "";
-                        p.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Password is incorrect!", "Announcement", MessageBoxButton.OK);
-                    }
+                    MessageBox.Show("Sai tên tài khoản hoặc mật khẩu.");
                 }
-
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Announcement", MessageBoxButton.OK);
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin.");
             }
         }
 
+        public Action CloseAction { get; set; }
 
-        void _ForgetPassword(LoginWindow parameter)
+        private Employees GetUser(string employeeId)
+        {
+            var filter = Builders<Employees>.Filter.Eq(u => u.EmployeeId, employeeId);
+            return _Employees.Find(filter).FirstOrDefault();
+        }
+
+        void _ForgetPassword(LoginWindow p)
         {
             ForgetPasswordView forgetPassControl = new ForgetPasswordView();
 
@@ -113,15 +118,6 @@ namespace Restaurant_Management.ViewModels
             };
 
             forgetPassWindow.ShowDialog();
-        }
-
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-            }
         }
     }
 }
