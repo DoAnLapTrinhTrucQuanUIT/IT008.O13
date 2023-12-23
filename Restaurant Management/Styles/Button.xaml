@@ -11,7 +11,7 @@
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="border"
                             Height="56"
-                            Width="300"
+                            Width="250"
                             BorderThickness="0"
                             CornerRadius="10">
                         <Border.Background>
@@ -102,7 +102,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderThickness="1" BorderBrush="#d9d9d9">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" CornerRadius="5" BorderThickness="1" BorderBrush="#d9d9d9">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -319,6 +319,38 @@
                 <ControlTemplate TargetType="Button">
                     <Grid>
                         <Border x:Name="border" Padding="0 20" CornerRadius="10" BorderThickness="0" BorderBrush="#484964" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="6" Opacity="0.5" ShadowDepth="2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="editSalaryButton" TargetType="Button">
+        <Setter Property="Background" Value="#FFFFFF"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="border" Padding="20 10" CornerRadius="20" BorderThickness="0" BorderBrush="#484964" Background="{TemplateBinding Background}">
                             <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
