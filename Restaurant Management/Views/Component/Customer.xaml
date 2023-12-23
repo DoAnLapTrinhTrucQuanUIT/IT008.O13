@@ -6,7 +6,7 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d" >
-    <Viewbox>
+    <Viewbox Margin="10">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -15,8 +15,9 @@
             <!--Main icon-->
             <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Icon:PackIconMaterial Kind="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type local:Customer}}}"
-                                   Width="100"
-                                   Height="100"
+                                   Width="80"
+                                   Height="80"
+                                   Margin="0 0 50 0"
                                    Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:Customer}}}"/>
             </Grid>
 
