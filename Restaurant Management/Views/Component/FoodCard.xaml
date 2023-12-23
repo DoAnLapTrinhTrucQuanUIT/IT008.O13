@@ -13,7 +13,7 @@
             CornerRadius="12">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -23,24 +23,24 @@
                 <Border Background="#DEDEDE" 
                         CornerRadius="12">
                     <Image x:Name="foodImage" 
+                           Stretch="Uniform"
                            Source="{Binding FoodImage}"/>
                 </Border>
             </Grid>
 
             <!--Food name-->
-            <Grid Grid.Row="1" 
-                  Margin="0 25 0 0">
+            <Grid Grid.Row="1" >
                 <TextBlock x:Name="foodName" 
+                           Height="20"
                            Text="{Binding FoodName, RelativeSource={RelativeSource AncestorType={x:Type local:FoodCard}}}" 
                            Foreground="Black" 
-                           FontSize="14" 
+                           FontSize="16" 
                            FontFamily="Roboto" 
                            FontWeight="SemiBold"/>
             </Grid>
 
             <!--Price & Add button-->
-            <Grid Grid.Row="2" 
-                  Margin="0 25 0 0">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -48,8 +48,9 @@
                 <Grid Grid.Column="0">
                     <TextBlock x:Name="foodPrice" 
                                Text="{Binding FoodPrice, RelativeSource={RelativeSource AncestorType={x:Type local:FoodCard}}}" 
+                               Height="15"
                                Foreground="Black" 
-                               FontSize="12" 
+                               FontSize="14" 
                                FontFamily="Roboto" 
                                FontWeight="Regular" 
                                VerticalAlignment="Center"/>

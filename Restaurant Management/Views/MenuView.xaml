@@ -9,11 +9,10 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="989" d:DesignWidth="1560"
              Style="{StaticResource Page_Style}">
     <Grid Background="#FFFFFF">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
@@ -64,7 +63,7 @@
 
                             </Grid>
 
-                            <!--Food card-->
+                            <!--Category card-->
                             <Grid Grid.Row="1" Margin="0 0 0 50">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -96,15 +95,17 @@
             <!--Menu selection-->
             <Border Grid.Row="1" Padding="30 25 30 30" Margin="0 0 0 50">
                 <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                        <ItemsControl ItemsSource="{Binding FoodItems}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <local:FoodCard FoodName="{Binding Name}" FoodImage="{Binding Image}" FoodPrice="{Binding Price}"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <local:FoodCard Grid.Column="0" FoodName="Bun bo gio heo" FoodImage="{Binding Image}" FoodPrice="80.000"/>
+                        <local:FoodCard Grid.Column="1" FoodName="Com tam suon bi cha" FoodImage="{Binding Image}" FoodPrice="50.000"/>
+                        <local:FoodCard Grid.Column="2" FoodName="Pho tai nam gau gan" FoodImage="{Binding Image}" FoodPrice="300.000"/>
+
+                    </Grid>
                 </Border>
             </Border>
         </Grid>

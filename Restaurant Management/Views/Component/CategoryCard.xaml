@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
-             mc:Ignorable="d" >
+             mc:Ignorable="d">
     <Border x:Name="mainBorder" CornerRadius="24" Background="#ffffff" Margin="6" Padding="12">
         <Border.Style>
             <Style TargetType="Border">
@@ -42,11 +42,16 @@
                 <Image Source="{Binding CategoryImage}" Width="48" Height="48"/>
             </Grid>
             
-            <Grid Grid.Row="1" Margin="0,24,0,0">
-                <TextBlock Text="{Binding Text,RelativeSource={RelativeSource AncestorType={x:Type local:CategoryCard}}}" FontSize="14" FontWeight="Medium" FontFamily="Roboto" TextAlignment="Center"/>
+            <Grid Grid.Row="1">
+                <TextBlock Text="{Binding Text,RelativeSource={RelativeSource AncestorType={x:Type local:CategoryCard}}}" 
+                           Height="40" 
+                           FontSize="16" 
+                           FontWeight="Medium" 
+                           FontFamily="Roboto" 
+                           TextAlignment="Center"/>
             </Grid>
 
-            <Grid Grid.Row="2" Margin="0,12,0,0">
+            <Grid Grid.Row="2">
                 <Separator x:Name="separator" Width="32" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <Separator.Style>
                         <Style TargetType="Separator">
@@ -62,7 +67,7 @@
             </Grid>
 
 
-            <Grid Grid.Row="3" Margin="0 12 0 0">
+            <Grid Grid.Row="3">
                 <ToggleButton x:Name="arrowButton" Width="24" Height="24" Background="Transparent" BorderBrush="Transparent">
                     <ToggleButton.Resources>
                         <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
