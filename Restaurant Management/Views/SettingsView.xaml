@@ -223,8 +223,14 @@
                                    TextAlignment="Center" />
                         
                     </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding LogoutCommand}"
+                                                   CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
-                <!-- Change Password -->
+              
                 <Button Background="#000000"
                         Foreground="#fff"
                         Margin="30 0 0 0"
@@ -237,13 +243,22 @@
                                    FontWeight="SemiBold"
                                    TextAlignment="Center" />
                     </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ChangePassCommand}"
+                                                   CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                  
                 </Button>
 
                 <!-- Update profile -->
                 <Button Background="#FF7F50"
                         Foreground="#fff"
                         Style="{StaticResource RoundedButtonStyle}"
-                        Margin="30, 0, 0, 0" >
+                        Margin="30, 0, 0, 0" >              
+
                     <Border CornerRadius="10"
                             Padding="65 20 65 20">
                         <TextBlock Text="Update Profile"
@@ -252,6 +267,14 @@
                                    FontWeight="SemiBold"
                                    TextAlignment="Center" />
                     </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding UpdateProfileCommand}"
+                                                   CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                 </Button>
             </StackPanel>
         </StackPanel>

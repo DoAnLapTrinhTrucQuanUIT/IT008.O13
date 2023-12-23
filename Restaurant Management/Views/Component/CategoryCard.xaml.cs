@@ -24,5 +24,17 @@ namespace Restaurant_Management.Views
         {
             InitializeComponent();
         }
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(CategoryCard), new PropertyMetadata(""));
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+        public static readonly DependencyProperty CategoryImageProperty = DependencyProperty.Register("CategoryImage", typeof(ImageSource), typeof(CategoryCard));
+        public ImageSource CategoryImage
+        {
+            get { return (ImageSource)GetValue(CategoryImageProperty); }
+            set { SetValue(CategoryImageProperty, value); }
+        }
     }
 }

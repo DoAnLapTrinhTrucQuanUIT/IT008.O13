@@ -139,7 +139,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="Red">
+                                        <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="{Binding BgColor}">
                                             <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
                                         </Border>
                                     </StackPanel>

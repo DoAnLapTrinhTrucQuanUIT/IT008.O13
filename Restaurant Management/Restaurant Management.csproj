@@ -357,6 +357,9 @@
     <Compile Include="Views\Component\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Component\SalesCard.xaml.cs">
+      <DependentUpon>SalesCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Component\Table.xaml.cs">
       <DependentUpon>Table.xaml</DependentUpon>
     </Compile>
@@ -474,6 +477,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\NavigationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\SalesCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,46 +15,41 @@ using System.Windows.Shapes;
 
 namespace Restaurant_Management.Views.Component
 {
-    public partial class Customer : UserControl
+    /// <summary>
+    /// Interaction logic for SalesCard.xaml
+    /// </summary>
+    public partial class SalesCard : UserControl
     {
-        public Customer()
+        public SalesCard()
         {
             InitializeComponent();
             DataContext = this;
         }
-
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(string), typeof(Customer));
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(string), typeof(SalesCard));
         public string Icon
         {
             get { return (string)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(Customer), new PropertyMetadata(""));
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(SalesCard), new PropertyMetadata(""));
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
 
-        public static readonly DependencyProperty QuantityProperty = DependencyProperty.Register("Quantity", typeof(string), typeof(Customer), new PropertyMetadata(""));
+        public static readonly DependencyProperty QuantityProperty = DependencyProperty.Register("Quantity", typeof(string), typeof(SalesCard), new PropertyMetadata(""));
         public string Quantity
         {
             get { return (string)GetValue(QuantityProperty); }
             set { SetValue(QuantityProperty, value); }
         }
 
-        public static readonly DependencyProperty PercentageProperty = DependencyProperty.Register("Percentage", typeof(string), typeof(Customer), new PropertyMetadata(""));
-        public string Percentage
-        {
-            get { return (string)GetValue(PercentageProperty); }
-            set { SetValue(PercentageProperty, value); }
-        }
-        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(string), typeof(Customer), new PropertyMetadata(""));
+        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(string), typeof(SalesCard), new PropertyMetadata(""));
         public string Foreground
         {
             get { return (string)GetValue(ForegroundProperty); }
             set { SetValue(ForegroundProperty, value); }
         }
-
     }
 }

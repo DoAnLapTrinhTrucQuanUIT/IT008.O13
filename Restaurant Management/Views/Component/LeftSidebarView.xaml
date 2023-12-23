@@ -7,8 +7,8 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Menu="clr-namespace:Restaurant_Management.Utilities"
              mc:Ignorable="d"
-             d:Width="360"
-             d:Height="1080">
+             Width="250"
+             Height="910">
 
         <StackPanel Orientation="Vertical" Background="White">
             <!--Business Title and Logo-->

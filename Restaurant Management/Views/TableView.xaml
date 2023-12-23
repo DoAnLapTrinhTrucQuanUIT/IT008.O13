@@ -6,15 +6,20 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:components="clr-namespace:Restaurant_Management.Views.Component"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
+             d:DesignWidth="1570"
+             d:DesignHeight="1080"
              Style="{StaticResource Page_Style}">
 
-    <Border>
-        <StackPanel Orientation="Horizontal">
-            <!--Table-->
-            <Border Padding="50"
-                    Background="#F3EEEA"
-                    Width="990">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--Table-->
+        <Grid Grid.Column="0">
+            <Border  Background="#F3EEEA" Padding="30">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -56,95 +61,77 @@
                     <!--Table 9-->
                     <components:Table Text="Table 9" Grid.Column="0" Grid.Row="2"/>
                     
+                    <!--Table 9-->
+                    <components:Table Text="Table 10" Grid.Column="1" Grid.Row="2"/>
+                    
+                    <!--Table 9-->
+                    <components:Table Text="Table 11" Grid.Column="2" Grid.Row="2"/>
+                    
+                    <!--Table 9-->
+                    <components:Table Text="Table 12" Grid.Column="3" Grid.Row="2"/>
+
                 </Grid>
             </Border>
-            <!--Table Information-->
-            <Border Padding="50"
-                    Background="White"
-                    Width="570">
-                <StackPanel>
-                    <Border Height="86"
-                            CornerRadius="18 18 0 0"
-                            Background="#FF9494"
-                            BorderThickness="1 1 1 0"
-                            BorderBrush="#484964">
-                        <TextBlock Text="Table 1"
+        </Grid>
+        <!--Table Information-->
+        <Grid Grid.Column="1">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Table information-->
+                    <Grid Grid.Row="0" Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <TextBlock Text="Table 1"
                                    Foreground="#fff"
                                    FontSize="32"
                                    FontFamily="Roboto"
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center" />
-                    </Border>
-                    <Border Height="571"
-                            CornerRadius="0 0 18 18"
-                            Background="#fff"
-                            BorderThickness="1 0 1 1"
-                            BorderBrush="#484964">
-                        <StackPanel Orientation="Vertical">
-                            <Border Height="41">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0"
-                                            BorderThickness="0 0 1 1"
-                                            BorderBrush="#D9D9D9">
-                                        <TextBlock Text="No."
-                                                   Foreground="#484964"
-                                                   FontSize="12"
-                                                   FontFamily="Roboto"
-                                                   FontWeight="Normal"
-                                                   VerticalAlignment="Center"
-                                                   Margin="20,13,78.5,12" />
-                                    </Border>
-                                    <Border Grid.Column="1"
-                                            BorderThickness="0 0 1 1"
-                                            BorderBrush="#D9D9D9">
-                                        <TextBlock Text="Name"
-                                                   Foreground="#484964"
-                                                   FontSize="12"
-                                                   FontFamily="Roboto"
-                                                   FontWeight="Normal"
-                                                   VerticalAlignment="Center"
-                                                   Margin="20,13,65.5,12" />
-                                    </Border>
-                                    <Border Grid.Column="2"
-                                            BorderThickness="0 0 1 1"
-                                            BorderBrush="#D9D9D9">
-                                        <TextBlock Text="Quantity"
-                                                   Foreground="#484964"
-                                                   FontSize="12"
-                                                   FontFamily="Roboto"
-                                                   FontWeight="Normal"
-                                                   VerticalAlignment="Center"
-                                                   Margin="20,13,52.5,12" />
-                                    </Border>
-                                    <Border Grid.Column="3"
-                                            BorderThickness="0 0 1 1"
-                                            BorderBrush="#D9D9D9">
-                                        <TextBlock Text="Price"
-                                                   Foreground="#484964"
-                                                   FontSize="12"
-                                                   FontFamily="Roboto"
-                                                   FontWeight="Normal"
-                                                   VerticalAlignment="Center"
-                                                   Margin="20,13,69.5,12" />
-                                    </Border>
-                                </Grid>
                             </Border>
-                        </StackPanel>
-                    </Border>
-
-                    <StackPanel Height="36"
-                                Margin="0, 30, 0 ,0"
-                                Orientation="Horizontal">
-                        <TextBlock Width="218"
-                                   Height="24"
-                                   Text="Total"
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">  
+                                <DataGrid x:Name="tableDataGrid" Margin="0 0 0 30" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
+                                        <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
+                                        <DataGridTextColumn Header="Quantity" IsReadOnly="True" Width="*" Binding="{Binding Quantity}"/>
+                                        <DataGridTextColumn Header="Unit Price" IsReadOnly="True" Width="*" Binding="{Binding Price}"/>
+                                        <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="*" Binding="{Binding TotalPrice}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1" Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
                                    Foreground="#000"
                                    FontSize="24"
                                    FontFamily="Roboto"
@@ -152,9 +139,8 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Margin="16, 8, 10, 8" />
-                        <TextBlock Width="139"
-                                   Height="24"
-                                   Text="100.000.000"
+                        <TextBlock Text="1000000"
+                                   Grid.Column="1"
                                    Foreground="#000"
                                    FontSize="24"
                                    FontFamily="Roboto"
@@ -162,9 +148,8 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Margin="0, 8, 10, 8" />
-                        <TextBlock Width="50"
-                                   Height="26"
-                                   Text="VND"
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
                                    Foreground="#000"
                                    FontSize="24"
                                    FontFamily="Roboto"
@@ -172,67 +157,49 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Margin="0, 8, 30, 8" />
-                    </StackPanel>
+                    </Grid>
+                    <!--Switch table & dropdown-->
+                    <Grid Grid.Row="2" Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--Switch tables-->
+                        <Grid Grid.Column="0" Margin="0 0 30 0">
 
-                    <!--Paid-->
-                    <Border Height="55"
-                            Background="#FF7F50"
-                            CornerRadius="10"
-                            Margin="0, 30, 0, 0">
-                        <TextBlock Height="20.5"
-                                   Text="Paid"
-                                   Foreground="#fff"
-                                   FontSize="18"
-                                   FontFamily="Roboto"
-                                   FontWeight="SemiBold"
-                                   TextAlignment="Center" />
-                    </Border>
-
-                    <StackPanel Height="50"
-                                Margin="0,30,0,0"
-                                Orientation="Horizontal">
-                        <Border Width="220"
-                                Background="#fff"
-                                CornerRadius="10"
-                                BorderThickness="1"
-                                BorderBrush="#484964">
-                            <TextBlock Height="20.5"
+                            <Button Style="{StaticResource switchTableButton}">
+                                <TextBlock Height="20.5"
                                        Text="Switch Table"
-                                       Foreground="#000"
+                                       Foreground="#ffffff"
                                        FontSize="18"
                                        FontFamily="Roboto"
                                        FontWeight="SemiBold"
                                        TextAlignment="Center" />
-                        </Border>
-
-                        <Border Width="220"
-                                Background="#fff"
-                                CornerRadius="10"
-                                BorderThickness="1"
-                                BorderBrush="#484964"
-                                Margin="30,0,0,0"
-                                Padding="13.5, 11">
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="120">
-                                    <TextBlock Height="20.5"
-                                               Text="Empty Table"
-                                               Foreground="#9E9E9E"
-                                               FontSize="16"
-                                               FontFamily="Roboto"
-                                               FontWeight="Normal"
-                                               TextAlignment="Left" />
-                                </Grid>
-                                <Grid Width="70">
-                                    <Image Source="../Assets/Images/SelectionClicker.png"
-                                           Width="24"
-                                           Height="24" 
-                                           HorizontalAlignment="Right"/>
-                                </Grid>
+                            </Button>
+                        </Grid>
+                        <!--Dropdown select table-->
+                        <Grid Grid.Column="1">
+                            <StackPanel>
+                                <ComboBox x:Name="OutlinedComboBox"
+                                          materialDesign:HintAssist.Hint="Empty Table"
+                                          IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                                          ItemsSource="{Binding ShortStringList}"
+                                          Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                             </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </StackPanel>
+                        </Grid>
+                    </Grid>
+                    
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3" Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}" >
+                            <TextBlock Text="Paid"/>
+                        </Button>
+                    </Grid>
+                   
+                    
+                       
+                </Grid>
             </Border>
-        </StackPanel>
-    </Border>
+        </Grid>
+    </Grid>
 </UserControl>
