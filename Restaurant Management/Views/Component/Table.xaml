@@ -10,7 +10,7 @@
     <ToggleButton x:Name="TableToggleButton"
                   Background="#FFFFFF"
                   Padding="30"
-                  Margin="30">
+                  Margin="15">
         <ToggleButton.Style>
             <Style TargetType="{x:Type ToggleButton}">
                 <Setter Property="Template">
