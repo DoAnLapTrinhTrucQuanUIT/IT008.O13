@@ -323,6 +323,7 @@
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\ViewModelBase.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
+    <Compile Include="ViewModels\ForgetPasswordVM.cs" />
     <Compile Include="ViewModels\InventoryOverviewVM.cs" />
     <Compile Include="ViewModels\InvoicesVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
@@ -352,6 +353,9 @@
     </Compile>
     <Compile Include="Views\Component\Customer.xaml.cs">
       <DependentUpon>Customer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\ForgetPasswordView.xaml.cs">
+      <DependentUpon>ForgetPasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
@@ -465,6 +469,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\Customer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\ForgetPasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
