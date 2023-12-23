@@ -4,6 +4,14 @@
         <name>DnsClient</name>
     </assembly>
     <members>
+        <member name="T:DnsClient.DnsDatagramReader">
+            <summary>
+            Helper to read from DNS datagrams.
+            </summary>
+            <remarks>
+            The API of this class might change over time and receive breaking changes. Use at own risk.
+            </remarks>
+        </member>
         <member name="M:DnsClient.DnsDatagramReader.ParseString(System.ArraySegment{System.Byte})">
             <summary>
             As defined in https://tools.ietf.org/html/rfc1035#section-5.1 except '()' or '@' or '.'
@@ -4551,6 +4559,25 @@
             <returns>
             The list of name servers.
             </returns>
+        </member>
+        <member name="M:DnsClient.NameServer.ResolveNameServersNative">
+            <summary>
+            Using my custom native implementation to support UWP apps and such until <see cref="M:System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces"/>
+            gets an implementation in netstandard2.1.
+            </summary>
+            <remarks>
+            DnsClient has been changed in version 1.1.0.
+            It will not invoke this when resolving default DNS servers. It is up to the user to decide what to do based on what platform the code is running on.
+            </remarks>
+            <returns>
+            The list of name servers.
+            </returns>
+        </member>
+        <member name="M:DnsClient.NameServer.ResolveNameResolutionPolicyServers">
+            <summary>
+            On a Windows machine query the Name Resolution Policy table for a list of policy-defined name servers.
+            </summary>
+            <returns>Returns a collection of name servers from the policy table</returns>
         </member>
         <member name="T:DnsClient.QueryClass">
             <summary>
