@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d"
-             d:Width="1920" d:Height="1080"
              Style="{StaticResource Page_Style}">
     <UserControl.DataContext>
         <vm:SettingsVM/>

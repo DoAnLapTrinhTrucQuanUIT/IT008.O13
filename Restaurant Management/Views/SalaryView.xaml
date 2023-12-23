@@ -26,101 +26,119 @@
                     Grid.Column="0">
                 <Border Background="#F9F9FC"
                         CornerRadius="20">
-                    <StackPanel Orientation="Vertical">
-                        <Border Height="147"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--Header-->
+                        <Grid Grid.Row="0">
+                            <Border Height="147"
                                 Background="#FF9494"
                                 CornerRadius="20"
                                 Padding="21,29">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Profile"
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <TextBlock Text="Profile"
                                            Foreground="#fff"
                                            FontSize="18"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left" />
-                                <StackPanel Margin="0,20,0,0"
-                                            Orientation="Horizontal">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="88" />
-                                            <ColumnDefinition Width="410" />
-                                            <ColumnDefinition Width="131" />
-                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
 
-                                        <Grid Grid.Column="0">
-                                            <Image Source="../Assets/Images/Avatar.png"
-                                                   Width="48"
-                                                   Height="48"
-                                                   Margin="20,0,20,0" />
-                                        </Grid>
-                                        <Grid Grid.Column="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0"
+                                            <Grid Grid.Column="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0">
+                                                    <Image Source="../Assets/Images/Avatar.png"
+                                                           Width="48"
+                                                           Height="48"/>
+                                                </Grid>
+                                                <Grid Grid.Column="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="0"
                                                   HorizontalAlignment="Left"
                                                   VerticalAlignment="Bottom">
-                                                <TextBlock Text="James Ronald"
+                                                        <TextBlock Text="James Ronald"
                                                            Foreground="#fff"
                                                            FontSize="16"
                                                            FontFamily="Roboto"
                                                            FontWeight="Bold"
                                                            VerticalAlignment="Center"
                                                            HorizontalAlignment="Center" />
-                                            </Grid>
-                                            <Grid Grid.Row="1"
+                                                    </Grid>
+                                                    <Grid Grid.Row="1"
                                                   HorizontalAlignment="Left"
                                                   VerticalAlignment="Top">
-                                                <TextBlock Text="Freelance Worker"
+                                                        <TextBlock Text="Freelance Worker"
                                                            Foreground="#fff"
                                                            FontSize="14"
                                                            FontFamily="Roboto"
                                                            FontWeight="Normal"
                                                            VerticalAlignment="Center"
                                                            HorizontalAlignment="Center" />
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                               
+                                            <Grid Grid.Column="2">
+                                                <Button Style="{StaticResource editSalaryButton}" HorizontalAlignment="Left">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid Grid.Column="0" Margin="0 0 20 0">
+                                                            <TextBlock Text="Edit salary"
+                                                                       Foreground="#000"
+                                                                       FontSize="12"
+                                                                       FontFamily="Roboto"
+                                                                       FontWeight="Medium"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Center" />
+                                                        </Grid>
+                                                        <Grid Grid.Column="1">
+                                                            <Icon:PackIconFontAwesome Kind="SlidersHSolid" />
+                                                        </Grid>
+                                                    </Grid>
+                                                    
+                                                </Button>
                                             </Grid>
                                         </Grid>
-                                        <Grid Grid.Column="2">
-                                            <Border Width="131"
-                                                    Height="44"
-                                                    Padding="20,10"
-                                                    Background="#fff"
-                                                    CornerRadius="22">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Grid>
-                                                        <TextBlock Text="Edit salary"
-                                                                   Foreground="#000"
-                                                                   FontSize="12"
-                                                                   FontFamily="Roboto"
-                                                                   FontWeight="Medium"
-                                                                   VerticalAlignment="Center"
-                                                                   HorizontalAlignment="Center" />
-                                                    </Grid>
-
-                                                    <Grid Margin="10 0 0 0">
-                                                        <Image Source="../Assets/Images/tune.png"
-                                                               Width="24"
-                                                               Height="24" />
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Border>
-                                        </Grid>
                                     </Grid>
-                                </StackPanel>
-                            </StackPanel>
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black"
-                                                  Opacity="0.25"
-                                                  Direction="270"
-                                                  ShadowDepth="4"
-                                                  BlurRadius="4" />
-                            </Border.Effect>
-                        </Border>
+                                </Grid>
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black"
+                                                      Opacity="0.25"
+                                                      Direction="270"
+                                                      ShadowDepth="4"
+                                                      BlurRadius="4" />
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
 
-                        <Grid Margin="0 40 0 0"
-                              Height="88">
+                        <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -131,7 +149,7 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-
+                            <!--Date of Joining-->
                             <Grid Grid.Row="0"
                                   Grid.Column="0"
                                   Margin="20 0 0 0">
@@ -143,7 +161,7 @@
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left" />
                             </Grid>
-
+                            <!--Pay Period-->
                             <Grid Grid.Row="1"
                                   Grid.Column="0"
                                   Margin="20 0 0 0">
@@ -155,7 +173,7 @@
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left" />
                             </Grid>
-
+                            <!--Worked Days-->
                             <Grid Grid.Row="2"
                                   Grid.Column="0"
                                   Margin="20 0 0 0">
@@ -240,21 +258,8 @@
                                            HorizontalAlignment="Left" />
                             </Grid>
                         </Grid>
-
-                        <Border Height="56"
-                                Margin="0 40 0 0"
-                                BorderThickness="0 1 0 1"
-                                BorderBrush="#D9D9D9">
-                            <TextBlock Text="Details"
-                                       Foreground="#000"
-                                       FontSize="20"
-                                       FontFamily="Roboto"
-                                       FontWeight="Bold"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
-                        </Border>
-
-                        <Grid Height="168">
+                        
+                        <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -268,7 +273,7 @@
 
                             <Border Grid.Row="0"
                                     Grid.Column="0"
-                                    BorderThickness="0 0 1 1"
+                                    BorderThickness="0 1 1 1"
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="Description"
                                            Foreground="#000"
@@ -280,7 +285,7 @@
                             </Border>
                             <Border Grid.Row="0"
                                     Grid.Column="1"
-                                    BorderThickness="0 0 0 1"
+                                    BorderThickness="0 1 0 1"
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="Earnings"
                                            Foreground="#000"
@@ -375,9 +380,13 @@
                             </Border>
                         </Grid>
 
-                        <Border Padding="20, 30">
-                            <StackPanel Orientation="Vertical">
-                                <Grid>
+                        <Grid Grid.Row="3">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
                                     <TextBlock Text="Total salary:"
                                                Foreground="#000"
                                                FontSize="16"
@@ -387,7 +396,7 @@
                                                HorizontalAlignment="Center" />
                                 </Grid>
 
-                                <Grid>
+                                <Grid Grid.Row="1">
                                     <TextBlock Text="16.000.000"
                                                Foreground="#000"
                                                FontSize="42"
@@ -396,23 +405,23 @@
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center" />
                                 </Grid>
-                            </StackPanel>
-                        </Border>
+                            </Grid>
+                        </Grid>
 
-                        <Border Background="#FF7F50"
-                                CornerRadius="10"
-                                Padding="200 20"
-                                Width="473"
-                                Height="60">
-                            <TextBlock Text="Confirm"
+                        <Grid Grid.Row="4">
+                            <Border Padding="80 50">
+                                <Button Style="{StaticResource confirmButton}">
+                                    <TextBlock Text="Confirm"
                                        Foreground="#fff"
                                        FontSize="20"
                                        FontFamily="Roboto"
                                        FontWeight="Medium"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
-                        </Border>
-                    </StackPanel>
+                                </Button>
+                            </Border>
+                        </Grid>
+                    </Grid>
                 </Border>
             </Border>
 
