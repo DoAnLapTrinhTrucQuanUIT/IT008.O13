@@ -14,7 +14,6 @@
     <Window.DataContext>
         <viewmodels:LoginVM />
     </Window.DataContext>
-
     <StackPanel x:Name="SignInScreen"
                 Orientation="Horizontal"
                 Background="#FFF5E4">
@@ -66,7 +65,7 @@
                 <Grid x:Name="UsernameInputContainer"
                       Width="440"
                       Height="100">
-                    <TextBlock Text="Username"
+                    <TextBlock Text="Employee ID"
                                Foreground="#959895"
                                FontSize="16"
                                FontFamily="Poppins"
@@ -80,7 +79,7 @@
                             BorderBrush="#FF9494"
                             Background="White"
                             Margin="0,20,0,0">
-                        <TextBox Text="{Binding Username}"
+                        <TextBox Text="{Binding EmployeeId}"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Stretch"
                                  Width="400"
@@ -88,7 +87,7 @@
                                  Background="Transparent"
                                  Foreground="Black"
                                  FontSize="18"
-                                 MaterialDesign:HintAssist.Hint="Enter Your Username"
+                                 MaterialDesign:HintAssist.Hint="Enter Your Employee ID"
                                  MaterialDesign:HintAssist.Foreground="Transparent"
                                  MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Border>

@@ -18,15 +18,15 @@ namespace Restaurant_Management.ViewModels
     public class LoginVM : Utilities.ViewModelBase
     {
         public static bool IsLogin { get; set; }
-        private string _username;
+        private string _employeeId;
         private string _password;
-        public string Username
+        public string EmployeeId
         {
-            get => _username;
+            get => _employeeId;
             set
             {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
+                _employeeId = value;
+                OnPropertyChanged(nameof(EmployeeId));
             }
         }
         public string Password
@@ -42,19 +42,19 @@ namespace Restaurant_Management.ViewModels
         public ICommand PasswordchangeCM { get; set; }
         public ICommand ForgetpasswordCM { get; set; }
 
-        private readonly IMongoCollection<Account> _Account;
+        private readonly IMongoCollection<Employees> _Employees;
         public LoginVM()
         {
-            _Account = GetMongoCollection();
+            _Employees = GetMongoCollection();
             IsLogin = false;
             Password = "";
-            Username = "";
+            EmployeeId = "";
             LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login());
             PasswordchangeCM = new RelayCommand<PasswordBox>((p) => true, (p) => { Password = p.Password; });
             ForgetpasswordCM = new RelayCommand<LoginWindow>((p) => true, (p) => _ForgetPassword(p));
         }
 
-        private IMongoCollection<Account> GetMongoCollection()
+        private IMongoCollection<Employees> GetMongoCollection()
         {
             // Set your MongoDB connection string and database name
             string connectionString =
@@ -64,14 +64,15 @@ namespace Restaurant_Management.ViewModels
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
 
-            return database.GetCollection<Account>("Account");
+            return database.GetCollection<Employees>("Employees");
         }
 
+       
         private void _Login()
         {
-            if (Username != null && !string.IsNullOrEmpty(Password))
+            if (EmployeeId != null && !string.IsNullOrEmpty(Password))
             {
-                var user = GetUser(Username);
+                var user = GetUser(EmployeeId);
 
                 if (user == null)
                 {
@@ -98,10 +99,10 @@ namespace Restaurant_Management.ViewModels
 
         public Action CloseAction { get; set; }
 
-        private Account GetUser(string username)
+        private Employees GetUser(string employeeId)
         {
-            var filter = Builders<Account>.Filter.Eq(u => u.Username, username);
-            return _Account.Find(filter).FirstOrDefault();
+            var filter = Builders<Employees>.Filter.Eq(u => u.EmployeeId, employeeId);
+            return _Employees.Find(filter).FirstOrDefault();
         }
 
         void _ForgetPassword(LoginWindow p)

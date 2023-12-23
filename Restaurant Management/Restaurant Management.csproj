@@ -310,15 +310,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Models\Customers.cs" />
+    <Compile Include="Models\Employees.cs" />
+    <Compile Include="Models\InvoiceDetails.cs" />
     <Compile Include="Models\Invoices.cs" />
-    <Compile Include="Models\Products.cs" />
-    <Compile Include="Models\Salary.cs" />
-    <Compile Include="Models\Sales.cs" />
-    <Compile Include="Models\Schedule.cs" />
-    <Compile Include="Models\Staff.cs" />
-    <Compile Include="Models\Table.cs" />
+    <Compile Include="Models\MenuItems.cs" />
+    <Compile Include="Models\Tables.cs" />
     <Compile Include="Utilities\Btn.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\ViewModelBase.cs" />
