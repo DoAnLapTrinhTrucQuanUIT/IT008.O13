@@ -2,27 +2,102 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="290" d:DesignWidth="230">
-    <Border Width="230" Height="290" Padding="15,30,15,30" Background="White" CornerRadius="12" Margin="0">
-        <StackPanel>
-            <Border Width="200" Height="140" Background="#DEDEDE" CornerRadius="12">
-                <Image/>
-            </Border>
-            <Grid Margin="0,25,0,18">
-                <TextBlock Text="Name of food" Foreground="Black" FontSize="18" FontFamily="Roboto" FontWeight="SemiBold" TextAlignment="Left"/>
-            </Grid>
-            <StackPanel Orientation="Horizontal" >
-                <TextBlock Padding="0,0,140,0" Height="15" Text="Price" Foreground="Black" FontSize="14" FontFamily="Roboto" FontWeight="Regular" TextAlignment="Center"/>
-                <Border Width="24" Height="24" CornerRadius="100" Background="#D14D72">
-                    <Grid Margin="6">
+             mc:Ignorable="d">
+    <Border x:Name="foodCardBorder" 
+            Padding="15 30" 
+            Margin="10"
+            Background="White" 
+            CornerRadius="12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                    </Grid>
+            <!--Food Image-->
+            <Grid Grid.Row="0">
+                <Border Background="#DEDEDE" 
+                        CornerRadius="12">
+                    <Image x:Name="foodImage" 
+                           Stretch="Uniform"
+                           Source="{Binding FoodImage}"/>
                 </Border>
-            </StackPanel>
-        </StackPanel>
-    </Border>
+            </Grid>
 
+            <!--Food name-->
+            <Grid Grid.Row="1" >
+                <TextBlock x:Name="foodName" 
+                           Height="20"
+                           Text="{Binding FoodName, RelativeSource={RelativeSource AncestorType={x:Type local:FoodCard}}}" 
+                           Foreground="Black" 
+                           FontSize="16" 
+                           FontFamily="Roboto" 
+                           FontWeight="SemiBold"/>
+            </Grid>
+
+            <!--Price & Add button-->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <TextBlock x:Name="foodPrice" 
+                               Text="{Binding FoodPrice, RelativeSource={RelativeSource AncestorType={x:Type local:FoodCard}}}" 
+                               Height="15"
+                               Foreground="Black" 
+                               FontSize="14" 
+                               FontFamily="Roboto" 
+                               FontWeight="Regular" 
+                               VerticalAlignment="Center"/>
+                </Grid>
+                <Button Grid.Column="1" 
+                        HorizontalAlignment="Right">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#D14D72"/>
+                            <Setter Property="Width" Value="24"/>
+                            <Setter Property="Height" Value="24"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border" CornerRadius="100" 
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" 
+                                                              VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="border" Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <TranslateTransform Y="1"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="Black" BlurRadius="4" Opacity="0.2" ShadowDepth="2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        
+                    </Button.Style>
+                    <Icon:PackIconUnicons Kind="Plus" 
+                                          Foreground="White"
+                                          Width="12" 
+                                          Height="12" 
+                                          HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
 </UserControl>

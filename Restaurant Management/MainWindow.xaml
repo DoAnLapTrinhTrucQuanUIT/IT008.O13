@@ -10,10 +10,10 @@
         mc:Ignorable="d" 
         Name="Window"
         AllowsTransparency="True"
-        WindowState="Maximized"
         WindowStyle="None"
         Background="White"
-        Loaded="Window_Loaded">
+        Width="1540"
+        Height="950">
     <Window.DataContext>
         <vm:NavigationVM/>
     </Window.DataContext>

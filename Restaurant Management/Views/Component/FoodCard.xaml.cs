@@ -24,5 +24,32 @@ namespace Restaurant_Management.Views
         {
             InitializeComponent();
         }
+        public static readonly DependencyProperty FoodImageProperty =
+            DependencyProperty.Register("FoodImage", typeof(ImageSource), typeof(FoodCard));
+
+        public ImageSource FoodImage
+        {
+            get { return (ImageSource)GetValue(FoodImageProperty); }
+            set { SetValue(FoodImageProperty, value); }
+        }
+
+        public static readonly DependencyProperty FoodNameProperty =
+            DependencyProperty.Register("FoodName", typeof(string), typeof(FoodCard));
+
+        public string FoodName
+        {
+            get { return (string)GetValue(FoodNameProperty); }
+            set { SetValue(FoodNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty FoodPriceProperty =
+            DependencyProperty.Register("FoodPrice", typeof(decimal), typeof(FoodCard));
+
+        public decimal FoodPrice
+        {
+            get { return (decimal)GetValue(FoodPriceProperty); }
+            set { SetValue(FoodPriceProperty, value); }
+        }
+
     }
 }

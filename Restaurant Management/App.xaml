@@ -162,11 +162,6 @@
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="#88AB8E"/>
-                        <Setter Property="Foreground" Value="#ffffff"/>
-                    </Trigger>
-
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
                             <Condition Property="IsSelected" Value="True"/>
@@ -174,7 +169,6 @@
                         </MultiTrigger.Conditions>
                         <Setter Property="Background" Value="#dfdfdf"/>
                     </MultiTrigger>
-
                 </Style.Triggers>
             </Style>
             <Style x:Key="DataGridCellStyle1" TargetType="{x:Type DataGridCell}">
