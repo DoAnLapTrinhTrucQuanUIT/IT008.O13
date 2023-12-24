@@ -1,16 +1,18 @@
 ﻿<UserControl x:Class="Restaurant_Management.Views.CustomerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignHeight="989" d:DesignWidth="1560"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DesignHeight="989"
+             d:DesignWidth="1560"
              Style="{StaticResource Page_Style}"
+             x:Name="CustomerWindow"
              xmlns:Component="clr-namespace:Restaurant_Management.Views.Component">
-    
     <UserControl.DataContext>
         <vm:CustomerVM/>
     </UserControl.DataContext>
@@ -34,9 +36,19 @@
                                 Background="{TemplateBinding Background}"
                                 BorderThickness="1"
                                 BorderBrush="#d9d9d9">
-                                <TextBlock x:Name="placeholder" Margin="25 0 0 0" Text="Search by customer ID" FontSize="18" Foreground="#808080" VerticalAlignment="Center" Visibility="Visible"/>
+                                <TextBlock x:Name="placeholder"
+                                           Margin="25 0 0 0"
+                                           Text="Search by customer ID"
+                                           FontSize="18"
+                                           Foreground="#808080"
+                                           VerticalAlignment="Center"
+                                           Visibility="Visible" />
                             </Border>
-                            <ScrollViewer MaxWidth="310" Padding="20" VerticalAlignment="Center" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <ScrollViewer MaxWidth="310"
+                                          Padding="20"
+                                          VerticalAlignment="Center"
+                                          x:Name="PART_ContentHost"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
@@ -107,7 +119,17 @@
                     <Grid Height="55" Grid.Row="0">
                         <!-- Search TextBox -->
                         <Grid HorizontalAlignment="Left">
-                            <TextBox x:Name="txtSearch" Style="{StaticResource TextboxSearch}" Width="400"/>
+                            <TextBox x:Name="txtSearch"
+                                     Style="{StaticResource TextboxSearch}"
+                                     Width="400">
+                                <!--Search trigger-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding SearchCM}"
+                                                               CommandParameter="{Binding ElementName=CustomerWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers> 
+                            </TextBox>
                             <Icon:PackIconMaterial Kind="Magnify"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Right"
@@ -139,6 +161,13 @@
                                         <TextBlock Grid.Column="1" Text="Add new customer"/>
                                     </Grid>
                                 </Border>
+                                <!--Add new customer trigger-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding AddCustomerCM}"
+                                                               CommandParameter="{Binding ElementName=CustomerWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </Button>
 
                             <Button Grid.Column="1" Style="{StaticResource addButton}">
@@ -157,13 +186,23 @@
                                         <TextBlock Grid.Column="1" Text="Import from excel"/>
                                     </Grid>
                                 </Border>
+                                <!--Export customer trigger-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ExportCustomerCM}"
+                                                               CommandParameter="{Binding ElementName=CustomerWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </Button>
                         </Grid>
                     </Grid>
                     
                     <!--Members Datagrid-->
                     <DataGrid Grid.Row="1"
-                              Margin="0 30 0 0">
+                              Margin="0 30 0 0"
+                              x:Name="DataGridCustomers"
+                              ItemsSource="{Binding CustomerList}"
+                              AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn CanUserResize="False"
                                                     Width="auto">
@@ -176,28 +215,36 @@
 
                             <DataGridTextColumn Header="Customer ID"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding CustomerId}" />
                             <DataGridTextColumn Header="Name"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding FullName}" />
                             <DataGridTextColumn Header="Address"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding Address}"/>
                             <DataGridTextColumn Header="Phone Number"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding PhoneNumber}" />
                             <DataGridTextColumn Header="Email"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding Email}" />
                             <DataGridTextColumn Header="Gender"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding Gender}" />
                             <DataGridTextColumn Header="Registration Date"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding RegistrationDate}"/>
                             <DataGridTextColumn Header="Sales"
                                                 IsReadOnly="true"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding Sales}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

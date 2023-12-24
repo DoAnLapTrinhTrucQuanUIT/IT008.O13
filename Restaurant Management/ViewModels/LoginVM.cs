@@ -49,9 +49,9 @@ namespace Restaurant_Management.ViewModels
             IsLogin = false;
             Password = "";
             EmployeeId = "";
-            LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login());
+            LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login(p));
             PasswordchangeCM = new RelayCommand<PasswordBox>((p) => true, (p) => { Password = p.Password; });
-            ForgetpasswordCM = new RelayCommand<LoginWindow>((p) => true, (p) => _ForgetPassword(p));
+            ForgetpasswordCM = new RelayCommand<LoginWindow>((p) => true, (p) => _ForgetPassword());
         }
 
         private IMongoCollection<Employees> GetMongoCollection()
@@ -68,7 +68,7 @@ namespace Restaurant_Management.ViewModels
         }
 
        
-        private void _Login()
+        private void _Login(LoginWindow p)
         {
             if (EmployeeId != null && !string.IsNullOrEmpty(Password))
             {
@@ -84,7 +84,9 @@ namespace Restaurant_Management.ViewModels
                 {
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
-                    CloseAction?.Invoke();
+                    IsLogin = true;
+                    Const.UserID = EmployeeId;
+                    p.Close();
                 }
                 else
                 {
@@ -105,7 +107,7 @@ namespace Restaurant_Management.ViewModels
             return _Employees.Find(filter).FirstOrDefault();
         }
 
-        void _ForgetPassword(LoginWindow p)
+        void _ForgetPassword()
         {
             ForgetPasswordView forgetPassControl = new ForgetPasswordView();
 

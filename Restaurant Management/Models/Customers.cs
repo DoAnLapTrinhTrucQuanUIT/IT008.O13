@@ -30,6 +30,9 @@ namespace Restaurant_Management.Models
         [BsonElement("address")]
         public string Address { get; set; }
 
+        [BsonElement("gender")]
+        public string Gender { get; set; }
+
         [BsonElement("registrationDate")]
         public DateTime RegistrationDate { get; set; }
 

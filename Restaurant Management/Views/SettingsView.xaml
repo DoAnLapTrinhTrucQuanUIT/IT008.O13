@@ -5,21 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              x:Name="SettingsWindow"
-             d:Width="1920" d:Height="1080"
+             d:Width="1920"
+             d:Height="1080"
              Style="{StaticResource Page_Style}">
     <UserControl.DataContext>
-        <vm:SettingsVM/>
+        <vm:SettingsVM />
     </UserControl.DataContext>
     <UserControl.Resources>
-        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+        <Style x:Key="RoundedButtonStyle"
+               TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="10" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border CornerRadius="10"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -29,34 +33,28 @@
 
     <Border Background="#F3EEEA"
             CornerRadius="12">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <Border Background="#FFFFFF"
                     CornerRadius="20"
                     Padding="50">
                 <StackPanel>
                     <!--Avatar-->
                     <Border>
-                        <Ellipse Height="150"
-                                 Width="150"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 StrokeThickness="5">
-                            <Ellipse.Effect>
+                        <Image Height="150"
+                               Width="150"
+                               Source="{Binding AvatarImageSource}">
+                            <Image.Effect>
                                 <DropShadowEffect ShadowDepth="0"
                                                   Color="Black"
                                                   Opacity="10"
                                                   BlurRadius="10" />
-                            </Ellipse.Effect>
-                            <Ellipse.Fill>
-                                <ImageBrush x:Name="image"
-                                            ImageSource="{Binding HinhAnh}" />
-                            </Ellipse.Fill>
-                        </Ellipse>
+                            </Image.Effect>
+                        </Image>
                     </Border>
-
                     <!--Name-->
                     <Grid Margin="0,70,0,0">
-                        <TextBlock Text="{Binding }"
+                        <TextBlock Text="{Binding Name}"
                                    Foreground="Black"
                                    FontSize="24"
                                    FontFamily="Roboto"
@@ -65,7 +63,7 @@
                     </Grid>
                     <!--Role-->
                     <Grid Margin="0,10,0,0">
-                        <TextBlock Text="{Binding}"
+                        <TextBlock Text="{Binding IsAdmin}"
                                    Foreground="#666666"
                                    FontSize="18"
                                    FontFamily="Roboto"
@@ -91,7 +89,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="{Binding}"
+                                <TextBlock Text="{Binding Email}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -118,7 +116,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="{Binding}"
+                                <TextBlock Text="{Binding PhoneNumber}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -145,7 +143,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="{Binding}"
+                                <TextBlock Text="{Binding DateOfBirth, StringFormat=\{0:dd/MM/yyyy\}}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -172,7 +170,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="{Binding}"
+                                <TextBlock Text="{Binding Gender}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -199,7 +197,7 @@
                                            FontWeight="Normal" />
                             </Grid>
                             <Grid Margin="50,0,0,0">
-                                <TextBlock Text="{Binding}"
+                                <TextBlock Text="{Binding Address}"
                                            Foreground="Black"
                                            FontSize="16"
                                            FontFamily="Roboto"
@@ -209,7 +207,8 @@
                     </Grid>
                 </StackPanel>
             </Border>
-            <StackPanel Margin="0,30,0,0" Orientation="Horizontal">
+            <StackPanel Margin="0,30,0,0"
+                        Orientation="Horizontal">
                 <!-- Log out -->
                 <Button Background="#B31312"
                         Foreground="#fff"
@@ -221,7 +220,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="SemiBold"
                                    TextAlignment="Center" />
-                        
+
                     </Border>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -230,7 +229,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-              
+
                 <Button Background="#000000"
                         Foreground="#fff"
                         Margin="30 0 0 0"
@@ -250,14 +249,14 @@
                                                    CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                  
+
                 </Button>
 
                 <!-- Update profile -->
                 <Button Background="#FF7F50"
                         Foreground="#fff"
                         Style="{StaticResource RoundedButtonStyle}"
-                        Margin="30, 0, 0, 0" >              
+                        Margin="30, 0, 0, 0">
 
                     <Border CornerRadius="10"
                             Padding="65 20 65 20">

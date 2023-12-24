@@ -9,47 +9,147 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Security.Policy;
+using Restaurant_Management.Models;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
+using MongoDB.Driver;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace Restaurant_Management.ViewModels
 {
     public class SettingsVM : Utilities.ViewModelBase
     {
-        private string _Name;
-        public string Name { get => _Name; set { _Name = value; OnPropertyChanged(); } }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+            }
+        }
 
-        private string _Email;
-        public string Email { get => _Email; set { _Email = value; OnPropertyChanged(); } }
+        private string _isAdmin;
+        public string IsAdmin
+        {
+            get => _isAdmin;
+            set
+            {
+                _isAdmin = value;
+            }
+        }
 
-        private string _PhoneNumber;
-        public string PhoneNumber { get => _PhoneNumber; set { _PhoneNumber = value; OnPropertyChanged(); } }
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+            }
+        }
 
-        private DateTime _DateofBirth;
-        public DateTime DateofBirth { get => _DateofBirth; set { _DateofBirth = value; OnPropertyChanged(); } }
+        private DateTime _dateofBirth;
+        public DateTime DateOfBirth
+        {
+            get => _dateofBirth;
+            set
+            {
+                _dateofBirth = value;
+            }
+        }
 
-        private bool _Gender;
-        public bool Gender { get => _Gender; set { _Gender = value; OnPropertyChanged(); } }
+        private string _gender;
+        public string Gender
+        {
+            get => _gender;
+            set
+            {
+                _gender = value;
+            }
+        }
 
-        private string _Address;
-        public string Address { get => _Address; set { _Address = value; OnPropertyChanged(); } }
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                _phoneNumber = value;
+            }
+        }
 
-        private string _Image;
-        public string Image { get => _Image; set { _Image = value; OnPropertyChanged(); } }
+        private string _address;
+        public string Address
+        {
+            get => _address;
+            set
+            {
+                _address = value;
+            }
+        }
+        private BitmapImage _avatarimagesource;
+        public BitmapImage AvatarImageSource
+        {
+            get => _avatarimagesource;
+            set
+            {
+                _avatarimagesource = value;
+            }
+        }
 
         public ICommand LogoutCommand { get; set; }
         public ICommand LoadWindowCommand { get; set; }
         public ICommand UpdateProfileCommand { get; set; }
         public ICommand ChangePassCommand { get; set; }
+
+        private readonly IMongoCollection<Employees> _Employees;
         public SettingsVM()
         {
+            _Employees = GetMongoCollection();
             LogoutCommand = new RelayCommand<SettingsView>((p) => true, (p) => _Logout());
             LoadWindowCommand = new RelayCommand<SettingsView>((p) => true, (p) => _LoadWindow(p));
             UpdateProfileCommand = new RelayCommand<SettingsView>((p) => true, (p) => _UpdateProfile());
             ChangePassCommand = new RelayCommand<SettingsView>((p) => true, (p) => _ChangePass());
         }
+        private IMongoCollection<Employees> GetMongoCollection()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
 
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Employees>("Employees");
+        }
         void _LoadWindow(SettingsView p)
         {
+            string employeeId = Const.UserID;
 
+            var filter = Builders<Employees>.Filter.Eq(x => x.EmployeeId, employeeId);
+            var User = _Employees.Find(filter).FirstOrDefault();
+
+            if (User != null)
+            {
+                Name = User.FullName;
+                switch (User.IsAdmin)
+                {
+                    case true:
+                        IsAdmin = "Admin";
+                        break;
+                    case false:
+                        IsAdmin = "Employee";
+                        break;
+                }
+                Email = User.Email;
+                DateOfBirth = User.DateOfBirth;
+                Gender = User.Gender;
+                Address = User.Address;
+                AvatarImageSource = User.AvatarImageSource;
+            }
         }
         void _Logout()
         {
@@ -89,6 +189,24 @@ namespace Restaurant_Management.ViewModels
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             window.ShowDialog();
+        }
+
+        private BitmapImage ConvertByteArrayToBitmapImage(byte[] byteArray)
+        {
+            if (byteArray == null || byteArray.Length == 0)
+                return null;
+
+            BitmapImage bitmapImage = new BitmapImage();
+            using (MemoryStream stream = new MemoryStream(byteArray))
+            {
+                stream.Position = 0;
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = stream;
+                bitmapImage.EndInit();
+            }
+
+            return bitmapImage;
         }
     }
 }
