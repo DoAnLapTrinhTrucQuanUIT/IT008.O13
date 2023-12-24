@@ -27,6 +27,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -37,6 +38,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _isAdmin = value;
+                OnPropertyChanged(nameof(IsAdmin));
             }
         }
 
@@ -47,6 +49,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _email = value;
+                OnPropertyChanged(nameof(Email));
             }
         }
 
@@ -57,6 +60,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _dateofBirth = value;
+                OnPropertyChanged(nameof(DateOfBirth));
             }
         }
 
@@ -67,6 +71,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _gender = value;
+                OnPropertyChanged(nameof(Gender));
             }
         }
 
@@ -77,6 +82,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _phoneNumber = value;
+                OnPropertyChanged(nameof(PhoneNumber));
             }
         }
 
@@ -87,6 +93,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _address = value;
+                OnPropertyChanged(nameof(Address));
             }
         }
         private BitmapImage _avatarimagesource;
@@ -96,6 +103,7 @@ namespace Restaurant_Management.ViewModels
             set
             {
                 _avatarimagesource = value;
+                OnPropertyChanged(nameof(AvatarImageSource));
             }
         }
 
@@ -146,6 +154,7 @@ namespace Restaurant_Management.ViewModels
                 }
                 Email = User.Email;
                 DateOfBirth = User.DateOfBirth;
+                PhoneNumber = User.PhoneNumber;
                 Gender = User.Gender;
                 Address = User.Address;
                 AvatarImageSource = User.AvatarImageSource;
