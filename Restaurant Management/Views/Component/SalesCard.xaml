@@ -19,9 +19,9 @@
                       VerticalAlignment="Center" 
                       HorizontalAlignment="Center">
                     <Icon:PackIconMaterial Kind="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type local:SalesCard}}}"
-                                Width="50"
-                                Height="50"
-                                Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:SalesCard}}}"/>
+                                           Width="50"
+                                           Height="50"
+                                           Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type local:SalesCard}}}"/>
                 </Grid>
 
                 <!--Main content-->

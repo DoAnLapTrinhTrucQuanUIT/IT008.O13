@@ -6,27 +6,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style x:Key="RoundedButtonStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="10" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
+    
     <Border Padding="50 50"
             Background="#FFFFFF"
             CornerRadius="20">
-        <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <!--Name-->
-            <Grid Margin="0 0 0 40">
-                <StackPanel>
-                    <Grid>
+            <Grid Grid.Row="0"
+                  Margin="0 0 0 40">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <TextBlock Text="Name"
                                    Foreground="#000000"
                                    FontSize="22"
@@ -34,35 +34,7 @@
                                    FontWeight="Medium" 
                                    VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid Margin="0 10 0 0">
-                        <Border Background="#FFFFFF"
-                                CornerRadius="5"
-                                BorderThickness="1"
-                                BorderBrush="#D9D9D9"
-                                >
-                            <TextBox BorderThickness="0"
-                                     FontSize="20"
-                                     FontFamily="Roboto"
-                                     TextAlignment="Left"
-                                     VerticalContentAlignment="Center"
-                                     Padding="20"/>
-                        </Border>
-                    </Grid>
-                </StackPanel>
-            </Grid>
-            
-            <!--Email-->
-            <Grid Margin="0 0 0 40">
-                <StackPanel>
-                    <Grid>
-                        <TextBlock Text="Email"
-                                   Foreground="#000000"
-                                   FontSize="22"
-                                   FontFamily="Roboto"
-                                   FontWeight="Medium" 
-                                   VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid Margin="0 10 0 0">
+                    <Grid Grid.Row="1" Margin="0 10 0 0">
                         <Border Background="#FFFFFF"
                                 CornerRadius="5"
                                 BorderThickness="1"
@@ -75,42 +47,81 @@
                                      Padding="20"/>
                         </Border>
                     </Grid>
-                </StackPanel>
+            </Grid>
+            <!--Email-->
+            <Grid Grid.Row="1"
+                  Margin="0 0 0 40">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Email"
+                               Foreground="#000000"
+                               FontSize="22"
+                               FontFamily="Roboto"
+                               FontWeight="Medium" 
+                               VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="1" Margin="0 10 0 0">
+                    <Border Background="#FFFFFF"
+                            CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="#D9D9D9">
+                        <TextBox BorderThickness="0"
+                                 FontSize="20"
+                                 FontFamily="Roboto"
+                                 TextAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 Padding="20"/>
+                    </Border>
+                </Grid>
             </Grid>
             <!--Phone Number-->
-            <Grid Margin="0 0 0 40">
-                <StackPanel>
-                    <Grid>
-                        <TextBlock Text="Phone Number"
-                                   Foreground="#000000"
-                                   FontSize="22"
-                                   FontFamily="Roboto"
-                                   FontWeight="Medium" 
-                                   VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid Margin="0 10 0 0">
-                        <Border Background="#FFFFFF"
-                                CornerRadius="5"
-                                BorderThickness="1"
-                                BorderBrush="#D9D9D9">
-                            <TextBox BorderThickness="0"
-                                     FontSize="20"
-                                     FontFamily="Roboto"
-                                     TextAlignment="Left"
-                                     VerticalContentAlignment="Center"
-                                     Padding="20"/>
-                        </Border>
-                    </Grid>
-                </StackPanel>
+            <Grid Grid.Row="2"
+                  Margin="0 0 0 40">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Phone Number"
+                                Foreground="#000000"
+                                FontSize="22"
+                                FontFamily="Roboto"
+                                FontWeight="Medium" 
+                                VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="1"
+                        Margin="0 10 0 0">
+                    <Border Background="#FFFFFF"
+                            CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="#D9D9D9">
+                        <TextBox BorderThickness="0"
+                                    FontSize="20"
+                                    FontFamily="Roboto"
+                                    TextAlignment="Left"
+                                    VerticalContentAlignment="Center"
+                                    Padding="20"/>
+                    </Border>
+                </Grid>
             </Grid>
             <!--Date of Birth and Gender-->
-            <StackPanel Orientation="Horizontal"
-                        Margin="0 0 0 40"
-                        HorizontalAlignment="Stretch">
+            <Grid Grid.Row="3"
+                  Margin="0 0 0 40"
+                  HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <!-- Date of Birth -->
-                <Grid>
-                    <StackPanel>
-                        <Grid>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
                             <TextBlock Text="Date of Birth"
                                        Foreground="#000000"
                                        FontSize="22"
@@ -119,7 +130,8 @@
                                        VerticalAlignment="Center"/>
                             
                         </Grid>
-                        <Grid Margin="0 10 0 0" >
+                        <Grid Grid.Row="1"
+                              Margin="0 10 0 0" >
                             <DatePicker Width="240"
                                         FontSize="20"
                                         BorderBrush="#D9D9D9"
@@ -127,75 +139,78 @@
                                         materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
                                         Style="{StaticResource MaterialDesignOutlinedDatePicker}" />     
                         </Grid>
-                        
-                    </StackPanel>
                 </Grid>
 
                 <!--Gender-->
-                <Grid Margin="60 0 0 0">
-                    <StackPanel>
-                        <Grid>
-                            <TextBlock Text="Gender"
-                                       Foreground="#000000"
-                                       FontSize="22"
-                                       FontFamily="Roboto"
-                                       FontWeight="Medium"
-                                       VerticalAlignment="Center" />
-                        </Grid>
-                        <Grid Margin="0 10 0 0">
-                            <ComboBox Width="150"
-                                      BorderBrush="#D9D9D9"
-                                      
-                                      FontSize="20"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBox}">          
-                                <ComboBoxItem Content="Male" />
-                                <ComboBoxItem Content="Female" />
-                                <ComboBoxItem Content="None" />
-                            </ComboBox>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-            <!--Address-->
-            <Grid Margin="0, 0, 0, 40">
-                <StackPanel>
-                    <Grid>
-                        <TextBlock Text="Address"
+                <Grid Grid.Column="1" Margin="60 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock Text="Gender"
                                    Foreground="#000000"
                                    FontSize="22"
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center" />
                     </Grid>
-                    <Grid Margin="0 10 0 0">
-                        <Border Background="#FFFFFF"
-                                CornerRadius="5"
-                                BorderThickness="1"
-                                BorderBrush="#D9D9D9">
-                            <TextBox BorderThickness="0"
-                                     FontSize="20"
-                                     FontFamily="Roboto"
-                                     TextAlignment="Left"
-                                     VerticalContentAlignment="Center"
-                                     Padding="20"/>
-                        </Border>
+                    <Grid Grid.Row="1"
+                            Margin="0 10 0 0">
+                        <ComboBox Width="150"
+                                  BorderBrush="#D9D9D9"
+                                  FontSize="20"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}">          
+                            <ComboBoxItem Content="Male" />
+                            <ComboBoxItem Content="Female" />
+                            <ComboBoxItem Content="None" />
+                        </ComboBox>
                     </Grid>
-                </StackPanel>
+                </Grid>
+            </Grid>
+            <!--Address-->
+            <Grid Grid.Row="4"
+                  Margin="0, 0, 0, 40">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Address"
+                                Foreground="#000000"
+                                FontSize="22"
+                                FontFamily="Roboto"
+                                FontWeight="Medium"
+                                VerticalAlignment="Center" />
+                </Grid>
+                <Grid Grid.Row="1"
+                        Margin="0 10 0 0">
+                    <Border Background="#FFFFFF"
+                            CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="#D9D9D9">
+                        <TextBox BorderThickness="0"
+                                 FontSize="20"
+                                 FontFamily="Roboto"
+                                 TextAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 Padding="20"/>
+                    </Border>
+                </Grid>
             </Grid>
             <!--Confirm-->
-            <Button Background="#FF7F50"
-                        Foreground="#FFFFFF"
-                        Style="{StaticResource RoundedButtonStyle}" Click="ConfirmButton_Click">
-                <Border CornerRadius="10">
+            <Grid Grid.Row="5">
+                <Button Background="#FF7F50"
+                    Foreground="#FFFFFF"
+                    Style="{StaticResource confirmButton}">
                     <TextBlock Text="Confirm"
-                                   FontSize="18"
-                                   FontFamily="Roboto"
-                                   FontWeight="SemiBold"
-                                   TextAlignment="Center"
-                                   Padding="70 15 70 15"/>
-                </Border>
-            </Button>
+                               FontSize="18"
+                               FontFamily="Roboto"
+                               FontWeight="SemiBold"
+                               TextAlignment="Center"/>
+                </Button>
+            </Grid>
 
-        </StackPanel>
+        </Grid>
     </Border>
 </UserControl>

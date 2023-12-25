@@ -30,21 +30,15 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-
                         <Trigger Property="IsMouseOver"
                                  Value="True">
-                            
                             <Setter Property="Visibility"
                                     TargetName="Indicator"
                                     Value="Visible"/>
-
                         </Trigger>
-                        
                         <EventTrigger RoutedEvent="Border.MouseEnter"
                                       SourceName="border">
-                            
                             <BeginStoryboard>
-                                
                                 <Storyboard>
                                     <ColorAnimation Storyboard.TargetName="BorderBackground"
                                                     Storyboard.TargetProperty="Color"
@@ -52,13 +46,9 @@
                                                     To="#ffd1d1"
                                                     Duration="0:0:0.3"/>
                                 </Storyboard>
-                                
                             </BeginStoryboard>
-                            
                         </EventTrigger>
-                        
                         <EventTrigger RoutedEvent="Border.MouseLeave" SourceName="border">
-                            
                             <BeginStoryboard>
                                 <Storyboard>
                                     <ColorAnimation Storyboard.TargetName="BorderBackground"
@@ -66,12 +56,9 @@
                                                     From="#ffd1d1"
                                                     To="White"
                                                     Duration="0:0:0.3"/>
-
                                 </Storyboard>
                             </BeginStoryboard>
-                            
                         </EventTrigger>
-                        
                         <Trigger Property="IsChecked"
                                  Value="True">
                             
@@ -84,10 +71,7 @@
                                     Value="Visible"/>
                             
                         </Trigger>
-                        
-                        
                     </ControlTemplate.Triggers>
-                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -427,6 +411,53 @@
             <Setter.Value>
                 <DropShadowEffect Color="Black"
                                   BlurRadius="6" 
+                                  Opacity="0.5" 
+                                  ShadowDepth="2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="cancelButton" 
+           TargetType="Button">
+        <Setter Property="Background" 
+                Value="#000000"/>
+        <Setter Property="FocusVisualStyle" 
+                Value="{x:Null}"/>
+        <Setter Property="HorizontalAlignment" 
+                Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="border"
+                                Padding="0 20" 
+                                CornerRadius="10"
+                                BorderThickness="0" 
+                                BorderBrush="#484964"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" 
+                                 Value="True">
+                            <Setter TargetName="border" 
+                                    Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" 
+                                  BlurRadius="6"
                                   Opacity="0.5" 
                                   ShadowDepth="2"/>
             </Setter.Value>
