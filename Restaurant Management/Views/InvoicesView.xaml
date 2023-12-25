@@ -132,7 +132,7 @@
                 </Grid>
 
                 <!-- Bottom section -->
-                <DataGrid x:Name="staffDataGrid" 
+                <DataGrid x:Name="invoicesDataGrid" 
                           Style="{DynamicResource DataGridStyle1}" 
                           CellStyle="{DynamicResource DataGridCellStyle1}"
                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
@@ -143,22 +143,22 @@
                         <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
                         
 
-                        <DataGridTextColumn Header="Invoice ID" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Staff ID" IsReadOnly="True" Width="*" Binding="{Binding Department}"/>
-                        <DataGridTextColumn Header="Customer ID" IsReadOnly="True" Width="*" Binding="{Binding PhoneNumber}"/>
-                        <DataGridTextColumn Header="Created Date" IsReadOnly="True" Width="*" Binding="{Binding Email}"/>
+                        <DataGridTextColumn Header="Invoice ID" IsReadOnly="True" Width="*" Binding="{Binding ID}" />
+                        <DataGridTextColumn Header="Staff ID" IsReadOnly="True" Width="*" Binding="{Binding StaffID}"/>
+                        <DataGridTextColumn Header="Customer ID" IsReadOnly="True" Width="*" Binding="{Binding CustomerID}"/>
+                        <DataGridTextColumn Header="Created Date" IsReadOnly="True" Width="*" Binding="{Binding CreatedDate}"/>
                         <DataGridTemplateColumn Header="Status" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                            <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                        <Border Width="50" Height="25" CornerRadius="10" Margin="0 0 10 0" Background="#93FF8A">
+                                            <TextBlock Text="{Binding Status}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#0DA800" Margin="0 0 0 1"/>
                                         </Border>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="*" Binding="{Binding HireDate}"/>
+                        <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="*" Binding="{Binding Amount}"/>
 
                         <DataGridTemplateColumn Header="Actions" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
