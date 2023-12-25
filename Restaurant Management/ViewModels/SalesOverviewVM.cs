@@ -8,5 +8,6 @@ namespace Restaurant_Management.ViewModels
 {
     public class SalesOverviewVM : Utilities.ViewModelBase
     {
+
     }
 }
