@@ -110,34 +110,74 @@
                 </Grid>
 
                 <!-- Bottom section -->
-                <DataGrid x:Name="productDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
+                <DataGrid x:Name="productDataGrid" 
+                          Style="{DynamicResource DataGridStyle1}" 
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                          RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
-                        <DataGridTemplateColumn Header="Product ID" IsReadOnly="True" Width="Auto">
+                        <DataGridTextColumn Header="#" 
+                                            IsReadOnly="True" 
+                                            CanUserResize="False" 
+                                            Width="Auto" Binding="{Binding Number}"/>
+                        <DataGridTemplateColumn Header="Product ID" 
+                                                IsReadOnly="True" 
+                                                Width="Auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                            <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                        <Border Width="50" 
+                                                Height="25" 
+                                                CornerRadius="5" 
+                                                Margin="0 0 10 0" 
+                                                Background="{Binding BgColor}">
+                                            <TextBlock Text="{Binding ID}" 
+                                                       VerticalAlignment="Center" 
+                                                       HorizontalAlignment="Center" 
+                                                       Foreground="White" 
+                                                       Margin="0 0 0 1"/>
                                         </Border>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Barcode" IsReadOnly="True" Width="*" Binding="{Binding Barcode}"/>
-                        <DataGridTextColumn Header="Category" IsReadOnly="True" Width="*" Binding="{Binding Category}"/>
-                        <DataGridTemplateColumn Header="Actions" IsReadOnly="True" Width="*">
+                        <DataGridTextColumn Header="Name" 
+                                            IsReadOnly="True" 
+                                            Width="*" 
+                                            Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Barcode" 
+                                            IsReadOnly="True"
+                                            Width="*" 
+                                            Binding="{Binding Barcode}"/>
+                        <DataGridTextColumn Header="Category" 
+                                            IsReadOnly="True" 
+                                            Width="*" 
+                                            Binding="{Binding Category}"/>
+                        <DataGridTemplateColumn Header="Actions" 
+                                                IsReadOnly="True"
+                                                Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Grid>
-                                        <Button Style="{StaticResource gridEditButton}">
-                                            <Icon:PackIconForkAwesome Kind="PencilSquareOutline" />
+                                    <StackPanel x:Name="subMenuGrid"
+                                                Orientation="Horizontal"  
+                                                Visibility="Visible" 
+                                                Background="Transparent">
+                                        
+                                        <Button Style="{StaticResource gridEditButton}"
+                                                Margin="0 0 5 0">
+                                            <Icon:PackIconBoxIcons Kind="RegularEdit" 
+                                                                   Width="14"
+                                                                   Height="14" 
+                                                                   VerticalAlignment="Center" />
                                         </Button>
+                                        
                                         <Button Style="{StaticResource gridRemoveButton}">
-                                            <Icon:PackIconOcticons Kind="Trashcan" />
+                                            <Icon:PackIconIonicons Kind="TrashMD" 
+                                                                   Width="14"
+                                                                   Height="14"
+                                                                   VerticalAlignment="Center" />
                                         </Button>
-                                    </Grid>
+                                    </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
