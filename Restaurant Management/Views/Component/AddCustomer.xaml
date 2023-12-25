@@ -1,13 +1,21 @@
 ﻿<UserControl x:Class="Restaurant_Management.Views.Component.AddCustomer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
-             mc:Ignorable="d" 
-             d:DesignHeight="877" d:DesignWidth="750">
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             mc:Ignorable="d"
+             x:Name="AddCusWindow"
+             d:DesignHeight="900"
+             d:DesignWidth="750">
+    <UserControl.DataContext>
+        <vm:AddCustomerVM />
+    </UserControl.DataContext>
     <Border Width="750"
-            Height="877"
+            Height="900"
             Padding="50, 50"
             Background="#ffff"
             CornerRadius="20">
@@ -30,29 +38,51 @@
                                 CornerRadius="10"
                                 BorderThickness="2"
                                 BorderBrush="#D9D9D9" />
+                        <TextBox x:Name="FullName"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left"
+                                 BorderThickness="0"
+                                 Margin="20 0 20 0"
+                                 Background="Transparent"
+                                 Foreground="#999"
+                                 FontWeight="SemiBold"
+                                 FontSize="18"
+                                 MaterialDesign:HintAssist.Hint="Enter customer's full name"
+                                 MaterialDesign:HintAssist.Foreground="Transparent"
+                                 MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Grid>
                 </StackPanel>
             </Grid>
-            <!--Address-->
+
             <Grid Height="104"
                   Margin="0, 40, 0, 0">
                 <StackPanel>
                     <Grid Height="42">
-                        <TextBlock Text="Address"
+                        <TextBlock Text="Gender"
                                    Foreground="#999"
                                    FontSize="24"
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center" />
                     </Grid>
-                    <Grid>
-                        <Border Width="650"
-                                Height="62"
-                                Background="#ffff"
-                                CornerRadius="10"
-                                BorderThickness="2"
-                                BorderBrush="#D9D9D9" />
-                    </Grid>
+                    <ComboBox x:Name="GenderComboBox"
+                              Padding="20 0 20 0"
+                              FontFamily="Roboto"
+                              Width="650"
+                              Height="62"
+                              BorderThickness="2"
+                              BorderBrush="#D9D9D9"
+                              Foreground="#999"
+                              FontWeight="SemiBold"
+                              FontSize="18"
+                              MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                              MaterialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                              MaterialDesign:HintAssist.Hint="Choose Gender">
+                        <ComboBoxItem Content="Male" />
+                        <ComboBoxItem Content="Female" />
+                        <ComboBoxItem Content="Other" />
+                    </ComboBox>
+
                 </StackPanel>
             </Grid>
 
@@ -75,6 +105,18 @@
                                 CornerRadius="10"
                                 BorderThickness="2"
                                 BorderBrush="#D9D9D9" />
+                        <TextBox x:Name="PhoneNumber"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left"
+                                 BorderThickness="0"
+                                 Margin="20 0 20 0"
+                                 Background="Transparent"
+                                 Foreground="#999"
+                                 FontWeight="SemiBold"
+                                 FontSize="18"
+                                 MaterialDesign:HintAssist.Hint="Enter customer's phone number"
+                                 MaterialDesign:HintAssist.Foreground="Transparent"
+                                 MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Grid>
                 </StackPanel>
             </Grid>
@@ -98,16 +140,28 @@
                                 CornerRadius="10"
                                 BorderThickness="2"
                                 BorderBrush="#D9D9D9" />
+                        <TextBox x:Name="Email"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left"
+                                 BorderThickness="0"
+                                 Margin="20 0 20 0"
+                                 Background="Transparent"
+                                 Foreground="#999"
+                                 FontWeight="SemiBold"
+                                 FontSize="18"
+                                 MaterialDesign:HintAssist.Hint="Enter customer's email"
+                                 MaterialDesign:HintAssist.Foreground="Transparent"
+                                 MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Grid>
                 </StackPanel>
             </Grid>
 
-            <!--Registration Date-->
+            <!--Address-->
             <Grid Height="104"
                   Margin="0, 40, 0, 0">
                 <StackPanel>
                     <Grid Height="42">
-                        <TextBlock Text="Registration Date"
+                        <TextBlock Text="Address"
                                    Foreground="#999"
                                    FontSize="24"
                                    FontFamily="Roboto"
@@ -115,29 +169,24 @@
                                    VerticalAlignment="Center" />
                     </Grid>
                     <Grid>
-                        <Border Height="62"
+                        <Border Width="650"
+                                Height="62"
                                 Background="#ffff"
                                 CornerRadius="10"
                                 BorderThickness="2"
-                                BorderBrush="#D9D9D9"
-                                Padding="20,0,20,0">
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="570"
-                                      Height="58">
-                                    <TextBlock Text="30-2-2099"
-                                               Foreground="#999"
-                                               FontSize="20"
-                                               FontFamily="Roboto"
-                                               FontWeight="Normal"
-                                               VerticalAlignment="Center" />
-                                </Grid>
-                                <Grid Width="36">
-                                    <Image Source="../Assets/Images/calender.png"
-                                           Width="32"
-                                           Height="32" />
-                                </Grid>
-                            </StackPanel>
-                        </Border>
+                                BorderBrush="#D9D9D9" />
+                        <TextBox x:Name="Address"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left"
+                                 BorderThickness="0"
+                                 Margin="20 0 20 0"
+                                 Background="Transparent"
+                                 Foreground="#999"
+                                 FontWeight="SemiBold"
+                                 FontSize="18"
+                                 MaterialDesign:HintAssist.Hint="Enter customer's address"
+                                 MaterialDesign:HintAssist.Foreground="Transparent"
+                                 MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Grid>
                 </StackPanel>
             </Grid>
@@ -145,35 +194,80 @@
             <StackPanel Margin="0,40,0,0"
                         Orientation="Horizontal">
                 <!--Cancel-->
-                <Border Width="305"
+                <Button Content="Cancel"
+                        Width="305"
                         Height="54"
                         Background="#000"
-                        CornerRadius="10"
-                        Margin="0">
-                    <TextBlock Height="20.5"
-                               Width="56"
-                               Text="Cancel"
-                               Foreground="#fff"
-                               FontSize="18"
-                               FontFamily="Roboto"
-                               FontWeight="SemiBold"
-                               TextAlignment="Center" />
-                </Border>
+                        Foreground="#fff"
+                        FontSize="18"
+                        FontFamily="Roboto"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        BorderThickness="0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <TextBlock Text="{TemplateBinding Content}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontWeight="{TemplateBinding FontWeight}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Width="Auto"
+                                           Height="Auto" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CancelCommand}"
+                                                   CommandParameter="{Binding ElementName=AddCusWindow}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
                 <!--Confirm-->
-                <Border Width="305"
+                <Button Content="Confirm"
+                        Width="305"
                         Height="54"
+                        Margin="40,0,0,0"
                         Background="#FF7F50"
-                        CornerRadius="10"
-                        Margin="40, 0, 0, 0">
-                    <TextBlock Height="20.5"
-                               Width="66"
-                               Text="Confirm"
-                               Foreground="#fff"
-                               FontSize="18"
-                               FontFamily="Roboto"
-                               FontWeight="SemiBold"
-                               TextAlignment="Center" />
-                </Border>
+                        Foreground="#fff"
+                        FontSize="18"
+                        FontFamily="Roboto"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        BorderThickness="0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <TextBlock Text="{TemplateBinding Content}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontWeight="{TemplateBinding FontWeight}"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Width="Auto"
+                                           Height="Auto" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ConfirmCommand}"
+                                                   CommandParameter="{Binding ElementName=AddCusWindow}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Border>

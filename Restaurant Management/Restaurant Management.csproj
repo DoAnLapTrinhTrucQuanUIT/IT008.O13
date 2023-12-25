@@ -319,6 +319,7 @@
     <Compile Include="Utilities\Btn.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\ViewModelBase.cs" />
+    <Compile Include="ViewModels\AddCustomerVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
     <Compile Include="ViewModels\ForgetPasswordVM.cs" />
     <Compile Include="ViewModels\InventoryOverviewVM.cs" />
@@ -574,7 +575,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\App.config" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\google.png" />

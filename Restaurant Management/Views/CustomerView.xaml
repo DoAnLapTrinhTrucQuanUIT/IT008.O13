@@ -38,7 +38,7 @@
                                 BorderBrush="#d9d9d9">
                                 <TextBlock x:Name="placeholder"
                                            Margin="25 0 0 0"
-                                           Text="Search by customer ID"
+                                           Text="Search Customers"
                                            FontSize="18"
                                            Foreground="#808080"
                                            VerticalAlignment="Center"
@@ -67,25 +67,26 @@
             Padding="50">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
             <!--Overview-->
-            <Border Grid.Row="0" Background="#fff"
+            <Border Grid.Row="0"
+                    Background="#fff"
                     CornerRadius="20"
                     Padding="30">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Component:Customer Title="Total Customer"
                                             Quantity="{Binding TotalCustomer}"
                                             Percentage="{Binding Percent}"
                                             Icon="AccountMultiple"
-                                            Foreground="#06F"/>
+                                            Foreground="#06F" />
 
                     </Grid>
 
@@ -94,7 +95,7 @@
                                             Quantity="{Binding TotalCustomer}"
                                             Percentage="{Binding Percent}"
                                             Icon="AccountMultipleCheck"
-                                            Foreground="#11D200"/>
+                                            Foreground="#11D200" />
                     </Grid>
 
                     <Grid Grid.Column="2">
@@ -102,12 +103,13 @@
                                             Quantity="{Binding TotalCustomer}"
                                             Percentage="{Binding Percent}"
                                             Icon="AccountStar"
-                                            Foreground="#6100FF"/>
+                                            Foreground="#6100FF" />
                     </Grid>
                 </Grid>
             </Border>
             <!--Main Section-->
-            <Border Grid.Row="1" Background="#fff"
+            <Border Grid.Row="1"
+                    Background="#fff"
                     Margin="0 30 0 0"
                     Padding="20">
                 <Grid>
@@ -116,7 +118,8 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <!--Search TextBox - Add - Import-->
-                    <Grid Height="55" Grid.Row="0">
+                    <Grid Height="55"
+                          Grid.Row="0">
                         <!-- Search TextBox -->
                         <Grid HorizontalAlignment="Left">
                             <TextBox x:Name="txtSearch"
@@ -128,7 +131,7 @@
                                         <i:InvokeCommandAction Command="{Binding SearchCM}"
                                                                CommandParameter="{Binding ElementName=CustomerWindow}"></i:InvokeCommandAction>
                                     </i:EventTrigger>
-                                </i:Interaction.Triggers> 
+                                </i:Interaction.Triggers>
                             </TextBox>
                             <Icon:PackIconMaterial Kind="Magnify"
                                                    VerticalAlignment="Center"
@@ -136,29 +139,33 @@
                                                    Foreground="#000000"
                                                    Margin="0 0 20 0"
                                                    Width="16"
-                                                   Height="16"/>
+                                                   Height="16" />
                         </Grid>
 
-                        <Grid Grid.Column="1" HorizontalAlignment="Right">
+                        <Grid Grid.Column="1"
+                              HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0" Style="{StaticResource addButton}" Margin="0 0 30 0">
+                            <Button Grid.Column="0"
+                                    Style="{StaticResource addButton}"
+                                    Margin="0 0 30 0">
                                 <Border Padding="10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Icon:PackIconMaterial Kind="Plus" 
-                                                           Grid.Column="0"
-                                                           VerticalAlignment="Center" 
-                                                           Width="20" 
-                                                           Height="20" 
-                                                           Margin="0 0 20 0"/>
-                                        <TextBlock Grid.Column="1" Text="Add new customer"/>
+                                        <Icon:PackIconMaterial Kind="Plus"
+                                                               Grid.Column="0"
+                                                               VerticalAlignment="Center"
+                                                               Width="20"
+                                                               Height="20"
+                                                               Margin="0 0 20 0" />
+                                        <TextBlock Grid.Column="1"
+                                                   Text="Add new customer" />
                                     </Grid>
                                 </Border>
                                 <!--Add new customer trigger-->
@@ -170,20 +177,22 @@
                                 </i:Interaction.Triggers>
                             </Button>
 
-                            <Button Grid.Column="1" Style="{StaticResource addButton}">
+                            <Button Grid.Column="1"
+                                    Style="{StaticResource addButton}">
                                 <Border Padding="10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Icon:PackIconMaterial Kind="FileExcel" 
-                                                           Grid.Column="0"
-                                                           VerticalAlignment="Center" 
-                                                           Width="20" 
-                                                           Height="20" 
-                                                           Margin="0 0 20 0"/>
-                                        <TextBlock Grid.Column="1" Text="Import from excel"/>
+                                        <Icon:PackIconMaterial Kind="FileExcel"
+                                                               Grid.Column="0"
+                                                               VerticalAlignment="Center"
+                                                               Width="20"
+                                                               Height="20"
+                                                               Margin="0 0 20 0" />
+                                        <TextBlock Grid.Column="1"
+                                                   Text="Import from excel" />
                                     </Grid>
                                 </Border>
                                 <!--Export customer trigger-->
@@ -196,7 +205,7 @@
                             </Button>
                         </Grid>
                     </Grid>
-                    
+
                     <!--Members Datagrid-->
                     <DataGrid Grid.Row="1"
                               Margin="0 30 0 0"
@@ -204,14 +213,19 @@
                               ItemsSource="{Binding CustomerList}"
                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn CanUserResize="False"
-                                                    Width="auto">
-                                <DataGridCheckBoxColumn.HeaderTemplate>
+                            <!-- Add a DataGridTemplateColumn for the checkbox in header -->
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.HeaderTemplate>
                                     <DataTemplate>
                                         <CheckBox />
                                     </DataTemplate>
-                                </DataGridCheckBoxColumn.HeaderTemplate>
-                            </DataGridCheckBoxColumn>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
                             <DataGridTextColumn Header="Customer ID"
                                                 IsReadOnly="true"
@@ -224,7 +238,7 @@
                             <DataGridTextColumn Header="Address"
                                                 IsReadOnly="true"
                                                 Width="*"
-                                                Binding="{Binding Address}"/>
+                                                Binding="{Binding Address}" />
                             <DataGridTextColumn Header="Phone Number"
                                                 IsReadOnly="true"
                                                 Width="*"
@@ -240,7 +254,7 @@
                             <DataGridTextColumn Header="Registration Date"
                                                 IsReadOnly="true"
                                                 Width="*"
-                                                Binding="{Binding RegistrationDate}"/>
+                                                Binding="{Binding RegistrationDate, StringFormat=\{0:dd/MM/yyyy\}}" />
                             <DataGridTextColumn Header="Sales"
                                                 IsReadOnly="true"
                                                 Width="*"

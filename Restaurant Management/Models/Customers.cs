@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
@@ -11,9 +12,10 @@ namespace Restaurant_Management.Models
 {
     public class Customers
     {
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public ObjectId _id { get; set; }
 
         [BsonElement("customerId")]
         public string CustomerId { get; set; }
