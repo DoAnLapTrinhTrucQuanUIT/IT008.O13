@@ -43,9 +43,9 @@ namespace Restaurant_Management.ViewModels.ComponentVM
         {
             _Employees = GetEmployees();
             SendPassCM = new RelayCommand<ForgetPasswordView>((p) => true, (p) => _SendPass(p));
-            CloseWDCM = new RelayCommand<ForgetPasswordView>((p) => true, (p) => _CloseWD());
-            MinimizeWDCM = new RelayCommand<ForgetPasswordView>((p) => true, (p) => _MinimizeWD());
-            MoveWDCM = new RelayCommand<ForgetPasswordView>((p) => true, (p) => _MoveWD());
+            CloseWDCM = new RelayCommand<ForgetPasswordView>((p) => true, (p) => _CloseWD(p));
+            MinimizeWDCM = new RelayCommand<ForgetPasswordView>((p) => true, (p) => _MinimizeWD(p));
+            MoveWDCM = new RelayCommand<ForgetPasswordView>((p) => true, (p) => _MoveWD(p));
         }
 
         private IMongoCollection<Employees> GetEmployees()
@@ -123,17 +123,31 @@ namespace Restaurant_Management.ViewModels.ComponentVM
             }
         }
 
-        private void _CloseWD()
+        private void _CloseWD(ForgetPasswordView paramater)
         {
-
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                window.Close();
+            }
         }
-        private void _MinimizeWD()
+        private void _MinimizeWD(ForgetPasswordView paramater)
         {
-
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                WindowState originalWindowState = window.WindowState;
+                window.WindowState = WindowState.Minimized;
+            }
         }
-        private void _MoveWD()
+        
+        private void _MoveWD(ForgetPasswordView paramater)
         {
-
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                window.DragMove();
+            }
         }
     }
 }

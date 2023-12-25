@@ -5,10 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Restaurant_Management.Utilities;
 using System.Windows.Input;
+using Restaurant_Management.Models;
+using System.Security.Permissions;
+
 namespace Restaurant_Management.ViewModels
 {
-    class NavigationVM : Utilities.ViewModelBase
+    public class NavigationVM : Utilities.ViewModelBase
     {
+        private Employees _CurrentUser;
+        public Employees CurrentUser
+        {
+            get { return _CurrentUser; }
+            set { _CurrentUser = value; OnPropertyChanged(); }
+        }
+
         private object _currentView;
         public object CurrentView
         {
@@ -41,17 +51,16 @@ namespace Restaurant_Management.ViewModels
         public NavigationVM()
         {
             MenuCommand = new RelayCommand(Menu);
-            TableCommand = new RelayCommand(Table); 
+            TableCommand = new RelayCommand(Table);
             CustomerCommand = new RelayCommand(Customer);
             ScheduleCommand = new RelayCommand(Schedule);
             StaffInformationCommand = new RelayCommand(StaffInformation);
             SalaryCommand = new RelayCommand(Salary);
-            InventoryOverviewCommand = new RelayCommand(InventoryOverview); 
+            InventoryOverviewCommand = new RelayCommand(InventoryOverview);
             ProductCommand = new RelayCommand(Product);
             SalesOverviewCommand = new RelayCommand(SalesOverview);
             InvoiceCommand = new RelayCommand(Invoice);
             SettingCommand = new RelayCommand(Setting);
-
             CurrentView = new MenuVM();
         }
     }

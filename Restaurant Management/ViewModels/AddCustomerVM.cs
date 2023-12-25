@@ -28,6 +28,9 @@ namespace Restaurant_Management.ViewModels
         }
         public ICommand CancelCommand { get; set; }
         public ICommand ConfirmCommand { get; set; }
+        public ICommand CloseWDCM { get; set; }
+        public ICommand MinimizeWDCM { get; set; }
+        public ICommand MoveWDCM { get; set; }
 
         private readonly IMongoCollection<Customers> _Customers;
         public AddCustomerVM()
@@ -35,6 +38,9 @@ namespace Restaurant_Management.ViewModels
             _Customers = GetCustomers();
             CancelCommand = new RelayCommand<AddCustomer>((p) => true, (p) => _CancelCommand(p));
             ConfirmCommand = new RelayCommand<AddCustomer>((p) => true, (p) => _ConfirmCommand(p));
+            CloseWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _CloseWD(p));
+            MinimizeWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _MinimizeWD(p));
+            MoveWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _MoveWD(p));
         }
         private IMongoCollection<Customers> GetCustomers()
         {
@@ -82,6 +88,11 @@ namespace Restaurant_Management.ViewModels
                     else
                     {
                         AddCustomer(paramater);
+                        var window = Window.GetWindow(paramater);
+                        if (window != null)
+                        {
+                            window.Close();
+                        }
                     }
                 }
             }
@@ -154,6 +165,33 @@ namespace Restaurant_Management.ViewModels
         bool Check(string customerId)
         {
             return _Customers.AsQueryable().Any(temp => temp.CustomerId == customerId);
+        }
+
+        private void _CloseWD(AddCustomer paramater)
+        {
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
+        private void _MinimizeWD(AddCustomer paramater)
+        {
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                WindowState originalWindowState = window.WindowState;
+                window.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void _MoveWD(AddCustomer paramater)
+        {
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                window.DragMove();
+            }
         }
     }
 }

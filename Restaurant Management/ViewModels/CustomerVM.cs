@@ -60,7 +60,7 @@ namespace Restaurant_Management.ViewModels
             _Customers = GetCustomers();
             LoadCustomers();
             SearchCM = new RelayCommand<CustomerView>((p) => true, (p) => _Search(p));
-            AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer());
+            AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer(p));
             ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer(p));
         }
         private IMongoCollection<Customers> GetCustomers()
@@ -106,7 +106,7 @@ namespace Restaurant_Management.ViewModels
             parameter.DataGridCustomers.ItemsSource = temp;
         }
 
-        void _AddCustomer()
+        void _AddCustomer(CustomerView parameter)
         {
             AddCustomer addCustomer = new AddCustomer();
             var window = new Window
@@ -117,6 +117,7 @@ namespace Restaurant_Management.ViewModels
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             window.ShowDialog();
+            LoadCustomers();
         }
 
         void _ExportCustomer(CustomerView parameter)
