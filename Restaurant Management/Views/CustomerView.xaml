@@ -16,45 +16,58 @@
     <UserControl.DataContext>
         <vm:CustomerVM/>
     </UserControl.DataContext>
-    <UserControl.Resources>
-        <Style x:Key="TextboxSearch" TargetType="TextBox">
-            <Setter Property="Background" Value="#ffffff"/>
-            <Setter Property="Foreground" Value="#000000"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
 
+    <UserControl.Resources>
+        <Style x:Key="TextboxSearch"
+               TargetType="TextBox">
+            <Setter Property="Background"
+                    Value="#ffffff" />
+            <Setter Property="Foreground"
+                    Value="#000000" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="FontSize"
+                    Value="15" />
+            <Setter Property="FontFamily"
+                    Value="Roboto" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBoxBase">
                         <Grid>
                             <Border x:Name="border"
-                                CornerRadius="10" 
-                                Padding="10"
-                                Background="{TemplateBinding Background}"
-                                BorderThickness="1"
-                                BorderBrush="#d9d9d9">
+                                    CornerRadius="10"
+                                    Padding="10"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="2"
+                                    BorderBrush="#d9d9d9">
                                 <TextBlock x:Name="placeholder"
-                                           Margin="25 0 0 0"
+                                           Margin="20 0 0 0"
                                            Text="Search Customers"
                                            FontSize="18"
+                                           FontWeight="Normal"
                                            Foreground="#808080"
                                            VerticalAlignment="Center"
                                            Visibility="Visible" />
                             </Border>
-                            <ScrollViewer MaxWidth="310"
-                                          Padding="20"
+                            <ScrollViewer MaxWidth="280"
                                           VerticalAlignment="Center"
                                           x:Name="PART_ContentHost"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="placeholder" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#007acc"/>
-                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            <Trigger Property="IsFocused"
+                                     Value="True">
+                                <Setter TargetName="placeholder"
+                                        Property="Visibility"
+                                        Value="Hidden" />
+                                <Setter TargetName="border"
+                                        Property="BorderBrush"
+                                        Value="#007acc" />
+                                <Setter TargetName="border"
+                                        Property="BorderThickness"
+                                        Value="1" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -63,6 +76,7 @@
 
         </Style>
     </UserControl.Resources>
+
     <Border Background="#F3EEEA"
             Padding="50">
         <Grid>
@@ -124,7 +138,8 @@
                         <Grid HorizontalAlignment="Left">
                             <TextBox x:Name="txtSearch"
                                      Style="{StaticResource TextboxSearch}"
-                                     Width="400">
+                                     Width="300"
+                                     Padding="10 0 0 0">
                                 <!--Search trigger-->
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
@@ -138,8 +153,8 @@
                                                    HorizontalAlignment="Right"
                                                    Foreground="#000000"
                                                    Margin="0 0 20 0"
-                                                   Width="16"
-                                                   Height="16" />
+                                                   Width="20"
+                                                   Height="20" />
                         </Grid>
 
                         <Grid Grid.Column="1"
@@ -147,11 +162,12 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
+                            <!--Add New Customer Button-->
                             <Button Grid.Column="0"
                                     Style="{StaticResource addButton}"
-                                    Margin="0 0 30 0">
+                                    Margin="30 0 0 0">
                                 <Border Padding="10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -161,11 +177,13 @@
                                         <Icon:PackIconMaterial Kind="Plus"
                                                                Grid.Column="0"
                                                                VerticalAlignment="Center"
-                                                               Width="20"
-                                                               Height="20"
-                                                               Margin="0 0 20 0" />
+                                                               Width="15"
+                                                               Height="15"
+                                                               Margin="0 0 10 0" />
                                         <TextBlock Grid.Column="1"
-                                                   Text="Add new customer" />
+                                                   Text="Add new customer"
+                                                   FontSize="15"
+                                                   FontWeight="SemiBold"/>
                                     </Grid>
                                 </Border>
                                 <!--Add new customer trigger-->
@@ -176,9 +194,11 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Button>
-
+                            
+                            <!--Export List of Customer Button-->
                             <Button Grid.Column="1"
-                                    Style="{StaticResource addButton}">
+                                    Style="{StaticResource addButton}"
+                                    Margin="30 0 0 0">
                                 <Border Padding="10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -188,17 +208,50 @@
                                         <Icon:PackIconMaterial Kind="FileExcel"
                                                                Grid.Column="0"
                                                                VerticalAlignment="Center"
-                                                               Width="20"
-                                                               Height="20"
-                                                               Margin="0 0 20 0" />
+                                                               Width="15"
+                                                               Height="15"
+                                                               Margin="0 0 10 0" />
                                         <TextBlock Grid.Column="1"
-                                                   Text="Import from excel" />
+                                                   Text="Export from CSV"
+                                                   FontSize="15"
+                                                   FontWeight="SemiBold"/>
                                     </Grid>
                                 </Border>
                                 <!--Export customer trigger-->
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <i:InvokeCommandAction Command="{Binding ExportCustomerCM}"
+                                                               CommandParameter="{Binding ElementName=CustomerWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+
+                            <!--Import Customer Button-->
+                            <Button Grid.Column="2"
+                                    Style="{StaticResource addButton}"
+                                    Margin="30 0 0 0">
+                                <Border Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Icon:PackIconMaterial Kind="Import"
+                                                               Grid.Column="0"
+                                                               VerticalAlignment="Center"
+                                                               Width="15"
+                                                               Height="15"
+                                                               Margin="0 0 10 0" />
+                                        <TextBlock Grid.Column="1"
+                                                   Text="Import from CSV"
+                                                   FontSize="15"
+                                                   FontWeight="SemiBold"/>
+                                    </Grid>
+                                </Border>
+                                <!--Import customer trigger-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ImportCustomerCM}"
                                                                CommandParameter="{Binding ElementName=CustomerWindow}"></i:InvokeCommandAction>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
@@ -213,20 +266,6 @@
                               ItemsSource="{Binding CustomerList}"
                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <!-- Add a DataGridTemplateColumn for the checkbox in header -->
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <CheckBox />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.HeaderTemplate>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
                             <DataGridTextColumn Header="Customer ID"
                                                 IsReadOnly="true"
                                                 Width="*"
