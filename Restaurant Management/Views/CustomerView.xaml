@@ -73,7 +73,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
         </Style>
     </UserControl.Resources>
 

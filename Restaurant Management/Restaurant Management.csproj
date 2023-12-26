@@ -328,6 +328,7 @@
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\ViewModelBase.cs" />
     <Compile Include="ViewModels\AddCustomerVM.cs" />
+    <Compile Include="ViewModels\AddEditStaffVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
     <Compile Include="ViewModels\ForgetPasswordVM.cs" />
     <Compile Include="ViewModels\InventoryOverviewVM.cs" />

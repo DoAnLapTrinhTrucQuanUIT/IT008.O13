@@ -113,6 +113,41 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="BrowseImage"
+           TargetType="Button">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="Foreground"
+                Value="#000000" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="FontSize"
+                Value="18" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="#d9d9d9">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="#ff9494" />
+                <Setter Property="Foreground"
+                        Value="#ffffff" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="gridEditButton" TargetType="Button">
         <Setter Property="Background" Value="#04364A"/>
         <Setter Property="BorderBrush" Value="#176B87"/>
@@ -170,10 +205,10 @@
                     <Grid>
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <StackPanel x:Name="subMenuGrid" Orientation="Horizontal"  Visibility="Collapsed" Background="Transparent">
-                            <Button Style="{StaticResource gridEditButton}" Margin="0 0 5 0">
+                            <Button x:Name="editStaffInforButton" Style="{StaticResource gridEditButton}" Margin="0 0 5 0">
                                 <Icon:PackIconBoxIcons Kind="RegularEdit" Width="14" Height="14" VerticalAlignment="Center" />
                             </Button>
-                            <Button Style="{StaticResource gridRemoveButton}">
+                            <Button x:Name="removeStaffInforButton" Style="{StaticResource gridRemoveButton}">
                                 <Icon:PackIconIonicons Kind="TrashMD" Width="14" Height="14" VerticalAlignment="Center" />
                             </Button>
                         </StackPanel>
@@ -289,7 +324,7 @@
                 <ControlTemplate TargetType="Button">
                     <Grid>
                         <Border x:Name="border"
-                                Padding="0 20" 
+                                Padding="0 10" 
                                 CornerRadius="10"
                                 BorderThickness="0" 
                                 BorderBrush="#484964"
@@ -430,7 +465,7 @@
                 <ControlTemplate TargetType="Button">
                     <Grid>
                         <Border x:Name="border"
-                                Padding="0 20" 
+                                Padding="0 10" 
                                 CornerRadius="10"
                                 BorderThickness="0" 
                                 BorderBrush="#484964"

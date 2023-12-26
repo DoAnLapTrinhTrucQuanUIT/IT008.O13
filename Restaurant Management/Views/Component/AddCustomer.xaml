@@ -240,86 +240,55 @@
                         </Grid>
 
                         <!-- Buttons -->
-                        <StackPanel Margin="0,26,0,0"
-                                    Orientation="Horizontal">
-                            <!--Cancel-->
-                            <Button Content="Cancel"
-                                    Width="200"
-                                    Height="36"
-                                    Background="#000"
-                                    Foreground="#fff"
-                                    FontSize="12"
-                                    FontFamily="Roboto"
-                                    FontWeight="SemiBold"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    BorderThickness="0">
-                                <!-- Button Template and Triggers -->
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}"
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                            <TextBlock Text="{TemplateBinding Content}"
-                                                       Foreground="{TemplateBinding Foreground}"
-                                                       FontSize="{TemplateBinding FontSize}"
-                                                       FontFamily="{TemplateBinding FontFamily}"
-                                                       FontWeight="{TemplateBinding FontWeight}"
-                                                       TextAlignment="Center"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"
-                                                       Width="Auto"
-                                                       Height="Auto" />
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding CancelCommand}"
-                                                               CommandParameter="{Binding ElementName=AddCusWindow}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
-                            <!--Confirm-->
-                            <Button Content="Confirm"
-                                    Width="200"
-                                    Height="36"
-                                    Margin="26,0,0,0"
-                                    Background="#FF7F50"
-                                    Foreground="#fff"
-                                    FontSize="12"
-                                    FontFamily="Roboto"
-                                    FontWeight="SemiBold"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    BorderThickness="0">
-                                <!-- Button Template and Triggers -->
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}"
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}">
-                                            <TextBlock Text="{TemplateBinding Content}"
-                                                       Foreground="{TemplateBinding Foreground}"
-                                                       FontSize="{TemplateBinding FontSize}"
-                                                       FontFamily="{TemplateBinding FontFamily}"
-                                                       FontWeight="{TemplateBinding FontWeight}"
-                                                       TextAlignment="Center"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center"
-                                                       Width="Auto"
-                                                       Height="Auto" />
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <i:InvokeCommandAction Command="{Binding ConfirmCommand}"
-                                                               CommandParameter="{Binding ElementName=AddCusWindow}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
-                        </StackPanel>
+                        <Grid Grid.Row="6"
+                              Margin="0 30 0 0" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
+                                  Margin="0 0 10 0">
+                                <!--Cancel-->
+                                <Button Style="{StaticResource cancelButton}"
+                                        Background="#000000"
+                                        Height="50">
+                                    <TextBlock Text="Cancel"
+                                               Foreground="#fff"
+                                               FontSize="18"
+                                               FontFamily="Roboto"
+                                               FontWeight="SemiBold"
+                                               TextAlignment="Center" />
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding CancelCommand}"
+                                                                   CommandParameter="{Binding ElementName=AddCusWindow}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </Grid>
+                            <Grid Grid.Column="1"
+                                  Margin="10 0 0 0">
+                                <!--Confirm-->
+                                <Button Style="{StaticResource confirmButton}"
+                                        Background="#FF7F50"
+                                        Height="50">
+                                    <TextBlock Text="Confirm"
+                                               Foreground="#fff"
+                                               FontSize="18"
+                                               FontFamily="Roboto"
+                                               FontWeight="SemiBold"
+                                               TextAlignment="Center"
+                                               Height="19"
+                                               Width="65" />
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding ConfirmCommand}"
+                                                                   CommandParameter="{Binding ElementName=AddCusWindow}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </StackPanel>
                 </Border>
             </Grid>

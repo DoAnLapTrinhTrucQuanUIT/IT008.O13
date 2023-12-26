@@ -16,16 +16,6 @@ namespace Restaurant_Management.ViewModels
 {
     public class AddCustomerVM : Utilities.ViewModelBase
     {
-        private ObservableCollection<Customers> _customerList;
-        public ObservableCollection<Customers> CustomerList
-        {
-            get { return _customerList; }
-            set
-            {
-                _customerList = value;
-                OnPropertyChanged(nameof(CustomerList));
-            }
-        }
         public ICommand CancelCommand { get; set; }
         public ICommand ConfirmCommand { get; set; }
         public ICommand CloseWDCM { get; set; }
