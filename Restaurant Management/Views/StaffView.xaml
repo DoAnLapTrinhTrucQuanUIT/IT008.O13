@@ -1,57 +1,83 @@
 ﻿<UserControl x:Class="Restaurant_Management.Views.StaffView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:Restaurant_Management.Utilities"
              mc:Ignorable="d"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignWidth="1570"
              d:DesignHeight="810"
+             x:Name="StaffWindow"
              Style="{StaticResource Page_Style}">
-
     <UserControl.DataContext>
-        <vm:StaffInformationVM/>
+        <vm:StaffVM/>
     </UserControl.DataContext>
     <UserControl.Resources>
-        <Style x:Key="TextboxSearch" TargetType="TextBox">
-            <Setter Property="Background" Value="#ffffff"/>
-            <Setter Property="Foreground" Value="#000000"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-
+        <Style x:Key="TextboxSearch"
+               TargetType="TextBox">
+            <Setter Property="Background"
+                    Value="#ffffff" />
+            <Setter Property="Foreground"
+                    Value="#000000" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="FontSize"
+                    Value="15" />
+            <Setter Property="FontFamily"
+                    Value="Roboto" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBoxBase">
                         <Grid>
                             <Border x:Name="border"
-                                CornerRadius="10" 
-                                Padding="20"
-                                Background="{TemplateBinding Background}"
-                                BorderThickness="1"
-                                BorderBrush="#d9d9d9">
-                                <TextBlock x:Name="placeholder" Margin="25 0 0 0" Text="Search employee" FontSize="18" Foreground="#808080" VerticalAlignment="Center" Visibility="Visible"/>
+                                    CornerRadius="10"
+                                    Padding="10"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="2"
+                                    BorderBrush="#d9d9d9">
+                                <TextBlock x:Name="placeholder"
+                                           Margin="20 0 0 0"
+                                           Text="Search Customers"
+                                           FontSize="18"
+                                           FontWeight="Normal"
+                                           Foreground="#808080"
+                                           VerticalAlignment="Center"
+                                           Visibility="Visible" />
                             </Border>
-                            <ScrollViewer MaxWidth="310" Padding="20" VerticalAlignment="Center" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <ScrollViewer MaxWidth="280"
+                                          VerticalAlignment="Center"
+                                          x:Name="PART_ContentHost"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="placeholder" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#007acc"/>
-                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            <Trigger Property="IsFocused"
+                                     Value="True">
+                                <Setter TargetName="placeholder"
+                                        Property="Visibility"
+                                        Value="Hidden" />
+                                <Setter TargetName="border"
+                                        Property="BorderBrush"
+                                        Value="#007acc" />
+                                <Setter TargetName="border"
+                                        Property="BorderThickness"
+                                        Value="1" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
         </Style>
+        <converters:BooleanToDepartmentConverter x:Key="BooleanToDepartmentConverter" />
     </UserControl.Resources>
+    
 
+    
     <Border Padding="40" Background="#f3eeea">
         <Border CornerRadius="20" Background="White" Padding="30 30">
             <Grid>
@@ -80,14 +106,25 @@
 
                     <!-- Search TextBox -->
                     <Grid HorizontalAlignment="Left">
-                        <TextBox Grid.Column="0" x:Name="txtSearch" Style="{StaticResource TextboxSearch}" Width="400"/>
+                        <TextBox Grid.Column="0"
+                                 x:Name="txtSearch"
+                                 Style="{StaticResource TextboxSearch}"
+                                 Width="300">
+                            <!--Search trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchCM}"
+                                                           CommandParameter="{Binding ElementName=StaffWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
                         <Icon:PackIconMaterial Kind="Magnify"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Right"
                                                Foreground="#000000"
                                                Margin="0 0 20 0"
-                                               Width="16"
-                                               Height="16"/>
+                                               Width="20"
+                                               Height="20"/>
                     </Grid>
 
                     <!-- Add new employee and Import from excel buttons -->
@@ -95,65 +132,115 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-
-                        <Button Grid.Column="0" Style="{StaticResource addButton}" Margin="0 0 30 0">
+                        <!-- Add new employee-->
+                        <Button Grid.Column="0" Style="{StaticResource addButton}" Margin="0 0 30 0" Padding="10">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Plus" 
                                                        VerticalAlignment="Center" 
-                                                       Width="20" 
-                                                       Height="20" 
-                                                       Margin="0 0 20 0"/>
-                                <TextBlock Text="Add new employee"/>
+                                                       Width="15" 
+                                                       Height="15" 
+                                                       Margin="0 0 10 0"/>
+                                <TextBlock Text="Add new employee"
+                                           FontSize="15"
+                                           FontWeight="SemiBold" />
                             </StackPanel>
+                            <!--Add new customer trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding AddStaffCM}"
+                                                           CommandParameter="{Binding ElementName=StaffWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
-
-                        <Button Grid.Column="1" Style="{StaticResource addButton}">
+                        <!--Export from CSV -->
+                        <Button Grid.Column="1"
+                                Style="{StaticResource addButton}"
+                                Padding="10">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="FileExcel" 
                                                        VerticalAlignment="Center" 
-                                                       Width="20" 
-                                                       Height="20" 
-                                                       Margin="0 0 20 0"/>
-                                <TextBlock Text="Import from excel"/>
+                                                       Width="15" 
+                                                       Height="15" 
+                                                       Margin="0 0 10 0"/>
+                                <TextBlock Text="Export from CSV"
+                                           FontSize="15"
+                                           FontWeight="SemiBold" />
                             </StackPanel>
+                            <!--Export trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ExportStaffCM}"
+                                                           CommandParameter="{Binding ElementName=StaffWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+
+                        <!--Import from CSV -->
+                        <Button Grid.Column="2"
+                                Style="{StaticResource addButton}"
+                                Margin="30 0 0 0"
+                                Padding="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Import"
+                                                       VerticalAlignment="Center"
+                                                       Width="15"
+                                                       Height="15"
+                                                       Margin="0 0 10 0" />
+                                <TextBlock Text="Import from CSV"
+                                           FontSize="15"
+                                           FontWeight="SemiBold" />
+                            </StackPanel>
+                            <!--Import trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ImportStaffCM}"
+                                                           CommandParameter="{Binding ElementName=StaffWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
                     </Grid>
                 </Grid>
 
                 <!-- Bottom section -->
-                <DataGrid x:Name="staffDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
+                <DataGrid x:Name="staffDataGrid"
+                          Style="{DynamicResource DataGridStyle1}"
+                          CellStyle="{DynamicResource DataGridCellStyle1}"
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                          RowStyle="{DynamicResource DataGridRowStyle1}"
+                          Grid.Row="2"
+                          ItemsSource="{Binding EmployeeList}"
+                          AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn CanUserResize="False" Width="Auto">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
 
-
-
-                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
-                        <DataGridTemplateColumn Header="Staff ID" IsReadOnly="True" Width="Auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                            <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                        </Border>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
-                        <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Department" IsReadOnly="True" Width="*" Binding="{Binding Department}"/>
-                        <DataGridTextColumn Header="Phone number" IsReadOnly="True" Width="*" Binding="{Binding PhoneNumber}"/>
-                        <DataGridTextColumn Header="Email" IsReadOnly="True" Width="*" Binding="{Binding Email}"/>
-                        <DataGridTextColumn Header="Hire Date" IsReadOnly="True" Width="*" Binding="{Binding HireDate}"/>
-
-                        <DataGridTemplateColumn Header="Actions" IsReadOnly="True" Width="*">
+                        <DataGridTextColumn Header="Staff ID"
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding EmployeeId}" />
+                        <DataGridTextColumn Header="Name"
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding FullName}" />
+                        <DataGridTextColumn Header="Department"
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding IsAdmin, Converter={StaticResource BooleanToDepartmentConverter}}" />
+                        <DataGridTextColumn Header="Phone number"
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding PhoneNumber}" />
+                        <DataGridTextColumn Header="Email"
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding Email}" />
+                        <DataGridTextColumn Header="Hire Date"
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding DateOfJoining, StringFormat=\{0:dd/MM/yyyy\}}" />
+                        <DataGridTemplateColumn Header="Actions"
+                                                IsReadOnly="True"
+                                                Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource gridMoreVerticalButton}">
@@ -162,7 +249,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
