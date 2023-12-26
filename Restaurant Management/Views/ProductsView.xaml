@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Style="{StaticResource Page_Style}">
@@ -12,8 +13,177 @@
     <UserControl.DataContext>
         <vm:ProductsVM/>
     </UserControl.DataContext>
-    
-    <Grid Background="DarkGreen">
-        <TextBlock Text="Products"/>
-    </Grid>
+    <UserControl.Resources>
+        <Style x:Key="TextboxSearch" TargetType="TextBox">
+            <Setter Property="Background" Value="#ffffff"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBoxBase">
+                        <Grid>
+                            <Border x:Name="border"
+                                CornerRadius="10" 
+                                Padding="20"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="1"
+                                BorderBrush="#d9d9d9">
+                                <TextBlock x:Name="placeholder" Margin="25 0 0 0" Text="Search by Product ID" FontSize="18" Foreground="#808080" VerticalAlignment="Center" Visibility="Visible"/>
+                            </Border>
+                            <ScrollViewer MaxWidth="310" Padding="20" VerticalAlignment="Center" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="placeholder" Property="Visibility" Value="Hidden"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#007acc"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </UserControl.Resources>
+
+    <Border Padding="40" Background="#f3eeea">
+        <Border CornerRadius="20" Background="White" Padding="30 30">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Top section -->
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <TextBlock Text="Product" 
+                               FontSize="30" 
+                               FontWeight="Bold" 
+                               FontFamily="Roboto" 
+                               Margin="0 0 0 10"/>
+                    <Separator Height="1" Background="#d9d9d9" Margin="0 -1 0 20"/>
+                </StackPanel>
+
+                <!-- Middle section -->
+                <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Search TextBox -->
+                    <Grid HorizontalAlignment="Left">
+                        <TextBox Grid.Column="0" x:Name="txtSearch" Style="{StaticResource TextboxSearch}" Width="400"/>
+                        <Icon:PackIconMaterial Kind="Magnify"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right"
+                                               Foreground="#000000"
+                                               Margin="0 0 20 0"
+                                               Width="16"
+                                               Height="16"/>
+                    </Grid>
+
+                    <!-- Add new employee and Import from excel buttons -->
+                    <Grid Grid.Column="1" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Style="{StaticResource addButton}" Margin="0 0 30 0" Padding="20">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Plus" 
+                                                       VerticalAlignment="Center" 
+                                                       Width="20" 
+                                                       Height="20" 
+                                                       Margin="0 0 20 0"/>
+                                <TextBlock Text="Add new product"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <!-- Bottom section -->
+                <DataGrid x:Name="productDataGrid" 
+                          Style="{DynamicResource DataGridStyle1}" 
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                          RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="#" 
+                                            IsReadOnly="True" 
+                                            CanUserResize="False" 
+                                            Width="Auto" Binding="{Binding Number}"/>
+                        <DataGridTemplateColumn Header="Product ID" 
+                                                IsReadOnly="True" 
+                                                Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="50" 
+                                                Height="25" 
+                                                CornerRadius="5" 
+                                                Margin="0 0 10 0" 
+                                                Background="{Binding BgColor}">
+                                            <TextBlock Text="{Binding ID}" 
+                                                       VerticalAlignment="Center" 
+                                                       HorizontalAlignment="Center" 
+                                                       Foreground="White" 
+                                                       Margin="0 0 0 1"/>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Name" 
+                                            IsReadOnly="True" 
+                                            Width="*" 
+                                            Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Barcode" 
+                                            IsReadOnly="True"
+                                            Width="*" 
+                                            Binding="{Binding Barcode}"/>
+                        <DataGridTextColumn Header="Category" 
+                                            IsReadOnly="True" 
+                                            Width="*" 
+                                            Binding="{Binding Category}"/>
+                        <DataGridTemplateColumn Header="Actions" 
+                                                IsReadOnly="True"
+                                                Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel x:Name="subMenuGrid"
+                                                Orientation="Horizontal"  
+                                                Visibility="Visible" 
+                                                Background="Transparent">
+                                        
+                                        <Button Style="{StaticResource gridEditButton}"
+                                                Margin="0 0 5 0">
+                                            <Icon:PackIconBoxIcons Kind="RegularEdit" 
+                                                                   Width="14"
+                                                                   Height="14" 
+                                                                   VerticalAlignment="Center" />
+                                        </Button>
+                                        
+                                        <Button Style="{StaticResource gridRemoveButton}">
+                                            <Icon:PackIconIonicons Kind="TrashMD" 
+                                                                   Width="14"
+                                                                   Height="14"
+                                                                   VerticalAlignment="Center" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Border>
 </UserControl>

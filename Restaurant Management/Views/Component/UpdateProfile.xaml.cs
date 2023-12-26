@@ -25,14 +25,5 @@ namespace Restaurant_Management.Views.Component
             InitializeComponent();
         }
 
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
-        {
-            var parentWindow = Window.GetWindow(this);
-            if (parentWindow != null)
-            {
-                MessageBox.Show("Profile updated Successfully !");
-                parentWindow.Close();
-            }
-        }
     }
 }
