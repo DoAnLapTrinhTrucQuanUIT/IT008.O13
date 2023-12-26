@@ -211,20 +211,18 @@
                               Margin="0 30 0 0"
                               x:Name="DataGridCustomers"
                               ItemsSource="{Binding CustomerList}"
-                              AutoGenerateColumns="False" >
+                              AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <!-- Add a DataGridTemplateColumn for the checkbox in header -->
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.HeaderTemplate>
                                     <DataTemplate>
-                                        <CheckBox x:Name="checkBoxHeader"
-                                                  IsChecked="{Binding IsAllChecked, Mode=TwoWay}" />
+                                        <CheckBox />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.HeaderTemplate>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox x:Name="checkBoxCell"
-                                                  IsChecked="{Binding IsChecked, Mode=TwoWay}" />
+                                        <CheckBox />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
