@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,31 +14,45 @@ using MongoDB.Bson;
 using System.Windows.Documents;
 using Restaurant_Management.Views.Component;
 using System.Windows;
+using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace Restaurant_Management.ViewModels
 {
     public class CustomerVM : Utilities.ViewModelBase
     {
+        private string _totalCustomer;
         public string TotalCustomer
         {
             get { return GetTotalCustomerCount(); } // Đơn giản là đếm số lượng phần tử trong danh sách
+            set
+            {
+                value = _totalCustomer;
+                OnPropertyChanged(nameof(_totalCustomer));
+            }
         }
 
+        private string _percent;
         public string Percent
         {
             get { return CalculatePercentage(); } // Hàm tính toán tỷ lệ phần trăm
+            set
+            {
+                value = _percent;
+                OnPropertyChanged(nameof(_percent));
+            }
         }
+
+        private string _status;
 
         public string Status
         {
-            get { return CalculateStatus(); } // Hàm tính toán trạng thái
-        }
-
-        private bool? isAllSelected;
-        public bool? IsAllSelected
-        {
-            get { return isAllSelected; }
-            set { isAllSelected = value; OnPropertyChanged(); }
+            get { return CalculateStatus(); }// Hàm tính toán trạng thái
+            set
+            {
+                value = _status;
+                OnPropertyChanged(nameof(_status));
+            }
         }
 
         private ObservableCollection<Customers> _customerList;
@@ -122,7 +137,24 @@ namespace Restaurant_Management.ViewModels
 
         void _ExportCustomer(CustomerView parameter)
         {
+            StringBuilder csvContent = new StringBuilder();
 
+            // Add the header row to the CSV content
+            csvContent.AppendLine("Customer ID,Full Name, Address, Phone Number, Email, Gender, Registration Date, Sales");
+
+            // Add customer data to the CSV content
+            foreach (var customer in CustomerList)
+            {
+                csvContent.AppendLine($"{customer.CustomerId},{customer.FullName}, {customer.Address},{customer.PhoneNumber}, {customer.Email}, {customer.Gender}, {customer.RegistrationDate}, {customer.Sales}");
+            }
+
+            // Specify the file path
+            var filePath = "\\\\Mac\\Home\\Documents\\FresherYear\\LTTQ\\DACK\\CustomerList.csv"; // Set your desired file path
+
+            // Write the CSV content to the file
+            File.WriteAllText(filePath, csvContent.ToString());
+
+            MessageBox.Show("Customer list exported successfully to CSV!");
         }
         public string GetTotalCustomerCount()
         {
