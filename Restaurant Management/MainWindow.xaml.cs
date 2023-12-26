@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Restaurant_Management
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -28,9 +25,17 @@ namespace Restaurant_Management
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             int nWidth = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-            int nHieght = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+            int nHeight = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
 
-            this.LayoutTransform = new ScaleTransform(nWidth / 1920, nHieght / 1080);
+            this.LayoutTransform = new ScaleTransform(nWidth / 1920.0, nHeight / 1080.0);
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
     }
 }

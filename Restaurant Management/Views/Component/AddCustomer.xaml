@@ -1,193 +1,327 @@
 ﻿<UserControl x:Class="Restaurant_Management.Views.Component.AddCustomer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
-             mc:Ignorable="d" 
-             d:DesignHeight="877" d:DesignWidth="750">
-    <Border Padding="50, 50"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             mc:Ignorable="d"
+             x:Name="AddCusWindow"
+             d:DesignHeight="600"
+             d:DesignWidth="500">
+    <UserControl.DataContext>
+        <vm:AddCustomerVM />
+    </UserControl.DataContext>
+    <Border Width="500"
+            Height="600"
             Background="#ffff"
-            CornerRadius="20">
+            CornerRadius="13">
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                <i:InvokeCommandAction Command="{Binding MoveWDCM}"
+                                       CommandParameter="{Binding ElementName=AddCusWindow}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50" />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <!--Name-->
+
             <Grid Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock Text="Name"
-                                Foreground="#999"
-                                FontSize="24"
-                                FontFamily="Roboto"
-                                FontWeight="Medium"
-                                VerticalAlignment="Center" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Border Background="#FFFFFF"
-                        CornerRadius="5"
-                        BorderThickness="1"
-                        BorderBrush="#D9D9D9">
-                        <TextBox BorderThickness="0"
-                                FontSize="20"
-                                FontFamily="Roboto"
-                                TextAlignment="Left"
-                                VerticalContentAlignment="Center"
-                                Padding="20"/>
-                    </Border>
-                </Grid>
+                <StackPanel HorizontalAlignment="Right"
+                            Margin="0,10,20,0"
+                            Orientation="Horizontal">
+                    <!-- Minimize Button -->
+                    <MaterialDesign:PackIcon Kind="WindowMinimize"
+                                             Foreground="#999"
+                                             Height="24"
+                                             Width="24"
+                                             Margin="0,0,8,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding MinimizeWDCM}"
+                                                       CommandParameter="{Binding ElementName=AddCusWindow}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MaterialDesign:PackIcon>
+
+                    <!-- Close Button -->
+                    <MaterialDesign:PackIcon Kind="CloseThick"
+                                             Foreground="#999"
+                                             Height="24"
+                                             Width="24">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding CloseWDCM}"
+                                                       CommandParameter="{Binding ElementName=AddCusWindow}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MaterialDesign:PackIcon>
+                </StackPanel>
             </Grid>
-            <!--Address-->
+            
             <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock Text="Address"
-                                   Foreground="#999"
-                                   FontSize="24"
-                                   FontFamily="Roboto"
-                                   FontWeight="Medium"
-                                   VerticalAlignment="Center" />
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Border Background="#FFFFFF"
-                                CornerRadius="5"
-                                BorderThickness="1"
-                                BorderBrush="#D9D9D9">
-                            <TextBox BorderThickness="0"
-                                     FontSize="20"
-                                     FontFamily="Roboto"
-                                     TextAlignment="Left"
-                                     VerticalContentAlignment="Center"
-                                     Padding="20"/>
-                        </Border>
-                    </Grid>
-            </Grid>
+                <Border Padding="33 0 33 0">
+                    <StackPanel>
+                        <!--Name-->
+                        <Grid Height="69">
+                            <StackPanel>
+                                <Grid Height="28">
+                                    <TextBlock Text="Name"
+                                               Foreground="#999"
+                                               FontSize="16"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium"
+                                               VerticalAlignment="Center"
+                                               Margin="13 0 0 5"/>
+                                </Grid>
+                                <Grid>
+                                    <Border Height="41"
+                                            Background="#ffff"
+                                            CornerRadius="8"
+                                            BorderThickness="1"
+                                            BorderBrush="#D9D9D9" />
+                                    <TextBox x:Name="FullName"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             BorderThickness="0"
+                                             Margin="13 0 13 0"
+                                             Background="Transparent"
+                                             Foreground="#999"
+                                             FontWeight="SemiBold"
+                                             FontSize="12"
+                                             MaterialDesign:HintAssist.Hint="Enter customer's full name"
+                                             MaterialDesign:HintAssist.Foreground="Transparent"
+                                             MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
 
-            <!--Phone Number-->
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock Text="Phone Number"
-                               Foreground="#999"
-                               FontSize="24"
-                               FontFamily="Roboto"
-                               FontWeight="Medium"
-                               VerticalAlignment="Center" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Border Background="#FFFFFF"
-                            CornerRadius="5"
-                            BorderThickness="1"
-                            BorderBrush="#D9D9D9">
-                        <TextBox BorderThickness="0"
-                                 FontSize="20"
-                                 FontFamily="Roboto"
-                                 TextAlignment="Left"
-                                 VerticalContentAlignment="Center"
-                                 Padding="20"/>
-                    </Border>
-                </Grid>
-            </Grid>
+                        <!--Gender-->
+                        <Grid Height="69"
+                              Margin="0, 26, 0, 0">
+                            <StackPanel>
+                                <Grid Height="28">
+                                    <TextBlock Text="Gender"
+                                               Foreground="#999"
+                                               FontSize="16"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium"
+                                               VerticalAlignment="Center"
+                                               Margin="13 0 0 5"/>
+                                </Grid>
+                                <ComboBox x:Name="GenderComboBox"
+                                          Padding="13 0 13 0"
+                                          FontFamily="Roboto"
+                                          Height="41"
+                                          BorderThickness="1"
+                                          BorderBrush="#D9D9D9"
+                                          Foreground="#999"
+                                          FontWeight="SemiBold"
+                                          FontSize="12"
+                                          MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                          MaterialDesign:TextFieldAssist.TextFieldCornerRadius="8"
+                                          MaterialDesign:HintAssist.Hint="Choose Gender">
+                                    <ComboBoxItem Content="Male" />
+                                    <ComboBoxItem Content="Female" />
+                                    <ComboBoxItem Content="Other" />
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
 
-            <!--Email-->
-            <Grid Grid.Row="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock Text="Email"
-                                Foreground="#999"
-                                FontSize="24"
-                                FontFamily="Roboto"
-                                FontWeight="Medium"
-                                VerticalAlignment="Center" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Border Background="#FFFFFF"
-                            CornerRadius="5"
-                            BorderThickness="1"
-                            BorderBrush="#D9D9D9">
-                        <TextBox BorderThickness="0"
-                                    FontSize="20"
+                        <!--Phone Number-->
+                        <Grid Height="69"
+                              Margin="0, 26, 0, 0">
+                            <StackPanel>
+                                <Grid Height="28">
+                                    <TextBlock Text="Phone Number"
+                                               Foreground="#999"
+                                               FontSize="16"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium"
+                                               VerticalAlignment="Center"
+                                               Margin="13 0 0 5"/>
+                                </Grid>
+                                <Grid>
+                                    <Border Height="41"
+                                            Background="#ffff"
+                                            CornerRadius="8"
+                                            BorderThickness="1"
+                                            BorderBrush="#D9D9D9" />
+                                    <TextBox x:Name="PhoneNumber"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             BorderThickness="0"
+                                             Margin="13 0 13 0"
+                                             Background="Transparent"
+                                             Foreground="#999"
+                                             FontWeight="SemiBold"
+                                             FontSize="12"
+                                             MaterialDesign:HintAssist.Hint="Enter customer's phone number"
+                                             MaterialDesign:HintAssist.Foreground="Transparent"
+                                             MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+
+                        <!--Email-->
+                        <Grid Height="69"
+                              Margin="0, 26, 0, 0">
+                            <StackPanel>
+                                <Grid Height="28">
+                                    <TextBlock Text="Email"
+                                               Foreground="#999"
+                                               FontSize="16"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium"
+                                               VerticalAlignment="Center"
+                                               Margin="13 0 0 5" />
+                                </Grid>
+                                <Grid>
+                                    <Border Height="41"
+                                            Background="#ffff"
+                                            CornerRadius="8"
+                                            BorderThickness="1"
+                                            BorderBrush="#D9D9D9" />
+                                    <TextBox x:Name="Email"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             BorderThickness="0"
+                                             Margin="13 0 13 0"
+                                             Background="Transparent"
+                                             Foreground="#999"
+                                             FontWeight="SemiBold"
+                                             FontSize="12"
+                                             MaterialDesign:HintAssist.Hint="Enter customer's email"
+                                             MaterialDesign:HintAssist.Foreground="Transparent"
+                                             MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+
+                        <!--Address-->
+                        <Grid Height="69"
+                              Margin="0, 26, 0, 0">
+                            <StackPanel>
+                                <Grid Height="28">
+                                    <TextBlock Text="Address"
+                                               Foreground="#999"
+                                               FontSize="16"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium"
+                                               VerticalAlignment="Center"
+                                               Margin="13 0 0 5" />
+                                </Grid>
+                                <Grid>
+                                    <Border Height="41"
+                                            Background="#ffff"
+                                            CornerRadius="8"
+                                            BorderThickness="1"
+                                            BorderBrush="#D9D9D9" />
+                                    <TextBox x:Name="Address"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             BorderThickness="0"
+                                             Margin="13 0 13 0"
+                                             Background="Transparent"
+                                             Foreground="#999"
+                                             FontWeight="SemiBold"
+                                             FontSize="12"
+                                             MaterialDesign:HintAssist.Hint="Enter customer's address"
+                                             MaterialDesign:HintAssist.Foreground="Transparent"
+                                             MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Buttons -->
+                        <StackPanel Margin="0,26,0,0"
+                                    Orientation="Horizontal">
+                            <!--Cancel-->
+                            <Button Content="Cancel"
+                                    Width="200"
+                                    Height="36"
+                                    Background="#000"
+                                    Foreground="#fff"
+                                    FontSize="12"
                                     FontFamily="Roboto"
-                                    TextAlignment="Left"
-                                    VerticalContentAlignment="Center"
-                                    Padding="20"/>
-                    </Border>
-                </Grid>
-            </Grid>
-
-            <!--Registration Date-->
-            <Grid Grid.Row="4">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock Text="Registration Date"
-                                   Foreground="#999"
-                                   FontSize="24"
-                                   FontFamily="Roboto"
-                                   FontWeight="Medium"
-                                   VerticalAlignment="Center" />
-                    </Grid>
-                    <Grid Grid.Row="1">
-                    <DatePicker FontSize="20"
-                                BorderBrush="#D9D9D9"
-                                materialDesign:DatePickerAssist.OutlinedBorderActiveThickness="1"
-                                materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
-                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
-                </Grid>
-            </Grid>
-
-            <!--Cancel & Confirm button-->
-            <Grid Grid.Row="5" Margin="0 60 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <!--Cancel-->
-                <Grid Grid.Column="0" Margin="0 0 10 0">
-                    <Button Style="{StaticResource cancelButton}">
-                        <TextBlock Text="Cancel"
-                               Foreground="#fff"
-                               FontSize="18"
-                               FontFamily="Roboto"
-                               FontWeight="SemiBold"
-                               TextAlignment="Center" />
-                    </Button>
-                </Grid>
-                <!--Confirm-->
-                <Grid Grid.Column="1" Margin="10 0 0 0">
-                    <Button Style="{StaticResource confirmButton}">
-                        <TextBlock Height="20.5"
-                               Width="66"
-                               Text="Confirm"
-                               Foreground="#fff"
-                               FontSize="18"
-                               FontFamily="Roboto"
-                               FontWeight="SemiBold"
-                               TextAlignment="Center" />
-                    </Button>
-                </Grid>
+                                    FontWeight="SemiBold"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    BorderThickness="0">
+                                <!-- Button Template and Triggers -->
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <TextBlock Text="{TemplateBinding Content}"
+                                                       Foreground="{TemplateBinding Foreground}"
+                                                       FontSize="{TemplateBinding FontSize}"
+                                                       FontFamily="{TemplateBinding FontFamily}"
+                                                       FontWeight="{TemplateBinding FontWeight}"
+                                                       TextAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Width="Auto"
+                                                       Height="Auto" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding CancelCommand}"
+                                                               CommandParameter="{Binding ElementName=AddCusWindow}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <!--Confirm-->
+                            <Button Content="Confirm"
+                                    Width="200"
+                                    Height="36"
+                                    Margin="26,0,0,0"
+                                    Background="#FF7F50"
+                                    Foreground="#fff"
+                                    FontSize="12"
+                                    FontFamily="Roboto"
+                                    FontWeight="SemiBold"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    BorderThickness="0">
+                                <!-- Button Template and Triggers -->
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <TextBlock Text="{TemplateBinding Content}"
+                                                       Foreground="{TemplateBinding Foreground}"
+                                                       FontSize="{TemplateBinding FontSize}"
+                                                       FontFamily="{TemplateBinding FontFamily}"
+                                                       FontWeight="{TemplateBinding FontWeight}"
+                                                       TextAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Width="Auto"
+                                                       Height="Auto" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ConfirmCommand}"
+                                                               CommandParameter="{Binding ElementName=AddCusWindow}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Grid>
     </Border>

@@ -11,17 +11,19 @@ using Restaurant_Management.Views;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Windows.Documents;
+using Restaurant_Management.Views.Component;
+using System.Windows;
 
 namespace Restaurant_Management.ViewModels
 {
     public class CustomerVM : Utilities.ViewModelBase
     {
-        public int TotalCustomer
+        public string TotalCustomer
         {
             get { return GetTotalCustomerCount(); } // Đơn giản là đếm số lượng phần tử trong danh sách
         }
 
-        public double Percent
+        public string Percent
         {
             get { return CalculatePercentage(); } // Hàm tính toán tỷ lệ phần trăm
         }
@@ -29,6 +31,13 @@ namespace Restaurant_Management.ViewModels
         public string Status
         {
             get { return CalculateStatus(); } // Hàm tính toán trạng thái
+        }
+
+        private bool? isAllSelected;
+        public bool? IsAllSelected
+        {
+            get { return isAllSelected; }
+            set { isAllSelected = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<Customers> _customerList;
@@ -49,6 +58,7 @@ namespace Restaurant_Management.ViewModels
         public CustomerVM() 
         {
             _Customers = GetCustomers();
+            LoadCustomers();
             SearchCM = new RelayCommand<CustomerView>((p) => true, (p) => _Search(p));
             AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer(p));
             ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer(p));
@@ -65,15 +75,26 @@ namespace Restaurant_Management.ViewModels
 
             return database.GetCollection<Customers>("Customers");
         }
-
-        void _Search(CustomerView paramater)
+        private void LoadCustomers()
+        {
+            var customers = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();
+            CustomerList = new ObservableCollection<Customers>(customers);
+        }
+        void _Search(CustomerView parameter)
         {
             ObservableCollection<Customers> temp = new ObservableCollection<Customers>();
-            if(paramater.txtSearch.Text != "")
+            if (!string.IsNullOrEmpty(parameter.txtSearch.Text))
             {
                 var filterBuilder = Builders<Customers>.Filter;
                 FilterDefinition<Customers> filter;
-                filter = filterBuilder.Regex("customerId", new BsonRegularExpression(paramater.txtSearch.Text, "i"));
+
+                var keyword = parameter.txtSearch.Text;
+
+                filter = filterBuilder.Or(
+                    filterBuilder.Regex("customerId", new BsonRegularExpression(keyword, "i")),
+                    filterBuilder.Regex("fullName", new BsonRegularExpression(keyword, "i")),
+                    filterBuilder.Regex("phoneNumber", new BsonRegularExpression(keyword, "i"))
+                );
                 var result = _Customers.Find(filter).ToList();
                 temp = new ObservableCollection<Customers>(result);
             }
@@ -82,31 +103,39 @@ namespace Restaurant_Management.ViewModels
                 var result = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();
                 temp = new ObservableCollection<Customers>(result);
             }
-            paramater.DataGridCustomers.ItemsSource = temp;
+            parameter.DataGridCustomers.ItemsSource = temp;
         }
 
         void _AddCustomer(CustomerView parameter)
         {
-
+            AddCustomer addCustomer = new AddCustomer();
+            var window = new Window
+            {
+                Content = addCustomer,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                WindowStyle = WindowStyle.None,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+            window.ShowDialog();
+            LoadCustomers();
         }
 
         void _ExportCustomer(CustomerView parameter)
         {
 
         }
-        public int GetTotalCustomerCount()
+        public string GetTotalCustomerCount()
         {
-            var totalCustomerCount = _Customers.AsQueryable().Count();
-            return totalCustomerCount;
+            return "1000";
         }
-        private double CalculatePercentage()
+        private string CalculatePercentage()
         {
-            return 0.0;
+            return "345";
         }
 
         private string CalculateStatus()
         {
-            return "Ready";
+            return "57";
         }
     }
 }

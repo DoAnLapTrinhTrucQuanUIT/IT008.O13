@@ -4,49 +4,105 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-             mc:Ignorable="d">
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             x:Name="NavigationBarWindow">
     
     <UserControl.DataContext>
         <vm:StaffInformationVM/>
     </UserControl.DataContext>
-
-    <Border Padding="0 20 100 20" Background="#ffffff">
-        <Grid>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+    <UserControl.Resources>
+        <Style x:Key="IconStyle"
+               TargetType="materialDesign:PackIcon">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Foreground"
+                            Value="Black" />
+                    <Setter Property="BorderBrush"
+                            Value="Black" />
+                    <Setter Property="BorderThickness"
+                            Value="1" />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="False">
+                    <Setter Property="Foreground"
+                            Value="Black" />
+                    <Setter Property="BorderBrush"
+                            Value="Transparent" />
+                    <Setter Property="BorderThickness"
+                            Value="0" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Border Padding="0 20 20 20"
+            Background="#ffffff">
+        <Grid HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left">
                 <!--Notification icon-->
-                <Grid>
-                    <Image Source="../Assets/Images/Notification Icon.png"
-                               Width="30"
-                               Height="30" />
+                <Grid VerticalAlignment="Center"
+                      Margin="20 0 0 0">
+                    <materialDesign:PackIcon Kind="Bell"
+                                             Width="30"
+                                             Height="30" />
                 </Grid>
                 <!--Avatar Image-->
                 <Grid Margin="50,0,0,0">
-                    <Image Source="../Assets/Images/Person.png"
-                               Width="30"
-                               Height="30"/>
+                    <Image Source="{Binding AvatarImageSource}"
+                           Width="40"
+                           Height="40" />
                 </Grid>
                 <!--Name & Role-->
                 <StackPanel Orientation="Vertical"
-                                Margin="30,0,0,0">
+                            Margin="30,0,0,0"
+                            Width="150">
                     <Grid>
-                        <TextBlock Padding="0 0 0 10"  Text="{Binding}"
-                                       Foreground="Black"
-                                       FontSize="14"
-                                       FontFamily="Roboto"
-                                       FontWeight="SemiBold"
-                                       TextAlignment="Left"/>
+                        <TextBlock Padding="0 0 0 10"
+                                   Text="{Binding FullName}"
+                                   Foreground="Black"
+                                   FontSize="14"
+                                   FontFamily="Roboto"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Left" />
                     </Grid>
                     <Grid>
-                        <TextBlock Text="{Binding}"
-                                    Foreground="Black"
-                                    FontSize="12"
-                                    FontFamily="Roboto"
-                                    FontWeight="Regular"
-                                    TextAlignment="Left"/>
+                        <TextBlock Text="{Binding IsAdmin}"
+                                   Foreground="Black"
+                                   FontSize="12"
+                                   FontFamily="Roboto"
+                                   FontWeight="Regular"
+                                   TextAlignment="Left" />
                     </Grid>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="20 0 0 0">
+                    <materialDesign:PackIcon x:Name="MinimizeIcon"
+                                             Kind="WindowMinimize"
+                                             Width="20"
+                                             Height="20"
+                                             Margin="0 0 10 0"
+                                             Style="{StaticResource IconStyle}"
+                                             MouseLeftButtonDown="MinimizeButton_Click" />
+                    <materialDesign:PackIcon x:Name="CloseIcon"
+                                             Kind="CloseThick"
+                                             Width="20"
+                                             Height="20"
+                                             Style="{StaticResource IconStyle}"
+                                             MouseLeftButtonDown="CloseButton_Click" />
                 </StackPanel>
             </StackPanel>
         </Grid>
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding LoadWindowCommand}"
+                                       CommandParameter="{Binding ElementName=NavigationBarWindow}"></i:InvokeCommandAction>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
     </Border>
 </UserControl>

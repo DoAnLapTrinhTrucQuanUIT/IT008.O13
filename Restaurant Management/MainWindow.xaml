@@ -3,22 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Restaurant_Management" 
+        xmlns:local="clr-namespace:Restaurant_Management"
         xmlns:views="clr-namespace:Restaurant_Management.Views"
         xmlns:component="clr-namespace:Restaurant_Management.Views.Component"
         xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         Name="Window"
         AllowsTransparency="True"
         WindowStyle="None"
         Background="White"
         Width="1540"
-        Height="950">
+        Height="950"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.DataContext>
-        <vm:NavigationVM/>
+        <vm:NavigationVM />
     </Window.DataContext>
     <Grid>
-
         <Grid.ColumnDefinitions>
             <!--Left Sidebar-->
             <ColumnDefinition Width="Auto" />
