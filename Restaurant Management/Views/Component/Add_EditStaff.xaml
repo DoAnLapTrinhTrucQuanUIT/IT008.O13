@@ -58,81 +58,155 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <!--Name-->
-                <Grid Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock Text="Name"
-                               Foreground="#999"
-                               FontSize="16"
-                               FontFamily="Roboto"
-                               FontWeight="Medium"
-                               VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Border Background="#ffff"
-                                    CornerRadius="5"
-                                    BorderThickness="1"
-                                    BorderBrush="#D9D9D9"/>
-                        <TextBox x:Name="FullName"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Left"
-                                        Padding="15"
-                                        BorderThickness="0"
-                                        Background="Transparent"
-                                        Foreground="#000000"
-                                        FontWeight="SemiBold"
-                                        FontSize="12"
-                                        MaterialDesign:HintAssist.Hint="Enter full name"
-                                        MaterialDesign:HintAssist.Foreground="Transparent"
-                                        MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
-                    </Grid>
-                </Grid>
+                <Border Padding="33 0 33 0">
+                    <StackPanel Orientation="Vertical">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                <!--Department-->
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock Text="Department"
-                               Foreground="#999"
-                               FontSize="16"
-                               FontFamily="Roboto"
-                               FontWeight="Medium"
-                               VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <ComboBox x:Name="DepartmentComboBox"
-                                    Padding="20"
-                                    FontFamily="Roboto"
-                                    BorderThickness="1"
-                                    BorderBrush="#D9D9D9"
-                                    Foreground="#000000"
-                                    FontWeight="SemiBold"
-                                    FontSize="12"
-                                    MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                    MaterialDesign:TextFieldAssist.TextFieldCornerRadius="5"
-                                    MaterialDesign:HintAssist.Hint="Choose department">
-                            <ComboBoxItem Content="Male" />
-                            <ComboBoxItem Content="Female" />
-                            <ComboBoxItem Content="Other" />
-                        </ComboBox>
-                    </Grid>
-                </Grid>
+                            <!--Name-->
+                            <Grid Height="69"
+                                  Grid.Column="0"
+                                  Margin="0 0 18 0">
+                                <StackPanel>
+                                    <Grid Height="28">
+                                        <TextBlock Text="Name"
+                                                   Foreground="#999"
+                                                   FontSize="16"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Medium"
+                                                   VerticalAlignment="Center"
+                                                   Margin="13 0 0 5" />
+                                    </Grid>
+                                    <Grid>
+                                        <Border Height="41"
+                                                Background="#ffff"
+                                                CornerRadius="8"
+                                                BorderThickness="1"
+                                                BorderBrush="#D9D9D9" />
+                                        <TextBox x:Name="FullName"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Left"
+                                                 BorderThickness="0"
+                                                 Margin="13 0 13 0"
+                                                 Background="Transparent"
+                                                 Foreground="#999"
+                                                 FontWeight="SemiBold"
+                                                 FontSize="12"
+                                                 MaterialDesign:HintAssist.Hint="Enter customer's full name"
+                                                 MaterialDesign:HintAssist.Foreground="Transparent"
+                                                 MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
 
+                            <!--Birthdate-->
+                            <Grid Height="69"
+                                  Grid.Column="1"
+                                  Margin="15 0 0 0">
+                                <StackPanel>
+                                    <Grid Height="28">
+                                        <TextBlock Text="Birthdate"
+                                                   Foreground="#999"
+                                                   FontSize="16"
+                                                   FontFamily="Roboto"
+                                                   FontWeight="Medium"
+                                                   VerticalAlignment="Center"
+                                                   Margin="13 0 0 5" />
+                                    </Grid>
+                                    <Grid>
+                                        <Border Height="41"
+                                                Background="#ffff"
+                                                CornerRadius="8"
+                                                BorderThickness="1"
+                                                BorderBrush="#D9D9D9" />
+                                        <DatePicker x:Name="Birthdate"
+                                                    Width="150"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left"
+                                                    BorderThickness="0"
+                                                    Margin="13 0 13 0"
+                                                    Background="Transparent"
+                                                    Foreground="#999"
+                                                    FontWeight="SemiBold"
+                                                    FontSize="12"
+                                                    MaterialDesign:HintAssist.Hint="Select birthdate"
+                                                    MaterialDesign:HintAssist.Foreground="Transparent"
+                                                    MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                        <!--Gender - Department - Avatar-->
+                        <StackPanel Orientation="Horizontal">
+                            <!--Gender - Department-->
+                            <StackPanel Orientation="Vertical"
+                                        Width="200">
+                                <!--Gender-->
+                                <Grid Height="69"
+                                      Margin="0, 26, 0, 0">
+                                    <StackPanel>
+                                        <Grid Height="28">
+                                            <TextBlock Text="Gender"
+                                                       Foreground="#999"
+                                                       FontSize="16"
+                                                       FontFamily="Roboto"
+                                                       FontWeight="Medium"
+                                                       VerticalAlignment="Center"
+                                                       Margin="13 0 0 5" />
+                                        </Grid>
+                                        <ComboBox x:Name="GenderComboBox"
+                                                  Padding="13 0 13 0"
+                                                  FontFamily="Roboto"
+                                                  Height="41"
+                                                  BorderThickness="1"
+                                                  BorderBrush="#D9D9D9"
+                                                  Foreground="#999"
+                                                  FontWeight="SemiBold"
+                                                  FontSize="12"
+                                                  MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                  MaterialDesign:TextFieldAssist.TextFieldCornerRadius="8"
+                                                  MaterialDesign:HintAssist.Hint="Choose Gender">
+                                            <ComboBoxItem Content="Male" />
+                                            <ComboBoxItem Content="Female" />
+                                            <ComboBoxItem Content="Other" />
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!--Department-->
+                                <Grid Height="69"
+                                      Margin="0, 26, 0, 0">
+                                    <StackPanel>
+                                        <Grid Height="28">
+                                            <TextBlock Text="Department"
+                                                       Foreground="#999"
+                                                       FontSize="16"
+                                                       FontFamily="Roboto"
+                                                       FontWeight="Medium"
+                                                       VerticalAlignment="Center"
+                                                       Margin="13 0 0 5" />
+                                        </Grid>
+                                        <ComboBox x:Name="DepartmentComboBox"
+                                                  Padding="13 0 13 0"
+                                                  FontFamily="Roboto"
+                                                  Height="41"
+                                                  BorderThickness="1"
+                                                  BorderBrush="#D9D9D9"
+                                                  Foreground="#999"
+                                                  FontWeight="SemiBold"
+                                                  FontSize="12"
+                                                  MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                  MaterialDesign:TextFieldAssist.TextFieldCornerRadius="8"
+                                                  MaterialDesign:HintAssist.Hint="Choose Department">
+                                            <ComboBoxItem Content="Owner" />
+                                            <ComboBoxItem Content="Staff" />
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
                 <!--Phone Number-->
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
@@ -200,10 +274,7 @@
                                         MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Grid>
                 </Grid>
-
-                <!--Hire Date-->
-                
-
+               
                 <!--Image-->
                 <Grid Grid.Row="4">
                     <Grid.RowDefinitions>
@@ -288,6 +359,5 @@
                 </Grid>
             </Grid>
         </Grid>
-        
     </Border>
 </UserControl>

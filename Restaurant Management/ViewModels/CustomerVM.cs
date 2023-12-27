@@ -35,12 +35,6 @@ namespace Restaurant_Management.ViewModels
             get { return CalculateStatus(); } // Hàm tính toán trạng thái
         }
 
-        private bool? isAllSelected;
-        public bool? IsAllSelected
-        {
-            get { return isAllSelected; }
-            set { isAllSelected = value; OnPropertyChanged(); }
-        }
 
         private ObservableCollection<Customers> _customerList;
         public ObservableCollection<Customers> CustomerList
@@ -212,6 +206,7 @@ namespace Restaurant_Management.ViewModels
                     foreach (var newCustomer in newCustomers)
                     {
                         CustomerList.Add(newCustomer);
+                        _Customers.InsertOne(newCustomer);
                     }
 
                     MessageBox.Show($"Customers imported successfully!");
