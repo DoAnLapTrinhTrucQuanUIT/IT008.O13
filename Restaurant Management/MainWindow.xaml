@@ -10,10 +10,11 @@
         mc:Ignorable="d"
         Name="Window"
         AllowsTransparency="True"
+        WindowState="Maximized"
         WindowStyle="None"
         Background="White"
-        Width="1540"
-        Height="950"
+        Width="1440"
+        Height="810"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.DataContext>
         <vm:NavigationVM />

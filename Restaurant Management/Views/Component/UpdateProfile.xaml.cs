@@ -24,6 +24,5 @@ namespace Restaurant_Management.Views.Component
         {
             InitializeComponent();
         }
-
     }
 }
