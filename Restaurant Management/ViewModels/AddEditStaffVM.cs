@@ -8,6 +8,13 @@ using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 using System;
 using Microsoft.Win32;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.IO;
+using System.Windows.Media;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -75,14 +82,155 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private void _CancelCommand(Add_EditStaff parameter)
+        private void _CancelCommand(Add_EditStaff paramater)
         {
-            // Implement cancel logic if needed
+            paramater.FullName.Clear();
+            paramater.Birthdate.SelectedDate = null;
+            paramater.PhoneNumber.Clear();
+            paramater.GenderComboBox.SelectedItem=null;
+            paramater.DepartmentComboBox.SelectedItem=null;
+            paramater.Email.Clear();
+            paramater.Address.Clear();
         }
 
         private void _ConfirmCommand(Add_EditStaff parameter)
         {
-            // Implement confirmation logic if needed
+            if (parameter.FullName.Text==""||parameter.PhoneNumber.Text==""||parameter.GenderComboBox.SelectedItem==null||parameter.DepartmentComboBox.SelectedItem==null||parameter.Address.Text==""||parameter.Email.Text=="")
+            {
+                MessageBox.Show("You did not enter enough information!", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MessageBoxResult addCusNoti = System.Windows.MessageBox.Show("Do you want to add staff?", "Notification", MessageBoxButton.YesNoCancel);
+            if (addCusNoti == MessageBoxResult.Yes)
+            {
+                if (string.IsNullOrEmpty(parameter.FullName.Text) || string.IsNullOrEmpty(parameter.PhoneNumber.Text) || string.IsNullOrEmpty(parameter.GenderComboBox.Text) || string.IsNullOrEmpty(parameter.Address.Text) || string.IsNullOrEmpty(parameter.DepartmentComboBox.Text)||string.IsNullOrEmpty(parameter.Email.Text))
+                {
+                    MessageBox.Show("Incomplete information!", "Notification");
+                }
+                else
+                {
+                    var filter = Builders<Employees>.Filter.Eq(x => x.FullName, parameter.FullName.Text);
+                    var User = _Employees.Find(filter).FirstOrDefault();
+                    if (User != null)
+                    {
+                        MessageBox.Show("Customer already exists!", "Notification");
+                    }
+                    else
+                    {
+                        AddStaff(parameter);
+                        var window = Window.GetWindow(parameter);
+                        if (window != null)
+                        {
+                            window.Close();
+                        }
+                    }
+                }
+            }
+        }
+        
+        private void AddStaff(Add_EditStaff paramater)
+        {
+            // convert image into byte array
+            byte[] imageBytes = ConvertImageToBytes(paramater.loadedImage);
+            // Tạo một đối tượng Person mới
+            var Employee = new Employees
+            {
+                EmployeeId = GenerateRandomStaffId((paramater.DepartmentComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() == "Owner"),
+                FullName = paramater.FullName.Text.ToString(),
+                DateOfBirth = paramater.Birthdate.SelectedDate.Value,
+                PhoneNumber = paramater.PhoneNumber.Text.ToString(),
+                Gender = paramater.GenderComboBox.Text.ToString(),
+                Address = paramater.Address.Text.ToString(),
+                Email = paramater.Email.Text.ToString(),
+                Avatar = imageBytes,
+                DateOfJoining = DateTime.Now,
+                Password = 123.ToString(),
+                IsActive = true,
+                IsAdmin = (paramater.DepartmentComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() == "Owner"
+            };
+            // Thêm đối tượng vào collection
+            _Employees.InsertOne(Employee);
+            MessageBox.Show("Customer added successfully.", "Notification");
+            paramater.FullName.Clear();
+            paramater.Birthdate.SelectedDate = null;
+            paramater.PhoneNumber.Clear();
+            paramater.GenderComboBox.SelectedItem=null;
+            paramater.DepartmentComboBox.SelectedItem=null;
+            paramater.Email.Clear();
+            paramater.Address.Clear();
+        }
+        private byte[] ConvertImageToBytes(Image image)
+        {
+            // Convert the WPF Image to a MemoryStream
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+                encoder.Save(ms);
+
+                // Get the bytes from the MemoryStream
+                return ms.ToArray();
+            }
+        }
+        private string GenerateRandomStaffId(bool isAdmin)
+        {
+            // Lấy `CustomerId` lớn nhất hiện có
+            var maxCustomerId = _Employees.AsQueryable()
+                .OrderByDescending(c => c.EmployeeId)
+                .FirstOrDefault()?.EmployeeId;
+
+            // Tạo `CustomerId` mới với số thứ tự kế tiếp
+            string newCustomerId = GenerateNextStaffId(maxCustomerId, isAdmin);
+
+            // Kiểm tra nếu `CustomerId` mới đã tồn tại
+            while (Check(newCustomerId))
+            {
+                newCustomerId = GenerateNextStaffId(newCustomerId, isAdmin);
+            }
+
+            return newCustomerId;
+        }
+
+        private string GenerateNextStaffId(string currentMaxStaffId, bool isAdmin)
+        {
+            if (isAdmin)
+            {
+                if (string.IsNullOrEmpty(currentMaxStaffId) || !currentMaxStaffId.StartsWith("ADMIN"))
+                {
+                    return "ADMIN1";
+                }
+
+                // Trích xuất số từ `CustomerId` lớn nhất hiện có
+                string maxNumberStr = currentMaxStaffId.Substring(5);
+                if (int.TryParse(maxNumberStr, out int maxNumber))
+                {
+                    // Tạo `CustomerId` mới với số thứ tự kế tiếp
+                    return "ADMIN" + (maxNumber + 1).ToString();
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(currentMaxStaffId) || !currentMaxStaffId.StartsWith("EMP"))
+                {
+                    return "EMP1";
+                }
+
+                // Trích xuất số từ `CustomerId` lớn nhất hiện có
+                string maxNumberStr = currentMaxStaffId.Substring(3);
+                if (int.TryParse(maxNumberStr, out int maxNumber))
+                {
+                    // Tạo `CustomerId` mới với số thứ tự kế tiếp
+                    return "EMP" + (maxNumber + 1).ToString();
+                }
+            }
+
+            // Trong trường hợp không thành công, trả về `EMP1`
+            return "EMP1";
+        }
+
+        bool Check(string employeeId)
+        {
+            return _Employees.AsQueryable().Any(temp => temp.EmployeeId == employeeId);
         }
 
         private void _CloseWD(Add_EditStaff parameter)

@@ -216,7 +216,7 @@
 
                         <DataGridTextColumn Header="Staff ID"
                                             IsReadOnly="True"
-                                            Width="*"
+                                            Width="100"
                                             Binding="{Binding EmployeeId}" />
                         <DataGridTextColumn Header="Name"
                                             IsReadOnly="True"
@@ -238,13 +238,19 @@
                                             IsReadOnly="True"
                                             Width="*"
                                             Binding="{Binding DateOfJoining, StringFormat=\{0:dd/MM/yyyy\}}" />
-                        <DataGridTemplateColumn Header="Actions"
-                                                IsReadOnly="True"
-                                                Width="*">
+                        <DataGridTemplateColumn IsReadOnly="True"
+                                                Width="50">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Style="{StaticResource gridMoreVerticalButton}">
-                                        <Icon:PackIconEvaIcons Kind="MoreVertical" />
+                                    <Button x:Name="deletedStaffButton"
+                                            Style="{StaticResource deletedButton}"
+                                            Width="20"
+                                            Height="25"
+                                            Command="{Binding DataContext.DeleteStaffCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            CommandParameter="{Binding}">
+                                        <Icon:PackIconIonicons Kind="TrashMD"
+                                                               Width="14"
+                                                               Height="14" />
                                     </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

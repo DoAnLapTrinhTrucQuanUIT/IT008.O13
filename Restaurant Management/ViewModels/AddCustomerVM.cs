@@ -86,7 +86,6 @@ namespace Restaurant_Management.ViewModels
                     }
                 }
             }
-
         }
 
         private void AddCustomer(AddCustomer paramater)

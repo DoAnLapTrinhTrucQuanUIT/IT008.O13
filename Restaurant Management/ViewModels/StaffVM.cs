@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Globalization;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -34,21 +35,26 @@ namespace Restaurant_Management.ViewModels
         public ICommand AddStaffCM { get; set; }
         public ICommand ExportStaffCM { get; set; }
         public ICommand ImportStaffCM { get; set; }
+        public ICommand DeleteStaffCommand { get; set; }
 
-        private readonly IMongoCollection<Employees> _Employees;
+        private readonly IMongoCollection<Employees> _employees;
 
         public StaffVM()
         {
-            _Employees = GetStaff();
-            LoadStaff();
+            _employees = GetEmployees();
+            LoadEmployees();
+
             SearchCM = new RelayCommand<StaffView>((p) => true, (p) => _Search(p));
             AddStaffCM = new RelayCommand<StaffView>((p) => true, (p) => _AddStaff());
             ExportStaffCM = new RelayCommand<StaffView>((p) => true, (p) => _ExportStaff());
             ImportStaffCM = new RelayCommand<StaffView>((p) => true, (p) => _ImportStaff());
+            DeleteStaffCommand = new RelayCommand<Employees>((employee) => true, (employee) => _DeleteEmployee(employee));
         }
 
-        private IMongoCollection<Employees> GetStaff()
+        private IMongoCollection<Employees> GetEmployees()
         {
+            // Implementation to connect to MongoDB and get the collection
+            // Similar to what you have in CustomerVM
             // Set your MongoDB connection string and database name
             string connectionString =
                 "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
@@ -60,14 +66,19 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<Employees>("Employees");
         }
 
-        private void LoadStaff()
+        private void LoadEmployees()
         {
-            var employee = _Employees.Find(Builders<Employees>.Filter.Empty).ToList();
+            // Implementation to load employees from MongoDB
+            // Similar to what you have in CustomerVM
+            var employee = _employees.Find(Builders<Employees>.Filter.Empty).ToList();
             EmployeeList = new ObservableCollection<Employees>(employee);
         }
 
+        // Implement methods for searching, adding, exporting, importing, and deleting employees
+
         private void _Search(StaffView parameter)
         {
+            // Implementation for searching employees
             ObservableCollection<Employees> temp = new ObservableCollection<Employees>();
             if (!string.IsNullOrEmpty(parameter.txtSearch.Text))
             {
@@ -81,12 +92,12 @@ namespace Restaurant_Management.ViewModels
                     filterBuilder.Regex("fullName", new BsonRegularExpression(keyword, "i")),
                     filterBuilder.Regex("phoneNumber", new BsonRegularExpression(keyword, "i"))
                 );
-                var result = _Employees.Find(filter).ToList();
+                var result = _employees.Find(filter).ToList();
                 temp = new ObservableCollection<Employees>(result);
             }
             else
             {
-                var result = _Employees.Find(Builders<Employees>.Filter.Empty).ToList();
+                var result = _employees.Find(Builders<Employees>.Filter.Empty).ToList();
                 temp = new ObservableCollection<Employees>(result);
             }
             parameter.staffDataGrid.ItemsSource = temp;
@@ -94,6 +105,7 @@ namespace Restaurant_Management.ViewModels
 
         private void _AddStaff()
         {
+            // Implementation for adding a new employee
             Add_EditStaff addStaff = new Add_EditStaff();
             var window = new Window
             {
@@ -103,17 +115,17 @@ namespace Restaurant_Management.ViewModels
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             window.ShowDialog();
-            LoadStaff();
+            LoadEmployees();
         }
 
-        private void _ExportStaff()
+        void _ExportStaff()
         {
             // Create a SaveFileDialog
             var saveFileDialog = new SaveFileDialog
             {
                 Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
                 DefaultExt = "csv",
-                Title = "Export Employee List"
+                Title = "Export Staff List"
             };
 
             // Show the SaveFileDialog and get the selected file path
@@ -126,22 +138,22 @@ namespace Restaurant_Management.ViewModels
                 StringBuilder csvContent = new StringBuilder();
 
                 // Add the header row to the CSV content
-                csvContent.AppendLine("Employee ID,Full Name, Department, Phone Number, Email, Hire Date");
+                csvContent.AppendLine("Employee ID,Full Name, Date of Birth, Phone Number, Gender, Email, Address, Date of Joining, Is Admin");
 
-                // Add staff data to the CSV content
-                foreach (var staff in EmployeeList)
+                // Add employee data to the CSV content
+                foreach (var employee in EmployeeList)
                 {
-                    csvContent.AppendLine($"{staff.EmployeeId},{staff.FullName},{(staff.IsAdmin ? "Owner" : "Staff")},{staff.PhoneNumber},{staff.Email},{staff.DateOfJoining}");
+                    csvContent.AppendLine($"{employee.EmployeeId},{employee.FullName},{employee.DateOfBirth},{employee.PhoneNumber},{employee.Gender},{employee.Email},{employee.Address},{employee.DateOfJoining},{(employee.IsAdmin ? "Owner" : "Staff")}");
                 }
 
                 // Write the CSV content to the selected file
                 File.WriteAllText(filePath, csvContent.ToString());
 
-                MessageBox.Show($"Employee list exported successfully!");
+                MessageBox.Show($"Staff list exported successfully!");
             }
         }
 
-        private void _ImportStaff()
+        void _ImportStaff()
         {
             // Create an OpenFileDialog
             var openFileDialog = new OpenFileDialog
@@ -162,52 +174,71 @@ namespace Restaurant_Management.ViewModels
                 {
                     var csvLines = File.ReadAllLines(filePath);
 
-                    var staffDataLines = csvLines.Skip(1);
+                    var employeeDataLines = csvLines.Skip(1);
 
-                    var newStaff = new List<Employees>();
+                    var newEmployees = new List<Employees>();
 
-                    foreach (var line in staffDataLines)
+                    foreach (var line in employeeDataLines)
                     {
                         var values = line.Split(',');
 
-                        var newStaffMember = new Employees
+                        var newEmployee = new Employees
                         {
                             EmployeeId = values[0],
                             FullName = values[1],
-                            IsAdmin = values[2].ToLower() == "owner", // Assuming "Owner" is true, "Staff" is false
+                            DateOfBirth = DateTime.Parse(values[2]),
                             PhoneNumber = values[3],
-                            Email = values[4],
-                            DateOfJoining = DateTime.Parse(values[5])
+                            Gender = values[4],
+                            Email = values[5],
+                            Address = values[6],
+                            DateOfJoining = DateTime.Parse(values[7]),
+                            IsActive = true,
+                            IsAdmin = string.Equals(values[8], "owner", StringComparison.OrdinalIgnoreCase)
                         };
 
-                        var existingStaff = _Employees.Find(Builders<Employees>.Filter.Eq("employeeId", newStaffMember.EmployeeId)).FirstOrDefault();
+                        var existingEmployee = _employees.Find(Builders<Employees>.Filter.Eq("employeeId", newEmployee.EmployeeId)).FirstOrDefault();
 
-                        if (existingStaff == null)
+                        if (existingEmployee == null)
                         {
-                            newStaff.Add(newStaffMember);
+                            newEmployees.Add(newEmployee);
                         }
                     }
 
-                    var newStaffCsvContent = new StringBuilder();
-
-                    // Add staff data to the CSV content
-                    foreach (var staffMember in newStaff)
+                    foreach (var newEmployee in newEmployees)
                     {
-                        newStaffCsvContent.AppendLine($"{staffMember.EmployeeId},{staffMember.FullName},{staffMember.IsAdmin},{staffMember.PhoneNumber},{staffMember.Email},{staffMember.DateOfJoining}");
+                        EmployeeList.Add(newEmployee);
+                        _employees.InsertOne(newEmployee);
                     }
 
-                    // Append the new staff data to the existing staff data
-                    var allStaffCsvContent = new StringBuilder(File.ReadAllText(filePath));
-                    allStaffCsvContent.AppendLine(newStaffCsvContent.ToString());
-
-                    // Write the combined CSV content to the file
-                    File.WriteAllText(filePath, allStaffCsvContent.ToString());
-
-                    MessageBox.Show($"Employee members imported successfully!");
+                    MessageBox.Show($"Employees imported successfully!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error importing employee members: {ex.Message}");
+                    MessageBox.Show($"Error importing employees: {ex.Message}");
+                }
+            }
+        }
+
+
+
+        private void _DeleteEmployee(Employees employee)
+        {
+            // Implementation for deleting an employee
+            // You can use _employees collection to perform delete operation
+            // Implement logic to delete the selected employee
+            if (employee != null)
+            {
+                // Confirm deletion with the user
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {employee.FullName}?",
+                                                          "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Perform deletion logic here
+                    _employees.DeleteOne(Builders<Employees>.Filter.Eq("employeeId", employee.EmployeeId));
+
+                    // Reload the staff list after deletion
+                    LoadEmployees();
                 }
             }
         }
