@@ -323,11 +323,13 @@
     <Compile Include="Models\Invoices.cs" />
     <Compile Include="Models\MenuItems.cs" />
     <Compile Include="Models\Tables.cs" />
+    <Compile Include="Utilities\BooleanToDepartmentConverter.cs" />
     <Compile Include="Utilities\Btn.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\ViewModelBase.cs" />
     <Compile Include="ViewModels\AddCustomerVM.cs" />
     <Compile Include="ViewModels\ChangePasswordVM.cs" />
+    <Compile Include="ViewModels\AddEditStaffVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
     <Compile Include="ViewModels\ForgetPasswordVM.cs" />
     <Compile Include="ViewModels\InventoryOverviewVM.cs" />
@@ -341,6 +343,7 @@
     <Compile Include="ViewModels\ScheduleVM.cs" />
     <Compile Include="ViewModels\SettingsVM.cs" />
     <Compile Include="ViewModels\StaffInformationVM.cs" />
+    <Compile Include="ViewModels\StaffVM.cs" />
     <Compile Include="ViewModels\TableVM.cs" />
     <Compile Include="ViewModels\UpdateProfileVM.cs" />
     <Compile Include="Views\Component\AddCustomer.xaml.cs">

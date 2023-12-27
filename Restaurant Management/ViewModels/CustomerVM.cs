@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using MongoDB.Bson;
 using System.Windows.Documents;
 using Restaurant_Management.Views.Component;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -53,6 +55,8 @@ namespace Restaurant_Management.ViewModels
         public ICommand SearchCM { get; set; }
         public ICommand AddCustomerCM { get; set; }
         public ICommand ExportCustomerCM { get; set; }
+        public ICommand ImportCustomerCM { get; set; }
+
 
         private readonly IMongoCollection<Customers> _Customers;
         public CustomerVM() 
@@ -60,8 +64,9 @@ namespace Restaurant_Management.ViewModels
             _Customers = GetCustomers();
             LoadCustomers();
             SearchCM = new RelayCommand<CustomerView>((p) => true, (p) => _Search(p));
-            AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer(p));
-            ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer(p));
+            AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer());
+            ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer());
+            ImportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ImportCustomer());
         }
         private IMongoCollection<Customers> GetCustomers()
         {
@@ -106,7 +111,7 @@ namespace Restaurant_Management.ViewModels
             parameter.DataGridCustomers.ItemsSource = temp;
         }
 
-        void _AddCustomer(CustomerView parameter)
+        void _AddCustomer()
         {
             AddCustomer addCustomer = new AddCustomer();
             var window = new Window
@@ -120,10 +125,104 @@ namespace Restaurant_Management.ViewModels
             LoadCustomers();
         }
 
-        void _ExportCustomer(CustomerView parameter)
+        void _ExportCustomer()
         {
+            // Create a SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
+                DefaultExt = "csv",
+                Title = "Export Customer List"
+            };
 
+            // Show the SaveFileDialog and get the selected file path
+            var result = saveFileDialog.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                var filePath = saveFileDialog.FileName;
+
+                StringBuilder csvContent = new StringBuilder();
+
+                // Add the header row to the CSV content
+                csvContent.AppendLine("Customer ID,Full Name, Address, Phone Number, Email, Gender, Registration Date, Sales");
+
+                // Add customer data to the CSV content
+                foreach (var customer in CustomerList)
+                {
+                    csvContent.AppendLine($"{customer.CustomerId},{customer.FullName},{customer.Address},{customer.PhoneNumber},{customer.Email},{customer.Gender},{customer.RegistrationDate},{customer.Sales}");
+                }
+
+                // Write the CSV content to the selected file
+                File.WriteAllText(filePath, csvContent.ToString());
+
+                MessageBox.Show($"Customer list exported successfully!");
+            }
         }
+
+        void _ImportCustomer()
+        {
+            // Create an OpenFileDialog
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
+                DefaultExt = "csv",
+                Title = "Import Customer List"
+            };
+
+            // Show the OpenFileDialog and get the selected file path
+            var result = openFileDialog.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                var filePath = openFileDialog.FileName;
+
+                try
+                {
+                    var csvLines = File.ReadAllLines(filePath);
+
+                    var customerDataLines = csvLines.Skip(1);
+
+                    var newCustomers = new List<Customers>();
+
+                    foreach (var line in customerDataLines)
+                    {
+                        var values = line.Split(',');
+
+                        var newCustomer = new Customers
+                        {
+                            CustomerId = values[0],
+                            FullName = values[1],
+                            Address = values[2],
+                            PhoneNumber = values[3],
+                            Email = values[4],
+                            Gender = values[5],
+                            RegistrationDate = DateTime.Parse(values[6]),
+                            Sales = double.Parse(values[7])
+                        };
+
+                        var existingCustomer = _Customers.Find(Builders<Customers>.Filter.Eq("customerId", newCustomer.CustomerId)).FirstOrDefault();
+
+                        if (existingCustomer == null)
+                        {
+                            newCustomers.Add(newCustomer);
+                        }
+                    }
+
+                    foreach (var newCustomer in newCustomers)
+                    {
+                        CustomerList.Add(newCustomer);
+                    }
+
+                    MessageBox.Show($"Customers imported successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error importing customers: {ex.Message}");
+                }
+            }
+        }
+
         public string GetTotalCustomerCount()
         {
             return "1000";

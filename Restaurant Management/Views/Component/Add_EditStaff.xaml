@@ -253,7 +253,6 @@
                                 MaterialDesign:DatePickerAssist.OutlinedBorderActiveThickness="1"
                                 MaterialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
                                 Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
-
                             </Grid>
                         </Grid>
                     </Grid>
@@ -286,8 +285,6 @@
                                TextAlignment="Center" />
                         </Button>
                     </Grid>
-
-
                 </Grid>
             </Grid>
         </Grid>
