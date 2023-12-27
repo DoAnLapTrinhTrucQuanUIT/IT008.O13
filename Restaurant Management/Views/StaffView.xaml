@@ -205,15 +205,13 @@
 
                 <!-- Bottom section -->
                 <DataGrid x:Name="staffDataGrid"
-                          Style="{DynamicResource DataGridStyle1}"
-                          CellStyle="{DynamicResource DataGridCellStyle1}"
-                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                          RowStyle="{DynamicResource DataGridRowStyle1}"
+                          Style="{DynamicResource DataGridStyle}"
+                          CellStyle="{DynamicResource DataGridCellStyle}"
+                          RowStyle="{DynamicResource DataGridRowStyle}"
                           Grid.Row="2"
                           ItemsSource="{Binding EmployeeList}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-
                         <DataGridTextColumn Header="Staff ID"
                                             IsReadOnly="True"
                                             Width="100"
