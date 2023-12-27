@@ -3,189 +3,315 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d"
-             d:DesignHeight="893"
-             d:DesignWidth="700">
+             d:DesignHeight="660"
+             d:DesignWidth="700"
+             x:Name="AddProductWindow">
 
-    <Border Width="700"
-            Height="893"
-            Padding="50, 50"
-            Background="#ffff"
+    <Border Padding="20"
+            Background="#ffffff"
             CornerRadius="20">
-        <StackPanel>
-            <!--Product Name-->
-            <Grid Height="104">
-                <StackPanel>
-                    <Grid Height="42">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!--TabControl-->
+            <Grid Grid.Row="0" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <!-- Minimize Button -->
+                <Grid Grid.Column="0">
+                    <MaterialDesign:PackIcon Kind="WindowMinimize"
+                                            Foreground="#999"
+                                            Height="24"
+                                            Width="24"
+                                            Margin="0,0,8,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding MinimizeWDCM}"
+                                                    CommandParameter="{Binding ElementName=AddCusWindow}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MaterialDesign:PackIcon>
+                </Grid>
+
+                <!-- Close Button -->
+                <Grid Grid.Column="1">
+                    <MaterialDesign:PackIcon Kind="CloseThick"
+                                            Foreground="#999"
+                                            Height="24"
+                                            Width="24">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding CloseWDCM}"
+                                                    CommandParameter="{Binding ElementName=AddCusWindow}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MaterialDesign:PackIcon>
+                </Grid>
+            </Grid>
+            <!--Input field-->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--Product Name-->
+                <Grid Grid.Row="0"
+                      Margin="0 20 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <TextBlock Text="Product Name"
-                                   Foreground="#999"
-                                   FontSize="24"
-                                   FontFamily="Roboto"
-                                   FontWeight="Medium"
-                                   VerticalAlignment="Center" />
+                                Foreground="#999"
+                                FontSize="16"
+                                FontFamily="Roboto"
+                                FontWeight="Medium"
+                                VerticalAlignment="Center"
+                                   Margin="0 0 0 10" />
                     </Grid>
-                    <Grid>
-                        <Border Width="600"
-                                Height="62"
-                                Background="#ffff"
-                                CornerRadius="10"
-                                BorderThickness="2"
-                                BorderBrush="#D9D9D9" />
+                    <Grid Grid.Row="1">
+                        <Border Background="#ffff"
+                                CornerRadius="5"
+                                BorderThickness="1"
+                                BorderBrush="#D9D9D9"/>
+                        <TextBox x:Name="ProductName"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Padding="15"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Foreground="#000000"
+                                    FontWeight="SemiBold"
+                                    FontSize="12"
+                                    MaterialDesign:HintAssist.Hint="Enter product name"
+                                    MaterialDesign:HintAssist.Foreground="Transparent"
+                                    MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Grid>
-                </StackPanel>
-            </Grid>
+                </Grid>
 
-            <!--Barcode-->
-            <Grid Height="104"
-                  Margin="0, 40, 0, 0">
-                <StackPanel>
-                    <Grid Height="42">
+                <!--Barcode-->
+                <Grid Grid.Row="1"
+                      Margin="0 10 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <TextBlock Text="Barcode"
-                                   Foreground="#999"
-                                   FontSize="24"
-                                   FontFamily="Roboto"
-                                   FontWeight="Medium"
-                                   VerticalAlignment="Center" />
+                                Foreground="#999"
+                                FontSize="16"
+                                FontFamily="Roboto"
+                                FontWeight="Medium"
+                                VerticalAlignment="Center" 
+                                   Margin="0 0 0 10"/>
                     </Grid>
-                    <Grid>
-                        <Border Width="600"
-                                Height="62"
-                                Background="#ffff"
-                                CornerRadius="10"
-                                BorderThickness="2"
-                                BorderBrush="#D9D9D9" />
+                    <Grid Grid.Row="1">
+                        <Border Background="#ffff"
+                                CornerRadius="5"
+                                BorderThickness="1"
+                                BorderBrush="#D9D9D9"/>
+                        <TextBox x:Name="Barcode"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Padding="15"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Foreground="#000000"
+                                    FontWeight="SemiBold"
+                                    FontSize="12"
+                                    MaterialDesign:HintAssist.Hint="Enter barcode"
+                                    MaterialDesign:HintAssist.Foreground="Transparent"
+                                    MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                     </Grid>
-                </StackPanel>
-            </Grid>
+                </Grid>
 
-            <!--Cartegory-->
-            <Grid Height="104"
-                  Margin="0, 40, 0, 0">
-                <StackPanel>
-                    <Grid Height="42">
+                <!--Cartegory-->
+                <Grid Grid.Row="2"
+                      Margin="0 10 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <TextBlock Text="Cartegory"
+                                Foreground="#999"
+                                FontSize="16"
+                                FontFamily="Roboto"
+                                FontWeight="Medium"
+                                VerticalAlignment="Center"
+                                   Margin="0 0 0 10"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ComboBox x:Name="CategoryComboBox"
+                                    Padding="20"
+                                    FontFamily="Roboto"
+                                    BorderThickness="1"
+                                    BorderBrush="#D9D9D9"
+                                    Foreground="#000000"
+                                    FontWeight="SemiBold"
+                                    FontSize="12"
+                                    MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    MaterialDesign:TextFieldAssist.TextFieldCornerRadius="5"
+                                    MaterialDesign:HintAssist.Hint="Choose category">
+                            <ComboBoxItem Content="Male" />
+                            <ComboBoxItem Content="Female" />
+                            <ComboBoxItem Content="Other" />
+                        </ComboBox>
+                    </Grid>
+                </Grid>
+
+                <!--Image - Price - IsActive-->
+                <Grid Grid.Row="3"
+                      Margin="0 20 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Image-->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="Image"
                                    Foreground="#999"
-                                   FontSize="24"
+                                   FontSize="16"
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
-                                   VerticalAlignment="Center" />
-                    </Grid>
-                    <Grid>
-                        <Border Width="600"
-                                Height="62"
-                                Background="#ffff"
+                                   VerticalAlignment="Center"
+                                       Margin="0 0 0 10"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border Background="#ffff"
                                 CornerRadius="10"
                                 BorderThickness="2"
-                                BorderBrush="#D9D9D9" />
-                    </Grid>
-                </StackPanel>
-            </Grid>
-
-            <!--Image - Price - IsActive-->
-            <Grid Height="262"
-                  Margin="0, 40, 0, 0">
-                <StackPanel>
-                    <Grid Height="42">
-                        <TextBlock Text="Image"
-                                   Foreground="#999"
-                                   FontSize="24"
-                                   FontFamily="Roboto"
-                                   FontWeight="Medium"
-                                   VerticalAlignment="Center" />
-                    </Grid>
-                    <Grid Height="220">
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="220"
-                                    Background="#ffff"
-                                    CornerRadius="10"
-                                    BorderThickness="2"
-                                    BorderBrush="#D9D9D9">
+                                BorderBrush="#D9D9D9">
+                                <Button Style="{StaticResource cameraButton}">
+                                    <Icon:PackIconPixelartIcons Kind="CameraAdd" Width="48" Height="48" />
+                                </Button>
                             </Border>
-
-                            <StackPanel Orientation="Vertical"
-                                        Margin="54,0,0,0">
-                                <!--Price-->
-                                <Grid Height="104">
-                                    <StackPanel>
-                                        <Grid Height="42">
-                                            <TextBlock Text="Price"
-                                                       Foreground="#999"
-                                                       FontSize="24"
-                                                       FontFamily="Roboto"
-                                                       FontWeight="Medium"
-                                                       VerticalAlignment="Center" />
-                                        </Grid>
-                                        <Grid>
-                                            <Border Width="326"
-                                                    Height="62"
-                                                    Background="#ffff"
-                                                    CornerRadius="10"
-                                                    BorderThickness="2"
-                                                    BorderBrush="#D9D9D9" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-
-                                <!--IsActive-->
-                                <Grid Height="42"
-                                      Margin="0, 54,0,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Grid>
-                                            <TextBlock Text="Active"
-                                                       Foreground="#999"
-                                                       FontSize="24"
-                                                       FontFamily="Roboto"
-                                                       FontWeight="Medium"
-                                                       VerticalAlignment="Center" />
-                                        </Grid>
-                                        <Grid Margin="50,0,0,0">
-                                            <ToggleButton Style="{DynamicResource ToggleButtonStyle}">
-
-                                            </ToggleButton>
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </StackPanel>
+                        </Grid>
                     </Grid>
-                </StackPanel>
+                    <!--Price & Active-->
+                    <Grid Grid.Column="1"
+                          Margin="25 0 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--Price-->
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock Text="Price"
+                                            Foreground="#999"
+                                            FontSize="16"
+                                            FontFamily="Roboto"
+                                            FontWeight="Medium"
+                                            VerticalAlignment="Center"/>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Border Background="#ffff"
+                                    CornerRadius="5"
+                                    BorderThickness="1"
+                                    BorderBrush="#D9D9D9"/>
+                                <TextBox x:Name="Price"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Padding="15"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Foreground="#000000"
+                                        FontWeight="SemiBold"
+                                        FontSize="12"
+                                        MaterialDesign:HintAssist.Hint="Enter price"
+                                        MaterialDesign:HintAssist.Foreground="Transparent"
+                                        MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                            </Grid>
+                        </Grid>
+
+                        <!--IsActive-->
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="Active"
+                                            Foreground="#999"
+                                            FontSize="16"
+                                            FontFamily="Roboto"
+                                            FontWeight="Medium"
+                                            VerticalAlignment="Center"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <ToggleButton Style="{DynamicResource ToggleButtonStyle}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+
+                <Grid Grid.Row="4" 
+                      Margin="0 50 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--Cancel button-->
+                    <Grid Grid.Column="0" Margin="0 0 10 0">
+                        <Button Style="{StaticResource cancelButton}">
+                            <TextBlock Text="Cancel"
+                                               Foreground="#fff"
+                                               FontSize="18"
+                                               FontFamily="Roboto"
+                                               FontWeight="SemiBold"
+                                               TextAlignment="Center" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding CancelCommand}"
+                                                                CommandParameter="{Binding ElementName=AddCusWindow}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                    <!--Confirm button-->
+                    <Grid Grid.Column="1" Margin="10 0 0 0">
+                        <Button Style="{StaticResource confirmButton}">
+                            <TextBlock Text="Confirm"
+                                               Foreground="#fff"
+                                               FontSize="18"
+                                               FontFamily="Roboto"
+                                               FontWeight="SemiBold"
+                                               TextAlignment="Center" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ConfirmCommand}"
+                                                               CommandParameter="{Binding ElementName=AddCusWindow}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
             </Grid>
-
-
-            <StackPanel Margin="0,40,0,0"
-                        Orientation="Horizontal">
-                <!--Cancel-->
-                <Border Width="280"
-                        Height="55"
-                        Background="#000"
-                        CornerRadius="10"
-                        Margin="0">
-                    <TextBlock Height="20.5"
-                               Width="56"
-                               Text="Cancel"
-                               Foreground="#fff"
-                               FontSize="18"
-                               FontFamily="Roboto"
-                               FontWeight="SemiBold"
-                               TextAlignment="Center" />
-                </Border>
-                <!--Confirm-->
-                <Border Width="280"
-                        Height="55"
-                        Background="#FF7F50"
-                        CornerRadius="10"
-                        Margin="40, 0, 0, 0">
-                    <TextBlock Height="20.5"
-                               Width="66"
-                               Text="Confirm"
-                               Foreground="#fff"
-                               FontSize="18"
-                               FontFamily="Roboto"
-                               FontWeight="SemiBold"
-                               TextAlignment="Center" />
-                </Border>
-            </StackPanel>
-        </StackPanel>
+        </Grid>
+        
     </Border>
 </UserControl>

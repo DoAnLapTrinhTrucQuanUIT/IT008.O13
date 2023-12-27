@@ -8,23 +8,22 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Menu="clr-namespace:Restaurant_Management.Utilities"
              mc:Ignorable="d"
-             Width="250"
-             Height="910">
+             d:DesignHeight="810">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -52,7 +51,7 @@
         </Border>
         <!--Core Operations-->
         <Grid Grid.Row="1">
-            <Border Padding="20"
+            <Border Padding="20 10"
                     BorderBrush="#d9d9d9"
                     BorderThickness="0 1 0 0">
                 <TextBlock Text="Core Operations" 
@@ -145,7 +144,7 @@
         </Grid>
         <!--Staff Management-->
         <Grid Grid.Row="5">
-            <Border Padding="20"
+            <Border Padding="20 10"
                         BorderBrush="#d9d9d9"
                         BorderThickness="0 1 0 0">
                 <TextBlock Text="Staff Management" 
@@ -238,7 +237,7 @@
         </Grid>
         <!--Stocks and Products-->
         <Grid Grid.Row="9">
-            <Border Padding="20"
+            <Border Padding="20 10"
                     BorderBrush="#d9d9d9"
                     BorderThickness="0 1 0 0">
                 <TextBlock Text="Stocks and Products" 
@@ -304,7 +303,7 @@
         </Grid>
         <!--Sales and Finances-->
         <Grid Grid.Row="12">
-            <Border Padding="20"
+            <Border Padding="20 10"
                     BorderBrush="#d9d9d9"
                     BorderThickness="0 1 0 0">
                 <TextBlock Text="Sales and Finances" 
