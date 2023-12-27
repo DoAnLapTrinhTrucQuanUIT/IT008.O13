@@ -20,12 +20,32 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="10"
+                        <Border x:Name="border" CornerRadius="10"
                                 Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" 
+                                 Value="True">
+                                <Setter TargetName="border" 
+                                    Property="RenderTransform">
+                                    <Setter.Value>
+                                        <TranslateTransform Y="2"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
+                    
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" 
+                                  BlurRadius="6"
+                                  Opacity="0.5" 
+                                  ShadowDepth="2"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -217,6 +237,7 @@
                 <!-- Log out -->
                 <Button Background="#B31312"
                         Foreground="#fff"
+                        Cursor="Hand"
                         Style="{StaticResource RoundedButtonStyle}">
                     <Border CornerRadius="10"
                             Padding="100 20 100 20">
@@ -238,6 +259,7 @@
                 <Button Background="#000000"
                         Foreground="#fff"
                         Margin="30 0 0 0"
+                        Cursor="Hand"
                         Style="{StaticResource RoundedButtonStyle}">
                     <Border CornerRadius="10"
                             Padding="60 20 60 20">
@@ -260,9 +282,9 @@
                 <!-- Update profile -->
                 <Button Background="#FF7F50"
                         Foreground="#fff"
+                        Cursor="Hand"
                         Style="{StaticResource RoundedButtonStyle}"
                         Margin="30, 0, 0, 0">
-
                     <Border CornerRadius="10"
                             Padding="65 20 65 20">
                         <TextBlock Text="Update Profile"

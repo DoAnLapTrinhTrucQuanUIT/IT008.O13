@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Security.Principal;
 using MongoDB.Driver;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Threading.Tasks;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -82,11 +83,24 @@ namespace Restaurant_Management.ViewModels
 
                 if (Password == user.Password)
                 {
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    IsLogin = true;
-                    Const.UserID = EmployeeId;
-                    p.Close();
+                    Const.Instance.SetUser(EmployeeId);
+
+                    Task.Run(() =>
+                    {
+                        // Hiển thị MainWindow trên luồng UI
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            MainWindow mainWindow = new MainWindow();
+                            mainWindow.Show();
+                        });
+
+                        // Đóng LoginWindow trên luồng UI
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            IsLogin = true;
+                            p.Close();
+                        });
+                    });
                 }
                 else
                 {
