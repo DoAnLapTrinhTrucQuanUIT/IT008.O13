@@ -72,7 +72,7 @@ namespace Restaurant_Management.ViewModels
         }
         void _LoadWindow()
         {
-            string employeeId = Const.UserID;
+            string employeeId = Const.Instance.UserId;
 
             var filter = Builders<Employees>.Filter.Eq(x => x.EmployeeId, employeeId);
             var User = _Employees.Find(filter).FirstOrDefault();
