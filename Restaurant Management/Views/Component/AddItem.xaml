@@ -1,17 +1,14 @@
 ﻿<UserControl x:Class="Restaurant_Management.Views.Component.AddItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
-             mc:Ignorable="d"
-             d:DesignHeight="500"
-             d:DesignWidth="500"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
-             x:Name="AddItemWindow">
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <vm:AddItemVM />
     </UserControl.DataContext>
@@ -156,8 +153,8 @@
                             <!--Price - Description-->
                             <Grid Grid.Column="0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="69"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="69" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <!--Price-->
                                 <Grid Grid.Row="0"
@@ -231,8 +228,7 @@
                             </Grid>
                             <!--Image-->
                             <Grid Grid.Column="1">
-                                <StackPanel
-                                    Margin="15 0 0 0">
+                                <StackPanel Margin="15 0 0 0">
                                     <Grid Height="28">
                                         <TextBlock Text="Image"
                                                    Foreground="#999"
@@ -261,12 +257,12 @@
                                                                HorizontalAlignment="Center"
                                                                Width="15"
                                                                Height="15"
-                                                               Name="iconBrowseImage"/>
+                                                               Name="iconBrowseImage" />
                                     </Grid>
                                 </StackPanel>
                             </Grid>
                         </Grid>
-                        
+
                         <!-- Buttons -->
                         <Grid Grid.Row="6"
                               Margin="0 30 0 0">

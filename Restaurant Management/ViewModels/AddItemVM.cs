@@ -25,7 +25,7 @@ using System.Data.Common;
 
 namespace Restaurant_Management.ViewModels
 {
-    public class AddItemVM :Utilities.ViewModelBase
+    public class AddItemVM : Utilities.ViewModelBase
     {
         public ICommand CancelCommand { get; set; }
         public ICommand ConfirmCommand { get; set; }
