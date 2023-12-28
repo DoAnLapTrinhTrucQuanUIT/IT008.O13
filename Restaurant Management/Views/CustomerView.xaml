@@ -14,7 +14,7 @@
              x:Name="CustomerWindow"
              xmlns:Component="clr-namespace:Restaurant_Management.Views.Component">
     <UserControl.DataContext>
-        <vm:CustomerVM />
+        <vm:CustomerVM/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
