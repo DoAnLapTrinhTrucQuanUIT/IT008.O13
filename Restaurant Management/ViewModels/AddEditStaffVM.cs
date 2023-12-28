@@ -73,7 +73,7 @@ namespace Restaurant_Management.ViewModels
                     bitmapImage.UriSource = new Uri(imagePath);
                     bitmapImage.EndInit();
                     parameter.iconBrowseImage.Visibility = Visibility.Hidden;
-                    //parameter.loadedImage.Source = bitmapImage;
+                    parameter.loadedImage.Source = bitmapImage;
                 }
             }
             catch (Exception ex)
@@ -90,13 +90,13 @@ namespace Restaurant_Management.ViewModels
             paramater.GenderComboBox.SelectedItem=null;
             paramater.DepartmentComboBox.SelectedItem=null;
             paramater.Email.Clear();
-            //paramater.Address.Clear();
-            //paramater.loadedImage = null;
+            paramater.Address.Clear();
+            paramater.loadedImage = null;
         }
 
         private void _ConfirmCommand(AddStaff parameter)
         {
-            if (parameter.FullName.Text==""||parameter.PhoneNumber.Text==""||parameter.GenderComboBox.SelectedItem==null||parameter.DepartmentComboBox.SelectedItem==null|| /*parameter.Address.Text==""||*/parameter.Email.Text=="")
+            if (parameter.FullName.Text==""||parameter.PhoneNumber.Text==""||parameter.GenderComboBox.SelectedItem==null||parameter.DepartmentComboBox.SelectedItem==null|| parameter.Address.Text==""||parameter.Email.Text=="")
             {
                 MessageBox.Show("You did not enter enough information!", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -104,7 +104,7 @@ namespace Restaurant_Management.ViewModels
             MessageBoxResult addCusNoti = System.Windows.MessageBox.Show("Do you want to add staff?", "Notification", MessageBoxButton.YesNoCancel);
             if (addCusNoti == MessageBoxResult.Yes)
             {
-                if (string.IsNullOrEmpty(parameter.FullName.Text) || string.IsNullOrEmpty(parameter.PhoneNumber.Text) || string.IsNullOrEmpty(parameter.GenderComboBox.Text) || /*string.IsNullOrEmpty(parameter.Address.Text) ||*/ string.IsNullOrEmpty(parameter.DepartmentComboBox.Text)||string.IsNullOrEmpty(parameter.Email.Text))
+                if (string.IsNullOrEmpty(parameter.FullName.Text) || string.IsNullOrEmpty(parameter.PhoneNumber.Text) || string.IsNullOrEmpty(parameter.GenderComboBox.Text) || string.IsNullOrEmpty(parameter.Address.Text) || string.IsNullOrEmpty(parameter.DepartmentComboBox.Text)||string.IsNullOrEmpty(parameter.Email.Text))
                 {
                     MessageBox.Show("Incomplete information!", "Notification");
                 }
@@ -158,7 +158,7 @@ namespace Restaurant_Management.ViewModels
             paramater.GenderComboBox.SelectedItem=null;
             paramater.DepartmentComboBox.SelectedItem=null;
             paramater.Email.Clear();
-            //paramater.Address.Clear();
+            paramater.Address.Clear();
         }
         private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
         {

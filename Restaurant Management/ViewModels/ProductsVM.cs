@@ -112,6 +112,7 @@ namespace Restaurant_Management.ViewModels
                     WindowStartupLocation = WindowStartupLocation.CenterScreen
                 };
                 window.Closed += (sender, args) => LoadMenuItem();
+                window.ShowDialog();
             }
         }
         private void _RemoveItem(MenuItems menuItem)
