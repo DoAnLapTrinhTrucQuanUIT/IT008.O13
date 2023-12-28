@@ -25,12 +25,12 @@ namespace Restaurant_Management.ViewModels
         public AddEditStaffVM()
         {
             _Employees = GetStaffCollection();
-            BrowseImageCommand = new RelayCommand<Add_EditStaff>(p => true, p => _BrowseImage(p));
-            CancelCommand = new RelayCommand<Add_EditStaff>(p => true, p => _CancelCommand(p));
-            ConfirmCommand = new RelayCommand<Add_EditStaff>(p => true, p => _ConfirmCommand(p));
-            CloseWDCM = new RelayCommand<Add_EditStaff>(p => true, p => _CloseWD(p));
-            MinimizeWDCM = new RelayCommand<Add_EditStaff>(p => true, p => _MinimizeWD(p));
-            MoveWDCM = new RelayCommand<Add_EditStaff>(p => true, p => _MoveWD(p));
+            BrowseImageCommand = new RelayCommand<AddStaff>(p => true, p => _BrowseImage(p));
+            CancelCommand = new RelayCommand<AddStaff>(p => true, p => _CancelCommand(p));
+            ConfirmCommand = new RelayCommand<AddStaff>(p => true, p => _ConfirmCommand(p));
+            CloseWDCM = new RelayCommand<AddStaff>(p => true, p => _CloseWD(p));
+            MinimizeWDCM = new RelayCommand<AddStaff>(p => true, p => _MinimizeWD(p));
+            MoveWDCM = new RelayCommand<AddStaff>(p => true, p => _MoveWD(p));
         }
 
         public ICommand CancelCommand { get; set; }
@@ -53,7 +53,7 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<Employees>("Employees");
         }
 
-        private void _BrowseImage(Add_EditStaff parameter)
+        private void _BrowseImage(AddStaff parameter)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace Restaurant_Management.ViewModels
                     bitmapImage.UriSource = new Uri(imagePath);
                     bitmapImage.EndInit();
                     parameter.iconBrowseImage.Visibility = Visibility.Hidden;
-                    parameter.loadedImage.Source = bitmapImage;
+                    //parameter.loadedImage.Source = bitmapImage;
                 }
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private void _CancelCommand(Add_EditStaff paramater)
+        private void _CancelCommand(AddStaff paramater)
         {
             paramater.FullName.Clear();
             paramater.Birthdate.SelectedDate = null;
@@ -90,13 +90,13 @@ namespace Restaurant_Management.ViewModels
             paramater.GenderComboBox.SelectedItem=null;
             paramater.DepartmentComboBox.SelectedItem=null;
             paramater.Email.Clear();
-            paramater.Address.Clear();
-            paramater.loadedImage = null;
+            //paramater.Address.Clear();
+            //paramater.loadedImage = null;
         }
 
-        private void _ConfirmCommand(Add_EditStaff parameter)
+        private void _ConfirmCommand(AddStaff parameter)
         {
-            if (parameter.FullName.Text==""||parameter.PhoneNumber.Text==""||parameter.GenderComboBox.SelectedItem==null||parameter.DepartmentComboBox.SelectedItem==null||parameter.Address.Text==""||parameter.Email.Text=="")
+            if (parameter.FullName.Text==""||parameter.PhoneNumber.Text==""||parameter.GenderComboBox.SelectedItem==null||parameter.DepartmentComboBox.SelectedItem==null|| /*parameter.Address.Text==""||*/parameter.Email.Text=="")
             {
                 MessageBox.Show("You did not enter enough information!", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -104,7 +104,7 @@ namespace Restaurant_Management.ViewModels
             MessageBoxResult addCusNoti = System.Windows.MessageBox.Show("Do you want to add staff?", "Notification", MessageBoxButton.YesNoCancel);
             if (addCusNoti == MessageBoxResult.Yes)
             {
-                if (string.IsNullOrEmpty(parameter.FullName.Text) || string.IsNullOrEmpty(parameter.PhoneNumber.Text) || string.IsNullOrEmpty(parameter.GenderComboBox.Text) || string.IsNullOrEmpty(parameter.Address.Text) || string.IsNullOrEmpty(parameter.DepartmentComboBox.Text)||string.IsNullOrEmpty(parameter.Email.Text))
+                if (string.IsNullOrEmpty(parameter.FullName.Text) || string.IsNullOrEmpty(parameter.PhoneNumber.Text) || string.IsNullOrEmpty(parameter.GenderComboBox.Text) || /*string.IsNullOrEmpty(parameter.Address.Text) ||*/ string.IsNullOrEmpty(parameter.DepartmentComboBox.Text)||string.IsNullOrEmpty(parameter.Email.Text))
                 {
                     MessageBox.Show("Incomplete information!", "Notification");
                 }
@@ -129,10 +129,10 @@ namespace Restaurant_Management.ViewModels
             }
         }
         
-        private void AddStaff(Add_EditStaff paramater)
+        private void AddStaff(AddStaff paramater)
         {
             // convert image into byte array
-            byte[] imageBytes = ConvertImageToBytes(paramater.loadedImage);
+            //byte[] imageBytes = ConvertImageToBytes(paramater.loadedImage);
             // Tạo một đối tượng Person mới
             var Employee = new Employees
             {
@@ -141,9 +141,9 @@ namespace Restaurant_Management.ViewModels
                 DateOfBirth = paramater.Birthdate.SelectedDate.Value,
                 PhoneNumber = paramater.PhoneNumber.Text.ToString(),
                 Gender = paramater.GenderComboBox.Text.ToString(),
-                Address = paramater.Address.Text.ToString(),
+                //Address = paramater.Address.Text.ToString(),
                 Email = paramater.Email.Text.ToString(),
-                Avatar = imageBytes,
+                //Avatar = imageBytes,
                 DateOfJoining = DateTime.Now,
                 Password = 123.ToString(),
                 IsActive = true,
@@ -158,7 +158,7 @@ namespace Restaurant_Management.ViewModels
             paramater.GenderComboBox.SelectedItem=null;
             paramater.DepartmentComboBox.SelectedItem=null;
             paramater.Email.Clear();
-            paramater.Address.Clear();
+            //paramater.Address.Clear();
         }
         private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
         {
@@ -234,7 +234,7 @@ namespace Restaurant_Management.ViewModels
             return _Employees.AsQueryable().Any(temp => temp.EmployeeId == employeeId);
         }
 
-        private void _CloseWD(Add_EditStaff parameter)
+        private void _CloseWD(AddStaff parameter)
         {
             var window = Window.GetWindow(parameter);
             if (window != null)
@@ -243,7 +243,7 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private void _MinimizeWD(Add_EditStaff parameter)
+        private void _MinimizeWD(AddStaff parameter)
         {
             var window = Window.GetWindow(parameter);
             if (window != null)
@@ -252,7 +252,7 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private void _MoveWD(Add_EditStaff parameter)
+        private void _MoveWD(AddStaff parameter)
         {
             var window = Window.GetWindow(parameter);
             if (window != null && Mouse.LeftButton == MouseButtonState.Pressed)
