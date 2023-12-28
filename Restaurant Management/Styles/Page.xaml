@@ -17,7 +17,7 @@
                      Value="Collapsed">
 
                 <Setter Property="Opacity"
-                        Value="0"/>
+     Value="0"/>
             </Trigger>
             <EventTrigger RoutedEvent="Loaded">
                 <BeginStoryboard>
@@ -25,12 +25,21 @@
                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                          Duration="0:0:0.5"
                                          From="0"
-                                         To="1"/>
+                                         To="1">
+                            <DoubleAnimation.EasingFunction>
+                                <QuadraticEase EasingMode="EaseInOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
                                          Duration="0:0:0.5"
                                          From="50"
                                          To="0"
-                                         DecelerationRatio="0.1"/>
+                                         AccelerationRatio="0.2"
+                                         DecelerationRatio="0.8">
+                            <DoubleAnimation.EasingFunction>
+                                <QuadraticEase EasingMode="EaseInOut"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
                     </Storyboard>
                 </BeginStoryboard>
                 

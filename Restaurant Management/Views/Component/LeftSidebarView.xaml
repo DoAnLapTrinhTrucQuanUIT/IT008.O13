@@ -8,392 +8,404 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Menu="clr-namespace:Restaurant_Management.Utilities"
              mc:Ignorable="d"
-             d:DesignHeight="810">
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+             d:DesignHeight="1110">
+    <Border BorderBrush="#D9D9D9"
+            BorderThickness="0 0 1 0">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <!--Business Title and Logo-->
-        <Border Grid.Row="0" 
+            <!--Business Title and Logo-->
+            <Border Grid.Row="0" 
                 Padding="20">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <TextBlock Text="Only Food" 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBlock Text="Only Food" 
                                Foreground="#49454F" 
                                FontSize="14" 
                                FontFamily="Roboto" 
                                FontWeight="Regular"/>
-                </Grid>
-                <Grid Grid.Column="1">
+                    </Grid>
+                    <Grid Grid.Column="1">
 
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Border>
-        <!--Core Operations-->
-        <Grid Grid.Row="1">
-            <Border Padding="20 10"
-                    BorderBrush="#d9d9d9"
-                    BorderThickness="0 1 0 0">
-                <TextBlock Text="Core Operations" 
+            </Border>
+            <!--Core Operations-->
+            <Grid Grid.Row="1">
+                <Border Padding="20">
+                    <TextBlock Text="Core Operations" 
                            Foreground="#49454F" 
                            FontSize="14" 
                            FontFamily="Roboto" 
                            FontWeight="SemiBold"/>
-            </Border>
-        </Grid>
-        <!--Menu-->
-        <Grid Grid.Row="2">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                </Border>
+            </Grid>
+            <!--Menu-->
+            <Grid Grid.Row="2">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding MenuCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" 
+                    <Border VerticalAlignment="Center"
+                            Padding="20 10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" 
                               Margin="0 0 6 0">
-                            <Icon:PackIconBoxIcons Kind="RegularFoodMenu"/>
-                        </Grid>
-                        <Grid Grid.Column="1" 
+                                <Icon:PackIconBoxIcons Kind="RegularFoodMenu"/>
+                            </Grid>
+                            <Grid Grid.Column="1" 
                               Margin="6 0 0 0">
-                            <TextBlock Text="Menu" 
+                                <TextBlock Text="Menu" 
                                        Foreground="#49454F" 
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Table-->
-        <Grid Grid.Row="3">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Table-->
+            <Grid Grid.Row="3">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding TableCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" 
+                    <Border VerticalAlignment="Center"
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" 
                                   Margin="0 0 6 0">
-                            <Icon:PackIconMaterial Kind="TableFurniture"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconMaterial Kind="TableFurniture"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                                   Margin="6 0 0 0">
-                            <TextBlock Text="Table" 
+                                <TextBlock Text="Table" 
                                        Foreground="#49454F"
                                        FontSize="14"
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Customer-->
-        <Grid Grid.Row="4">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Customer-->
+            <Grid Grid.Row="4">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding CustomerCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
+                    <Border VerticalAlignment="Center"
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
                                   Margin="0 0 6 0">
-                            <Icon:PackIconMaterial Kind="AccountGroupOutline"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconMaterial Kind="AccountGroupOutline"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                                   Margin="6 0 0 0">
-                            <TextBlock Text="Customer" 
+                                <TextBlock Text="Customer" 
                                        Foreground="#49454F"
                                        FontSize="14"
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Staff Management-->
-        <Grid Grid.Row="5">
-            <Border Padding="20 10"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Staff Management-->
+            <Grid Grid.Row="5">
+                <Border Padding="20"
                         BorderBrush="#d9d9d9"
                         BorderThickness="0 1 0 0">
-                <TextBlock Text="Staff Management" 
+                    <TextBlock Text="Staff Management" 
                            Foreground="#49454F" 
                            FontSize="14" 
                            FontFamily="Roboto" 
                            FontWeight="SemiBold"/>
-            </Border>
-        </Grid>
-        <!--Schedule-->
-        <Grid Grid.Row="6">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                </Border>
+            </Grid>
+            <!--Schedule-->
+            <Grid Grid.Row="6">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ScheduleCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
+                    <Border VerticalAlignment="Center"
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
                               Margin="0 0 6 0">
-                            <Icon:PackIconUnicons Kind="CalendarAlt"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconUnicons Kind="CalendarAlt"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                               Margin="6 0 0 0">
-                            <TextBlock Text="Schedule" 
+                                <TextBlock Text="Schedule" 
                                        Foreground="#49454F" 
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Staff Information-->
-        <Grid Grid.Row="7">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Staff Information-->
+            <Grid Grid.Row="7">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding StaffInformationCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
+                    <Border VerticalAlignment="Center" 
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
                               Margin="0 0 6 0">
-                            <Icon:PackIconMaterial Kind="AccountDetailsOutline"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconMaterial Kind="AccountDetailsOutline"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                               Margin="6 0 0 0">
-                            <TextBlock Text="Staff Information" 
+                                <TextBlock Text="Staff Information" 
                                        Foreground="#49454F"
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Salary-->
-        <Grid Grid.Row="8">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Salary-->
+            <Grid Grid.Row="8">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SalaryCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
+                    <Border VerticalAlignment="Center"
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
                               Margin="0 0 6 0">
-                            <Icon:PackIconMaterial Kind="WalletOutline"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconMaterial Kind="WalletOutline"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                               Margin="6 0 0 0">
-                            <TextBlock Text="Salary" 
+                                <TextBlock Text="Salary" 
                                        Foreground="#49454F" 
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Stocks and Products-->
-        <Grid Grid.Row="9">
-            <Border Padding="20 10"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Stocks and Products-->
+            <Grid Grid.Row="9">
+                <Border Padding="20"
                     BorderBrush="#d9d9d9"
                     BorderThickness="0 1 0 0">
-                <TextBlock Text="Stocks and Products" 
+                    <TextBlock Text="Stocks and Products" 
                            Foreground="#49454F" 
                            FontSize="14" 
                            FontFamily="Roboto" 
                            FontWeight="SemiBold"/>
-            </Border>
-        </Grid>
-        <!--Inventory Overview-->
-        <Grid Grid.Row="10">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                </Border>
+            </Grid>
+            <!--Inventory Overview-->
+            <Grid Grid.Row="10">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InventoryOverviewCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" 
+                    <Border VerticalAlignment="Center" 
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" 
                               Margin="0 0 6 0">
-                            <Icon:PackIconVaadinIcons Kind="Stock"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconVaadinIcons Kind="Stock"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                               Margin="6 0 0 0">
-                            <TextBlock Text="Inventory" 
+                                <TextBlock Text="Inventory" 
                                        Foreground="#49454F" 
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Products-->
-        <Grid Grid.Row="11">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Products-->
+            <Grid Grid.Row="11">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ProductCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
+                    <Border VerticalAlignment="Center" 
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
                               Margin="0 0 6 0">
-                            <Icon:PackIconMaterial Kind="Food"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconMaterial Kind="Food"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                               Margin="6 0 0 0">
-                            <TextBlock Text="Products" 
+                                <TextBlock Text="Products" 
                                        Foreground="#49454F" 
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Sales and Finances-->
-        <Grid Grid.Row="12">
-            <Border Padding="20 10"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Sales and Finances-->
+            <Grid Grid.Row="12">
+                <Border Padding="20 10"
                     BorderBrush="#d9d9d9"
                     BorderThickness="0 1 0 0">
-                <TextBlock Text="Sales and Finances" 
+                    <TextBlock Text="Sales and Finances" 
                            Foreground="#49454F" 
                            FontSize="14" 
                            FontFamily="Roboto" 
                            FontWeight="SemiBold"/>
-            </Border>
-        </Grid>
-        <!--Sales Overview-->
-        <Grid Grid.Row="13">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                </Border>
+            </Grid>
+            <!--Sales Overview-->
+            <Grid Grid.Row="13">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SalesOverviewCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
+                    <Border VerticalAlignment="Center" 
+                            Padding="20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
                               Margin="0 0 6 0">
-                            <Icon:PackIconUnicons Kind="ChartLine"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconUnicons Kind="ChartLine"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                               Margin="6 0 0 0">
-                            <TextBlock Text="Sales Overview" 
+                                <TextBlock Text="Sales Overview" 
                                        Foreground="#49454F" 
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Invoices-->
-        <Grid Grid.Row="14">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Invoices-->
+            <Grid Grid.Row="14">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InvoiceCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
+                    <Border VerticalAlignment="Center" 
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0"
                               Margin="0 0 6 0">
-                            <Icon:PackIconUnicons Kind="Bill"/>
-                        </Grid>
-                        <Grid Grid.Column="1"
+                                <Icon:PackIconUnicons Kind="Bill"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
                               Margin="6 0 0 0">
-                            <TextBlock Text="Invoices" 
+                                <TextBlock Text="Invoices" 
                                        Foreground="#49454F" 
                                        FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
-        </Grid>
-        <!--Settings-->
-        <Grid Grid.Row="15">
-            <Menu:Btn Style="{StaticResource BtnStyle}"
+                    </Border>
+                </Menu:Btn>
+            </Grid>
+            <!--Settings-->
+            <Grid Grid.Row="15">
+                <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SettingCommand}"
                       GroupName="ButtonGroup">
-                <Border Padding="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" 
+                    <Border VerticalAlignment="Center" 
+                            Padding="20 15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" 
                               Margin="0 0 6 0">
-                            <Icon:PackIconUnicons Kind="Setting"/>
-                        </Grid>
-                        <Grid Grid.Column="1" 
+                                <Icon:PackIconUnicons Kind="Setting"/>
+                            </Grid>
+                            <Grid Grid.Column="1" 
                               Margin="6 0 0 0">
-                            <TextBlock Text="Settings" 
+                                <TextBlock Text="Settings" 
                                        Foreground="#49454F"
                                        FontSize="14" 
                                        FontFamily="Roboto"
                                        FontWeight="Regular"/>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Menu:Btn>
+                    </Border>
+                </Menu:Btn>
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 
 </UserControl>
