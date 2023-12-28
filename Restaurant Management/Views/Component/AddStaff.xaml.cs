@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Restaurant_Management.Views.Component
 {
     /// <summary>
-    /// Interaction logic for Add_EditStaff.xaml
+    /// Interaction logic for AddStaff.xaml
     /// </summary>
-    public partial class Add_EditStaff : UserControl
+    public partial class AddStaff : UserControl
     {
-        public Add_EditStaff()
+        public AddStaff()
         {
             InitializeComponent();
         }

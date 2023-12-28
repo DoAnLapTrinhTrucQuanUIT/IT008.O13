@@ -354,11 +354,11 @@
     <Compile Include="Views\Component\AddItem.xaml.cs">
       <DependentUpon>AddItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Component\AddStaff.xaml.cs">
+      <DependentUpon>AddStaff.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Component\Add_EditProduct.xaml.cs">
       <DependentUpon>Add_EditProduct.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Component\Add_EditStaff.xaml.cs">
-      <DependentUpon>Add_EditStaff.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\CategoryCard.xaml.cs">
       <DependentUpon>CategoryCard.xaml</DependentUpon>
@@ -473,11 +473,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Component\Add_EditProduct.xaml">
+    <Page Include="Views\Component\AddStaff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Component\Add_EditStaff.xaml">
+    <Page Include="Views\Component\Add_EditProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

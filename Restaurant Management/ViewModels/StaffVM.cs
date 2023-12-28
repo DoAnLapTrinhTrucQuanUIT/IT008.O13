@@ -106,7 +106,7 @@ namespace Restaurant_Management.ViewModels
         private void _AddStaff()
         {
             // Implementation for adding a new employee
-            Add_EditStaff addStaff = new Add_EditStaff();
+            AddStaff addStaff = new AddStaff();
             var window = new Window
             {
                 Content = addStaff,
