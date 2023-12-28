@@ -46,7 +46,7 @@
                                                     Storyboard.TargetProperty="Color"
                                                     From="White"
                                                     To="#ffd1d1"
-                                                    Duration="0:0:0.3" />
+                                                    Duration="0:0:0.1" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -58,7 +58,7 @@
                                                     Storyboard.TargetProperty="Color"
                                                     From="#ffd1d1"
                                                     To="White"
-                                                    Duration="0:0:0.3" />
+                                                    Duration="0:0:0.1" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>

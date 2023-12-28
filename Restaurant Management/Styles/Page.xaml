@@ -31,7 +31,7 @@
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                         Duration="0:0:0.5"
+                                         Duration="0:0:0.9"
                                          From="50"
                                          To="0"
                                          AccelerationRatio="0.2"
