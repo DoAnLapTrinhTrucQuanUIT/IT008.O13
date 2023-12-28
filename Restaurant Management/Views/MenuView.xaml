@@ -9,7 +9,8 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
-             d:Width="1080" Height="898"
+             d:DesignWidth="1111"
+             d:DesignHeight="810"
              Style="{StaticResource Page_Style}">
     <Grid Background="#FFFFFF">
         <Grid.ColumnDefinitions>
@@ -45,20 +46,15 @@
                                 <Grid Grid.Column="0">
                                     <TextBlock Text="Menu Category"
                                            Foreground="#000"
-                                           FontSize="40"
+                                           FontSize="32"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"/>
                                 </Grid>
 
                                 <!--Sorted by Dropdown-->
-                                <Grid Grid.Column="1"  Margin="30 0 0 0">
-                                    <ComboBox x:Name="OutlinedComboBox"
-                                              Background="#FAFAFA"
-                                              materialDesign:HintAssist.Hint="Sorted by"
-                                              IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                                              ItemsSource="{Binding ShortStringList}"
-                                              Style="{StaticResource   MaterialDesignOutlinedComboBox}" />
+                                <Grid Grid.Column="1">
+                                    
                                 </Grid>
 
 
@@ -102,7 +98,11 @@
             </Border>
 
             <!--Menu selection-->
-            <Border Grid.Row="1" Padding="30 25 30 30" Margin="0 0 0 50">
+            <!--Main course-->
+            <Border Grid.Row="1" 
+                    Padding="30 25 30 30" 
+                    Margin="0 0 0 50"
+                    Visibility="{Binding IsSelected, ElementName=MainCourse, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -110,9 +110,85 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <local:FoodCard Grid.Column="0" FoodName="Bun bo gio heo" FoodImage="{Binding Image}" FoodPrice="80.000"/>
-                        <local:FoodCard Grid.Column="1" FoodName="Com tam suon bi cha" FoodImage="{Binding Image}" FoodPrice="50.000"/>
-                        <local:FoodCard Grid.Column="2" FoodName="Pho tai nam gau gan" FoodImage="{Binding Image}" FoodPrice="300.000"/>
+                        <local:FoodCard Grid.Column="0" FoodName="Main course" FoodImage="{Binding Image}" FoodPrice="80.000"/>
+                        <local:FoodCard Grid.Column="1" FoodName="Main course" FoodImage="{Binding Image}" FoodPrice="50.000"/>
+                        <local:FoodCard Grid.Column="2" FoodName="Main course" FoodImage="{Binding Image}" FoodPrice="300.000"/>
+
+                    </Grid>
+                </Border>
+            </Border>
+            <!--Appetizer-->
+            <Border Grid.Row="1" 
+                    Padding="30 25 30 30" 
+                    Margin="0 0 0 50"
+                    Visibility="{Binding IsSelected, ElementName=Appetizer, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <local:FoodCard Grid.Column="0" FoodName="Appetizer" FoodImage="{Binding Image}" FoodPrice="80.000"/>
+                        <local:FoodCard Grid.Column="1" FoodName="Appetizer" FoodImage="{Binding Image}" FoodPrice="50.000"/>
+                        <local:FoodCard Grid.Column="2" FoodName="Appetizer" FoodImage="{Binding Image}" FoodPrice="300.000"/>
+
+                    </Grid>
+                </Border>
+            </Border>
+            <!--Light Dish-->
+            <Border Grid.Row="1" 
+                    Padding="30 25 30 30" 
+                    Margin="0 0 0 50"
+                    Visibility="{Binding IsSelected, ElementName=LightDish, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <local:FoodCard Grid.Column="0" FoodName="Light Dish" FoodImage="{Binding Image}" FoodPrice="80.000"/>
+                        <local:FoodCard Grid.Column="1" FoodName="Light Dish" FoodImage="{Binding Image}" FoodPrice="50.000"/>
+                        <local:FoodCard Grid.Column="2" FoodName="Light Dish" FoodImage="{Binding Image}" FoodPrice="300.000"/>
+
+                    </Grid>
+                </Border>
+            </Border>
+            <!--Dessert-->
+            <Border Grid.Row="1" 
+                    Padding="30 25 30 30" 
+                    Margin="0 0 0 50"
+                    Visibility="{Binding IsSelected, ElementName=Dessert, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <local:FoodCard Grid.Column="0" FoodName="Dessert" FoodImage="{Binding Image}" FoodPrice="80.000"/>
+                        <local:FoodCard Grid.Column="1" FoodName="Dessert" FoodImage="{Binding Image}" FoodPrice="50.000"/>
+                        <local:FoodCard Grid.Column="2" FoodName="Dessert" FoodImage="{Binding Image}" FoodPrice="300.000"/>
+
+                    </Grid>
+                </Border>
+            </Border>
+            <!--Beverage-->
+            <Border Grid.Row="1" 
+                    Padding="30 25 30 30" 
+                    Margin="0 0 0 50"
+                    Visibility="{Binding IsSelected, ElementName=Beverage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <local:FoodCard Grid.Column="0" FoodName="Beverage" FoodImage="{Binding Image}" FoodPrice="80.000"/>
+                        <local:FoodCard Grid.Column="1" FoodName="Beverage" FoodImage="{Binding Image}" FoodPrice="50.000"/>
+                        <local:FoodCard Grid.Column="2" FoodName="Beverage" FoodImage="{Binding Image}" FoodPrice="300.000"/>
 
                     </Grid>
                 </Border>
@@ -132,7 +208,7 @@
                     </Grid.RowDefinitions>
 
                     <!--Table information-->
-                    <Grid Grid.Row="0" Margin="0 0 0 30">
+                    <Grid Grid.Row="0" Margin="0 10 0 30">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -148,20 +224,23 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0">
-                                <TextBlock Text="Cart"
-                                    Foreground="#fff"
-                                    FontSize="32"
-                                    FontFamily="Roboto"
-                                    FontWeight="SemiBold"/>
-                            </Grid>
+                                <Grid Grid.Column="0">
+                                    <TextBlock Text="Cart"
+                                                Foreground="#fff"
+                                                FontSize="24"
+                                                FontFamily="Roboto"
+                                                FontWeight="SemiBold"/>
+                                </Grid>
                             <Grid Grid.Column="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
-                                        <TextBlock Text="Table:" FontSize="14" Foreground="#ffffff" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Table:" 
+                                                   FontSize="16" 
+                                                   Foreground="#ffffff"
+                                                   VerticalAlignment="Center"/>
                                     </Grid>
                                     <Grid Grid.Column="1">
                                         <ComboBox Style="{StaticResource MaterialDesignComboBox}" BorderBrush="White">
