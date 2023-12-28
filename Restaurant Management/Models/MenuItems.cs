@@ -12,7 +12,7 @@ namespace Restaurant_Management.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public ObjectId _id { get; set; }
 
         [BsonElement("itemId")]
         public string ItemId { get; set; }
@@ -26,7 +26,10 @@ namespace Restaurant_Management.Models
         [BsonElement("price")]
         public double Price { get; set; }
 
-        [BsonElement("title")]
-        public double Title { get; set; }
+        [BsonElement("description")]
+        public string Description { get; set; }
+
+        [BsonElement("image")]
+        public byte[] Image { get; set; }
     }
 }

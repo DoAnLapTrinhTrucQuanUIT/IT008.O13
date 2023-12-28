@@ -91,6 +91,7 @@ namespace Restaurant_Management.ViewModels
             paramater.DepartmentComboBox.SelectedItem=null;
             paramater.Email.Clear();
             paramater.Address.Clear();
+            paramater.loadedImage = null;
         }
 
         private void _ConfirmCommand(Add_EditStaff parameter)
@@ -159,7 +160,7 @@ namespace Restaurant_Management.ViewModels
             paramater.Email.Clear();
             paramater.Address.Clear();
         }
-        private byte[] ConvertImageToBytes(Image image)
+        private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
         {
             // Convert the WPF Image to a MemoryStream
             using (MemoryStream ms = new MemoryStream())

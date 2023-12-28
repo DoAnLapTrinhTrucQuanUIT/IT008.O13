@@ -50,7 +50,7 @@ namespace Restaurant_Management.ViewModels
         public ICommand AddCustomerCM { get; set; }
         public ICommand ExportCustomerCM { get; set; }
         public ICommand ImportCustomerCM { get; set; }
-
+        public ICommand DeletedCustomerCommand { get; set; }
 
         private readonly IMongoCollection<Customers> _Customers;
         public CustomerVM() 
@@ -61,6 +61,8 @@ namespace Restaurant_Management.ViewModels
             AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer());
             ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer());
             ImportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ImportCustomer());
+            DeletedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _DeleteCustomer(customer));
+
         }
         private IMongoCollection<Customers> GetCustomers()
         {
@@ -217,7 +219,27 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+        private void _DeleteCustomer(Customers customer)
+        {
+            // Implementation for deleting an employee
+            // You can use _employees collection to perform delete operation
+            // Implement logic to delete the selected employee
+            if (customer != null)
+            {
+                // Confirm deletion with the user
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {customer.FullName}?",
+                                                          "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Perform deletion logic here
+                    _Customers.DeleteOne(Builders<Customers>.Filter.Eq("customerId", customer.CustomerId));
+
+                    // Reload the staff list after deletion
+                    LoadCustomers();
+                }
+            }
+        }
         public string GetTotalCustomerCount()
         {
             return "1000";

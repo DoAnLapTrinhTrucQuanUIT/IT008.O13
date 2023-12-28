@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static Restaurant_Management.Views.StaffView;
 
-namespace Restaurant_Management.Views
+namespace Restaurant_Management.Views.Component
 {
     /// <summary>
-    /// Interaction logic for ProductsView.xaml
+    /// Interaction logic for AddItem.xaml
     /// </summary>
-    public partial class ProductsView : UserControl
+    public partial class AddItem : UserControl
     {
-        public ProductsView()
+        public AddItem()
         {
             InitializeComponent();
         }

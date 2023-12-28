@@ -9,6 +9,7 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
+             d:Width="1080" Height="898"
              Style="{StaticResource Page_Style}">
     <Grid Background="#FFFFFF">
         <Grid.ColumnDefinitions>
@@ -51,7 +52,7 @@
                                 </Grid>
 
                                 <!--Sorted by Dropdown-->
-                                <Grid Grid.Column="1"  Margin="0 0 50 0">
+                                <Grid Grid.Column="1"  Margin="30 0 0 0">
                                     <ComboBox x:Name="OutlinedComboBox"
                                               Background="#FAFAFA"
                                               materialDesign:HintAssist.Hint="Sorted by"
@@ -71,20 +72,28 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <!--Pizza-->
-                                <local:CategoryCard x:Name="Pizza" CategoryImage="{Binding}" Text="Pizza" Grid.Column="0"/>
+                                <local:CategoryCard x:Name="MainCourse"
+                                                    CategoryImage="{Binding}"
+                                                    Text="Main Course" Grid.Column="0"/>
                                 <!--Fruits-->
-                                <local:CategoryCard x:Name="Fruits" CategoryImage="{Binding}" Text="Fruits" Grid.Column="1"/>
+                                <local:CategoryCard x:Name="Appetizer"
+                                                    CategoryImage="{Binding}"
+                                                    Text="Appetizer" Grid.Column="1"/>
                                 <!--Snacks-->
-                                <local:CategoryCard x:Name="Snacks" CategoryImage="{Binding}" Text="Snacks" Grid.Column="2"/>
+                                <local:CategoryCard x:Name="LightDish"
+                                                    CategoryImage="{Binding}"
+                                                    Text="Light Dish" Grid.Column="2"/>
                                 <!--Veggies-->
-                                <local:CategoryCard x:Name="Veggies" CategoryImage="{Binding}" Text="Veggies" Grid.Column="3"/>
+                                <local:CategoryCard x:Name="Dessert"
+                                                    CategoryImage="{Binding}"
+                                                    Text="Dessert" Grid.Column="3"/>
                                 <!--Burger-->
-                                <local:CategoryCard x:Name="Burger" CategoryImage="{Binding}" Text="Burger" Grid.Column="4"/>
-                                <!--Drinks-->
-                                <local:CategoryCard x:Name="Drinks" CategoryImage="{Binding}" Text="Drinks" Grid.Column="5"/>
+                                <local:CategoryCard x:Name="Beverage"
+                                                    CategoryImage="{Binding}"
+                                                    Text="Beverage" Grid.Column="4"/>
+
                             </Grid>
 
                         </Grid>

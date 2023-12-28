@@ -263,7 +263,10 @@
                               Margin="0 30 0 0"
                               x:Name="DataGridCustomers"
                               ItemsSource="{Binding CustomerList}"
-                              AutoGenerateColumns="False">
+                              AutoGenerateColumns="False"
+                              Style="{DynamicResource DataGridStyle}"
+                              CellStyle="{DynamicResource DataGridCellStyle}"
+                              RowStyle="{DynamicResource DataGridRowStyle}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Customer ID"
                                                 IsReadOnly="true"
@@ -297,6 +300,23 @@
                                                 IsReadOnly="true"
                                                 Width="*"
                                                 Binding="{Binding Sales}" />
+                            <DataGridTemplateColumn IsReadOnly="True"
+                                                    Width="50">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="deletedCustomerButton"
+                                                Style="{StaticResource deletedButton}"
+                                                Width="20"
+                                                Height="25"
+                                                Command="{Binding DataContext.DeletedCustomerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}">
+                                            <Icon:PackIconIonicons Kind="TrashMD"
+                                                                   Width="14"
+                                                                   Height="14" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
