@@ -6,48 +6,72 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DesignHeight="989"
+             d:DesignWidth="1560"
+             x:Name="ProductsWindow"
              Style="{StaticResource Page_Style}">
     
     <UserControl.DataContext>
         <vm:ProductsVM/>
     </UserControl.DataContext>
     <UserControl.Resources>
-        <Style x:Key="TextboxSearch" TargetType="TextBox">
-            <Setter Property="Background" Value="#ffffff"/>
-            <Setter Property="Foreground" Value="#000000"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="FontFamily" Value="Roboto"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-
+        <Style x:Key="TextboxSearch"
+               TargetType="TextBox">
+            <Setter Property="Background"
+                    Value="#ffffff" />
+            <Setter Property="Foreground"
+                    Value="#000000" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="FontSize"
+                    Value="15" />
+            <Setter Property="FontFamily"
+                    Value="Roboto" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBoxBase">
                         <Grid>
                             <Border x:Name="border"
-                                CornerRadius="10" 
-                                Padding="20"
-                                Background="{TemplateBinding Background}"
-                                BorderThickness="1"
-                                BorderBrush="#d9d9d9">
-                                <TextBlock x:Name="placeholder" Margin="25 0 0 0" Text="Search by Product ID" FontSize="18" Foreground="#808080" VerticalAlignment="Center" Visibility="Visible"/>
+                                    CornerRadius="10"
+                                    Padding="10"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="2"
+                                    BorderBrush="#d9d9d9">
+                                <TextBlock x:Name="placeholder"
+                                           Margin="20 0 0 0"
+                                           Text="Search Customers"
+                                           FontSize="18"
+                                           FontWeight="Normal"
+                                           Foreground="#808080"
+                                           VerticalAlignment="Center"
+                                           Visibility="Visible" />
                             </Border>
-                            <ScrollViewer MaxWidth="310" Padding="20" VerticalAlignment="Center" x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <ScrollViewer MaxWidth="280"
+                                          VerticalAlignment="Center"
+                                          x:Name="PART_ContentHost"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="placeholder" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#007acc"/>
-                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            <Trigger Property="IsFocused"
+                                     Value="True">
+                                <Setter TargetName="placeholder"
+                                        Property="Visibility"
+                                        Value="Hidden" />
+                                <Setter TargetName="border"
+                                        Property="BorderBrush"
+                                        Value="#007acc" />
+                                <Setter TargetName="border"
+                                        Property="BorderThickness"
+                                        Value="1" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
         </Style>
     </UserControl.Resources>
 
@@ -62,7 +86,7 @@
 
                 <!-- Top section -->
                 <StackPanel Grid.Row="0" Orientation="Vertical">
-                    <TextBlock Text="Product" 
+                    <TextBlock Text="Menu Items" 
                                FontSize="30" 
                                FontWeight="Bold" 
                                FontFamily="Roboto" 
@@ -71,111 +95,121 @@
                 </StackPanel>
 
                 <!-- Middle section -->
-                <Grid Grid.Row="1" HorizontalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
+                <Grid Height="55"
+                      Grid.Row="1">
                     <!-- Search TextBox -->
                     <Grid HorizontalAlignment="Left">
-                        <TextBox Grid.Column="0" x:Name="txtSearch" Style="{StaticResource TextboxSearch}" Width="400"/>
+                        <TextBox x:Name="txtSearch"
+                                 Style="{StaticResource TextboxSearch}"
+                                 Width="300"
+                                 Padding="10 0 0 0">
+                            <!--Search trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchCM}"
+                                                           CommandParameter="{Binding ElementName=ProductsWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
                         <Icon:PackIconMaterial Kind="Magnify"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Right"
                                                Foreground="#000000"
                                                Margin="0 0 20 0"
-                                               Width="16"
-                                               Height="16"/>
+                                               Width="20"
+                                               Height="20" />
                     </Grid>
 
-                    <!-- Add new employee and Import from excel buttons -->
-                    <Grid Grid.Column="1" HorizontalAlignment="Right">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button Grid.Column="0" Style="{StaticResource addButton}" Margin="0 0 30 0" Padding="20">
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Plus" 
-                                                       VerticalAlignment="Center" 
-                                                       Width="20" 
-                                                       Height="20" 
-                                                       Margin="0 0 20 0"/>
-                                <TextBlock Text="Add new product"/>
-                            </StackPanel>
+                    <Grid Grid.Column="1"
+                          HorizontalAlignment="Right">
+                        <!--Add New Item Button-->
+                        <Button Grid.Column="0"
+                                Style="{StaticResource addButton}">
+                            <Border Padding="10 0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Icon:PackIconMaterial Kind="Plus"
+                                                           Grid.Column="0"
+                                                           VerticalAlignment="Center"
+                                                           Width="15"
+                                                           Height="15"
+                                                           Margin="0 0 10 0" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="Add new item"
+                                               FontSize="15"
+                                               FontWeight="SemiBold" />
+                                </Grid>
+                            </Border>
+                            <!--Add new item trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding AddItemCM}"
+                                                           CommandParameter="{Binding ElementName=ProductsWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
                     </Grid>
                 </Grid>
 
                 <!-- Bottom section -->
-                <DataGrid x:Name="productDataGrid" 
-                          Style="{DynamicResource DataGridStyle1}" 
-                          CellStyle="{DynamicResource DataGridCellStyle1}" 
-                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                          RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
+                <DataGrid x:Name="productDataGrid"
+                          Margin="0 30 0 0"
+                          ItemsSource="{Binding ItemList}"
+                          AutoGenerateColumns="False"
+                          Style="{DynamicResource DataGridStyle}"
+                          CellStyle="{DynamicResource DataGridCellStyle}"
+                          RowStyle="{DynamicResource DataGridRowStyle}"
+                          Grid.Row="2">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" 
-                                            IsReadOnly="True" 
-                                            CanUserResize="False" 
-                                            Width="Auto" Binding="{Binding Number}"/>
-                        <DataGridTemplateColumn Header="Product ID" 
-                                                IsReadOnly="True" 
-                                                Width="Auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="50" 
-                                                Height="25" 
-                                                CornerRadius="5" 
-                                                Margin="0 0 10 0" 
-                                                Background="{Binding BgColor}">
-                                            <TextBlock Text="{Binding ID}" 
-                                                       VerticalAlignment="Center" 
-                                                       HorizontalAlignment="Center" 
-                                                       Foreground="White" 
-                                                       Margin="0 0 0 1"/>
-                                        </Border>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Name" 
-                                            IsReadOnly="True" 
-                                            Width="*" 
-                                            Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Barcode" 
+                        <DataGridTextColumn Header="Item Id"
                                             IsReadOnly="True"
-                                            Width="*" 
-                                            Binding="{Binding Barcode}"/>
+                                            Width="100"
+                                            Binding="{Binding ItemId}" />
+                        <DataGridTextColumn Header="Name"
+                                            IsReadOnly="True"
+                                            Width="200"
+                                            Binding="{Binding Name}" />
                         <DataGridTextColumn Header="Category" 
                                             IsReadOnly="True" 
-                                            Width="*" 
-                                            Binding="{Binding Category}"/>
+                                            Width="150"
+                                            Binding="{Binding Category}" />
+                        <DataGridTextColumn Header="Price"
+                                            IsReadOnly="True"
+                                            Width="100"
+                                            Binding="{Binding Price}"/>
+                        <DataGridTextColumn Header="Description"
+                                            IsReadOnly="True" 
+                                            Width="*"
+                                            Binding="{Binding Description}"/>
                         <DataGridTemplateColumn Header="Actions" 
                                                 IsReadOnly="True"
-                                                Width="*">
+                                                Width="100" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel x:Name="subMenuGrid"
                                                 Orientation="Horizontal"  
                                                 Visibility="Visible" 
                                                 Background="Transparent">
-                                        
                                         <Button Style="{StaticResource gridEditButton}"
-                                                Margin="0 0 5 0">
-                                            <Icon:PackIconBoxIcons Kind="RegularEdit" 
+                                                Margin="0 0 5 0"
+                                                Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}">
+                                            <Icon:PackIconBoxIcons Kind="RegularEdit"
                                                                    Width="14"
-                                                                   Height="14" 
+                                                                   Height="14"
                                                                    VerticalAlignment="Center" />
                                         </Button>
-                                        
-                                        <Button Style="{StaticResource gridRemoveButton}">
+                                        <Button Style="{StaticResource gridRemoveButton}"
+                                                Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}">
                                             <Icon:PackIconIonicons Kind="TrashMD" 
                                                                    Width="14"
                                                                    Height="14"
                                                                    VerticalAlignment="Center" />
+                                            
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>

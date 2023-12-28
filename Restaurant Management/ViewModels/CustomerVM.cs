@@ -52,7 +52,6 @@ namespace Restaurant_Management.ViewModels
         public ICommand ImportCustomerCM { get; set; }
         public ICommand DeletedCustomerCommand { get; set; }
 
-
         private readonly IMongoCollection<Customers> _Customers;
         public CustomerVM() 
         {
