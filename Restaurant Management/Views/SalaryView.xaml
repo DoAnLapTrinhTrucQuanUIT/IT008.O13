@@ -7,8 +7,8 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
-             d:DesignHeight="889"
-             d:DesignWidth="1460"
+             d:DesignWidth="1080"
+             d:DesignHeight="720"
              Style="{StaticResource Page_Style}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.DataContext>
@@ -32,7 +32,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <!--Header-->
                         <Grid Grid.Row="0">
@@ -59,20 +59,20 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
 
                                             <Grid Grid.Column="0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition/>
-                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="AUto"/>
+                                                    <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid Grid.Column="0">
-                                                    <Image Source="../Assets/Images/Avatar.png"
+                                                    <Image Source="{Binding}"
                                                            Width="48"
                                                            Height="48"/>
                                                 </Grid>
-                                                <Grid Grid.Column="1">
+                                                <Grid Grid.Column="1"  Margin="10 0 0 0">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*" />
                                                         <RowDefinition Height="*" />
@@ -82,7 +82,7 @@
                                                   VerticalAlignment="Bottom">
                                                         <TextBlock Text="James Ronald"
                                                            Foreground="#fff"
-                                                           FontSize="16"
+                                                           FontSize="14"
                                                            FontFamily="Roboto"
                                                            FontWeight="Bold"
                                                            VerticalAlignment="Center"
@@ -90,10 +90,10 @@
                                                     </Grid>
                                                     <Grid Grid.Row="1"
                                                   HorizontalAlignment="Left"
-                                                  VerticalAlignment="Top">
+                                                  VerticalAlignment="Center">
                                                         <TextBlock Text="Freelance Worker"
                                                            Foreground="#fff"
-                                                           FontSize="14"
+                                                           FontSize="12"
                                                            FontFamily="Roboto"
                                                            FontWeight="Normal"
                                                            VerticalAlignment="Center"
@@ -155,7 +155,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text="Date of Joining"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -167,7 +167,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text="Pay Period"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -179,7 +179,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text="Worked Days"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -191,7 +191,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text=":"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -203,7 +203,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text=":"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -215,7 +215,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text=":"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -227,7 +227,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text="2018-06-23"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -239,7 +239,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text="August 2021"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -251,7 +251,7 @@
                                   Margin="20 0 0 0">
                                 <TextBlock Text="26"
                                            Foreground="#000"
-                                           FontSize="16"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -277,7 +277,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="Description"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="16"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -289,7 +289,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="Earnings"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="16"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -302,7 +302,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="Basic Salary"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -316,7 +316,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="Overtime"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -330,7 +330,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="Bonus"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
@@ -345,7 +345,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="1.000.000"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -358,7 +358,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="1.000.000"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -371,7 +371,7 @@
                                     BorderBrush="#D9D9D9">
                                 <TextBlock Text="1.000.000"
                                            Foreground="#000"
-                                           FontSize="20"
+                                           FontSize="14"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -399,7 +399,7 @@
                                 <Grid Grid.Row="1">
                                     <TextBlock Text="16.000.000"
                                                Foreground="#000"
-                                               FontSize="42"
+                                               FontSize="32"
                                                FontFamily="Roboto"
                                                FontWeight="Bold"
                                                VerticalAlignment="Center"
@@ -408,12 +408,12 @@
                             </Grid>
                         </Grid>
 
-                        <Grid Grid.Row="4">
-                            <Border Padding="80 50">
+                        <Grid Grid.Row="5">
+                            <Border Padding="100 20">
                                 <Button Style="{StaticResource confirmButton}">
                                     <TextBlock Text="Confirm"
                                        Foreground="#fff"
-                                       FontSize="20"
+                                       FontSize="16"
                                        FontFamily="Roboto"
                                        FontWeight="Medium"
                                        VerticalAlignment="Center"

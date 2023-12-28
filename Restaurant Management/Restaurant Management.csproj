@@ -328,6 +328,7 @@
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\ViewModelBase.cs" />
     <Compile Include="ViewModels\AddCustomerVM.cs" />
+    <Compile Include="ViewModels\ChangePasswordVM.cs" />
     <Compile Include="ViewModels\AddEditStaffVM.cs" />
     <Compile Include="ViewModels\AddItemVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
@@ -346,6 +347,7 @@
     <Compile Include="ViewModels\StaffInformationVM.cs" />
     <Compile Include="ViewModels\StaffVM.cs" />
     <Compile Include="ViewModels\TableVM.cs" />
+    <Compile Include="ViewModels\UpdateProfileVM.cs" />
     <Compile Include="Views\Component\AddCustomer.xaml.cs">
       <DependentUpon>AddCustomer.xaml</DependentUpon>
     </Compile>
@@ -667,6 +669,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Search Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

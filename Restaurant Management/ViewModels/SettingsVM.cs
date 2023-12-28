@@ -15,11 +15,22 @@ using System.Xml.Linq;
 using MongoDB.Driver;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Collections.ObjectModel;
 
 namespace Restaurant_Management.ViewModels
 {
     public class SettingsVM : Utilities.ViewModelBase
     {
+        private string _userID;
+        public string UserID
+        {
+            get => _userID;
+            set
+            {
+                _userID = value;
+                OnPropertyChanged(nameof(UserID));
+            }
+        }
         private string _name;
         public string Name
         {
@@ -116,7 +127,7 @@ namespace Restaurant_Management.ViewModels
         public SettingsVM()
         {
             _Employees = GetMongoCollection();
-            LogoutCommand = new RelayCommand<SettingsView>((p) => true, (p) => _Logout());
+            LogoutCommand = new RelayCommand<SettingsView>((p) => true, (p) => _Logout(p));
             LoadWindowCommand = new RelayCommand<SettingsView>((p) => true, (p) => _LoadWindow(p));
             UpdateProfileCommand = new RelayCommand<SettingsView>((p) => true, (p) => _UpdateProfile());
             ChangePassCommand = new RelayCommand<SettingsView>((p) => true, (p) => _ChangePass());
@@ -135,7 +146,7 @@ namespace Restaurant_Management.ViewModels
         }
         void _LoadWindow(SettingsView p)
         {
-            string employeeId = Const.UserID;
+            string employeeId = Const.Instance.UserId;
 
             var filter = Builders<Employees>.Filter.Eq(x => x.EmployeeId, employeeId);
             var User = _Employees.Find(filter).FirstOrDefault();
@@ -160,23 +171,40 @@ namespace Restaurant_Management.ViewModels
                 AvatarImageSource = User.AvatarImageSource;
             }
         }
-        void _Logout()
+        void _Logout(SettingsView mainWindow)
         {
-            LoginWindow login = new LoginWindow();
-            var window = new Window
+            LoginWindow loginView = new LoginWindow();
+            loginView.Show();
+
+            var window = Window.GetWindow(mainWindow);
+            if (window != null)
             {
-                Content = login,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStyle = WindowStyle.None,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            window.ShowDialog();
+                window.Close();
+            }
         }
-
-
         void _UpdateProfile()
         {
-            UpdateProfile updateProfile = new UpdateProfile();
+            UpdateProfileVM updateProfileVM = new UpdateProfileVM();
+
+            // Populate the properties of updateProfileVM with data from SettingsVM
+            updateProfileVM.EmployeeList = new ObservableCollection<Employees>
+            {
+                new Employees
+                {
+                    FullName = Name,
+                    Email = Email,
+                    DateOfBirth = DateOfBirth,
+                    PhoneNumber = PhoneNumber,
+                    Gender = Gender,
+                    Address = Address,
+                }
+            };
+
+            UpdateProfile updateProfile = new UpdateProfile
+            {
+                DataContext = updateProfileVM
+            };
+
             var window = new Window
             {
                 Content = updateProfile,
@@ -184,8 +212,10 @@ namespace Restaurant_Management.ViewModels
                 WindowStyle = WindowStyle.None,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
+
             window.ShowDialog();
         }
+
 
         void _ChangePass()
         {

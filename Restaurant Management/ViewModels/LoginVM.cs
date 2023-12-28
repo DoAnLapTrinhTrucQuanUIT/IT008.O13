@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Security.Principal;
 using MongoDB.Driver;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Threading.Tasks;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -41,6 +42,9 @@ namespace Restaurant_Management.ViewModels
         public ICommand LoginCM { get; set; }
         public ICommand PasswordchangeCM { get; set; }
         public ICommand ForgetpasswordCM { get; set; }
+        public ICommand CloseWDCM { get; set; }
+        public ICommand MinimizeWDCM { get; set; }
+        public ICommand MoveWDCM { get; set; }
 
         private readonly IMongoCollection<Employees> _Employees;
         public LoginVM()
@@ -52,6 +56,10 @@ namespace Restaurant_Management.ViewModels
             LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login(p));
             PasswordchangeCM = new RelayCommand<PasswordBox>((p) => true, (p) => { Password = p.Password; });
             ForgetpasswordCM = new RelayCommand<LoginWindow>((p) => true, (p) => _ForgetPassword());
+
+            CloseWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _CloseWD(p));
+            MinimizeWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _MinimizeWD(p));
+            MoveWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _MoveWD(p));
         }
 
         private IMongoCollection<Employees> GetMongoCollection()
@@ -82,11 +90,24 @@ namespace Restaurant_Management.ViewModels
 
                 if (Password == user.Password)
                 {
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    IsLogin = true;
-                    Const.UserID = EmployeeId;
-                    p.Close();
+                    Const.Instance.SetUser(EmployeeId);
+
+                    Task.Run(() =>
+                    {
+                        // Hiển thị MainWindow trên luồng UI
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            MainWindow mainWindow = new MainWindow();
+                            mainWindow.Show();
+                        });
+
+                        // Đóng LoginWindow trên luồng UI
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            IsLogin = true;
+                            p.Close();
+                        });
+                    });
                 }
                 else
                 {
@@ -120,6 +141,32 @@ namespace Restaurant_Management.ViewModels
             };
 
             forgetPassWindow.ShowDialog();
+        }
+        private void _CloseWD(LoginWindow paramater)
+        {
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
+        private void _MinimizeWD(LoginWindow paramater)
+        {
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                WindowState originalWindowState = window.WindowState;
+                window.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void _MoveWD(LoginWindow paramater)
+        {
+            var window = Window.GetWindow(paramater);
+            if (window != null)
+            {
+                window.DragMove();
+            }
         }
     }
 }
