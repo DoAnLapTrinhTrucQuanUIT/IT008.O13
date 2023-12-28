@@ -81,9 +81,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Menu" 
                                        Foreground="#49454F" 
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -109,9 +109,9 @@
                                   Margin="6 0 0 0">
                                 <TextBlock Text="Table" 
                                        Foreground="#49454F"
-                                       FontSize="14"
+                                       FontSize="12"
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -137,9 +137,9 @@
                                   Margin="6 0 0 0">
                                 <TextBlock Text="Customer" 
                                        Foreground="#49454F"
-                                       FontSize="14"
+                                       FontSize="12"
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -177,9 +177,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Schedule" 
                                        Foreground="#49454F" 
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -205,9 +205,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Staff Information" 
                                        Foreground="#49454F"
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -233,9 +233,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Salary" 
                                        Foreground="#49454F" 
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -273,9 +273,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Inventory" 
                                        Foreground="#49454F" 
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -301,9 +301,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Products" 
                                        Foreground="#49454F" 
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -311,7 +311,7 @@
             </Grid>
             <!--Sales and Finances-->
             <Grid Grid.Row="12">
-                <Border Padding="20 10"
+                <Border Padding="20"
                     BorderBrush="#d9d9d9"
                     BorderThickness="0 1 0 0">
                     <TextBlock Text="Sales and Finances" 
@@ -341,9 +341,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Sales Overview" 
                                        Foreground="#49454F" 
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -369,9 +369,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Invoices" 
                                        Foreground="#49454F" 
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto" 
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -397,9 +397,9 @@
                               Margin="6 0 0 0">
                                 <TextBlock Text="Settings" 
                                        Foreground="#49454F"
-                                       FontSize="14" 
+                                       FontSize="12" 
                                        FontFamily="Roboto"
-                                       FontWeight="Regular"/>
+                                       FontWeight="Medium"/>
                             </Grid>
                         </Grid>
                     </Border>
