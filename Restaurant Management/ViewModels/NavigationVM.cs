@@ -7,6 +7,7 @@ using Restaurant_Management.Utilities;
 using System.Windows.Input;
 using Restaurant_Management.Models;
 using System.Security.Permissions;
+using Restaurant_Management.Views;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -25,6 +26,7 @@ namespace Restaurant_Management.ViewModels
             get { return _currentView; }
             set { _currentView = value; OnPropertyChanged(); }
         }
+        public ICommand EmptyCommand { get; set; }
         public ICommand MenuCommand { get; set; }
         public ICommand TableCommand { get; set; }
         public ICommand CustomerCommand { get; set; }
@@ -36,6 +38,8 @@ namespace Restaurant_Management.ViewModels
         public ICommand SalesOverviewCommand { get; set; }
         public ICommand InvoiceCommand { get; set; }
         public ICommand SettingCommand { get; set; }
+
+        private void Empty(object obj) => CurrentView = new EmptyVM();
         private void Menu(object obj) => CurrentView = new MenuVM();
         private void Table(object obj) => CurrentView = new TableVM();
         private void Customer(object obj) => CurrentView = new CustomerVM();
@@ -49,6 +53,7 @@ namespace Restaurant_Management.ViewModels
         private void Setting(object obj) => CurrentView = new SettingsVM();
         public NavigationVM()
         {
+            EmptyCommand = new RelayCommand(Empty);
             MenuCommand = new RelayCommand(Menu);
             TableCommand = new RelayCommand(Table);
             CustomerCommand = new RelayCommand(Customer);
@@ -60,7 +65,8 @@ namespace Restaurant_Management.ViewModels
             SalesOverviewCommand = new RelayCommand(SalesOverview);
             InvoiceCommand = new RelayCommand(Invoice);
             SettingCommand = new RelayCommand(Setting);
-            CurrentView = new MenuVM();
+
+            CurrentView = new EmptyView();
         }
     }
 }

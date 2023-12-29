@@ -335,6 +335,7 @@
     <Compile Include="ViewModels\AddEditStaffVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
     <Compile Include="ViewModels\EditItemVM.cs" />
+    <Compile Include="ViewModels\EmptyVM.cs" />
     <Compile Include="ViewModels\ForgetPasswordVM.cs" />
     <Compile Include="ViewModels\InventoryOverviewVM.cs" />
     <Compile Include="ViewModels\InvoicesVM.cs" />
@@ -394,6 +395,9 @@
     </Compile>
     <Compile Include="Views\Component\FoodCard.xaml.cs">
       <DependentUpon>FoodCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmptyView.xaml.cs">
+      <DependentUpon>EmptyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InventoryOverviewView.xaml.cs">
       <DependentUpon>InventoryOverviewView.xaml</DependentUpon>
@@ -524,6 +528,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\FoodCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmptyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
