@@ -6,12 +6,16 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:components="clr-namespace:Restaurant_Management.Views.Component"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
              d:DesignWidth="1111"
              d:DesignHeight="810"
              Style="{StaticResource Page_Style}">
+    <UserControl.DataContext>
+        <vm:MenuVM/>
+    </UserControl.DataContext>
     <Grid Background="#FFFFFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -98,101 +102,324 @@
             </Border>
 
             <!--Menu selection-->
-            <!--Main course-->
-            <Border Grid.Row="1" 
-                    Padding="30 25 30 30" 
-                    Margin="0 0 0 50"
-                    Visibility="{Binding IsSelected, ElementName=MainCourse, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
+            <Grid x:Name="MenuSelection"
+                  Grid.Row="1" >
+                <!--Main course-->
+                <Border x:Name="MainCourseList" 
+                        Padding="30 25 30 30" 
+                        Margin="0 0 0 50"
+                        Visibility="{Binding IsSelected, ElementName=MainCourse, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <local:FoodCard Grid.Column="0" FoodName="Main course" FoodImage="{Binding Image}" FoodPrice="80.000"/>
-                        <local:FoodCard Grid.Column="1" FoodName="Main course" FoodImage="{Binding Image}" FoodPrice="50.000"/>
-                        <local:FoodCard Grid.Column="2" FoodName="Main course" FoodImage="{Binding Image}" FoodPrice="300.000"/>
-
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" 
+                                Background="#F3EEEA" 
+                                CornerRadius="20" 
+                                Padding="20">
+                            <ItemsControl ItemsSource="{Binding MainCourseDisplayedFoodCards}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0 0 20 0">
+                                            <local:FoodCard FoodName="{Binding Name}" 
+                                                            FoodImage="{Binding Image}" 
+                                                            FoodPrice="{Binding Price}"
+                                                            AddButtonClick="FoodCard_AddButtonClick">
+                                               
+                                            </local:FoodCard>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Border>
+                        <!--Pagingation button-->
+                        <Border Grid.Row="1" 
+                                HorizontalAlignment="Center"
+                                Margin="0 10 0 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Button Style="{StaticResource pagingButton}" Command="{Binding PreviousPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowBackiOS" />
+                                    </Button>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Button Style="{StaticResource pagingButton}" Command="{Binding NextPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowForwardiOS" />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Border>
-            </Border>
-            <!--Appetizer-->
-            <Border Grid.Row="1" 
+
+                <!--Appetizer-->
+                <Border x:Name="AppetizerList" Grid.Row="1" 
                     Padding="30 25 30 30" 
                     Margin="0 0 0 50"
                     Visibility="{Binding IsSelected, ElementName=Appetizer, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <local:FoodCard Grid.Column="0" FoodName="Appetizer" FoodImage="{Binding Image}" FoodPrice="80.000"/>
-                        <local:FoodCard Grid.Column="1" FoodName="Appetizer" FoodImage="{Binding Image}" FoodPrice="50.000"/>
-                        <local:FoodCard Grid.Column="2" FoodName="Appetizer" FoodImage="{Binding Image}" FoodPrice="300.000"/>
-
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Background="#F3EEEA" CornerRadius="20" Padding="20">
+                            <ItemsControl ItemsSource="{Binding AppetizerDisplayedFoodCards}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0 0 20 0">
+                                            <local:FoodCard FoodName="{Binding Name}" 
+                                                            FoodImage="{Binding Image}" 
+                                                            FoodPrice="{Binding Price}"
+                                                            AddButtonClick="FoodCard_AddButtonClick">
+                                            </local:FoodCard>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Border>
+                        <!--Pagingation button-->
+                        <Border Grid.Row="1" 
+                            HorizontalAlignment="Center"
+                            Margin="0 10 0 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding PreviousPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowBackiOS" />
+                                    </Button>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding NextPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowForwardiOS" />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Border>
-            </Border>
-            <!--Light Dish-->
-            <Border Grid.Row="1" 
+                <!--Light Dish-->
+                <Border x:Name="LightDishList" Grid.Row="1" 
                     Padding="30 25 30 30" 
                     Margin="0 0 0 50"
                     Visibility="{Binding IsSelected, ElementName=LightDish, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <local:FoodCard Grid.Column="0" FoodName="Light Dish" FoodImage="{Binding Image}" FoodPrice="80.000"/>
-                        <local:FoodCard Grid.Column="1" FoodName="Light Dish" FoodImage="{Binding Image}" FoodPrice="50.000"/>
-                        <local:FoodCard Grid.Column="2" FoodName="Light Dish" FoodImage="{Binding Image}" FoodPrice="300.000"/>
-
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Background="#F3EEEA" CornerRadius="20" Padding="20">
+                            <ItemsControl ItemsSource="{Binding LightDishDisplayedFoodCards}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0 0 20 0">
+                                            <local:FoodCard FoodName="{Binding Name}" 
+                                                            FoodImage="{Binding Image}" 
+                                                            FoodPrice="{Binding Price}"
+                                                            AddButtonClick="FoodCard_AddButtonClick"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Border>
+                        <!--Pagingation button-->
+                        <Border Grid.Row="1" 
+                            HorizontalAlignment="Center"
+                            Margin="0 10 0 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding PreviousPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowBackiOS" />
+                                    </Button>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding NextPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowForwardiOS" />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Border>
-            </Border>
-            <!--Dessert-->
-            <Border Grid.Row="1" 
+                <!--Dessert-->
+                <Border x:Name="DessertList" Grid.Row="1" 
                     Padding="30 25 30 30" 
                     Margin="0 0 0 50"
                     Visibility="{Binding IsSelected, ElementName=Dessert, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <local:FoodCard Grid.Column="0" FoodName="Dessert" FoodImage="{Binding Image}" FoodPrice="80.000"/>
-                        <local:FoodCard Grid.Column="1" FoodName="Dessert" FoodImage="{Binding Image}" FoodPrice="50.000"/>
-                        <local:FoodCard Grid.Column="2" FoodName="Dessert" FoodImage="{Binding Image}" FoodPrice="300.000"/>
-
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Background="#F3EEEA" CornerRadius="20" Padding="20">
+                            <ItemsControl ItemsSource="{Binding DessertDisplayedFoodCards}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0 0 20 0">
+                                            <local:FoodCard FoodName="{Binding Name}" 
+                                                            FoodImage="{Binding Image}" 
+                                                            FoodPrice="{Binding Price}"
+                                                            AddButtonClick="FoodCard_AddButtonClick"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Border>
+                        <!--Pagingation button-->
+                        <Border Grid.Row="1" 
+                            HorizontalAlignment="Center"
+                            Margin="0 10 0 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding PreviousPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowBackiOS" />
+                                    </Button>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding NextPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowForwardiOS" />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Border>
-            </Border>
-            <!--Beverage-->
-            <Border Grid.Row="1" 
+                <!--Beverage-->
+                <Border x:Name="BeverageList" Grid.Row="1" 
                     Padding="30 25 30 30" 
                     Margin="0 0 0 50"
                     Visibility="{Binding IsSelected, ElementName=Beverage, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Border Background="#F3EEEA" CornerRadius="20" Padding="20">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <local:FoodCard Grid.Column="0" FoodName="Beverage" FoodImage="{Binding Image}" FoodPrice="80.000"/>
-                        <local:FoodCard Grid.Column="1" FoodName="Beverage" FoodImage="{Binding Image}" FoodPrice="50.000"/>
-                        <local:FoodCard Grid.Column="2" FoodName="Beverage" FoodImage="{Binding Image}" FoodPrice="300.000"/>
-
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Background="#F3EEEA" CornerRadius="20" Padding="20">
+                            <ItemsControl ItemsSource="{Binding BeverageDisplayedFoodCards}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0 0 20 0">
+                                            <local:FoodCard FoodName="{Binding Name}" 
+                                                            FoodImage="{Binding Image}" 
+                                                            FoodPrice="{Binding Price}"
+                                                            AddButtonClick="FoodCard_AddButtonClick"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Border>
+                        <!--Pagingation button-->
+                        <Border Grid.Row="1" 
+                            HorizontalAlignment="Center"
+                            Margin="0 10 0 0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding PreviousPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowBackiOS" />
+                                    </Button>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Button Style="{StaticResource pagingButton}"
+                                            Command="{Binding NextPageCommand}">
+                                        <Button.Effect>
+                                            <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5"/>
+                                        </Button.Effect>
+                                        <Icon:PackIconIonicons Style="{StaticResource pagingButtonIcon}" Kind="ArrowForwardiOS" />
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Border>
-            </Border>
+            </Grid>
         </Grid>
         
         <!--Right sidebar-->
@@ -243,7 +470,8 @@
                                                    VerticalAlignment="Center"/>
                                     </Grid>
                                     <Grid Grid.Column="1">
-                                        <ComboBox Style="{StaticResource MaterialDesignComboBox}" BorderBrush="White">
+                                        <ComboBox Style="{StaticResource MaterialDesignComboBox}" 
+                                                  BorderBrush="White">
 
                                         </ComboBox>
                                     </Grid>
@@ -255,16 +483,40 @@
                                     Background="#ffffff"
                                     BorderThickness="1 0 1 1"
                                     BorderBrush="#484964">
-                                <DataGrid x:Name="tableDataGrid" Margin="0 0 0 30" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
+                                <DataGrid
+                              Margin="0 0 0 30"
+                              x:Name="DataGridMenuItems"
+                              ItemsSource="{Binding TempMenuItemsList}"
+                              AutoGenerateColumns="False"
+                              Style="{DynamicResource DataGridStyle}"
+                              CellStyle="{DynamicResource DataGridCellStyle}"
+                              RowStyle="{DynamicResource DataGridRowStyle}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
-                                        <DataGridTextColumn Header="Quantity" IsReadOnly="True" Width="*" Binding="{Binding Department}"/>
-                                        <DataGridTextColumn Header="Price" IsReadOnly="True" Width="*" Binding="{Binding PhoneNumber}"/>
-                                        <DataGridTemplateColumn  IsReadOnly="True" Width="Auto">
+                                        <DataGridTextColumn Header="Name"
+                                                IsReadOnly="true"
+                                                Width="2*"
+                                                Binding="{Binding MenuItem.Name}" />
+                                        <DataGridTextColumn Header="Price"
+                                                IsReadOnly="true"
+                                                Width="Auto"
+                                                Binding="{Binding MenuItem.Price}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                IsReadOnly="true"
+                                                Width="Auto"
+                                                Binding="{Binding Quantity}" />
+                                        <DataGridTemplateColumn IsReadOnly="True"
+                                                    Width="*">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <Button Style="{StaticResource gridRemoveButton}">
-                                                        <Icon:PackIconUnicons Kind="TrashAlt" />
+                                                    <Button x:Name="deleteItemButton"
+                                                Style="{StaticResource deletedButton}"
+                                                Width="20"
+                                                Height="25"
+                                                Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}">
+                                                        <Icon:PackIconIonicons Kind="TrashMD"
+                                                                   Width="14"
+                                                                   Height="14" />
                                                     </Button>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -275,20 +527,6 @@
                         </Grid>
                     </Grid>
                     
-                    <!--Switch table & dropdown-->
-                    <Grid Grid.Row="2" Margin="0 0 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <!--Switch tables-->
-                        <Grid Grid.Column="0" Margin="0 0 30 0">
-
-                            
-                        </Grid>
-                        
-                    </Grid>
-
                     <!--Paid Button-->
                     <Grid Grid.Row="3" Margin="0 40 0 100">
                         <Grid.ColumnDefinitions>
@@ -296,7 +534,8 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" Margin="0 0 20 0">
-                            <Button Style="{StaticResource deleteAllButton}">
+                            <Button Style="{StaticResource deleteAllButton}"
+                                    Command="{Binding DataContext.DeleteAllItemCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
                                 <TextBlock Text="Delete All"
                                            Foreground="#000000"
                                            FontSize="18"
@@ -306,7 +545,8 @@
                             </Button>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <Button Style="{StaticResource confirmButton}" >
+                            <Button Style="{StaticResource confirmButton}"
+                                    Command="{Binding DataContext.ConfirmItemCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
                                 <TextBlock Text="Confirm"
                                            Foreground="#ffffff"
                                            FontSize="18"
@@ -316,9 +556,6 @@
                             </Button>
                         </Grid>
                     </Grid>
-
-
-
                 </Grid>
             </Border>
         </Grid>

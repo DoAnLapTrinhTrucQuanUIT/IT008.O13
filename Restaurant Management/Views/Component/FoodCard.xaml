@@ -7,40 +7,39 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              mc:Ignorable="d">
     <Border x:Name="foodCardBorder" 
-            Padding="15 30" 
-            Margin="10"
+            Padding="20" 
             Background="White" 
             CornerRadius="12">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!--Food Image-->
             <Grid Grid.Row="0">
-                <Border Background="#DEDEDE" 
-                        CornerRadius="12">
-                    <Image x:Name="foodImage" 
-                           Stretch="Uniform"
-                           Source="{Binding FoodImage}"/>
-                </Border>
+                <Image x:Name="foodImage"
+                       Width="Auto"
+                       MaxHeight="120"
+                       Stretch="Uniform"
+                       Source="{Binding FoodImage, RelativeSource={RelativeSource AncestorType={x:Type local:FoodCard}}}"/>
             </Grid>
 
             <!--Food name-->
-            <Grid Grid.Row="1" >
+            <Grid Grid.Row="1" 
+                  Margin="0 20 0 0">
                 <TextBlock x:Name="foodName" 
-                           Height="20"
                            Text="{Binding FoodName, RelativeSource={RelativeSource AncestorType={x:Type local:FoodCard}}}" 
                            Foreground="Black" 
-                           FontSize="16" 
+                           FontSize="14" 
                            FontFamily="Roboto" 
-                           FontWeight="SemiBold"/>
+                           FontWeight="Medium"/>
             </Grid>
 
             <!--Price & Add button-->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2" 
+                  Margin="0 20 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -48,14 +47,15 @@
                 <Grid Grid.Column="0">
                     <TextBlock x:Name="foodPrice" 
                                Text="{Binding FoodPrice, RelativeSource={RelativeSource AncestorType={x:Type local:FoodCard}}}" 
-                               Height="15"
                                Foreground="Black" 
-                               FontSize="14" 
+                               FontSize="12" 
                                FontFamily="Roboto" 
                                FontWeight="Regular" 
                                VerticalAlignment="Center"/>
                 </Grid>
-                <Button Grid.Column="1" 
+                <!--Add Button-->
+                <Button x:Name="AddButton"
+                        Grid.Column="1" 
                         HorizontalAlignment="Right">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -88,12 +88,11 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                        
                     </Button.Style>
                     <Icon:PackIconUnicons Kind="Plus" 
                                           Foreground="White"
                                           Width="12" 
-                                          Height="12" 
+                                          Height="8" 
                                           HorizontalAlignment="Center" 
                                           VerticalAlignment="Center"/>
                 </Button>
