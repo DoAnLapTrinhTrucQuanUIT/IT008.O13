@@ -452,15 +452,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Image.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\Page.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Text.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -613,74 +605,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\google.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\facebook.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\thumbnail.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\inventory.png" />
-    <Resource Include="Assets\Images\invoices.png" />
-    <Resource Include="Assets\Images\menu.png" />
-    <Resource Include="Assets\Images\product.png" />
-    <Resource Include="Assets\Images\salary.png" />
-    <Resource Include="Assets\Images\sales.png" />
-    <Resource Include="Assets\Images\schedule.png" />
-    <Resource Include="Assets\Images\staffinfo.png" />
-    <Resource Include="Assets\Images\table.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\customer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Fruits.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Notification Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Person.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\calender.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\SelectGender.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Add image.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\IsActive.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\SelectionClicker.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="packages\AWSSDK.SecurityToken.3.7.100.14\analyzers\dotnet\cs\AWSSDK.SecurityToken.CodeAnalysis.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Avatar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\tune.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\arrow_downward.png" />
-    <Resource Include="Assets\Images\arrow_upward.png" />
-    <Resource Include="Assets\Images\group.png" />
-    <Resource Include="Assets\Images\person_celebrate.png" />
-    <Resource Include="Assets\Images\person_check.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Search Icon.png" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\Images\background.jpg" />
   </ItemGroup>
