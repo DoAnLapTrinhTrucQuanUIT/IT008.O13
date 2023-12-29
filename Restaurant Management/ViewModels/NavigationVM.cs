@@ -47,7 +47,6 @@ namespace Restaurant_Management.ViewModels
         private void SalesOverview(object obj) => CurrentView = new SalesOverviewVM();
         private void Invoice(object obj) => CurrentView = new InvoicesVM();
         private void Setting(object obj) => CurrentView = new SettingsVM();
- 
         public NavigationVM()
         {
             MenuCommand = new RelayCommand(Menu);

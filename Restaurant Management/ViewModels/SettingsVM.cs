@@ -16,6 +16,8 @@ using MongoDB.Driver;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
+using System.Windows.Media;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -117,7 +119,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(AvatarImageSource));
             }
         }
-
+        public ICommand BrowseImageButton { get; set; }
         public ICommand LogoutCommand { get; set; }
         public ICommand LoadWindowCommand { get; set; }
         public ICommand UpdateProfileCommand { get; set; }
@@ -127,6 +129,7 @@ namespace Restaurant_Management.ViewModels
         public SettingsVM()
         {
             _Employees = GetMongoCollection();
+            BrowseImageButton= new RelayCommand<SettingsView>((p) => true, (p) => _BrowseImage(p));
             LogoutCommand = new RelayCommand<SettingsView>((p) => true, (p) => _Logout(p));
             LoadWindowCommand = new RelayCommand<SettingsView>((p) => true, (p) => _LoadWindow(p));
             UpdateProfileCommand = new RelayCommand<SettingsView>((p) => true, (p) => _UpdateProfile());
@@ -212,10 +215,8 @@ namespace Restaurant_Management.ViewModels
                 WindowStyle = WindowStyle.None,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
-
             window.ShowDialog();
         }
-
 
         void _ChangePass()
         {
@@ -246,6 +247,70 @@ namespace Restaurant_Management.ViewModels
             }
 
             return bitmapImage;
+        }
+
+        private void _BrowseImage(SettingsView parameter)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*",
+                    Title = "Select an image file"
+                };
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    string imagePath = openFileDialog.FileName;
+
+                    // Load the image and set it to the Image control
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.UriSource = new Uri(imagePath);
+                    bitmapImage.EndInit();
+
+                    // Update local AvatarImageSource
+                    AvatarImageSource = bitmapImage;
+
+                    // Update AvatarImageSource in MongoDB
+                    UpdateAvatarInMongoDB(ConvertBitmapImageToByteArray(bitmapImage));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void UpdateAvatarInMongoDB(byte[] newAvatarBytes)
+        {
+            try
+            {
+                string employeeId = Const.Instance.UserId;
+                var filter = Builders<Employees>.Filter.Eq(x => x.EmployeeId, employeeId);
+                var updateDefinition = Builders<Employees>.Update.Set(x => x.Avatar, newAvatarBytes);
+
+                _Employees.UpdateOne(filter, updateDefinition);
+
+                MessageBox.Show("Avatar image updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating avatar image in MongoDB: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private byte[] ConvertBitmapImageToByteArray(BitmapImage bitmapImage)
+        {
+            if (bitmapImage == null)
+                return null;
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                encoder.Save(stream);
+                return stream.ToArray();
+            }
         }
     }
 }

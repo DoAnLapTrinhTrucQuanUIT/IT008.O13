@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.RightsManagement;
 
 namespace Restaurant_Management.Models
 {
@@ -12,24 +13,27 @@ namespace Restaurant_Management.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string _id { get; set; }
 
         [BsonElement("invoiceId")]
         public string InvoiceId { get; set; }
 
-        [BsonElement("creationDate")]
-        public DateTime CreationDate { get; set; }
+        [BsonElement("createdDate")]
+        public DateTime CreatedDate { get; set; }
 
-        [BsonElement("employeeId")]
-        public string EmployeeId { get; set; }
+        [BsonElement("paidEmployee")]
+        public Employees PaidEmployee { get; set; }
+
+        [BsonElement("paidCustomer")]
+        public Customers PaidCustomer { get; set; }
 
         [BsonElement("items")]
         public List<MenuItems> Items { get; set; }
 
-        [BsonElement("totalAmount")]
-        public double TotalAmount { get; set; }
+        [BsonElement("status")]
+        public bool Status { get; set; }
 
-        [BsonElement("paymentMethod")]
-        public string PaymentMethod { get; set; }
+        [BsonElement("amount")]
+        public double Amount { get; set; }
     }
 }
