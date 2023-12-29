@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant_Management.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,26 @@ namespace Restaurant_Management.Views
     /// </summary>
     public partial class FoodCard : UserControl
     {
+        public static readonly RoutedEvent AddButtonClickEvent = EventManager.RegisterRoutedEvent(
+        "AddButtonClick",
+        RoutingStrategy.Bubble,
+        typeof(RoutedEventHandler),
+        typeof(FoodCard));
+
+        public event RoutedEventHandler AddButtonClick
+        {
+            add { AddHandler(AddButtonClickEvent, value); }
+            remove { RemoveHandler(AddButtonClickEvent, value); }
+        }
+
+        private void OnAddButtonClick(object sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(AddButtonClickEvent, this));
+        }
         public FoodCard()
         {
             InitializeComponent();
+            AddButton.Click += OnAddButtonClick;
         }
         public static readonly DependencyProperty FoodImageProperty =
             DependencyProperty.Register("FoodImage", typeof(ImageSource), typeof(FoodCard));
@@ -43,13 +61,14 @@ namespace Restaurant_Management.Views
         }
 
         public static readonly DependencyProperty FoodPriceProperty =
-            DependencyProperty.Register("FoodPrice", typeof(decimal), typeof(FoodCard));
+            DependencyProperty.Register("FoodPrice", typeof(double), typeof(FoodCard));
 
-        public decimal FoodPrice
+        public double FoodPrice
         {
-            get { return (decimal)GetValue(FoodPriceProperty); }
+            get { return (double)GetValue(FoodPriceProperty); }
             set { SetValue(FoodPriceProperty, value); }
         }
 
     }
+
 }

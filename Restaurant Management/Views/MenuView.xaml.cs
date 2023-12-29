@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant_Management.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace Restaurant_Management.Views
         public MenuView()
         {
             InitializeComponent();
+        }
+        private void FoodCard_AddButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MenuVM viewModel)
+            {
+                if (e.OriginalSource is FoodCard foodCard)
+                {
+                    viewModel.AddToTempMenuCommand.Execute(foodCard);
+                }
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace Restaurant_Management.Models
 {
@@ -31,5 +32,20 @@ namespace Restaurant_Management.Models
 
         [BsonElement("image")]
         public byte[] Image { get; set; }
+        public BitmapImage FoodImageSource
+        {
+            get
+            {
+                if (Image != null && Image.Length > 0)
+                {
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.StreamSource = new System.IO.MemoryStream(Image);
+                    image.EndInit();
+                    return image;
+                }
+                return null;
+            }
+        }
     }
 }
