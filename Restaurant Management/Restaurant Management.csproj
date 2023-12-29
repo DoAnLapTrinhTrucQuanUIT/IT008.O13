@@ -324,7 +324,9 @@
     <Compile Include="Models\MenuItems.cs" />
     <Compile Include="Models\Tables.cs" />
     <Compile Include="Models\TempMenuItems.cs" />
+    <Compile Include="Utilities\BooleanToColorConverter.cs" />
     <Compile Include="Utilities\BooleanToDepartmentConverter.cs" />
+    <Compile Include="Utilities\BooleanToStatusConverter.cs" />
     <Compile Include="Utilities\Btn.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\ViewModelBase.cs" />

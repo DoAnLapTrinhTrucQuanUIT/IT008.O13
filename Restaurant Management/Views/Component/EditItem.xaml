@@ -288,7 +288,7 @@
                                                FontWeight="SemiBold"
                                                TextAlignment="Center" />
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:EventTrigger EventName="Click">
                                             <i:InvokeCommandAction Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                    CommandParameter="{Binding ElementName=EditItemWindow}" />
                                         </i:EventTrigger>
@@ -310,7 +310,7 @@
                                                Height="19"
                                                Width="65" />
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:EventTrigger EventName="Click">
                                             <i:InvokeCommandAction Command="{Binding DataContext.ConfirmCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                    CommandParameter="{Binding ElementName=EditItemWindow}" />
                                         </i:EventTrigger>

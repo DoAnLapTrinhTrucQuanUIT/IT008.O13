@@ -97,7 +97,6 @@ namespace Restaurant_Management.ViewModels
 
                 if (result.IsModifiedCountAvailable && result.ModifiedCount > 0)
                 {
-
                     MessageBox.Show("Profile updated successfully!", "Notification");
                     var mainWindow = App.Current.MainWindow;
                     App.Current.MainWindow = null;
