@@ -286,7 +286,7 @@
                                                FontWeight="SemiBold"
                                                TextAlignment="Center" />
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:EventTrigger EventName="Click">
                                             <i:InvokeCommandAction Command="{Binding CancelCommand}"
                                                                    CommandParameter="{Binding ElementName=AddItemWindow}" />
                                         </i:EventTrigger>
@@ -308,7 +308,7 @@
                                                Height="19"
                                                Width="65" />
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:EventTrigger EventName="Click">
                                             <i:InvokeCommandAction Command="{Binding ConfirmCommand}"
                                                                    CommandParameter="{Binding ElementName=AddItemWindow}" />
                                         </i:EventTrigger>

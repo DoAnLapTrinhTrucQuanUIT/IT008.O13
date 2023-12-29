@@ -22,6 +22,7 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using System.Xml.Linq;
 using System.Data.Common;
+using System.Globalization;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -92,16 +93,16 @@ namespace Restaurant_Management.ViewModels
             parameter.CategoryComboBox.SelectedItem = null;
             parameter.Price.Clear();
             parameter.Description.Clear();
-            parameter.loadedImage = null;
+            parameter.loadedImage.Source = null;
         }
         private void _ConfirmCommand(AddItem parameter)
         {
-            if (parameter.Name.Text==""||parameter.CategoryComboBox.SelectedItem==null||parameter.Price.Text=="")
+            if (parameter.Name.Text == "" || parameter.CategoryComboBox.SelectedItem == null || parameter.Price.Text == "")
             {
                 MessageBox.Show("You did not enter enough information!", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MessageBoxResult addCusNoti = System.Windows.MessageBox.Show("Do you want to add item?", "Notification", MessageBoxButton.YesNoCancel);
+            MessageBoxResult addCusNoti = System.Windows.MessageBox.Show("Do you want to add the item?", "Notification", MessageBoxButton.YesNoCancel);
             if (addCusNoti == MessageBoxResult.Yes)
             {
                 if (string.IsNullOrEmpty(parameter.Name.Text) || string.IsNullOrEmpty(parameter.Price.Text) || string.IsNullOrEmpty(parameter.CategoryComboBox.Text))
@@ -133,26 +134,28 @@ namespace Restaurant_Management.ViewModels
         {
             // convert image into byte array
             byte[] imageBytes = ConvertImageToBytes(parameter.loadedImage);
-            // Tạo một đối tượng Person mới
-            var MenuItems = new MenuItems
+            // Tạo một đối tượng MenuItems mới
+            var menuItems = new MenuItems
             {
                 ItemId = GenerateRandomItemId(),
                 Name = parameter.Name.Text.ToString(),
                 Category = parameter.CategoryComboBox.Text.ToString(),
-                Price = Double.Parse(parameter.Price.Text),
+                Price = Double.Parse(parameter.Price.Text, CultureInfo.InvariantCulture),
                 Description = parameter.Description.Text.ToString(),
                 Image = imageBytes
             };
             // Thêm đối tượng vào collection
-            _MenuItems.InsertOne(MenuItems);
+            _MenuItems.InsertOne(menuItems);
 
             MessageBox.Show("Item added successfully.", "Notification");
             parameter.Name.Clear();
             parameter.CategoryComboBox.SelectedItem = null;
             parameter.Price.Clear();
             parameter.Description.Clear();
-            parameter.loadedImage = null;
+            // Clear the image in the loadedImage control
+            parameter.loadedImage.Source = null;
         }
+
         private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
         {
             // Convert the WPF Image to a MemoryStream
@@ -166,6 +169,7 @@ namespace Restaurant_Management.ViewModels
                 return ms.ToArray();
             }
         }
+
         string GenerateRandomItemId()
         {
             var maxItemId = _MenuItems.AsQueryable()
@@ -189,7 +193,7 @@ namespace Restaurant_Management.ViewModels
                 return "DISHES1";
             }
 
-            string maxNumberStr = currentMaxItemId.Substring(3);
+            string maxNumberStr = currentMaxItemId.Substring(6);
             if (int.TryParse(maxNumberStr, out int maxNumber))
             {
                 // Tạo `CustomerId` mới với số thứ tự kế tiếp

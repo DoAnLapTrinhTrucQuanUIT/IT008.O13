@@ -122,11 +122,16 @@
                                                Opacity="0"/>
                                     <!-- Camera Button -->
                                     <Button x:Name="cameraButton"
-                                            Style="{StaticResource cameraButton1}" 
-                                            Command="{Binding AddImageCommand}"
+                                            Style="{StaticResource cameraButton1}"                                             
                                             Opacity="0"
-                                            IsEnabled="False">      
+                                            IsEnabled="False">
                                         <Icon:PackIconPixelartIcons Kind="CameraAdd" />
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding BrowseImageButton}"
+                                                                       CommandParameter="{Binding ElementName=SettingsWindow}"></i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                     </Button>
                                 </Grid>
                                 <Border.Triggers>
@@ -430,8 +435,6 @@
 
                     </Button>
                 </Grid>
-
-                    
             </Grid>
         </Grid>
 
