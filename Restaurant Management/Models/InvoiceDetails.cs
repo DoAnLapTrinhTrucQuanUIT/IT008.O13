@@ -5,28 +5,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace Restaurant_Management.Models
 {
+    
     public class InvoiceDetails
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public ObjectId _id { get; set; }
 
         [BsonElement("invoiceDetailId")]
         public string InvoiceDetailId { get; set; }
 
-        [BsonElement("invoiceId")]
-        public string InvoiceId { get; set; }
+        [BsonElement("invoice")]
+        public Invoices Invoice { get; set; }
 
-        [BsonElement("itemId")]
-        public string ItemId { get; set; }
+        [BsonElement("item")]
+        public MenuItems Item { get; set; }
 
         [BsonElement("quantity")]
         public int Quantity { get; set; }
 
-        [BsonElement("subtotal")]
-        public double Subtotal { get; set; }
+        [BsonElement("amount")]
+        public double Amount { get; set; }
     }
 }

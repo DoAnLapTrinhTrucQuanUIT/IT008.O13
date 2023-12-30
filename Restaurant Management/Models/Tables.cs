@@ -17,9 +17,6 @@ namespace Restaurant_Management.Models
         [BsonElement("tableId")]
         public string TableId { get; set; }
 
-        [BsonElement("invoicesTable")]
-        public Invoices InvoicesTable { get; set; }
-
         [BsonElement("tableName")]
         public string TableName { get; set; }
 

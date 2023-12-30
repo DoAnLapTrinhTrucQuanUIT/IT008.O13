@@ -13,30 +13,27 @@ namespace Restaurant_Management.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string _id { get; set; }
+        public ObjectId _id { get; set; }
 
         [BsonElement("invoiceId")]
         public string InvoiceId { get; set; }
 
+        [BsonElement("employee")]
+        public Employees Employee { get; set; }
+
+        [BsonElement("customer")]
+        public Customers Customer { get; set; }
+
+        [BsonElement("table")]
+        public Tables Table { get; set; }
+
         [BsonElement("createdDate")]
         public DateTime CreatedDate { get; set; }
-
-        [BsonElement("paidEmployee")]
-        public Employees PaidEmployee { get; set; }
-
-        [BsonElement("paidCustomer")]
-        public Customers PaidCustomer { get; set; }
-
-        [BsonElement("items")]
-        public List<MenuItems> Items { get; set; }
 
         [BsonElement("status")]
         public bool Status { get; set; }
 
-        [BsonElement("amount")]
-        public double Amount { get; set; }
-
-        [BsonElement("tableNumber")]
-        public int TableNumber { get; set; }
+        [BsonElement("totalAmount")]
+        public double TotalAmount { get; set; }
     }
 }

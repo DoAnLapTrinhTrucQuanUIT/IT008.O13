@@ -15,7 +15,7 @@ namespace Restaurant_Management.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public ObjectId _id { get; set; }
 
         [BsonElement("employeeId")]
         public string EmployeeId { get; set; }

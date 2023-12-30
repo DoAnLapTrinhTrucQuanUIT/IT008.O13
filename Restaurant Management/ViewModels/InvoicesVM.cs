@@ -72,10 +72,24 @@ namespace Restaurant_Management.ViewModels
         public ICommand PaidInvoicesCommand { get; set; }
         public ICommand UnpaidInvoicesCommand { get; set; }
 
+        private readonly IMongoCollection<InvoiceDetails> _invoiceDetailsCollection;
+        private IMongoCollection<InvoiceDetails> GetInvoiceDetailsCollection()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<InvoiceDetails>("InvoiceDetails");
+        }
 
         public InvoicesVM()
         {
             _Invoices = GetInvoices();
+            _invoiceDetailsCollection = GetInvoiceDetailsCollection();
             Load();
             SearchInvoicesCommand = new RelayCommand<InvoicesView>((p) => true, (p) => _SearchInvoices(p));
             ExportInvoiceCommand = new RelayCommand<Invoices>((invoice) => true, (invoice) => _ExportInvoices(invoice));
@@ -131,38 +145,35 @@ namespace Restaurant_Management.ViewModels
         {
             PrintInvoiceView print = new PrintInvoiceView();
 
+            var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
+
             // Set the height of the PrintInvoiceView
-            print.Height = 300 + 35 * invoice.Items.Count();
+            print.Height = 300 + 35 * invoiceDetails.Count();
 
             // Set data in the PrintInvoiceView
-            print.CustomerID.Text = invoice.PaidCustomer.CustomerId.ToString();
-            print.CustomerName.Text = invoice.PaidCustomer.FullName.ToString();
-            print.PhoneNumber.Text = invoice.PaidCustomer.PhoneNumber.ToString();
-            print.EmployeeName.Text = invoice.PaidEmployee.FullName.ToString();
+            print.CustomerID.Text = invoice.Customer.CustomerId.ToString();
+            print.CustomerName.Text = invoice.Customer.FullName.ToString();
+            print.PhoneNumber.Text = invoice.Customer.PhoneNumber.ToString();
+            print.EmployeeName.Text = invoice.Employee.FullName.ToString();
             print.InvoiceDate.Text = invoice.CreatedDate.ToString();
             print.InvoiceID.Text = invoice.InvoiceId.ToString();
 
             ListBoughtItems = new ObservableCollection<BoughtItems>();
-            foreach (var itemGroup in invoice.Items.GroupBy(item => item.ItemId))
-            {
-                var totalQuantity = itemGroup.Count(); // Count of items with the same ItemId
-                var totalAmount = totalQuantity * itemGroup.First().Price;
-
+            foreach (var item in invoiceDetails)
+            { 
                 BoughtItems boughtItem = new BoughtItems
                 {
-                    ITEMID = itemGroup.Key, // Assumes ItemId is a string; adjust accordingly
-                    NAME = itemGroup.First().Name, // Assumes ItemName is the same for items with the same ItemId
-                    QUANTITY = totalQuantity,
-                    UNITPRICE = itemGroup.First().Price, // Assumes UnitPrice is the same for items with the same ItemId
-                    TOTALAMOUNT = totalAmount,
+                    ITEMID = item.Item.ItemId, // Assumes ItemId is a string; adjust accordingly
+                    NAME = item.Item.Name, // Assumes ItemName is the same for items with the same ItemId
+                    QUANTITY = item.Quantity,
+                    UNITPRICE = item.Item.Price, // Assumes UnitPrice is the same for items with the same ItemId
+                    TOTALAMOUNT = item.Amount,
                 };
 
                 ListBoughtItems.Add(boughtItem);
             }
-
-
             print.ListMenuItem.ItemsSource = ListBoughtItems;
-            print.TotalAmount.Text = invoice.Amount.ToString();
+            print.TotalAmount.Text = invoice.TotalAmount.ToString();
 
             try
             {

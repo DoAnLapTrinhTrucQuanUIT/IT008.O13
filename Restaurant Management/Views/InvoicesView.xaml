@@ -186,12 +186,12 @@
                         <DataGridTextColumn Header="Employee ID"
                                             IsReadOnly="True"
                                             Width="*"
-                                            Binding="{Binding PaidEmployee.EmployeeId}" />
+                                            Binding="{Binding Employee.EmployeeId}" />
                         <!--Customer ID-->
                         <DataGridTextColumn Header="Customer ID"
                                             IsReadOnly="True"
                                             Width="*"
-                                            Binding="{Binding PaidCustomer.CustomerId}" />
+                                            Binding="{Binding Customer.CustomerId}" />
                         <!--Created Date-->
                         <DataGridTextColumn Header="Created Date"
                                             IsReadOnly="True"
@@ -223,7 +223,7 @@
                         <DataGridTextColumn Header="Amount"
                                             IsReadOnly="True"
                                             Width="*"
-                                            Binding="{Binding Amount}" />
+                                            Binding="{Binding TotalAmount}" />
                         <!--Actions-->
                         <DataGridTemplateColumn Header="Actions"
                                                 IsReadOnly="True"
