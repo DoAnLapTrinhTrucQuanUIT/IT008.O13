@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d">
     <ToggleButton x:Name="TableToggleButton"
                   Background="#FFFFFF"

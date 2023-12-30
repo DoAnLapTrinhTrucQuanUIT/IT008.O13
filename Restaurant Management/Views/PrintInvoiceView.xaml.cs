@@ -1,5 +1,4 @@
-﻿using Restaurant_Management.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +16,11 @@ using System.Windows.Shapes;
 namespace Restaurant_Management.Views
 {
     /// <summary>
-    /// Interaction logic for TableView.xaml
+    /// Interaction logic for PrintInvoiceView.xaml
     /// </summary>
-    public partial class TableView : UserControl
+    public partial class PrintInvoiceView : UserControl
     {
-        public TableView()
+        public PrintInvoiceView()
         {
             InitializeComponent();
         }

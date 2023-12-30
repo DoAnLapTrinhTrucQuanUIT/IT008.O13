@@ -12,9 +12,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Controls;
+using Amazon.Runtime.Documents;
+using System.Drawing.Printing;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 
 namespace Restaurant_Management.ViewModels
 {
+    public class BoughtItems
+    {
+        public string ITEMID { get; set; }
+        public string NAME { get; set; }
+        public int QUANTITY { get; set; }
+        public double UNITPRICE { get; set; }
+        public double TOTALAMOUNT { get; set; }
+
+        public BoughtItems(string ITEMID = "", string NAME = "", int QUANTITY = 0, double UNITPRICE = 0, double TOTALAMOUNT = 0)
+        {
+            this.ITEMID = ITEMID;
+            this.NAME = NAME;
+            this.QUANTITY = QUANTITY;
+            this.UNITPRICE = UNITPRICE;
+            this.TOTALAMOUNT = TOTALAMOUNT;
+        }
+
+    }
     public class InvoicesVM : Utilities.ViewModelBase
     {
         private ObservableCollection<Invoices> _invoicesList;
@@ -28,6 +54,16 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        private ObservableCollection<BoughtItems> _listBoughtItems;
+        public ObservableCollection<BoughtItems> ListBoughtItems
+        {
+            get { return _listBoughtItems; }
+            set
+            {
+                _listBoughtItems = value;
+                OnPropertyChanged(nameof(ListBoughtItems));
+            }
+        }
         private readonly IMongoCollection<Invoices> _Invoices;
         public ICommand SearchInvoicesCommand { get; set; }
         public ICommand ExportInvoiceCommand { get; set; }
@@ -93,18 +129,110 @@ namespace Restaurant_Management.ViewModels
 
         private void _ExportInvoices(Invoices invoice)
         {
-            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            PrintInvoiceView print = new PrintInvoiceView();
+
+            // Set the height of the PrintInvoiceView
+            print.Height = 300 + 35 * invoice.Items.Count();
+
+            // Set data in the PrintInvoiceView
+            print.CustomerID.Text = invoice.PaidCustomer.CustomerId.ToString();
+            print.CustomerName.Text = invoice.PaidCustomer.FullName.ToString();
+            print.PhoneNumber.Text = invoice.PaidCustomer.PhoneNumber.ToString();
+            print.EmployeeName.Text = invoice.PaidEmployee.FullName.ToString();
+            print.InvoiceDate.Text = invoice.CreatedDate.ToString();
+            print.InvoiceID.Text = invoice.InvoiceId.ToString();
+
+            ListBoughtItems = new ObservableCollection<BoughtItems>();
+            foreach (var itemGroup in invoice.Items.GroupBy(item => item.ItemId))
             {
-                FileName = $"Invoice_{invoice.InvoiceId}.pdf",
-                DefaultExt = ".pdf",
-                Filter = "PDF documents (.pdf)|*.pdf"
-            };
-            ExportInvoiceToPdf(invoice, saveFileDialog.FileName);
+                var totalQuantity = itemGroup.Count(); // Count of items with the same ItemId
+                var totalAmount = totalQuantity * itemGroup.First().Price;
+
+                BoughtItems boughtItem = new BoughtItems
+                {
+                    ITEMID = itemGroup.Key, // Assumes ItemId is a string; adjust accordingly
+                    NAME = itemGroup.First().Name, // Assumes ItemName is the same for items with the same ItemId
+                    QUANTITY = totalQuantity,
+                    UNITPRICE = itemGroup.First().Price, // Assumes UnitPrice is the same for items with the same ItemId
+                    TOTALAMOUNT = totalAmount,
+                };
+
+                ListBoughtItems.Add(boughtItem);
+            }
+
+
+            print.ListMenuItem.ItemsSource = ListBoughtItems;
+            print.TotalAmount.Text = invoice.Amount.ToString();
+
+            try
+            {
+                // Create a SaveFileDialog to allow the user to choose the location to save the PDF
+                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    FileName = $"Invoice_{invoice.InvoiceId}.pdf",
+                    DefaultExt = ".pdf",
+                    Filter = "PDF documents (.pdf)|*.pdf"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    // Use iTextSharp to export the PrintInvoiceView content to a PDF file
+                    ExportToPdf(print.PrintWindow, saveFileDialog.FileName);
+
+                    MessageBox.Show($"Invoice exported Successfully", "Export Successful");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void ExportInvoiceToPdf(Invoices invoice, string filePath)
+        private void ExportToPdf(UIElement element, string filePath)
         {
+            try
+            {
+                // Set the desired size for rendering
+                element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                element.Arrange(new Rect(new Point(0, 0), element.DesiredSize));
 
+                var renderTargetBitmap = new RenderTargetBitmap(
+                    (int)element.RenderSize.Width,
+                    (int)element.RenderSize.Height,
+                    80,
+                    80,
+                    PixelFormats.Pbgra32);
+
+                renderTargetBitmap.Render(element);
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var encoder = new PngBitmapEncoder(); // Use PngBitmapEncoder for better quality
+                    encoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+                    encoder.Save(stream);
+                    byte[] byteArray = stream.ToArray();
+
+                    // Convert the byte array to iTextSharp Image
+                    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(byteArray);
+                    image.ScaleToFit(PageSize.A4.Width, PageSize.A4.Height); // Adjust scaling as needed
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        var document = new iTextSharp.text.Document();
+                        PdfWriter.GetInstance(document, fileStream);
+                        document.Open();
+
+                        // Add the image to the PDF document
+                        document.Add(image);
+
+                        document.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void _DeleteInvoice(Invoices invoice)
@@ -133,7 +261,6 @@ namespace Restaurant_Management.ViewModels
         private void _UnpaidInvoices(InvoicesView parameter)
         {
             FilterInvoicesByStatus(false, parameter);
-
         }
         private void FilterInvoicesByStatus(bool isPaid, InvoicesView parameter)
         {

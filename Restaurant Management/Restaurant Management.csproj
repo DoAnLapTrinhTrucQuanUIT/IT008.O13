@@ -44,8 +44,14 @@
     <Reference Include="AWSSDK.SecurityToken, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <HintPath>packages\AWSSDK.SecurityToken.3.7.100.14\lib\net45\AWSSDK.SecurityToken.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="DnsClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>packages\DnsClient.1.7.0\lib\net471\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
@@ -415,6 +421,9 @@
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PrintInvoiceView.xaml.cs">
+      <DependentUpon>PrintInvoiceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
     </Compile>
@@ -545,6 +554,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrintInvoiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

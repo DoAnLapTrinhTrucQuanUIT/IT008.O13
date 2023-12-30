@@ -12,15 +12,18 @@ namespace Restaurant_Management.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public ObjectId _id { get; set; }
 
         [BsonElement("tableId")]
         public string TableId { get; set; }
 
+        [BsonElement("invoicesTable")]
+        public Invoices InvoicesTable { get; set; }
+
         [BsonElement("tableName")]
         public string TableName { get; set; }
 
-        [BsonElement("isReserved")]
-        public bool IsReserved { get; set; }
+        [BsonElement("status")]
+        public bool Status { get; set; }
     }
 }
