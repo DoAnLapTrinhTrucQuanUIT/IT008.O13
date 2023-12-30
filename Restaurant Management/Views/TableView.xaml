@@ -13,10 +13,13 @@
              d:DesignHeight="1080"
              x:Name="TableWindow"
              Style="{StaticResource Page_Style}">
+    <UserControl.DataContext>
+        <vm:TableVM />
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1.5*" />
         </Grid.ColumnDefinitions>
         <!--Table-->
         <Grid Grid.Column="0">
@@ -24,7 +27,6 @@
                      Padding="30">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -39,68 +41,64 @@
                     <!--Table 1-->
                     <components:Table Text="Table 1"
                                       Grid.Column="0"
-                                      Grid.Row="0" />
+                                      Grid.Row="0"
+                                      x:Name="Table1" />
 
                     <!--Table 2-->
                     <components:Table Text="Table 2"
                                       Grid.Column="1"
-                                      Grid.Row="0" />
+                                      Grid.Row="0"
+                                      x:Name="Table2" />
 
                     <!--Table 3-->
                     <components:Table Text="Table 3"
                                       Grid.Column="2"
-                                      Grid.Row="0" />
+                                      Grid.Row="0"
+                                      x:Name="Table3" />
 
                     <!--Table 4-->
                     <components:Table Text="Table 4"
-                                      Grid.Column="3"
-                                      Grid.Row="0" />
+                                      Grid.Column="0"
+                                      Grid.Row="1"
+                                      x:Name="Table4" />
 
                     <!--Table 5-->
                     <components:Table Text="Table 5"
-                                      Grid.Column="0"
-                                      Grid.Row="1" />
+                                      Grid.Column="1"
+                                      Grid.Row="1"
+                                      x:Name="Table5" />
 
                     <!--Table 6-->
                     <components:Table Text="Table 6"
-                                      Grid.Column="1"
-                                      Grid.Row="1" />
+                                      Grid.Column="2"
+                                      Grid.Row="1"
+                                      x:Name="Table6" />
 
                     <!--Table 7-->
                     <components:Table Text="Table 7"
-                                      Grid.Column="2"
-                                      Grid.Row="1" />
+                                      Grid.Column="0"
+                                      Grid.Row="2"
+                                      x:Name="Table7" />
 
                     <!--Table 8-->
                     <components:Table Text="Table 8"
-                                      Grid.Column="3"
-                                      Grid.Row="1" />
+                                      Grid.Column="1"
+                                      Grid.Row="2"
+                                      x:Name="Table8" />
 
                     <!--Table 9-->
                     <components:Table Text="Table 9"
-                                      Grid.Column="0"
-                                      Grid.Row="2" />
-
-                    <!--Table 10-->
-                    <components:Table Text="Table 10"
-                                      Grid.Column="1"
-                                      Grid.Row="2" />
-
-                    <!--Table 11-->
-                    <components:Table Text="Table 11"
                                       Grid.Column="2"
-                                      Grid.Row="2" />
-
-                    <!--Table 12-->
-                    <components:Table Text="Table 12"
-                                      Grid.Column="3"
-                                      Grid.Row="2" />
+                                      Grid.Row="2"
+                                      x:Name="Table9" />
 
                 </Grid>
             </Border>
         </Grid>
-        <!--Table Information-->
-        <Grid Grid.Column="1">
+        
+        <!--Table 1 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table1, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border Padding="20"
                     Background="White">
                 <Grid>
@@ -108,12 +106,12 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!--Table information-->
                     <Grid Grid.Row="0"
-                          Margin="0 0 0 30">
+                          Margin="0 0 0 30"
+                          >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
@@ -124,6 +122,7 @@
                                     Background="#FF9494"
                                     BorderThickness="1 1 1 0"
                                     BorderBrush="#484964">
+                                <!--Binding Table Name-->
                                 <TextBlock Text="Table 1"
                                            Foreground="#fff"
                                            FontSize="32"
@@ -138,17 +137,9 @@
                                     Background="#ffffff"
                                     BorderThickness="1 0 1 1"
                                     BorderBrush="#484964">
-                                <!--Load Datagrid View-->
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Loaded">
-                                        <i:InvokeCommandAction Command="{Binding LoadedCommand}"
-                                                               CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                
-                                <DataGrid x:Name="tableDataGrid"
-                                          ItemsSource="{Binding }"
+                                <DataGrid x:Name="table1DataGrid"
                                           Margin="0 0 0 30"
+                                          ItemsSource="{Binding InvoiceDetailsList1}"
                                           Style="{DynamicResource DataGridStyle}"
                                           CellStyle="{DynamicResource DataGridCellStyle}"
                                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
@@ -158,19 +149,19 @@
                                         <DataGridTextColumn Header="Name"
                                                             IsReadOnly="True"
                                                             Width="*"
-                                                            Binding="{Binding Name}"/>
+                                                            Binding="{Binding Item.Name}" />
                                         <DataGridTextColumn Header="Quantity"
                                                             IsReadOnly="True"
-                                                            Width="*"
+                                                            Width="auto"
                                                             Binding="{Binding Quantity}" />
                                         <DataGridTextColumn Header="Unit Price"
                                                             IsReadOnly="True"
-                                                            Width="*"
-                                                            Binding="{Binding Price}" />
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
                                         <DataGridTextColumn Header="Amount"
                                                             IsReadOnly="True"
-                                                            Width="*"
-                                                            Binding="{Binding TotalPrice}" />
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Border>
@@ -193,7 +184,8 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Margin="16, 8, 10, 8" />
-                        <TextBlock Text="1000000"
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount1}"
                                    Grid.Column="1"
                                    Foreground="#000"
                                    FontSize="24"
@@ -212,44 +204,1018 @@
                                    HorizontalAlignment="Center"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
-                    <!--Switch table & dropdown-->
-                    <Grid Grid.Row="2"
-                          Margin="0 0 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <!--Switch tables-->
-                        <Grid Grid.Column="0"
-                              Margin="0 0 30 0">
-
-                            <Button Style="{StaticResource switchTableButton}">
-                                <TextBlock Height="20.5"
-                                           Text="Switch Table"
-                                           Foreground="#ffffff"
-                                           FontSize="18"
-                                           FontFamily="Roboto"
-                                           FontWeight="SemiBold"
-                                           TextAlignment="Center" />
-                            </Button>
-                        </Grid>
-                        <!--Dropdown select table-->
-                        <Grid Grid.Column="1">
-                            <StackPanel>
-                                <ComboBox x:Name="OutlinedComboBox"
-                                          materialDesign:HintAssist.Hint="Empty Table"
-                                          IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                                          ItemsSource="{Binding ShortStringList}"
-                                          Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-
                     <!--Paid Button-->
                     <Grid Grid.Row="3"
                           Margin="0 40 0 100">
                         <Button Style="{StaticResource paidButton}">
                             <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand1}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 2 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table2, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 2"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table2DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList2}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount2}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand2}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 3 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table3, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 3"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table3DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList3}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount3}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand3}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 4 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table4, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 4"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table4DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList4}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount4}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand4}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 5 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table5, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 5"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table5DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList5}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount5}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand5}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 6 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table6, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 6"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table6DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList6}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount6}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand6}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 7 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table7, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 7"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table7DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList7}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount7}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand7}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 8 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table8, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 8"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table8DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList8}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount8}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand8}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--Table 9 Information-->
+        <Grid Grid.Column="1"
+              Visibility="{Binding IsSelected, ElementName=Table9, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Padding="20"
+                    Background="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--Table information-->
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Border Height="80"
+                                    CornerRadius="18 18 0 0"
+                                    Background="#FF9494"
+                                    BorderThickness="1 1 1 0"
+                                    BorderBrush="#484964">
+                                <!--Binding Table Name-->
+                                <TextBlock Text="Table 9"
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border CornerRadius="0 0 18 18"
+                                    Background="#ffffff"
+                                    BorderThickness="1 0 1 1"
+                                    BorderBrush="#484964">
+                                <DataGrid x:Name="table9DataGrid"
+                                          ItemsSource="{Binding InvoiceDetailsList9}"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Item.Name}" />
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Item.Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="auto"
+                                                            Binding="{Binding Amount}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Total:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="16, 8, 10, 8" />
+                        <!--Bindind Total Amount-->
+                        <TextBlock Text="{Binding TotalAmount9}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 10, 8" />
+                        <TextBlock Text="VND"
+                                   Grid.Column="2"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0, 8, 30, 8" />
+                    </Grid>
+                    <!--Paid Button-->
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
+                            <!--Paid Button Trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding PaidCommand9}"
+                                                           CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
                     </Grid>
                 </Grid>

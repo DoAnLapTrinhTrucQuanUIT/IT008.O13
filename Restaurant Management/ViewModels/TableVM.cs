@@ -1,50 +1,129 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using MongoDB.Driver;
 using Restaurant_Management.Models;
 using Restaurant_Management.Utilities;
 using Restaurant_Management.Views;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace Restaurant_Management.ViewModels
 {
     public class TableVM : ViewModelBase
     {
-        private ObservableCollection<Invoices> _tableItemList;
-        public ObservableCollection<Invoices> TableItemList
+        private double _totalAmount1;
+        public double TotalAmount1
         {
-            get { return _tableItemList; }
+            get => _totalAmount1;
             set
             {
-                _tableItemList = value;
-                OnPropertyChanged(nameof(TableItemList));
+                _totalAmount1 = value;
+                OnPropertyChanged(nameof(TotalAmount1));
             }
         }
-
-        private Invoices _selectedInvoice;
-        public Invoices SelectedInvoice
+        private double _totalAmount2;
+        public double TotalAmount2
         {
-            get { return _selectedInvoice; }
+            get => _totalAmount2;
             set
             {
-                _selectedInvoice = value;
-                OnPropertyChanged(nameof(SelectedInvoice));
+                _totalAmount2 = value;
+                OnPropertyChanged(nameof(TotalAmount2));
             }
         }
+        private double _totalAmount3;
+        public double TotalAmount3
+        {
+            get => _totalAmount3;
+            set
+            {
+                _totalAmount3 = value;
+                OnPropertyChanged(nameof(TotalAmount3));
+            }
+        }
+        private double _totalAmount4;
+        public double TotalAmount4
+        {
+            get => _totalAmount4;
+            set
+            {
+                _totalAmount4 = value;
+                OnPropertyChanged(nameof(TotalAmount4));
+            }
+        }
+        private double _totalAmount5;
+        public double TotalAmount5
+        {
+            get => _totalAmount5;
+            set
+            {
+                _totalAmount5 = value;
+                OnPropertyChanged(nameof(TotalAmount5));
+            }
+        }
+        private double _totalAmount6;
+        public double TotalAmount6
+        {
+            get => _totalAmount6;
+            set
+            {
+                _totalAmount6 = value;
+                OnPropertyChanged(nameof(TotalAmount6));
+            }
+        }
+        private double _totalAmount7;
+        public double TotalAmount7
+        {
+            get => _totalAmount7;
+            set
+            {
+                _totalAmount7 = value;
+                OnPropertyChanged(nameof(TotalAmount7));
+            }
+        }
+        private double _totalAmount8;
+        public double TotalAmount8
+        {
+            get => _totalAmount8;
+            set
+            {
+                _totalAmount8 = value;
+                OnPropertyChanged(nameof(TotalAmount8));
+            }
+        }
+        private double _totalAmount9;
+        public double TotalAmount9
+        {
+            get => _totalAmount9;
+            set
+            {
+                _totalAmount9 = value;
+                OnPropertyChanged(nameof(TotalAmount9));
+            }
+        }
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList1 { get; set; }
 
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList2 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList3 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList4 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList5 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList6 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList7 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList8 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList9 { get; set; }
+      
         private readonly IMongoCollection<Tables> _tablesCollection;
-
-        public ICommand LoadedCommand { get; set; }
-        public TableVM()
+        private IMongoCollection<Tables> GetTablesCollection()
         {
-            _tablesCollection = GetTables();
-            LoadedCommand = new RelayCommand<TableView>((p) => true, (p) => _Load(p));
-        }
-
-        private IMongoCollection<Tables> GetTables()
-        {
-            // Implement GetTables as in your original code
             // Set your MongoDB connection string and database name
             string connectionString =
                 "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
@@ -56,9 +135,9 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<Tables>("Tables");
         }
 
-        private IMongoCollection<Invoices> GetInvoices()
+        private readonly IMongoCollection<Invoices> _invoicesCollection;
+        private IMongoCollection<Invoices> GetInvoicesCollection()
         {
-            // Implement GetInvoices as in your original code
             // Set your MongoDB connection string and database name
             string connectionString =
                 "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
@@ -70,9 +149,226 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<Invoices>("Invoices");
         }
 
-        private void _Load(TableView tableView)
+        private readonly IMongoCollection<InvoiceDetails> _invoiceDetailsCollection;
+        private IMongoCollection<InvoiceDetails> GetInvoiceDetailsCollection()
         {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
 
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<InvoiceDetails>("InvoiceDetails");
         }
+
+        public ICommand PaidCommand1 { get; set; }
+        public ICommand PaidCommand2 { get; set; }
+        public ICommand PaidCommand3 { get; set; }
+        public ICommand PaidCommand4 { get; set; }
+        public ICommand PaidCommand5 { get; set; }
+        public ICommand PaidCommand6 { get; set; }
+        public ICommand PaidCommand7 { get; set; }
+        public ICommand PaidCommand8 { get; set; }
+        public ICommand PaidCommand9 { get; set; }
+
+        public TableVM()
+        {
+            _tablesCollection = GetTablesCollection();
+            _invoicesCollection = GetInvoicesCollection();
+            _invoiceDetailsCollection = GetInvoiceDetailsCollection();
+
+            InvoiceDetailsList1 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList2 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList3 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList4 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList5 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList6 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList7 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList8 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList9 = new ObservableCollection<InvoiceDetails>();
+
+            PaidCommand1 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand1());
+            PaidCommand2 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand2());
+            PaidCommand3 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand3());
+            PaidCommand4 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand4());
+            PaidCommand5 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand5());
+            PaidCommand6 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand6());
+            PaidCommand7 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand7());
+            PaidCommand8 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand8());
+            PaidCommand9 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand9());
+
+            LoadInvoiceDetail();
+        }
+
+        public void LoadInvoiceDetail()
+        {
+            var unpaidInvoices = _invoicesCollection.Find(t => t.Status == false).ToList();
+
+            foreach(var invoice in unpaidInvoices)
+            {
+                var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
+                switch (invoice.Table.TableName)
+                {
+                    case "Table 1":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList1.Add(detail);
+                            TotalAmount1 += detail.Amount;
+                        }
+                        break;
+                    case "Table 2":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList2.Add(detail);
+                            TotalAmount2 += detail.Amount;
+                        }
+                        break;
+                    case "Table 3":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList3.Add(detail);
+                            TotalAmount3 += detail.Amount;
+                        }
+                        break;
+                    case "Table 4":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList4.Add(detail);
+                            TotalAmount4 += detail.Amount;
+                        }
+                        break;
+                    case "Table 5":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList5.Add(detail);
+                            TotalAmount5 += detail.Amount;
+                        }
+                        break;
+                    case "Table 6":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList6.Add(detail);
+                            TotalAmount6 += detail.Amount;
+                        }
+                        break;
+                    case "Table 7":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList7.Add(detail);
+                            TotalAmount7 += detail.Amount;
+                        }
+                        break;
+                    case "Table 8":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList8.Add(detail);
+                            TotalAmount8 += detail.Amount;
+                        }
+                        break;
+                    case "Table 9":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList9.Add(detail);
+                            TotalAmount9 += detail.Amount;
+                        }
+                        break;
+                }
+            }
+        }
+
+        public void _PaidCommand1()
+        {
+            ProcessPayment("TABLE1");
+            InvoiceDetailsList1.Clear();
+            TotalAmount1 = 0;
+        }
+
+        public void _PaidCommand2()
+        {
+            ProcessPayment("TABLE2");
+            InvoiceDetailsList2.Clear();
+            TotalAmount2 = 0;
+        }
+
+        public void _PaidCommand3()
+        {
+            ProcessPayment("TABLE3");
+            InvoiceDetailsList3.Clear();
+            TotalAmount3 = 0;
+        }
+
+        public void _PaidCommand4()
+        {
+            ProcessPayment("TABLE4");
+            InvoiceDetailsList4.Clear();
+            TotalAmount4 = 0;
+        }
+
+        public void _PaidCommand5()
+        {
+            ProcessPayment("TABLE5");
+            InvoiceDetailsList5.Clear();
+            TotalAmount5 = 0;
+        }
+
+        public void _PaidCommand6()
+        {
+            ProcessPayment("TABLE6");
+            InvoiceDetailsList6.Clear();
+            TotalAmount6 = 0;
+        }
+
+        public void _PaidCommand7()
+        {
+            ProcessPayment("TABLE7");
+            InvoiceDetailsList7.Clear();
+            TotalAmount7 = 0;
+        }
+
+        public void _PaidCommand8()
+        {
+            ProcessPayment("TABLE8");
+            InvoiceDetailsList8.Clear();
+            TotalAmount8 = 0;
+        }
+
+        public void _PaidCommand9()
+        {
+            ProcessPayment("TABLE9");
+            InvoiceDetailsList9.Clear();
+            TotalAmount9 = 0;
+        }
+
+        private void ProcessPayment(string tableId)
+        {
+            var table = _tablesCollection.Find(t => t.TableId == tableId).FirstOrDefault();
+
+            if (table != null && table.Status)
+            {
+                var updateTable = Builders<Tables>.Update.Set(t => t.Status, false);
+                _tablesCollection.UpdateOne(t => t.TableId == tableId, updateTable);
+
+                var unpaidInvoice = _invoicesCollection.Find(i => i.Table.TableId == tableId && i.Status == false).FirstOrDefault();
+
+                if (unpaidInvoice != null)
+                {
+                    var updateInvoice = Builders<Invoices>.Update.Set(i => i.Status, true);
+                    _invoicesCollection.UpdateOne(i => i.InvoiceId == unpaidInvoice.InvoiceId, updateInvoice);
+
+                    MessageBox.Show($"Payment for {tableId} completed!");
+                }
+                else
+                {
+                    MessageBox.Show($"No unpaid invoice found for {tableId}.");
+                }
+            }
+            else
+            {
+                MessageBox.Show($"{tableId} is either not found or already paid.");
+            }
+        }
+
     }
 }
