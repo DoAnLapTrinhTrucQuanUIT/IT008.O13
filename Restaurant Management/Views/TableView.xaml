@@ -7,19 +7,21 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:components="clr-namespace:Restaurant_Management.Views.Component"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DesignWidth="1570"
              d:DesignHeight="1080"
+             x:Name="TableWindow"
              Style="{StaticResource Page_Style}">
-
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!--Table-->
         <Grid Grid.Column="0">
-            <Border  Background="#F3EEEA" Padding="30">
+            <Border  Background="#F3EEEA"
+                     Padding="30">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -35,40 +37,64 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <!--Table 1-->
-                    <components:Table Text="Table 1" Grid.Column="0" Grid.Row="0"/>
+                    <components:Table Text="Table 1"
+                                      Grid.Column="0"
+                                      Grid.Row="0" />
 
                     <!--Table 2-->
-                    <components:Table Text="Table 2" Grid.Column="1" Grid.Row="0"/>
+                    <components:Table Text="Table 2"
+                                      Grid.Column="1"
+                                      Grid.Row="0" />
 
                     <!--Table 3-->
-                    <components:Table Text="Table 3" Grid.Column="2" Grid.Row="0"/>
+                    <components:Table Text="Table 3"
+                                      Grid.Column="2"
+                                      Grid.Row="0" />
 
                     <!--Table 4-->
-                    <components:Table Text="Table 4" Grid.Column="3" Grid.Row="0"/>
+                    <components:Table Text="Table 4"
+                                      Grid.Column="3"
+                                      Grid.Row="0" />
 
                     <!--Table 5-->
-                    <components:Table Text="Table 5" Grid.Column="0" Grid.Row="1"/>
+                    <components:Table Text="Table 5"
+                                      Grid.Column="0"
+                                      Grid.Row="1" />
 
                     <!--Table 6-->
-                    <components:Table Text="Table 6" Grid.Column="1" Grid.Row="1"/>
+                    <components:Table Text="Table 6"
+                                      Grid.Column="1"
+                                      Grid.Row="1" />
 
                     <!--Table 7-->
-                    <components:Table Text="Table 7" Grid.Column="2" Grid.Row="1"/>
+                    <components:Table Text="Table 7"
+                                      Grid.Column="2"
+                                      Grid.Row="1" />
 
                     <!--Table 8-->
-                    <components:Table Text="Table 8" Grid.Column="3" Grid.Row="1"/>
+                    <components:Table Text="Table 8"
+                                      Grid.Column="3"
+                                      Grid.Row="1" />
 
                     <!--Table 9-->
-                    <components:Table Text="Table 9" Grid.Column="0" Grid.Row="2"/>
-                    
-                    <!--Table 9-->
-                    <components:Table Text="Table 10" Grid.Column="1" Grid.Row="2"/>
-                    
-                    <!--Table 9-->
-                    <components:Table Text="Table 11" Grid.Column="2" Grid.Row="2"/>
-                    
-                    <!--Table 9-->
-                    <components:Table Text="Table 12" Grid.Column="3" Grid.Row="2"/>
+                    <components:Table Text="Table 9"
+                                      Grid.Column="0"
+                                      Grid.Row="2" />
+
+                    <!--Table 10-->
+                    <components:Table Text="Table 10"
+                                      Grid.Column="1"
+                                      Grid.Row="2" />
+
+                    <!--Table 11-->
+                    <components:Table Text="Table 11"
+                                      Grid.Column="2"
+                                      Grid.Row="2" />
+
+                    <!--Table 12-->
+                    <components:Table Text="Table 12"
+                                      Grid.Column="3"
+                                      Grid.Row="2" />
 
                 </Grid>
             </Border>
@@ -79,17 +105,18 @@
                     Background="White">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    
+
                     <!--Table information-->
-                    <Grid Grid.Row="0" Margin="0 0 0 30">
+                    <Grid Grid.Row="0"
+                          Margin="0 0 0 30">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Border Height="80"
@@ -98,37 +125,64 @@
                                     BorderThickness="1 1 1 0"
                                     BorderBrush="#484964">
                                 <TextBlock Text="Table 1"
-                                   Foreground="#fff"
-                                   FontSize="32"
-                                   FontFamily="Roboto"
-                                   FontWeight="SemiBold"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center" />
+                                           Foreground="#fff"
+                                           FontSize="32"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
                             </Border>
                         </Grid>
                         <Grid Grid.Row="1">
                             <Border CornerRadius="0 0 18 18"
                                     Background="#ffffff"
                                     BorderThickness="1 0 1 1"
-                                    BorderBrush="#484964">  
-                                <DataGrid x:Name="tableDataGrid" Margin="0 0 0 30" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
+                                    BorderBrush="#484964">
+                                <!--Load Datagrid View-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding LoadedCommand}"
+                                                               CommandParameter="{Binding ElementName=TableWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                
+                                <DataGrid x:Name="tableDataGrid"
+                                          ItemsSource="{Binding }"
+                                          Margin="0 0 0 30"
+                                          Style="{DynamicResource DataGridStyle}"
+                                          CellStyle="{DynamicResource DataGridCellStyle}"
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                                          RowStyle="{DynamicResource DataGridRowStyle}"
+                                          Grid.Row="2">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
-                                        <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
-                                        <DataGridTextColumn Header="Quantity" IsReadOnly="True" Width="*" Binding="{Binding Quantity}"/>
-                                        <DataGridTextColumn Header="Unit Price" IsReadOnly="True" Width="*" Binding="{Binding Price}"/>
-                                        <DataGridTextColumn Header="Amount" IsReadOnly="True" Width="*" Binding="{Binding TotalPrice}"/>
+                                        <DataGridTextColumn Header="Name"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Name}"/>
+                                        <DataGridTextColumn Header="Quantity"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Quantity}" />
+                                        <DataGridTextColumn Header="Unit Price"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding Price}" />
+                                        <DataGridTextColumn Header="Amount"
+                                                            IsReadOnly="True"
+                                                            Width="*"
+                                                            Binding="{Binding TotalPrice}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Border>
                         </Grid>
                     </Grid>
                     <!--Total money-->
-                    <Grid Grid.Row="1" Margin="0 0 0 30">
+                    <Grid Grid.Row="1"
+                          Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Total:"
                                    Grid.Column="0"
@@ -159,22 +213,24 @@
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Switch table & dropdown-->
-                    <Grid Grid.Row="2" Margin="0 0 0 0">
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <!--Switch tables-->
-                        <Grid Grid.Column="0" Margin="0 0 30 0">
+                        <Grid Grid.Column="0"
+                              Margin="0 0 30 0">
 
                             <Button Style="{StaticResource switchTableButton}">
                                 <TextBlock Height="20.5"
-                                       Text="Switch Table"
-                                       Foreground="#ffffff"
-                                       FontSize="18"
-                                       FontFamily="Roboto"
-                                       FontWeight="SemiBold"
-                                       TextAlignment="Center" />
+                                           Text="Switch Table"
+                                           Foreground="#ffffff"
+                                           FontSize="18"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           TextAlignment="Center" />
                             </Button>
                         </Grid>
                         <!--Dropdown select table-->
@@ -188,16 +244,14 @@
                             </StackPanel>
                         </Grid>
                     </Grid>
-                    
+
                     <!--Paid Button-->
-                    <Grid Grid.Row="3" Margin="0 40 0 100">
-                        <Button Style="{StaticResource paidButton}" >
-                            <TextBlock Text="Paid"/>
+                    <Grid Grid.Row="3"
+                          Margin="0 40 0 100">
+                        <Button Style="{StaticResource paidButton}">
+                            <TextBlock Text="Paid" />
                         </Button>
                     </Grid>
-                   
-                    
-                       
                 </Grid>
             </Border>
         </Grid>

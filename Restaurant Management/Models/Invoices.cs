@@ -35,5 +35,8 @@ namespace Restaurant_Management.Models
 
         [BsonElement("amount")]
         public double Amount { get; set; }
+
+        [BsonElement("tableNumber")]
+        public int TableNumber { get; set; }
     }
 }

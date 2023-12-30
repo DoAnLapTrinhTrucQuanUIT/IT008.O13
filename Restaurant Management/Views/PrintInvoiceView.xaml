@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="Restaurant_Management.Views.PrintInvoiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Restaurant_Management.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="800">
+    <Border Name="PrintWindow"
+            Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock Text="INVOICE"
+                           FontSize="24"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="0,0,20,0"
+                           FontWeight="Bold" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <StackPanel Margin="30,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Customer ID: "
+                                       FontSize="14" />
+                            <TextBlock x:Name="CustomerID"
+                                       FontSize="14" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Customer Name: "
+                                       FontSize="14" />
+                            <TextBlock x:Name="CustomerName"
+                                       FontSize="14" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Phone Number: "
+                                       FontSize="14" />
+                            <TextBlock x:Name="PhoneNumber"
+                                       FontSize="14" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <StackPanel Margin="150,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Cashier Name: "
+                                       FontSize="14" />
+                            <TextBlock x:Name="EmployeeName"
+                                       FontSize="14" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Invoice Date: "
+                                       FontSize="14" />
+                            <TextBlock x:Name="InvoiceDate"
+                                       FontSize="14" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Invoice ID: "
+                                       FontSize="14" />
+                            <TextBlock x:Name="InvoiceID"
+                                       FontSize="14" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <ListView x:Name="ListMenuItem"
+                          Background="Transparent"
+                          Height="auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="auto"
+                                            Header="Items ID">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="20,0,0,0"
+                                                   Text="{Binding ITEMID}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="180"
+                                            Header="Name">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="18,0,0,0"
+                                                   Text="{Binding NAME}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="auto"
+                                            Header="Quanity">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding QUANTITY}"
+                                                   Margin="40,0,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="auto"
+                                            Header="Unit Price">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding UNITPRICE}"
+                                                   Margin="20,0,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200"
+                                            Header="Total Amount">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TOTALAMOUNT}"
+                                                   Margin="20,0,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="2">
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock Text="Total Amount:"
+                                   FontWeight="Bold"
+                                   FontSize="16" />
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="3"
+                      Grid.Row="3">
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock x:Name="TotalAmount"
+                                   FontSize="16"
+                                   HorizontalAlignment="Right"
+                                   Margin="0,0,20,0" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
