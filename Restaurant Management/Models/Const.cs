@@ -11,7 +11,7 @@ namespace Restaurant_Management.Models
     {
         private static Const _instance;
 
-        public string UserId { get; private set; }
+        public string UserId { get; set; }
 
         public static Const Instance
         {
