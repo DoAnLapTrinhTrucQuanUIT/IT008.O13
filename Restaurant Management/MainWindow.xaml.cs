@@ -23,20 +23,5 @@ namespace Restaurant_Management
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            int nWidth = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-            int nHeight = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
-
-            this.LayoutTransform = new ScaleTransform(nWidth / 1920.0, nHeight / 1080.0);
-        }
-
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
     }
 }
