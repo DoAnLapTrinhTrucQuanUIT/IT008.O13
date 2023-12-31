@@ -16,17 +16,20 @@ namespace Restaurant_Management.ViewModels
     public class MonthItem
     {
         public int MonthNumber { get; set; }
+
         public string MonthName { get; set; }
     }
 
     public class YearItem
     {
         public int YearNumber { get; set; }
+
         public string YearName { get; set; }
     }
 
     public class SalaryVM : Utilities.ViewModelBase
     {
+
         private bool _isPaidButtonClicked;
 
         public bool IsPaidButtonClicked
@@ -44,6 +47,7 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
         private bool _isEditSalaryButtonVisible;
 
         public bool IsEditSalaryButtonVisible
@@ -58,10 +62,49 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
         private void UpdateEditSalaryButtonVisibility()
         {
             IsEditSalaryButtonVisible = IsPaidButtonClicked;
             OnPropertyChanged(nameof(IsEditSalaryButtonVisible));
+        }
+
+        private int selectedMonth;
+        public int SelectedMonth
+        {
+            get { return selectedMonth; }
+            set
+            {
+                if (selectedMonth != value)
+                {
+                    selectedMonth = value;
+                    OnPropertyChanged(nameof(SelectedMonth));
+                    RefreshSalaryList();
+                }
+            }
+        }
+
+        private int selectedYear;
+
+        public int SelectedYear
+        {
+            get { return selectedYear; }
+            set
+            {
+                if (selectedYear != value)
+                {
+                    selectedYear = value;
+
+                    if (YearList.Count > value)
+                    {
+                        int actualYear = YearList[value].YearNumber;
+                        selectedYear = actualYear;
+                    }
+
+                    OnPropertyChanged(nameof(SelectedYear));
+                    RefreshSalaryList();
+                }
+            }
         }
 
         private decimal _filteredSelectedBasicSalary;
@@ -76,6 +119,42 @@ namespace Restaurant_Management.ViewModels
                     _filteredSelectedBasicSalary = value;
                     OnPropertyChanged(nameof(FilteredSelectedBasicSalary));
                 }
+            }
+        }
+
+        private ObservableCollection<Employees> _employeeList;
+
+        public ObservableCollection<Employees> EmployeeList
+        {
+            get { return _employeeList; }
+            set
+            {
+                _employeeList = value;
+                OnPropertyChanged(nameof(EmployeeList));
+            }
+        }
+
+        private ObservableCollection<SalaryInformation> _salaryList;
+
+        public ObservableCollection<SalaryInformation> SalaryList
+        {
+            get { return _salaryList; }
+            set
+            {
+                _salaryList = value;
+                OnPropertyChanged(nameof(SalaryList));
+            }
+        }
+
+        private ObservableCollection<SalaryInformation> _salaryInformationList;
+
+        public ObservableCollection<SalaryInformation> SalaryInformationList
+        {
+            get { return _salaryInformationList; }
+            set
+            {
+                _salaryInformationList = value;
+                OnPropertyChanged(nameof(SalaryInformationList));
             }
         }
 
@@ -103,30 +182,6 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private ObservableCollection<SalaryInformation> _salaryList;
-
-        public ObservableCollection<SalaryInformation> SalaryList
-        {
-            get { return _salaryList; }
-            set
-            {
-                _salaryList = value;
-                OnPropertyChanged(nameof(SalaryList));
-            }
-        }
-
-        private ObservableCollection<Employees> _employeeList;
-
-        public ObservableCollection<Employees> EmployeeList
-        {
-            get { return _employeeList; }
-            set
-            {
-                _employeeList = value;
-                OnPropertyChanged(nameof(EmployeeList));
-            }
-        }
-
         private SalaryInformation _selectedSalaryItem;
 
         public SalaryInformation SelectedSalaryItem
@@ -142,7 +197,29 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        public ICommand ShowSalaryInformationCommand { get; }
+
+        public ICommand EditSalaryCommand { get; set; }
+
+        public ICommand ConfirmCommand { get; set; }
+
+        public SalaryVM()
+        {
+            _employees = GetEmployees();
+            _salary = GetSalaryInformation();
+
+            InitializeMonthList();
+            InitializeYearList();
+            
+            LoadEmployees();
+            EditSalaryCommand = new RelayCommand<SalaryInformation>((p) => true, (parameter) => EditSalary(parameter));
+            ConfirmCommand = new RelayCommand<object>((p) => true, (p) => Confirm(p));
+            ShowSalaryInformationCommand = new RelayCommand<SalaryInformation>((p) => true, p => ShowSalaryInformation(p));
+        }
+
         private readonly IMongoCollection<Employees> _employees;
+
+        protected readonly IMongoCollection<SalaryInformation> _salary;
 
         private IMongoCollection<Employees> GetEmployees()
         {
@@ -155,20 +232,6 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<Employees>("Employees");
         }
 
-        private ObservableCollection<SalaryInformation> _salaryInformationList;
-
-        public ObservableCollection<SalaryInformation> SalaryInformationList
-        {
-            get { return _salaryInformationList; }
-            set
-            {
-                _salaryInformationList = value;
-                OnPropertyChanged(nameof(SalaryInformationList));
-            }
-        }
-
-        protected readonly IMongoCollection<SalaryInformation> _salary;
-
         private IMongoCollection<SalaryInformation> GetSalaryInformation()
         {
             string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
@@ -180,21 +243,6 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<SalaryInformation>("SalaryInformation");
         }
 
-        public ICommand ShowSalaryInformationCommand { get; }
-        public ICommand EditSalaryCommand { get; set; }
-
-        public ICommand ConfirmCommand { get; set; }
-        public SalaryVM()
-        {
-            _employees = GetEmployees();
-            _salary = GetSalaryInformation();
-            InitializeMonthList();
-            InitializeYearList();
-            LoadEmployees();
-            EditSalaryCommand = new RelayCommand<SalaryInformation>((p) => true, (parameter) => EditSalary(parameter));
-            ConfirmCommand = new RelayCommand<object>((p) => true, (p) => Confirm(p));
-            ShowSalaryInformationCommand = new RelayCommand<SalaryInformation>((p) => true, p => ShowSalaryInformation(p));
-        }
         private void Confirm(object parameter)
         {
             if (IsPaidButtonClicked == false)
@@ -237,7 +285,6 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-
         private void EditSalary(SalaryInformation selectedSalary)
         {
             EditSalaryVM editSalaryViewModel = new EditSalaryVM();
@@ -272,7 +319,6 @@ namespace Restaurant_Management.ViewModels
             editSalaryWindow.ShowDialog();
         }
 
-
         private void EditSalaryVM_BasicSalaryUpdated(object sender, decimal editedBasicSalary)
         {
             if (sender is EditSalaryVM editSalaryVM && editSalaryVM.SelectedSalary != null)
@@ -295,35 +341,6 @@ namespace Restaurant_Management.ViewModels
             catch (Exception ex)
             {
                 Console.WriteLine("Error updating SalaryInformation: " + ex.Message);
-            }
-        }
-
-        private SalaryInformation GetSelectedSalary()
-        {
-            return SelectedSalaryItem;
-        }
-
-        private SalaryInformation _filteredSelectedSalaryItem;
-
-        public SalaryInformation FilteredSelectedSalaryItem
-        {
-            get { return _filteredSelectedSalaryItem; }
-            set
-            {
-                if (_filteredSelectedSalaryItem != value)
-                {
-                    _filteredSelectedSalaryItem = value;
-                    OnPropertyChanged(nameof(FilteredSelectedSalaryItem));
-
-                    if (_filteredSelectedSalaryItem != null)
-                    {
-                        FilteredSelectedBasicSalary = _filteredSelectedSalaryItem.BasicSalary;
-                    }
-                    else
-                    {
-                        FilteredSelectedBasicSalary = 0;
-                    }
-                }
             }
         }
 
@@ -354,7 +371,6 @@ namespace Restaurant_Management.ViewModels
                 {
                     FilteredSelectedSalaryItem = new SalaryInformation();
                 }
-                
             }
         }
 
@@ -365,7 +381,17 @@ namespace Restaurant_Management.ViewModels
 
             if (EmployeeList.Any())
             {
-                LoadSalaryList();
+                SalaryList = new ObservableCollection<SalaryInformation>();
+
+                foreach (var parameter in EmployeeList)
+                {
+                    var salaryInfo = new SalaryInformation
+                    {
+                        Employees = parameter,
+                    };
+
+                    SalaryList.Add(salaryInfo);
+                }
             }
         }
 
@@ -402,45 +428,6 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private int selectedMonth;
-
-        public int SelectedMonth
-        {
-            get { return selectedMonth; }
-            set
-            {
-                if (selectedMonth != value)
-                {
-                    selectedMonth = value;
-                    OnPropertyChanged(nameof(SelectedMonth));
-                    RefreshSalaryList();
-                }
-            }
-        }
-
-        private int selectedYear;
-
-        public int SelectedYear
-        {
-            get { return selectedYear; }
-            set
-            {
-                if (selectedYear != value)
-                {
-                    selectedYear = value;
-
-                    if (YearList.Count > value)
-                    {
-                        int actualYear = YearList[value].YearNumber;
-                        selectedYear = actualYear;
-                    }
-
-                    OnPropertyChanged(nameof(SelectedYear));
-                    RefreshSalaryList();
-                }
-            }
-        }
-
         private void RefreshSalaryList()
         {
             if (SelectedMonth == 0 || SelectedYear == 0)
@@ -471,19 +458,34 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private void LoadSalaryList()
+        private SalaryInformation GetSelectedSalary()
         {
-            SalaryList = new ObservableCollection<SalaryInformation>();
+            return SelectedSalaryItem;
+        }
 
-            foreach (var employee in EmployeeList)
+        private SalaryInformation _filteredSelectedSalaryItem;
+
+        public SalaryInformation FilteredSelectedSalaryItem
+        {
+            get { return _filteredSelectedSalaryItem; }
+            set
             {
-                var salaryInfo = new SalaryInformation
+                if (_filteredSelectedSalaryItem != value)
                 {
-                    Employees = employee,
-                };
+                    _filteredSelectedSalaryItem = value;
+                    OnPropertyChanged(nameof(FilteredSelectedSalaryItem));
 
-                SalaryList.Add(salaryInfo);
+                    if (_filteredSelectedSalaryItem != null)
+                    {
+                        FilteredSelectedBasicSalary = _filteredSelectedSalaryItem.BasicSalary;
+                    }
+                    else
+                    {
+                        FilteredSelectedBasicSalary = 0;
+                    }
+                }
             }
         }
+
     }
 }
