@@ -476,7 +476,8 @@
                                         <ComboBox x:Name="tableIdSelected"
                                                   Style="{StaticResource MaterialDesignComboBox}"
                                                   FontSize="15"
-                                                  ItemsSource="{Binding EmptyTablesList}">
+                                                  ItemsSource="{Binding EmptyTablesList}"
+                                                  SelectedItem="{Binding SelectedTableItem, Mode=TwoWay}">
                                         </ComboBox>
                                     </Grid>
                                 </Grid>

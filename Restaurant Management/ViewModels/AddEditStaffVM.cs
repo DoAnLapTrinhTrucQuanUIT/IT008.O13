@@ -132,7 +132,7 @@ namespace Restaurant_Management.ViewModels
         private void AddStaff(AddStaff paramater)
         {
             // convert image into byte array
-            //byte[] imageBytes = ConvertImageToBytes(paramater.loadedImage);
+            byte[] imageBytes = ConvertImageToBytes(paramater.loadedImage);
             // Tạo một đối tượng Person mới
             var Employee = new Employees
             {
@@ -141,9 +141,9 @@ namespace Restaurant_Management.ViewModels
                 DateOfBirth = paramater.Birthdate.SelectedDate.Value,
                 PhoneNumber = paramater.PhoneNumber.Text.ToString(),
                 Gender = paramater.GenderComboBox.Text.ToString(),
-                //Address = paramater.Address.Text.ToString(),
+                Address = paramater.Address.Text.ToString(),
                 Email = paramater.Email.Text.ToString(),
-                //Avatar = imageBytes,
+                Avatar = imageBytes,
                 DateOfJoining = DateTime.Now,
                 Password = 123.ToString(),
                 IsActive = true,

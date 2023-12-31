@@ -101,6 +101,17 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        private string _selectedTableItem;
+        public string SelectedTableItem
+        {
+            get { return _selectedTableItem; }
+            set
+            {
+                _selectedTableItem = value;
+                OnPropertyChanged(nameof(SelectedTableItem));
+            }
+        }
+
         private readonly IMongoCollection<MenuItems> _MenuItems;
         private IMongoCollection<MenuItems> GetMenuItems()
         {
@@ -154,7 +165,7 @@ namespace Restaurant_Management.ViewModels
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(databaseName);
 
-            return database.GetCollection<Invoices>("_Invoices");
+            return database.GetCollection<Invoices>("Invoices");
         }
 
 
@@ -208,7 +219,7 @@ namespace Restaurant_Management.ViewModels
             AddToTempMenuCommand = new RelayCommand<FoodCard>((p) => true, (p) => AddToTempMenu(p));
             DeleteItemCommand = new RelayCommand<TempMenuItems>((p) => true, (p) => DeleteItem(p));
             DeleteAllItemCommand = new RelayCommand<object>((p) => true, (p) => DeleteAllItem());
-            ConfirmItemCommand = new RelayCommand<MenuView>((p) => true, (p) => ConfirmItem(p));
+            ConfirmItemCommand = new RelayCommand<MenuView>((p) => true, (p) => ConfirmItem());
         }
         private void AddToTempMenu(FoodCard foodCard)
         {
@@ -268,12 +279,19 @@ namespace Restaurant_Management.ViewModels
                         break;
                 }
             }
+            LoadCustomer();
+            LoadTable();
+        }
 
-            var emptyTables = _Tables.Find(tb => tb.Status == false).ToList();
-            EmptyTablesList = new ObservableCollection<string>(emptyTables.Select(tb => tb.TableName));
-
+        public void LoadCustomer()
+        {
             var customer = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();
             CustomersIdList = new ObservableCollection<string>(customer.Select(cus => cus.CustomerId));
+        }
+        public void LoadTable()
+        {
+            var emptyTables = _Tables.Find(tb => tb.Status == false).ToList();
+            EmptyTablesList = new ObservableCollection<string>(emptyTables.Select(tb => tb.TableName));
         }
         public IEnumerable<MenuItems> MainCourseDisplayedFoodCards
         {
@@ -348,74 +366,94 @@ namespace Restaurant_Management.ViewModels
             // Use the selected customer ID to retrieve the customer name from your data source
             // Replace this with your actual logic to fetch customer name based on ID
             var customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
-            CustomerName = customer.FullName.ToString(); // Update CustomerName property
+            if(customer!=null)
+            {
+                CustomerName = customer.FullName.ToString(); // Update CustomerName property
+            }
+            else
+            {
+                CustomerName=null;
+            }
         }
 
-        private void ConfirmItem(MenuView menuView)
+        private void ConfirmItem()
         {
-            Customers customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
-            Employees employee = _Employees.Find(em => em.EmployeeId == Const.Instance.UserId).FirstOrDefault();
-
-            string tableIdSelected = menuView.tableIdSelected.ToString();
-
-            Tables table = _Tables.Find(c => c.TableId == tableIdSelected).FirstOrDefault();
-
-            if (table != null)
+            if (SelectedTableItem == null || CustomerName == null || SelectedCustomerId == null)
             {
+                Console.WriteLine("Please enter complete information.");
+            }
+            else
+            {
+                Customers customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
+
+                Employees employee = _Employees.Find(em => em.EmployeeId == Const.Instance.UserId).FirstOrDefault();
+
+                string tableIdSelected = SelectedTableItem.ToString();
+
+                Tables table = _Tables.Find(c => c.TableName == tableIdSelected).FirstOrDefault();
+
                 // Set the Status to true
                 table.Status = true;
+
                 // Update the table status in the MongoDB collection
-                var tableFilter = Builders<Tables>.Filter.Eq(t => t.TableId, tableIdSelected);
+                var tableFilter = Builders<Tables>.Filter.Eq(t => t.TableName, tableIdSelected);
                 var update = Builders<Tables>.Update.Set(t => t.Status, true);
                 _Tables.UpdateOne(tableFilter, update);
-            }
-            string invoiceId = GenerateRandomInvoiceId();
-            string invoiceDetailsId = GenerateRandomInvoiceDetailId(invoiceId);
 
-            // Create a list to store InvoiceDetails
-            List<InvoiceDetails> invoiceDetailsList = new List<InvoiceDetails>();
 
-            // Calculate the total amount
-            double totalAmount = 0;
-
-            foreach (var tempInvoiceDetail in TempMenuItemsList)
-            {
-                MenuItems tempMenuItem = tempInvoiceDetail.MenuItem;
-                int tempQuantity = tempInvoiceDetail.Quantity;
-
-                // Create InvoiceDetail
-                InvoiceDetails invoiceDetail = new InvoiceDetails
+                string invoiceId = GenerateRandomInvoiceId();
+                // Create the Invoice with the total amount
+                Invoices Invoice = new Invoices
                 {
-                    InvoiceDetailId = invoiceDetailsId,
-                    Item = tempMenuItem,
-                    Quantity = tempQuantity,
-                    Amount = tempMenuItem.Price * tempQuantity,
+                    InvoiceId = invoiceId,
+                    Employee = employee,
+                    Customer = customer,
+                    Table = table,
+                    CreatedDate = DateTime.Now,
+                    Status = false
                 };
+                _Invoices.InsertOne(Invoice);
 
-                // Add InvoiceDetail to the list
-                invoiceDetailsList.Add(invoiceDetail);
+                // Calculate the total amount
+                double totalAmount = 0;
 
-                // Sum up the Amount
-                totalAmount += invoiceDetail.Amount;
+                foreach (var tempInvoiceDetail in TempMenuItemsList)
+                {
+                    string invoiceDetailsId = GenerateRandomInvoiceDetailId(invoiceId);
+                    MenuItems tempMenuItem = tempInvoiceDetail.MenuItem;
+                    int tempQuantity = tempInvoiceDetail.Quantity;
+
+                    // Create InvoiceDetail
+                    InvoiceDetails invoiceDetail = new InvoiceDetails
+                    {
+                        InvoiceDetailId = invoiceDetailsId,
+                        Invoice = Invoice,
+                        Item = tempMenuItem,
+                        Quantity = tempQuantity,
+                        Amount = tempMenuItem.Price * tempQuantity,
+                    };
+                    _InvoiceDetails.InsertOne(invoiceDetail);
+
+                    // Sum up the Amount
+                    totalAmount += invoiceDetail.Amount;
+                }
+
+                // Define the filter to find the specific invoice
+                var filter = Builders<Invoices>.Filter.Eq(i => i.InvoiceId, invoiceId);
+
+                // Define the update to set the new TotalAmount value
+                var updateTotalAmount = Builders<Invoices>.Update.Set(i => i.TotalAmount, totalAmount);
+
+                // Perform the update operation
+                _Invoices.UpdateOne(filter, updateTotalAmount);
+
+                SelectedTableItem = null;
+                CustomerName = null;
+                SelectedCustomerId = null;
+                LoadTable();
+                DeleteAllItem();
             }
-
-            // Create the Invoice with the total amount
-            Invoices Invoice = new Invoices
-            {
-                InvoiceId = invoiceId,
-                Employee = employee,
-                Customer = customer,
-                Table = table,
-                CreatedDate = DateTime.Now,
-                Status = false,
-                TotalAmount = totalAmount, // Set the TotalAmount
-            };
-
-            // Save the Invoice and InvoiceDetails to MongoDB
-            _Invoices.InsertOne(Invoice);
-            _InvoiceDetails.InsertMany(invoiceDetailsList);
         }
-
 
 
         string GenerateRandomInvoiceId()
@@ -461,15 +499,13 @@ namespace Restaurant_Management.ViewModels
             return _Invoices.AsQueryable().Any(temp => temp.InvoiceId == invoiceId);
         }
 
-
-
         string GenerateInvoiceDetailId(string invoiceId, int detailNumber)
         {
             // Tạo `InvoiceDetailId` từ `invoiceId` và `detailNumber`
             return $"{invoiceId}_DET{detailNumber}";
         }
 
-        string GenerateRandomInvoiceDetailId(string invoiceId) // get invoice as a element
+        string GenerateRandomInvoiceDetailId(string invoiceId)
         {
             // Lấy `InvoiceDetailId` lớn nhất cho `invoiceId` hiện có
             var maxDetailId = _InvoiceDetails.AsQueryable()
@@ -482,13 +518,14 @@ namespace Restaurant_Management.ViewModels
             if (int.TryParse(maxNumberStr, out int maxNumber))
             {
                 // Tạo `InvoiceDetailId` mới với số thứ tự kế tiếp
-                string newDetailId = GenerateInvoiceDetailId(invoiceId, maxNumber + 1);
+                int newDetailNumber = maxNumber + 1;
+                string newDetailId = GenerateInvoiceDetailId(invoiceId, newDetailNumber);
 
                 // Kiểm tra nếu `InvoiceDetailId` mới đã tồn tại
                 while (CheckInvoiceDetail(newDetailId))
                 {
-                    maxNumber++;
-                    newDetailId = GenerateInvoiceDetailId(invoiceId, maxNumber + 1);
+                    newDetailNumber++;
+                    newDetailId = GenerateInvoiceDetailId(invoiceId, newDetailNumber);
                 }
 
                 return newDetailId;
