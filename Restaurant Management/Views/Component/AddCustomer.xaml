@@ -98,17 +98,15 @@
                                     BorderThickness="1"
                                     BorderBrush="#D9D9D9"/>
                             <TextBox x:Name="FullName"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Left"
-                                        Padding="15"
-                                        BorderThickness="0"
-                                        Background="Transparent"
-                                        Foreground="#000000"
-                                        FontWeight="SemiBold"
-                                        FontSize="12"
-                                        MaterialDesign:HintAssist.Hint="Enter full name"
-                                        MaterialDesign:HintAssist.Foreground="Transparent"
-                                        MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                                     Padding="15"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#000000"
+                                     FontWeight="SemiBold"
+                                     FontSize="12"
+                                     MaterialDesign:HintAssist.Hint="Enter full name"
+                                     MaterialDesign:HintAssist.Foreground="Transparent"
+                                     MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                         </Grid>
                     </Grid>
 
@@ -165,8 +163,6 @@
                                         BorderThickness="1"
                                         BorderBrush="#D9D9D9" />
                                 <TextBox x:Name="PhoneNumber"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
                                             BorderThickness="0"
                                             Padding="15"
                                             Background="Transparent"
@@ -199,8 +195,6 @@
                                         BorderThickness="1"
                                         BorderBrush="#D9D9D9" />
                                 <TextBox x:Name="Email"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
                                             BorderThickness="0"
                                             Background="Transparent"
                                             Foreground="#000000"
@@ -232,18 +226,16 @@
                                         CornerRadius="5"
                                         BorderThickness="1"
                                         BorderBrush="#D9D9D9" />
-                                <TextBox x:Name="Address"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Left"
-                                        BorderThickness="0"
-                                        Padding="15"
-                                        Background="Transparent"
-                                        Foreground="#000000"
-                                        FontWeight="SemiBold"
-                                        FontSize="12"
-                                        MaterialDesign:HintAssist.Hint="Enter address"
-                                        MaterialDesign:HintAssist.Foreground="Transparent"
-                                        MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                            <TextBox x:Name="Address"
+                                     BorderThickness="0"
+                                     Padding="15"
+                                     Background="Transparent"
+                                     Foreground="#000000"
+                                     FontWeight="SemiBold"
+                                     FontSize="12"
+                                     MaterialDesign:HintAssist.Hint="Enter address"
+                                     MaterialDesign:HintAssist.Foreground="Transparent"
+                                     MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                             </Grid>
                         </Grid>
 
