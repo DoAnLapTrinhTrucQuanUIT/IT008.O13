@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="Restaurant_Management.Views.SalaryView"
+﻿<UserControl
+ x:Class="Restaurant_Management.Views.SalaryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,37 +19,119 @@
             Padding="50">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1.5*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border Padding="0 0 15 0"
-                    Grid.Column="0">
+            <Border Grid.Column="0"
+                    Background="#fff"
+                    CornerRadius="20"
+                    Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Margin="0 0 10 0">
+                            <ComboBox Width="Auto"
+                                    Height="Auto"
+                                    materialDesign:HintAssist.Hint="Month"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    ItemsSource="{Binding MonthList}"
+                                    DisplayMemberPath="MonthName"
+                                    SelectedValuePath="MonthNumber"
+                                    SelectedValue="{Binding SelectedMonth}"/>
+
+                        </Grid>
+
+                        <Grid Grid.Column="1" Margin="10 0 0 0">
+                            <ComboBox Width="Auto"
+                                    Height="Auto"
+                                    materialDesign:HintAssist.Hint="Year"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    ItemsSource="{Binding YearList}"
+                                    DisplayMemberPath="YearName"
+                                    SelectedValuePath="YearNumber"
+                                    SelectedValue="{Binding SelectedYear}"/>
+
+                        </Grid>
+                    </Grid>
+                    <DataGrid x:Name="DataGridSalary"
+                              Margin="0 10 0 0"
+                              ItemsSource="{Binding SalaryList}"
+                              AutoGenerateColumns="False"
+                              Style="{DynamicResource DataGridStyle}"
+                              CellStyle="{DynamicResource DataGridCellStyle}"
+                              RowStyle="{DynamicResource DataGridRowStyle}"
+                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle}"
+                          Grid.Row="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Staff ID"
+                                            IsReadOnly="True"
+                                            Width="Auto"
+                                            Binding="{Binding Employees.EmployeeId}" />
+                            <DataGridTextColumn Header="Name"
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding Employees.FullName}" />
+                            <DataGridTextColumn Header="Email" 
+                                            IsReadOnly="True" 
+                                            Width="*"
+                                            Binding="{Binding Employees.Email}" />
+                            <DataGridTemplateColumn Header="Actions" 
+                                                IsReadOnly="True"
+                                                Width="*" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource paidSalaryButton}"
+                                                Command="{Binding DataContext.ShowSalaryInformationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding SelectedItem, ElementName=DataGridSalary}">
+                                            <TextBlock Text="Paid"
+                                                       FontSize="12"
+                                                       FontWeight="Medium"/>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <Border x:Name="SalaryInformation"
+                    Margin="15 0 0 100"
+                    Padding="0 0 15 0"
+                    Grid.Column="1">
                 <Border Background="#F9F9FC"
                         CornerRadius="20">
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <!--Header-->
                         <Grid Grid.Row="0">
-                            <Border Height="147"
-                                Background="#FF9494"
-                                CornerRadius="20"
-                                Padding="21,29">
+                            <Border Background="#FF9494"
+                                    CornerRadius="20 20 10 10"
+                                    Padding="20">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0">
+                                    <Grid Grid.Row="0"
+                                          Margin="0 0 0 10">
                                         <TextBlock Text="Profile"
                                            Foreground="#fff"
-                                           FontSize="18"
+                                           FontSize="24"
                                            FontFamily="Roboto"
                                            FontWeight="Bold"
                                            VerticalAlignment="Center"
@@ -57,45 +140,29 @@
                                     <Grid Grid.Row="1">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="3*" />
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
 
                                             <Grid Grid.Column="0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="AUto"/>
+                                                    <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid Grid.Column="0">
-                                                    <Image Source="{Binding}"
+                                                    <Image Source="{Binding SelectedSalaryItem.Employees.AvatarImageSource}"
                                                            Width="48"
                                                            Height="48"/>
                                                 </Grid>
                                                 <Grid Grid.Column="1"  Margin="10 0 0 0">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*" />
-                                                        <RowDefinition Height="*" />
-                                                    </Grid.RowDefinitions>
-                                                    <Grid Grid.Row="0"
-                                                  HorizontalAlignment="Left"
-                                                  VerticalAlignment="Bottom">
-                                                        <TextBlock Text="James Ronald"
+                                                    <Grid HorizontalAlignment="Left"
+                                                            VerticalAlignment="Center">
+                                                        <TextBlock x:Name="ProfileName" Text="{Binding SelectedSalaryItem.Employees.FullName}"
                                                            Foreground="#fff"
-                                                           FontSize="14"
+                                                           FontSize="24"
                                                            FontFamily="Roboto"
                                                            FontWeight="Bold"
-                                                           VerticalAlignment="Center"
-                                                           HorizontalAlignment="Center" />
-                                                    </Grid>
-                                                    <Grid Grid.Row="1"
-                                                  HorizontalAlignment="Left"
-                                                  VerticalAlignment="Center">
-                                                        <TextBlock Text="Freelance Worker"
-                                                           Foreground="#fff"
-                                                           FontSize="12"
-                                                           FontFamily="Roboto"
-                                                           FontWeight="Normal"
                                                            VerticalAlignment="Center"
                                                            HorizontalAlignment="Center" />
                                                     </Grid>
@@ -103,26 +170,15 @@
                                             </Grid>
                                
                                             <Grid Grid.Column="2">
-                                                <Button Style="{StaticResource editSalaryButton}" HorizontalAlignment="Left">
+                                                <Button x:Name="EditSalaryButton" 
+                                                        Visibility="{Binding IsEditSalaryButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+
+                                                        Style="{StaticResource editSalaryButton}"
+                                                        Command="{Binding EditSalaryCommand}"
+                                                        CommandParameter="{Binding SelectedItem, ElementName=DataGridSalary}">
                                                     <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition/>
-                                                            <ColumnDefinition/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Grid Grid.Column="0" Margin="0 0 20 0">
-                                                            <TextBlock Text="Edit salary"
-                                                                       Foreground="#000"
-                                                                       FontSize="12"
-                                                                       FontFamily="Roboto"
-                                                                       FontWeight="Medium"
-                                                                       VerticalAlignment="Center"
-                                                                       HorizontalAlignment="Center" />
-                                                        </Grid>
-                                                        <Grid Grid.Column="1">
-                                                            <Icon:PackIconFontAwesome Kind="SlidersHSolid" />
-                                                        </Grid>
+                                                        <Icon:PackIconFontAwesome Kind="SlidersHSolid"/>
                                                     </Grid>
-                                                    
                                                 </Button>
                                             </Grid>
                                         </Grid>
@@ -138,22 +194,23 @@
                             </Border>
                         </Grid>
 
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1"
+                              Margin="0 10 0 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
+                               
                             </Grid.RowDefinitions>
-                            <!--Date of Joining-->
+                            <!--Start date-->
                             <Grid Grid.Row="0"
                                   Grid.Column="0"
-                                  Margin="20 0 0 0">
-                                <TextBlock Text="Date of Joining"
+                                  Margin="50 0 0 0">
+                                <TextBlock Text="Start date"
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
@@ -161,11 +218,11 @@
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left" />
                             </Grid>
-                            <!--Pay Period-->
+                            <!--Pay date-->
                             <Grid Grid.Row="1"
                                   Grid.Column="0"
-                                  Margin="20 0 0 0">
-                                <TextBlock Text="Pay Period"
+                                  Margin="50 0 0 0">
+                                <TextBlock Text="Pay Date"
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
@@ -173,18 +230,7 @@
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left" />
                             </Grid>
-                            <!--Worked Days-->
-                            <Grid Grid.Row="2"
-                                  Grid.Column="0"
-                                  Margin="20 0 0 0">
-                                <TextBlock Text="Worked Days"
-                                           Foreground="#000"
-                                           FontSize="14"
-                                           FontFamily="Roboto"
-                                           FontWeight="Normal"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left" />
-                            </Grid>
+
 
                             <Grid Grid.Row="0"
                                   Grid.Column="1"
@@ -210,26 +256,16 @@
                                            HorizontalAlignment="Left" />
                             </Grid>
 
-                            <Grid Grid.Row="2"
-                                  Grid.Column="1"
-                                  Margin="20 0 0 0">
-                                <TextBlock Text=":"
-                                           Foreground="#000"
-                                           FontSize="14"
-                                           FontFamily="Roboto"
-                                           FontWeight="Normal"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left" />
-                            </Grid>
+                           
 
                             <Grid Grid.Row="0"
                                   Grid.Column="2"
                                   Margin="20 0 0 0">
-                                <TextBlock Text="2018-06-23"
+                                <TextBlock Text="{Binding FilteredSelectedSalaryItem.StartDate, StringFormat='dd/MM/yyyy'}"
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
-                                           FontWeight="Bold"
+                                           FontWeight="Medium"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left" />
                             </Grid>
@@ -237,23 +273,11 @@
                             <Grid Grid.Row="1"
                                   Grid.Column="2"
                                   Margin="20 0 0 0">
-                                <TextBlock Text="August 2021"
+                                <TextBlock Text="{Binding FilteredSelectedSalaryItem.PayDate, StringFormat='dd/MM/yyyy'}"
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
-                                           FontWeight="Bold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left" />
-                            </Grid>
-
-                            <Grid Grid.Row="2"
-                                  Grid.Column="2"
-                                  Margin="20 0 0 0">
-                                <TextBlock Text="26"
-                                           Foreground="#000"
-                                           FontSize="14"
-                                           FontFamily="Roboto"
-                                           FontWeight="Bold"
+                                           FontWeight="Medium"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left" />
                             </Grid>
@@ -265,7 +289,6 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
@@ -304,7 +327,7 @@
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
-                                           FontWeight="Normal"
+                                           FontWeight="Medium"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="20 0 0 0" />
@@ -314,40 +337,28 @@
                                     Grid.Column="0"
                                     BorderThickness="0 0 1 1"
                                     BorderBrush="#D9D9D9">
-                                <TextBlock Text="Overtime"
+                                <TextBlock Text="Worked days"
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
-                                           FontWeight="Normal"
+                                           FontWeight="Medium"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="20 0 0 0" />
                             </Border>
 
-                            <Border Grid.Row="3"
-                                    Grid.Column="0"
-                                    BorderThickness="0 0 1 1"
-                                    BorderBrush="#D9D9D9">
-                                <TextBlock Text="Bonus"
-                                           Foreground="#000"
-                                           FontSize="14"
-                                           FontFamily="Roboto"
-                                           FontWeight="Normal"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Margin="20 0 0 0" />
-                            </Border>
+                            
 
 
                             <Border Grid.Row="1"
                                     Grid.Column="1"
                                     BorderThickness="0 0 1 1"
                                     BorderBrush="#D9D9D9">
-                                <TextBlock Text="1.000.000"
+                                <TextBlock Text="{Binding FilteredSelectedSalaryItem.BasicSalary}"
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
-                                           FontWeight="Bold"
+                                           FontWeight="Medium"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="20 0 0 0" />
@@ -356,49 +367,38 @@
                                     Grid.Column="1"
                                     BorderThickness="0 0 1 1"
                                     BorderBrush="#D9D9D9">
-                                <TextBlock Text="1.000.000"
+                                <TextBlock Text="{Binding FilteredSelectedSalaryItem.WorkedDays}"
                                            Foreground="#000"
                                            FontSize="14"
                                            FontFamily="Roboto"
-                                           FontWeight="Bold"
+                                           FontWeight="Medium"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="20 0 0 0" />
                             </Border>
-                            <Border Grid.Row="3"
-                                    Grid.Column="1"
-                                    BorderThickness="0 0 1 1"
-                                    BorderBrush="#D9D9D9">
-                                <TextBlock Text="1.000.000"
-                                           Foreground="#000"
-                                           FontSize="14"
-                                           FontFamily="Roboto"
-                                           FontWeight="Bold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Margin="20 0 0 0" />
-                            </Border>
+                            
                         </Grid>
 
-                        <Grid Grid.Row="3">
+                        <Grid Grid.Row="3" Margin="0 30 0 0">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0">
                                     <TextBlock Text="Total salary:"
                                                Foreground="#000"
                                                FontSize="16"
                                                FontFamily="Roboto"
-                                               FontWeight="Normal"
+                                               FontWeight="Medium"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center" />
                                 </Grid>
 
-                                <Grid Grid.Row="1">
-                                    <TextBlock Text="16.000.000"
-                                               Foreground="#000"
+                                <Grid Grid.Row="1"
+                                      Margin="0 20 0 0">
+                                    <TextBlock Text="{Binding FilteredSelectedSalaryItem.TotalSalary}"
+                                               Foreground="#1DB9C3"
                                                FontSize="32"
                                                FontFamily="Roboto"
                                                FontWeight="Bold"
@@ -407,10 +407,11 @@
                                 </Grid>
                             </Grid>
                         </Grid>
-
-                        <Grid Grid.Row="5">
-                            <Border Padding="100 20">
-                                <Button Style="{StaticResource confirmButton}">
+                        <Grid Grid.Row="4"
+                              Margin="0 20 0 60">
+                            <Border Padding="50 0">
+                                <Button Style="{StaticResource confirmButton}"
+                                        Command="{Binding ConfirmCommand}">
                                     <TextBlock Text="Confirm"
                                        Foreground="#fff"
                                        FontSize="16"
@@ -423,57 +424,6 @@
                         </Grid>
                     </Grid>
                 </Border>
-            </Border>
-
-            <Border Margin="15 0 0 0"
-                    Grid.Column="1"
-                    Background="#fff"
-                    CornerRadius="20"
-                    Padding="20">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="56" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <DatePicker Width="296"
-                                    Height="48"
-                                    materialDesign:HintAssist.Hint="Date"
-                                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
-                                    HorizontalAlignment="Left" />
-                    </Grid>
-
-                    <DataGrid x:Name="salaryDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}"  Grid.Row="2">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="Auto" Binding="{Binding Number}"/>
-                            <DataGridTemplateColumn Header="ID" IsReadOnly="True" Width="Auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border Width="50" Height="25" CornerRadius="5" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                                <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                            </Border>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                            <DataGridTextColumn Header="Name" IsReadOnly="True" Width="*" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Email" IsReadOnly="True" Width="*" Binding="{Binding Email}"/>
-                            <DataGridTextColumn Header="Salary" IsReadOnly="True" Width="*" Binding="{Binding Salary}"/>
-                            <DataGridTemplateColumn Header="Actions" IsReadOnly="True" Width="Auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Style="{StaticResource paidSalaryButton}">
-                                            <TextBlock Text="Paid"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
             </Border>
         </Grid>
     </Border>
