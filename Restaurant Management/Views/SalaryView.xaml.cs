@@ -25,23 +25,6 @@ namespace Restaurant_Management.Views
         public SalaryView()
         {
             InitializeComponent();
-
-            var converter = new BrushConverter();
-
-            ObservableCollection<TestSalary> tests = new ObservableCollection<TestSalary>();
-
-            tests.Add(new TestSalary { Number = "1", ID = "NV01", Name = "Tai", BgColor = (Brush)converter.ConvertFromString("#f9f9f9"), Email="example@gmail.com", Salary="10000000" });
-            salaryDataGrid.ItemsSource = tests;
-        }
-        public class TestSalary
-        {
-            public string ID { get; set; }
-            public string Number { get; set; }
-            public string Email { get; set; }
-            public string Name { get; set; }
-            public string Salary { get; set; }
-            public Brush BgColor { get; set; }
-
         }
     }
 }

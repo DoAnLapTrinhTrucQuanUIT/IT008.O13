@@ -18,20 +18,13 @@ namespace Restaurant_Management.ViewModels
 {
     public class MenuVM : Utilities.ViewModelBase
     {
-        private int _currentPage = 0;
-        public int CurrentPage
-        {
-            get { return _currentPage; }
-            set
-            {
-                _currentPage = value;
-                OnPropertyChanged(nameof(CurrentPage));
-                OnPropertyChanged(nameof(MainCourseDisplayedFoodCards));
-            }
-        }
+      
         public ObservableCollection<MenuItems> MainCourseList { get; set; }
+        
         public ObservableCollection<MenuItems> AppetizerList { get; set; }
+        
         public ObservableCollection<MenuItems> LightDishList { get; set; }
+        
         public ObservableCollection<MenuItems> DessertList { get; set; }
         public ObservableCollection<MenuItems> BeverageList { get; set; }
 
@@ -58,6 +51,7 @@ namespace Restaurant_Management.ViewModels
         }
 
         private ObservableCollection<MenuItems> _itemlist;
+        
         public ObservableCollection<MenuItems> ItemList
         {
             get { return _itemlist; }
@@ -67,7 +61,9 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(ItemList));
             }
         }
+        
         private ObservableCollection<TempMenuItems> _tempMenuItemsList;
+        
         public ObservableCollection<TempMenuItems> TempMenuItemsList
         {
             get { return _tempMenuItemsList; }
@@ -77,6 +73,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TempMenuItemsList));
             }
         }
+
 
         private string _selectedCustomerId;
         public string SelectedCustomerId
@@ -112,7 +109,50 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        public ICommand AddToTempMenuCommand { get; set; }
+
+        public IEnumerable<MenuItems> MainCourseDisplayedFoodCards
+        {
+            get
+            {
+                return MainCourseList;
+            }
+        }
+
+        public IEnumerable<MenuItems> AppetizerDisplayedFoodCards
+        {
+            get
+            {
+                return AppetizerList;
+            }
+        }
+
+        public IEnumerable<MenuItems> LightDishDisplayedFoodCards
+        {
+            get
+            {
+                return LightDishList;
+            }
+        }
+
+        public IEnumerable<MenuItems> DessertDisplayedFoodCards
+        {
+            get
+            {
+                return DessertList;
+            }
+        }
+
+        public IEnumerable<MenuItems> BeverageDisplayedFoodCards
+        {
+            get
+            {
+                return BeverageList;
+            }
+        }
+
         private readonly IMongoCollection<MenuItems> _MenuItems;
+        
         private IMongoCollection<MenuItems> GetMenuItems()
         {
             // Set your MongoDB connection string and database name
@@ -125,6 +165,7 @@ namespace Restaurant_Management.ViewModels
 
             return database.GetCollection<MenuItems>("MenuItems");
         }
+
 
         private readonly IMongoCollection<Tables> _Tables;
         private IMongoCollection<Tables> GetTables()
@@ -221,6 +262,7 @@ namespace Restaurant_Management.ViewModels
             DeleteAllItemCommand = new RelayCommand<object>((p) => true, (p) => DeleteAllItem());
             ConfirmItemCommand = new RelayCommand<MenuView>((p) => true, (p) => ConfirmItem());
         }
+
         private void AddToTempMenu(FoodCard foodCard)
         {
             var existingItem = TempMenuItemsList.FirstOrDefault(item => item.MenuItem.Name == foodCard.FoodName);
@@ -247,38 +289,49 @@ namespace Restaurant_Management.ViewModels
             }
             OnPropertyChanged(nameof(TempMenuItemsList));
         }
+
         private void LoadMenuItem()
         {
             var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).ToList();
             ItemList = new ObservableCollection<MenuItems>(items);
 
+            // Sử dụng LINQ để nhóm mục theo danh mục
+            var groupedItems = items.GroupBy(item => item.Category);
+
+            // Khởi tạo danh sách cho mỗi danh mục
             MainCourseList = new ObservableCollection<MenuItems>();
             AppetizerList = new ObservableCollection<MenuItems>();
             LightDishList = new ObservableCollection<MenuItems>();
             DessertList = new ObservableCollection<MenuItems>();
             BeverageList = new ObservableCollection<MenuItems>();
 
-            foreach (var item in ItemList)
+            // Duyệt qua từng nhóm và thêm vào danh sách tương ứng
+            foreach (var group in groupedItems)
             {
-                switch (item.Category)
+                foreach (var item in group)
                 {
-                    case "Main Course":
-                        MainCourseList.Add(item);
-                        break;
-                    case "Appetizer":
-                        AppetizerList.Add(item);
-                        break;
-                    case "Light Dish":
-                        LightDishList.Add(item);
-                        break;
-                    case "Dessert":
-                        DessertList.Add(item);
-                        break;
-                    case "Beverage":
-                        BeverageList.Add(item);
-                        break;
+                    switch (group.Key)
+                    {
+                        case "Main Course":
+                            MainCourseList.Add(item);
+                            break;
+                        case "Appetizer":
+                            AppetizerList.Add(item);
+                            break;
+                        case "Light Dish":
+                            LightDishList.Add(item);
+                            break;
+                        case "Dessert":
+                            DessertList.Add(item);
+                            break;
+                        case "Beverage":
+                            BeverageList.Add(item);
+                            break;
+                            // Các trường hợp khác nếu có
+                    }
                 }
             }
+
             LoadCustomer();
             LoadTable();
         }
@@ -348,6 +401,7 @@ namespace Restaurant_Management.ViewModels
                 CurrentPage--;
             }
         }
+
         private void DeleteItem(TempMenuItems tempMenuItems)
         {
             if (tempMenuItems != null)
@@ -356,6 +410,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TempMenuItemsList));
             }
         }
+       
         private void DeleteAllItem()
         {
             TempMenuItemsList.Clear();

@@ -43,9 +43,9 @@
                                     BorderBrush="#d9d9d9">
                                 <TextBlock x:Name="placeholder"
                                            Margin="20 0 0 0"
-                                           Text="Search Customers"
-                                           FontSize="18"
-                                           FontWeight="Normal"
+                                           Text="Search by staff ID"
+                                           FontSize="15"
+                                           FontWeight="Medium"
                                            Foreground="#808080"
                                            VerticalAlignment="Center"
                                            Visibility="Visible" />
@@ -134,6 +134,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
+                        
                         <!-- Add new employee-->
                         <Button Grid.Column="0" Style="{StaticResource addButton}" Margin="0 0 30 0" Padding="10">
                             <StackPanel Orientation="Horizontal">
@@ -144,7 +145,7 @@
                                                        Margin="0 0 10 0"/>
                                 <TextBlock Text="Add new employee"
                                            FontSize="15"
-                                           FontWeight="SemiBold" />
+                                           FontWeight="Medium" />
                             </StackPanel>
                             <!--Add new customer trigger-->
                             <i:Interaction.Triggers>
@@ -154,19 +155,44 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-                        <!--Export from CSV -->
+                        
+                        <!--Import from CSV -->
                         <Button Grid.Column="1"
                                 Style="{StaticResource addButton}"
                                 Padding="10">
                             <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="FileExcel" 
+                                <Icon:PackIconMaterial Kind="Import"
+                                                       VerticalAlignment="Center"
+                                                       Width="15"
+                                                       Height="15"
+                                                       Margin="0 0 10 0" />
+                                <TextBlock Text="Import from CSV"
+                                           FontSize="15"
+                                           FontWeight="Medium" />
+                            </StackPanel>
+                            <!--Import trigger-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ImportStaffCM}"
+                                                           CommandParameter="{Binding ElementName=StaffWindow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        
+                        <!--Export from CSV -->
+                        <Button Grid.Column="2"
+                                Style="{StaticResource addButton}"
+                                Margin="30 0 0 0"
+                                Padding="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Export" 
                                                        VerticalAlignment="Center" 
                                                        Width="15" 
                                                        Height="15" 
                                                        Margin="0 0 10 0"/>
                                 <TextBlock Text="Export from CSV"
                                            FontSize="15"
-                                           FontWeight="SemiBold" />
+                                           FontWeight="Medium" />
                             </StackPanel>
                             <!--Export trigger-->
                             <i:Interaction.Triggers>
@@ -177,29 +203,7 @@
                             </i:Interaction.Triggers>
                         </Button>
 
-                        <!--Import from CSV -->
-                        <Button Grid.Column="2"
-                                Style="{StaticResource addButton}"
-                                Margin="30 0 0 0"
-                                Padding="10">
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Import"
-                                                       VerticalAlignment="Center"
-                                                       Width="15"
-                                                       Height="15"
-                                                       Margin="0 0 10 0" />
-                                <TextBlock Text="Import from CSV"
-                                           FontSize="15"
-                                           FontWeight="SemiBold" />
-                            </StackPanel>
-                            <!--Import trigger-->
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding ImportStaffCM}"
-                                                           CommandParameter="{Binding ElementName=StaffWindow}"></i:InvokeCommandAction>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
+                       
                     </Grid>
                 </Grid>
 
@@ -237,7 +241,7 @@
                                             Width="*"
                                             Binding="{Binding DateOfJoining, StringFormat=\{0:dd/MM/yyyy\}}" />
                         <DataGridTemplateColumn IsReadOnly="True"
-                                                Width="50">
+                                                Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button x:Name="deletedStaffButton"

@@ -1,5 +1,4 @@
-﻿using Restaurant_Management.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Restaurant_Management
+namespace Restaurant_Management.Views.Component
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for EditSalary.xaml
+    /// </summary>
+    public partial class EditSalary : UserControl
     {
-        public MainWindow()
+        
+
+        public EditSalary()
         {
             InitializeComponent();
         }

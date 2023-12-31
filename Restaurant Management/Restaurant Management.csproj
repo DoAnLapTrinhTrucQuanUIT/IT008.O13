@@ -328,6 +328,7 @@
     <Compile Include="Models\InvoiceDetails.cs" />
     <Compile Include="Models\Invoices.cs" />
     <Compile Include="Models\MenuItems.cs" />
+    <Compile Include="Models\SalaryInformation.cs" />
     <Compile Include="Models\Tables.cs" />
     <Compile Include="Models\TempMenuItems.cs" />
     <Compile Include="Utilities\BooleanToColorConverter.cs" />
@@ -342,6 +343,7 @@
     <Compile Include="ViewModels\AddEditStaffVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
     <Compile Include="ViewModels\EditItemVM.cs" />
+    <Compile Include="ViewModels\EditSalaryVM.cs" />
     <Compile Include="ViewModels\EmptyVM.cs" />
     <Compile Include="ViewModels\ForgetPasswordVM.cs" />
     <Compile Include="ViewModels\InventoryOverviewVM.cs" />
@@ -381,6 +383,9 @@
     </Compile>
     <Compile Include="Views\Component\EditItem.xaml.cs">
       <DependentUpon>EditItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\EditSalary.xaml.cs">
+      <DependentUpon>EditSalary.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\ForgetPasswordView.xaml.cs">
       <DependentUpon>ForgetPasswordView.xaml</DependentUpon>
@@ -502,6 +507,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\EditItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\EditSalary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

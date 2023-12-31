@@ -14,8 +14,7 @@
         WindowStyle="None"
         Background="White"
         Width="1440"
-        Height="810"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Height="810">
     <Window.DataContext>
         <vm:NavigationVM />
     </Window.DataContext>
