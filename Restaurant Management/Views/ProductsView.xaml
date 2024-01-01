@@ -7,6 +7,7 @@
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:component="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d"
              d:DesignHeight="989"
              d:DesignWidth="1560"
@@ -43,7 +44,7 @@
                                     BorderBrush="#d9d9d9">
                                 <TextBlock x:Name="placeholder"
                                            Margin="20 0 0 0"
-                                           Text="Search Customers"
+                                           Text="Search by product ID"
                                            FontSize="18"
                                            FontWeight="Normal"
                                            Foreground="#808080"
@@ -86,7 +87,7 @@
 
                 <!-- Top section -->
                 <StackPanel Grid.Row="0" Orientation="Vertical">
-                    <TextBlock Text="Menu Items" 
+                    <TextBlock Text="Products" 
                                FontSize="30" 
                                FontWeight="Bold" 
                                FontFamily="Roboto" 
@@ -122,101 +123,160 @@
 
                     <Grid Grid.Column="1"
                           HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0"
+                              Margin="0 0 100 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" 
+                                  Margin="0 0 50 0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center">
+                                <TextBlock Text="Change view mode"
+                                           FontSize="14"
+                                           FontWeight="Medium"/>
+                            </Grid>
+                            <Grid Grid.Column="1"
+                                  VerticalAlignment="Center">
+                                <ToggleButton Style="{DynamicResource ToggleButtonStyle}"
+                                      Command="{Binding ChangeViewModeCM}"
+                                      CommandParameter="{Binding ElementName=ProductsWindow}"/>
+                            </Grid>
+                        </Grid>
+
                         <!--Add New Item Button-->
-                        <Button Grid.Column="0"
-                                Style="{StaticResource addButton}">
-                            <Border Padding="10 0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Icon:PackIconMaterial Kind="Plus"
+                        <Grid Grid.Column="1">
+                            <Button Style="{StaticResource addButton}">
+                                <Border Padding="10 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Icon:PackIconMaterial Kind="Plus"
                                                            Grid.Column="0"
                                                            VerticalAlignment="Center"
                                                            Width="15"
                                                            Height="15"
                                                            Margin="0 0 10 0" />
-                                    <TextBlock Grid.Column="1"
+                                        <TextBlock Grid.Column="1"
                                                Text="Add new item"
                                                FontSize="15"
                                                FontWeight="SemiBold" />
-                                </Grid>
-                            </Border>
-                            <!--Add new item trigger-->
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding AddItemCM}"
+                                    </Grid>
+                                </Border>
+                                <!--Add new item trigger-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding AddItemCM}"
                                                            CommandParameter="{Binding ElementName=ProductsWindow}"></i:InvokeCommandAction>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                      
                     </Grid>
                 </Grid>
 
                 <!-- Bottom section -->
-                <DataGrid x:Name="productDataGrid"
+                <StackPanel Grid.Row="2">
+                    <DataGrid x:Name="productDataGrid"
                           Margin="0 30 0 0"
                           ItemsSource="{Binding ItemList}"
                           AutoGenerateColumns="False"
                           Style="{DynamicResource DataGridStyle}"
                           CellStyle="{DynamicResource DataGridCellStyle}"
-                          RowStyle="{DynamicResource DataGridRowStyle}"
-                          Grid.Row="2">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Item Id"
+                          RowStyle="{DynamicResource DataGridRowStyle}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Item Id"
                                             IsReadOnly="True"
                                             Width="100"
                                             Binding="{Binding ItemId}" />
-                        <DataGridTextColumn Header="Name"
+                            <DataGridTextColumn Header="Name"
                                             IsReadOnly="True"
                                             Width="200"
                                             Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Category" 
+                            <DataGridTextColumn Header="Category" 
                                             IsReadOnly="True" 
                                             Width="150"
                                             Binding="{Binding Category}" />
-                        <DataGridTextColumn Header="Price"
+                            <DataGridTextColumn Header="Price"
                                             IsReadOnly="True"
                                             Width="100"
                                             Binding="{Binding Price}"/>
-                        <DataGridTextColumn Header="Description"
+                            <DataGridTextColumn Header="Description"
                                             IsReadOnly="True" 
                                             Width="*"
                                             Binding="{Binding Description}"/>
-                        <DataGridTemplateColumn Header="Actions" 
+                            <DataGridTemplateColumn Header="Actions" 
                                                 IsReadOnly="True"
                                                 Width="100" >
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel x:Name="subMenuGrid"
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel x:Name="subMenuGrid"
                                                 Orientation="Horizontal"  
                                                 Visibility="Visible" 
                                                 Background="Transparent">
-                                        <Button Style="{StaticResource gridEditButton}"
+                                            <Button Style="{StaticResource gridEditButton}"
                                                 Margin="0 0 5 0"
                                                 Command="{Binding DataContext.EditItemCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 CommandParameter="{Binding}">
-                                            <Icon:PackIconBoxIcons Kind="RegularEdit"
+                                                <Icon:PackIconBoxIcons Kind="RegularEdit"
                                                                    Width="14"
                                                                    Height="14"
                                                                    VerticalAlignment="Center" />
-                                        </Button>
-                                        <Button Style="{StaticResource gridRemoveButton}"
+                                            </Button>
+                                            <Button Style="{StaticResource gridRemoveButton}"
                                                 Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 CommandParameter="{Binding}">
-                                            <Icon:PackIconIonicons Kind="TrashMD" 
+                                                <Icon:PackIconIonicons Kind="TrashMD" 
                                                                    Width="14"
                                                                    Height="14"
                                                                    VerticalAlignment="Center" />
-                                            
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border x:Name="foodCardsItemsControl"
+                            Visibility="Collapsed"
+                            Padding="20" 
+                            Background="WhiteSmoke">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                            <ItemsControl 
+                                  ItemsSource="{Binding DisplayedFoodCards}"
+                                  
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0 0 20 0">
+                                            <component:ProductCard FoodName="{Binding Name}" 
+                                                                FoodPrice="{Binding Price}"
+                                                               FoodImage="{Binding FoodImageSource}">
+                                            </component:ProductCard>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
             </Grid>
         </Border>
     </Border>
