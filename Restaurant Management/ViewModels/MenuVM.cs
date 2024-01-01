@@ -6,7 +6,6 @@ using Restaurant_Management.Views.Component;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,19 +18,20 @@ namespace Restaurant_Management.ViewModels
 {
     public class MenuVM : Utilities.ViewModelBase
     {
-      
         public ObservableCollection<MenuItems> MainCourseList { get; set; }
-        
+
         public ObservableCollection<MenuItems> AppetizerList { get; set; }
-        
+
         public ObservableCollection<MenuItems> LightDishList { get; set; }
-        
+
         public ObservableCollection<MenuItems> DessertList { get; set; }
+
         public ObservableCollection<MenuItems> BeverageList { get; set; }
 
+
         private ObservableCollection<String> _emptyTablesList;
-        public ObservableCollection<String> EmptyTablesList 
-        { 
+        public ObservableCollection<String> EmptyTablesList
+        {
             get { return _emptyTablesList; }
             set
             {
@@ -52,7 +52,6 @@ namespace Restaurant_Management.ViewModels
         }
 
         private ObservableCollection<MenuItems> _itemlist;
-        
         public ObservableCollection<MenuItems> ItemList
         {
             get { return _itemlist; }
@@ -62,9 +61,9 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(ItemList));
             }
         }
-        
+
         private ObservableCollection<TempMenuItems> _tempMenuItemsList;
-        
+
         public ObservableCollection<TempMenuItems> TempMenuItemsList
         {
             get { return _tempMenuItemsList; }
@@ -153,7 +152,7 @@ namespace Restaurant_Management.ViewModels
         }
 
         private readonly IMongoCollection<MenuItems> _MenuItems;
-        
+
         private IMongoCollection<MenuItems> GetMenuItems()
         {
             // Set your MongoDB connection string and database name
@@ -165,19 +164,98 @@ namespace Restaurant_Management.ViewModels
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<MenuItems>("MenuItems");
+
         }
-        
-        
+
+
+        private readonly IMongoCollection<Tables> _Tables;
+        private IMongoCollection<Tables> GetTables()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Tables>("Tables");
+        }
+
+        private readonly IMongoCollection<Customers> _Customers;
+        private IMongoCollection<Customers> GetCustomers()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Customers>("Customers");
+        }
+
+        private readonly IMongoCollection<Invoices> _Invoices;
+        private IMongoCollection<Invoices> GetInvoices()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Invoices>("Invoices");
+        }
+
+
+        private readonly IMongoCollection<Employees> _Employees;
+        private IMongoCollection<Employees> GetEmployees()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Employees>("Employees");
+        }
+        private readonly IMongoCollection<InvoiceDetails> _InvoiceDetails;
+        private IMongoCollection<InvoiceDetails> GetInvoiceDetails()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<InvoiceDetails>("InvoiceDetails");
+        }
+        public ICommand DeleteItemCommand { get; set; }
+        public ICommand DeleteAllItemCommand { get; set; }
+        public ICommand ConfirmItemCommand { get; set; }
 
         public MenuVM()
         {
             _MenuItems = GetMenuItems();
+            _Tables = GetTables();
+            _Customers = GetCustomers();
+            _Employees = GetEmployees();
+            _InvoiceDetails = GetInvoiceDetails();
+            _Invoices = GetInvoices();
             LoadMenuItem();
 
             TempMenuItemsList = new ObservableCollection<TempMenuItems>();
             AddToTempMenuCommand = new RelayCommand<FoodCard>((p) => true, (p) => AddToTempMenu(p));
             DeleteItemCommand = new RelayCommand<TempMenuItems>((p) => true, (p) => DeleteItem(p));
             DeleteAllItemCommand = new RelayCommand<object>((p) => true, (p) => DeleteAllItem());
+            ConfirmItemCommand = new RelayCommand<MenuView>((p) => true, (p) => ConfirmItem());
         }
 
         private void AddToTempMenu(FoodCard foodCard)
@@ -209,43 +287,61 @@ namespace Restaurant_Management.ViewModels
 
         private void LoadMenuItem()
         {
-            var projection = Builders<MenuItems>.Projection
-           .Exclude(item => item.Image);
-
-            var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).Project<MenuItems>(projection).ToList();
-
+            var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).ToList();
             ItemList = new ObservableCollection<MenuItems>(items);
 
+            // Sử dụng LINQ để nhóm mục theo danh mục
+            var groupedItems = items.GroupBy(item => item.Category);
+
+            // Khởi tạo danh sách cho mỗi danh mục
             MainCourseList = new ObservableCollection<MenuItems>();
             AppetizerList = new ObservableCollection<MenuItems>();
             LightDishList = new ObservableCollection<MenuItems>();
             DessertList = new ObservableCollection<MenuItems>();
             BeverageList = new ObservableCollection<MenuItems>();
 
-            foreach (var item in ItemList)
+            // Duyệt qua từng nhóm và thêm vào danh sách tương ứng
+            foreach (var group in groupedItems)
             {
-                switch (item.Category)
+                foreach (var item in group)
                 {
-                    case "Main Course":
-                        MainCourseList.Add(item);
-                        break;
-                    case "Appetizer":
-                        AppetizerList.Add(item);
-                        break;
-                    case "Light Dish":
-                        LightDishList.Add(item);
-                        break;
-                    case "Dessert":
-                        DessertList.Add(item);
-                        break;
-                    case "Beverage":
-                        BeverageList.Add(item);
-                        break;
-                        // Các trường hợp khác nếu có
+                    switch (group.Key)
+                    {
+                        case "Main Course":
+                            MainCourseList.Add(item);
+                            break;
+                        case "Appetizer":
+                            AppetizerList.Add(item);
+                            break;
+                        case "Light Dish":
+                            LightDishList.Add(item);
+                            break;
+                        case "Dessert":
+                            DessertList.Add(item);
+                            break;
+                        case "Beverage":
+                            BeverageList.Add(item);
+                            break;
+                            // Các trường hợp khác nếu có
+                    }
                 }
             }
 
+            LoadCustomer();
+            LoadTable();
         }
+
+        public void LoadCustomer()
+        {
+            var customer = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();
+            CustomersIdList = new ObservableCollection<string>(customer.Select(cus => cus.CustomerId));
+        }
+        public void LoadTable()
+        {
+            var emptyTables = _Tables.Find(tb => tb.Status == false).ToList();
+            EmptyTablesList = new ObservableCollection<string>(emptyTables.Select(tb => tb.TableName));
+        }
+        
 
         private void DeleteItem(TempMenuItems tempMenuItems)
         {
@@ -255,7 +351,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TempMenuItemsList));
             }
         }
-       
+
         private void DeleteAllItem()
         {
             TempMenuItemsList.Clear();
@@ -266,7 +362,7 @@ namespace Restaurant_Management.ViewModels
             // Use the selected customer ID to retrieve the customer name from your data source
             // Replace this with your actual logic to fetch customer name based on ID
             var customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
-            if(customer!=null)
+            if (customer!=null)
             {
                 CustomerName = customer.FullName.ToString(); // Update CustomerName property
             }

@@ -133,7 +133,7 @@ namespace Restaurant_Management.ViewModels
         private void AddItem(AddItem parameter)
         {
             // convert image into byte array
-            byte[] imageBytes = ConvertImageToBytes(parameter.loadedImage);
+            // byte[] imageBytes = ConvertImageToBytes(parameter.loadedImage);
             // Tạo một đối tượng MenuItems mới
             var menuItems = new MenuItems
             {
@@ -142,7 +142,7 @@ namespace Restaurant_Management.ViewModels
                 Category = parameter.CategoryComboBox.Text.ToString(),
                 Price = Double.Parse(parameter.Price.Text, CultureInfo.InvariantCulture),
                 Description = parameter.Description.Text.ToString(),
-                Image = imageBytes
+                Image = null
             };
             // Thêm đối tượng vào collection
             _MenuItems.InsertOne(menuItems);
