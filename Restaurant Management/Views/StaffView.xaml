@@ -157,8 +157,9 @@
                         </Button>
                         
                         <!--Import from CSV -->
-                        <Button Grid.Column="1"
+                        <Button Grid.Column="2"
                                 Style="{StaticResource addButton}"
+                                Margin="30 0 0 0"
                                 Padding="10">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Import"
@@ -180,9 +181,8 @@
                         </Button>
                         
                         <!--Export from CSV -->
-                        <Button Grid.Column="2"
+                        <Button Grid.Column="1"
                                 Style="{StaticResource addButton}"
-                                Margin="30 0 0 0"
                                 Padding="10">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Export" 
@@ -190,7 +190,7 @@
                                                        Width="15" 
                                                        Height="15" 
                                                        Margin="0 0 10 0"/>
-                                <TextBlock Text="Export from CSV"
+                                <TextBlock Text="Export to CSV"
                                            FontSize="15"
                                            FontWeight="Medium" />
                             </StackPanel>
@@ -202,8 +202,6 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-
-                       
                     </Grid>
                 </Grid>
 

@@ -296,6 +296,7 @@
             <Border Grid.Row="1"
                     Background="#fff"
                     Margin="0 30 0 0"
+                    CornerRadius="20"
                     Padding="20">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -383,7 +384,7 @@
                                                                Height="15"
                                                                Margin="0 0 10 0" />
                                         <TextBlock Grid.Column="1"
-                                                   Text="Export from CSV"
+                                                   Text="Export to CSV"
                                                    FontSize="15"
                                                    FontWeight="SemiBold" />
                                     </Grid>
