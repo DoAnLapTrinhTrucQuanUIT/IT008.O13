@@ -27,8 +27,29 @@ namespace Restaurant_Management.ViewModels
         public ObservableCollection<MenuItems> LightDishList { get; set; }
         
         public ObservableCollection<MenuItems> DessertList { get; set; }
-        
         public ObservableCollection<MenuItems> BeverageList { get; set; }
+
+        private ObservableCollection<String> _emptyTablesList;
+        public ObservableCollection<String> EmptyTablesList 
+        { 
+            get { return _emptyTablesList; }
+            set
+            {
+                _emptyTablesList = value;
+                OnPropertyChanged(nameof(EmptyTablesList));
+            }
+        }
+
+        private ObservableCollection<String> _customersList;
+        public ObservableCollection<String> CustomersIdList
+        {
+            get { return _customersList; }
+            set
+            {
+                _customersList = value;
+                OnPropertyChanged(nameof(CustomersIdList));
+            }
+        }
 
         private ObservableCollection<MenuItems> _itemlist;
         
@@ -54,9 +75,40 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        public ICommand DeleteItemCommand { get; set; }
-        
-        public ICommand DeleteAllItemCommand { get; set; }
+
+        private string _selectedCustomerId;
+        public string SelectedCustomerId
+        {
+            get { return _selectedCustomerId; }
+            set
+            {
+                _selectedCustomerId = value;
+                OnPropertyChanged(nameof(SelectedCustomerId));
+                // Call a method to update the CustomerName based on the selected ID
+                UpdateCustomerName();
+            }
+        }
+        private string _customerName;
+        public string CustomerName
+        {
+            get { return _customerName; }
+            set
+            {
+                _customerName = value;
+                OnPropertyChanged(nameof(CustomerName));
+            }
+        }
+
+        private string _selectedTableItem;
+        public string SelectedTableItem
+        {
+            get { return _selectedTableItem; }
+            set
+            {
+                _selectedTableItem = value;
+                OnPropertyChanged(nameof(SelectedTableItem));
+            }
+        }
 
         public ICommand AddToTempMenuCommand { get; set; }
 
@@ -192,6 +244,7 @@ namespace Restaurant_Management.ViewModels
                         // Các trường hợp khác nếu có
                 }
             }
+
         }
 
         private void DeleteItem(TempMenuItems tempMenuItems)
@@ -208,5 +261,184 @@ namespace Restaurant_Management.ViewModels
             TempMenuItemsList.Clear();
             OnPropertyChanged(nameof(TempMenuItemsList));
         }
+        private void UpdateCustomerName()
+        {
+            // Use the selected customer ID to retrieve the customer name from your data source
+            // Replace this with your actual logic to fetch customer name based on ID
+            var customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
+            if(customer!=null)
+            {
+                CustomerName = customer.FullName.ToString(); // Update CustomerName property
+            }
+            else
+            {
+                CustomerName=null;
+            }
+        }
+
+        private void ConfirmItem()
+        {
+            if (SelectedTableItem == null || CustomerName == null || SelectedCustomerId == null)
+            {
+                Console.WriteLine("Please enter complete information.");
+            }
+            else
+            {
+                Customers customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
+
+                Employees employee = _Employees.Find(em => em.EmployeeId == Const.Instance.UserId).FirstOrDefault();
+
+                string tableIdSelected = SelectedTableItem.ToString();
+
+                Tables table = _Tables.Find(c => c.TableName == tableIdSelected).FirstOrDefault();
+
+                // Set the Status to true
+                table.Status = true;
+
+                // Update the table status in the MongoDB collection
+                var tableFilter = Builders<Tables>.Filter.Eq(t => t.TableName, tableIdSelected);
+                var update = Builders<Tables>.Update.Set(t => t.Status, true);
+                _Tables.UpdateOne(tableFilter, update);
+
+
+                string invoiceId = GenerateRandomInvoiceId();
+                // Create the Invoice with the total amount
+                Invoices Invoice = new Invoices
+                {
+                    InvoiceId = invoiceId,
+                    Employee = employee,
+                    Customer = customer,
+                    Table = table,
+                    CreatedDate = DateTime.Now,
+                    Status = false
+                };
+                _Invoices.InsertOne(Invoice);
+
+                // Calculate the total amount
+                double totalAmount = 0;
+
+                foreach (var tempInvoiceDetail in TempMenuItemsList)
+                {
+                    string invoiceDetailsId = GenerateRandomInvoiceDetailId(invoiceId);
+                    MenuItems tempMenuItem = tempInvoiceDetail.MenuItem;
+                    int tempQuantity = tempInvoiceDetail.Quantity;
+
+                    // Create InvoiceDetail
+                    InvoiceDetails invoiceDetail = new InvoiceDetails
+                    {
+                        InvoiceDetailId = invoiceDetailsId,
+                        Invoice = Invoice,
+                        Item = tempMenuItem,
+                        Quantity = tempQuantity,
+                        Amount = tempMenuItem.Price * tempQuantity,
+                    };
+                    _InvoiceDetails.InsertOne(invoiceDetail);
+
+                    // Sum up the Amount
+                    totalAmount += invoiceDetail.Amount;
+                }
+
+                // Define the filter to find the specific invoice
+                var filter = Builders<Invoices>.Filter.Eq(i => i.InvoiceId, invoiceId);
+
+                // Define the update to set the new TotalAmount value
+                var updateTotalAmount = Builders<Invoices>.Update.Set(i => i.TotalAmount, totalAmount);
+
+                // Perform the update operation
+                _Invoices.UpdateOne(filter, updateTotalAmount);
+
+                SelectedTableItem = null;
+                CustomerName = null;
+                SelectedCustomerId = null;
+                LoadTable();
+                DeleteAllItem();
+            }
+        }
+
+
+        string GenerateRandomInvoiceId()
+        {
+            // Lấy `InvoiceId` lớn nhất hiện có
+            var maxInvoiceId = _Invoices.AsQueryable()
+                .OrderByDescending(i => i.InvoiceId)
+                .FirstOrDefault()?.InvoiceId;
+
+            // Tạo `InvoiceId` mới với số thứ tự kế tiếp
+            string newInvoiceId = GenerateNextInvoiceId(maxInvoiceId);
+
+            // Kiểm tra nếu `InvoiceId` mới đã tồn tại
+            while (CheckInvoice(newInvoiceId))
+            {
+                newInvoiceId = GenerateNextInvoiceId(newInvoiceId);
+            }
+
+            return newInvoiceId;
+        }
+
+        string GenerateNextInvoiceId(string currentMaxInvoiceId)
+        {
+            if (string.IsNullOrEmpty(currentMaxInvoiceId))
+            {
+                return "INV1";
+            }
+
+            // Trích xuất số từ `InvoiceId` lớn nhất hiện có
+            string maxNumberStr = currentMaxInvoiceId.Substring(3);
+            if (int.TryParse(maxNumberStr, out int maxNumber))
+            {
+                // Tạo `InvoiceId` mới với số thứ tự kế tiếp
+                return "INV" + (maxNumber + 1).ToString();
+            }
+
+            // Trong trường hợp không thành công, trả về `INV1`
+            return "INV1";
+        }
+
+        bool CheckInvoice(string invoiceId)
+        {
+            return _Invoices.AsQueryable().Any(temp => temp.InvoiceId == invoiceId);
+        }
+
+        string GenerateInvoiceDetailId(string invoiceId, int detailNumber)
+        {
+            // Tạo `InvoiceDetailId` từ `invoiceId` và `detailNumber`
+            return $"{invoiceId}_DET{detailNumber}";
+        }
+
+        string GenerateRandomInvoiceDetailId(string invoiceId)
+        {
+            // Lấy `InvoiceDetailId` lớn nhất cho `invoiceId` hiện có
+            var maxDetailId = _InvoiceDetails.AsQueryable()
+                .Where(d => d.Invoice.InvoiceId == invoiceId)
+                .OrderByDescending(d => d.InvoiceDetailId)
+                .FirstOrDefault()?.InvoiceDetailId;
+
+            // Trích xuất số từ `InvoiceDetailId` lớn nhất hiện có
+            string maxNumberStr = maxDetailId?.Substring(invoiceId.Length + 4);
+            if (int.TryParse(maxNumberStr, out int maxNumber))
+            {
+                // Tạo `InvoiceDetailId` mới với số thứ tự kế tiếp
+                int newDetailNumber = maxNumber + 1;
+                string newDetailId = GenerateInvoiceDetailId(invoiceId, newDetailNumber);
+
+                // Kiểm tra nếu `InvoiceDetailId` mới đã tồn tại
+                while (CheckInvoiceDetail(newDetailId))
+                {
+                    newDetailNumber++;
+                    newDetailId = GenerateInvoiceDetailId(invoiceId, newDetailNumber);
+                }
+
+                return newDetailId;
+            }
+
+            // Trong trường hợp không thành công, trả về `InvoiceId_DET1`
+            return GenerateInvoiceDetailId(invoiceId, 1);
+        }
+
+        bool CheckInvoiceDetail(string invoiceDetailId)
+        {
+            return _InvoiceDetails.AsQueryable().Any(temp => temp.InvoiceDetailId == invoiceDetailId);
+        }
+
     }
 }
