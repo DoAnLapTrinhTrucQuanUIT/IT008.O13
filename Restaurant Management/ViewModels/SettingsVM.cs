@@ -231,24 +231,6 @@ namespace Restaurant_Management.ViewModels
             window.ShowDialog();
         }
 
-        private BitmapImage ConvertByteArrayToBitmapImage(byte[] byteArray)
-        {
-            if (byteArray == null || byteArray.Length == 0)
-                return null;
-
-            BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream stream = new MemoryStream(byteArray))
-            {
-                stream.Position = 0;
-                bitmapImage.BeginInit();
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = stream;
-                bitmapImage.EndInit();
-            }
-
-            return bitmapImage;
-        }
-
         private void _BrowseImage(SettingsView parameter)
         {
             try
