@@ -122,7 +122,8 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Margin="0 0 20 0">
-                                                <local:FoodCard FoodName="{Binding Name}" 
+                                                <local:FoodCard FoodId="{Binding ItemId}"
+                                                                FoodName="{Binding Name}" 
                                                                 FoodImage="{Binding Image}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick">
@@ -158,7 +159,8 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Margin="0 0 20 0">
-                                                <local:FoodCard FoodName="{Binding Name}" 
+                                                <local:FoodCard FoodId="{Binding ItemId}"
+                                                                FoodName="{Binding Name}" 
                                                                 FoodImage="{Binding Image}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick">
@@ -194,7 +196,8 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Margin="0 0 20 0">
-                                                <local:FoodCard FoodName="{Binding Name}" 
+                                                <local:FoodCard FoodId="{Binding ItemId}"
+                                                                FoodName="{Binding Name}" 
                                                                 FoodImage="{Binding Image}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick"/>
@@ -228,10 +231,11 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Margin="0 0 20 0">
-                                                <local:FoodCard FoodName="{Binding Name}" 
-                                                            FoodImage="{Binding Image}" 
-                                                            FoodPrice="{Binding Price}"
-                                                            AddButtonClick="FoodCard_AddButtonClick"/>
+                                                <local:FoodCard FoodId="{Binding ItemId}"
+                                                                FoodName="{Binding Name}"
+                                                                FoodImage="{Binding Image}"
+                                                                FoodPrice="{Binding Price}"
+                                                                AddButtonClick="FoodCard_AddButtonClick" />
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -262,10 +266,11 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border Margin="0 0 20 0">
-                                                <local:FoodCard FoodName="{Binding Name}" 
-                                                            FoodImage="{Binding Image}" 
-                                                            FoodPrice="{Binding Price}"
-                                                            AddButtonClick="FoodCard_AddButtonClick"/>
+                                                <local:FoodCard FoodId="{Binding ItemId}"
+                                                                FoodName="{Binding Name}"
+                                                                FoodImage="{Binding Image}"
+                                                                FoodPrice="{Binding Price}"
+                                                                AddButtonClick="FoodCard_AddButtonClick" />
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
