@@ -9,9 +9,7 @@
              Width="Auto"
              Height="Auto"
              Style="{StaticResource Page_Style}">
-
-        <Border Background="WhiteSmoke">
+    <Border Background="WhiteSmoke">
             
-        </Border>
-
+    </Border>
 </UserControl>

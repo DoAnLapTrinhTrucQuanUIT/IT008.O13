@@ -75,44 +75,37 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<Employees>("Employees");
         }
 
-       
+
         private void _Login(LoginWindow p)
         {
             if (EmployeeId != null && !string.IsNullOrEmpty(Password))
             {
                 var user = GetUser(EmployeeId);
 
-                if (user == null)
+                if (user == null || Password != user.Password)
                 {
                     MessageBox.Show("Sai tên tài khoản hoặc mật khẩu.");
                     return;
                 }
 
-                if (Password == user.Password)
-                {
-                    Const.Instance.SetUser(EmployeeId);
+                Const.Instance.SetUser(EmployeeId);
 
-                    Task.Run(() =>
+                Task.Run(() =>
+                {
+                    // Hiển thị MainWindow trên luồng UI
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        // Hiển thị MainWindow trên luồng UI
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            MainWindow mainWindow = new MainWindow();
-                            mainWindow.Show();
-                        });
-
-                        // Đóng LoginWindow trên luồng UI
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            IsLogin = true;
-                            p.Close();
-                        });
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
                     });
-                }
-                else
-                {
-                    MessageBox.Show("Sai tên tài khoản hoặc mật khẩu.");
-                }
+
+                    // Đóng LoginWindow trên luồng UI
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        IsLogin = true;
+                        p.Close();
+                    });
+                });
             }
             else
             {
@@ -120,14 +113,13 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        public Action CloseAction { get; set; }
-
         private Employees GetUser(string employeeId)
         {
-            var filter = Builders<Employees>.Filter.Eq(u => u.EmployeeId, employeeId);
-            return _Employees.Find(filter).FirstOrDefault();
+            return _Employees.Find(u => u.EmployeeId == employeeId).FirstOrDefault();
         }
 
+   
+        public Action CloseAction { get; set; }
         void _ForgetPassword()
         {
             ForgetPasswordView forgetPassControl = new ForgetPasswordView();

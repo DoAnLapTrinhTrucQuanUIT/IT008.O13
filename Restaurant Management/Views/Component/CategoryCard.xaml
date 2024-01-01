@@ -32,19 +32,23 @@
         </Border.Style>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
             <Grid Grid.Row="0">
-                <Image Source="{Binding CategoryImage}" Width="24" Height="24"/>
+                <Image Width="64"
+                       Height="64"
+                       Source="{Binding CategoryImage, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                       Stretch="UniformToFill"/>
             </Grid>
             
             <Grid Grid.Row="1">
                 <TextBlock Text="{Binding Text,RelativeSource={RelativeSource AncestorType={x:Type local:CategoryCard}}}" 
-                           FontSize="12" 
+                           FontSize="14"
+                           TextWrapping="Wrap"
                            FontWeight="Medium" 
                            FontFamily="Roboto" 
                            TextAlignment="Center"/>

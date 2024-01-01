@@ -29,15 +29,14 @@
             <Border Grid.Row="0" 
                     Padding="20">
                 <Grid>
-                    <Grid>
-                        <Image Stretch="UniformToFill" Source="/Views/Component/Assets/Images/Logo_NoBackground.png"/>
-                    </Grid>
+                    <Image Stretch="UniformToFill" 
+                           Source="/Views/Assets/Logo_NoBackground.png"/>
                 </Grid>
             </Border>
           
             <!--Menu-->
             <Grid Grid.Row="1"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding MenuCommand}"
                       GroupName="ButtonGroup">
@@ -68,7 +67,7 @@
             
             <!--Table-->
             <Grid Grid.Row="2"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding TableCommand}"
                       GroupName="ButtonGroup">
@@ -99,7 +98,7 @@
             
             <!--Customer-->
             <Grid Grid.Row="3"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding CustomerCommand}"
                       GroupName="ButtonGroup">
@@ -130,7 +129,7 @@
          
             <!--Staff Information-->
             <Grid Grid.Row="4"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding StaffInformationCommand}"
                       GroupName="ButtonGroup">
@@ -161,7 +160,7 @@
             
             <!--Salary-->
             <Grid Grid.Row="5"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SalaryCommand}"
                       GroupName="ButtonGroup">
@@ -192,7 +191,7 @@
         
             <!--Products-->
             <Grid Grid.Row="6"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ProductCommand}"
                       GroupName="ButtonGroup">
@@ -223,7 +222,7 @@
     
             <!--Invoices-->
             <Grid Grid.Row="7"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InvoiceCommand}"
                       GroupName="ButtonGroup">
@@ -254,7 +253,7 @@
             
             <!--Settings-->
             <Grid Grid.Row="8"
-                  Margin="0 20">
+                  Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SettingCommand}"
                       GroupName="ButtonGroup">
