@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Restaurant_Management.Models;
 using System.Security.Permissions;
 using Restaurant_Management.Views;
+using System.Windows;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -62,5 +63,22 @@ namespace Restaurant_Management.ViewModels
 
             CurrentView = new EmptyView();
         }
+        public void Decentralization(MainWindow mainWindow)
+        {
+            if (mainWindow.DataContext is NavigationVM navigationVM)
+            {
+                if (navigationVM.CurrentUser != null && navigationVM.CurrentUser.IsAdmin)
+                {
+                    mainWindow.AdminLeftSidebar.Visibility = Visibility.Visible;
+                    mainWindow.StaffLeftSidebar.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    mainWindow.AdminLeftSidebar.Visibility = Visibility.Collapsed;
+                    mainWindow.StaffLeftSidebar.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
     }
 }

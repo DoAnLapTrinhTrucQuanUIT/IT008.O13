@@ -14,9 +14,13 @@
         WindowStyle="None"
         Background="White"
         Width="1440"
-        Height="810">
+        Height="810" Loaded="Window_Loaded"
+        >
+    <Window.Resources>
+        <vm:LoginVM x:Key="LoginVMResource" />
+    </Window.Resources>
     <Window.DataContext>
-        <vm:NavigationVM />
+        <vm:NavigationVM x:Name="NavigationVM"/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,7 +30,11 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!--Left Sidebar-->
-        <views:LeftSidebarView Grid.Column="0" />
+        <Grid Grid.Column="0">
+            <views:LeftSidebarView x:Name="AdminLeftSidebar" Visibility="Collapsed"/>
+            <component:StaffLeftSidebarView x:Name="StaffLeftSidebar" Visibility="Collapsed"/>
+        </Grid>
+
 
         <!--Main Page-->
         <Grid Grid.Column="1">
