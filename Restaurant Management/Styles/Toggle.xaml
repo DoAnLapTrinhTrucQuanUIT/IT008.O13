@@ -64,13 +64,13 @@
                         <Trigger Property="IsChecked"
                                  Value="True">
                             <Setter Property="Background"
-                                    Value="#6750A4" />
+                                    Value="#FFB9B9" />
                             <Setter TargetName="toggleBorder"
                                     Property="Background"
-                                    Value="#6750A4" />
+                                    Value="#FFB9B9" />
                             <Setter TargetName="toggleBorder"
                                     Property="BorderBrush"
-                                    Value="#6750A4" />
+                                    Value="#FFB9B9" />
                         </Trigger>
                         <Trigger Property="IsChecked"
                                  Value="False">

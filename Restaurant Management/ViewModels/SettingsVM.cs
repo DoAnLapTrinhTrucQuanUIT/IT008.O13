@@ -135,6 +135,11 @@ namespace Restaurant_Management.ViewModels
             UpdateProfileCommand = new RelayCommand<SettingsView>((p) => true, (p) => _UpdateProfile());
             ChangePassCommand = new RelayCommand<SettingsView>((p) => true, (p) => _ChangePass());
         }
+        private void OnReloadRequested(object sender, EventArgs e)
+        {
+            MessageBox.Show("Profile update");
+        }
+
         private IMongoCollection<Employees> GetMongoCollection()
         {
             // Set your MongoDB connection string and database name
@@ -243,25 +248,48 @@ namespace Restaurant_Management.ViewModels
 
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    string imagePath = openFileDialog.FileName;
+                    MessageBoxResult confirmReload = MessageBox.Show("Reload to update profile image", "Notification", MessageBoxButton.OKCancel);
 
-                    // Load the image and set it to the Image control
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.UriSource = new Uri(imagePath);
-                    bitmapImage.EndInit();
+                    if (confirmReload == MessageBoxResult.OK)
+                    {
+                        string imagePath = openFileDialog.FileName;
 
-                    // Update local AvatarImageSource
-                    AvatarImageSource = bitmapImage;
+                        // Load the image and set it to the Image control
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.UriSource = new Uri(imagePath);
+                        bitmapImage.EndInit();
 
-                    // Update AvatarImageSource in MongoDB
-                    UpdateAvatarInMongoDB(ConvertBitmapImageToByteArray(bitmapImage));
+                        // Update local AvatarImageSource
+                        AvatarImageSource = bitmapImage;
+
+                        // Update AvatarImageSource in MongoDB
+                        UpdateAvatarInMongoDB(ConvertBitmapImageToByteArray(bitmapImage));
+
+                        ReloadWindow();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ReloadWindow()
+        {
+            var currentMainWindow = App.Current.MainWindow;
+            App.Current.MainWindow = null;
+
+            var newMainWindow = new MainWindow();
+            App.Current.MainWindow = newMainWindow;
+            newMainWindow.Show();
+
+            currentMainWindow.Close();
         }
 
         private void UpdateAvatarInMongoDB(byte[] newAvatarBytes)

@@ -25,15 +25,7 @@ namespace Restaurant_Management.Views.Component
         {
             InitializeComponent();
         }
-        public static readonly DependencyProperty FoodImageProperty =
-           DependencyProperty.Register("FoodImage", typeof(ImageSource), typeof(ProductCard));
-
-        public ImageSource FoodImage
-        {
-            get { return (ImageSource)GetValue(FoodImageProperty); }
-            set { SetValue(FoodImageProperty, value); }
-        }
-
+      
         public static readonly DependencyProperty FoodNameProperty =
             DependencyProperty.Register("FoodName", typeof(string), typeof(ProductCard));
 
@@ -52,5 +44,13 @@ namespace Restaurant_Management.Views.Component
             set { SetValue(FoodPriceProperty, value); }
         }
 
+        public static readonly DependencyProperty FoodDescriptionProperty =
+       DependencyProperty.Register("FoodDescription", typeof(string), typeof(ProductCard));
+
+        public string FoodDescription
+        {
+            get { return (string)GetValue(FoodDescriptionProperty); }
+            set { SetValue(FoodDescriptionProperty, value); }
+        }
     }
 }

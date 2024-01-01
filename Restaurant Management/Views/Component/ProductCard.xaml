@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
              mc:Ignorable="d" 
-             MaxWidth="250"
-             MaxHeight="250">
+             Width="250"
+             Height="250">
     <Border x:Name="foodCardBorder" 
             Padding="20" 
             Background="White" 
@@ -15,28 +15,31 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!--Food Image-->
-            <Grid Grid.Row="0">
-                <Image x:Name="foodImage"
-                       Width="Auto"
-                       MaxHeight="120"
-                       Stretch="Uniform"
-                       Source="{Binding FoodImage, RelativeSource={RelativeSource AncestorType={x:Type local:ProductCard}}}"/>
-            </Grid>
-
             <!--Food name-->
-            <Grid Grid.Row="1" 
-                  Margin="0 20 0 0">
+            <Grid Grid.Row="0">
                 <TextBlock x:Name="foodName" 
+                           TextWrapping="Wrap"
                            Text="{Binding FoodName, RelativeSource={RelativeSource AncestorType={x:Type local:ProductCard}}}" 
                            Foreground="Black" 
                            FontSize="14" 
                            FontFamily="Roboto" 
                            FontWeight="Medium"/>
+            </Grid>
+
+            <!--Food description-->
+            <Grid Grid.Row="1" 
+                  Margin="0 20 0 0">
+                <TextBlock x:Name="foodDescription" 
+                           TextWrapping="Wrap"
+                           Text="{Binding FoodDescription, RelativeSource={RelativeSource AncestorType={x:Type local:ProductCard}}}" 
+                           Foreground="Black" 
+                           FontSize="12" 
+                           FontFamily="Roboto" 
+                           FontWeight="Regular"/>
             </Grid>
 
             <!--Price & Add button-->
@@ -50,13 +53,13 @@
                     <TextBlock x:Name="foodPrice" 
                                Text="{Binding FoodPrice, RelativeSource={RelativeSource AncestorType={x:Type local:ProductCard}}}" 
                                Foreground="Black" 
-                               FontSize="12" 
+                               FontSize="14" 
                                FontFamily="Roboto" 
-                               FontWeight="Regular" 
+                               FontWeight="Medium" 
                                VerticalAlignment="Center"/>
                 </Grid>
-              
             </Grid>
+
         </Grid>
     </Border>
 </UserControl>

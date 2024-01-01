@@ -185,7 +185,7 @@
                 </Grid>
 
                 <!-- Bottom section -->
-                <StackPanel Grid.Row="2">
+                <Grid Grid.Row="2">
                     <DataGrid x:Name="productDataGrid"
                           Margin="0 30 0 0"
                           ItemsSource="{Binding ItemList}"
@@ -253,30 +253,30 @@
                             Padding="20" 
                             Background="WhiteSmoke">
                         <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                            <ItemsControl 
-                                  ItemsSource="{Binding DisplayedFoodCards}"
-                                  
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
+                            <ItemsControl ItemsSource="{Binding DisplayedFoodCards}"
+                                          FlowDirection="LeftToRight" 
+                                          HorizontalAlignment="Stretch">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Margin="0 0 20 0">
+                                        <Border Margin="0 0 20 0"
+                                                CornerRadius="10">
                                             <component:ProductCard FoodName="{Binding Name}" 
-                                                                FoodPrice="{Binding Price}"
-                                                               FoodImage="{Binding FoodImageSource}">
+                                                                   FoodPrice="{Binding Price}"
+                                                                   FoodDescription="{Binding Description}">
                                             </component:ProductCard>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" />
+                                        <WrapPanel Orientation="Horizontal"
+                                                   MaxWidth="1400"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
                         </ScrollViewer>
                     </Border>
-                </StackPanel>
+                </Grid>
             </Grid>
         </Border>
     </Border>
