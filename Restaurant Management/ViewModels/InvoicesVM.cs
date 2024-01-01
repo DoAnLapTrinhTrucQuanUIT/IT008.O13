@@ -128,8 +128,8 @@ namespace Restaurant_Management.ViewModels
 
                 filter = filterBuilder.Or(
                     filterBuilder.Regex("invoiceId", new BsonRegularExpression(keyword, "i")),
-                    filterBuilder.Regex("paidEmployee.employeeId", new BsonRegularExpression(keyword, "i")),
-                    filterBuilder.Regex("paidCustomer.customerId", new BsonRegularExpression(keyword, "i"))
+                    filterBuilder.Regex("employee.employeeId", new BsonRegularExpression(keyword, "i")),
+                    filterBuilder.Regex("customer.customerId", new BsonRegularExpression(keyword, "i"))
                 );
                 var result = _Invoices.Find(filter).ToList();
                 temp = new ObservableCollection<Invoices>(result);

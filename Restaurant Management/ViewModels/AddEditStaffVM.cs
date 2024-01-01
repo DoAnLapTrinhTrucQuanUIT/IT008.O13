@@ -21,10 +21,37 @@ namespace Restaurant_Management.ViewModels
     public class AddEditStaffVM : ViewModelBase
     {
         private readonly IMongoCollection<Employees> _Employees;
+        private IMongoCollection<Employees> GetStaffCollection()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Employees>("Employees");
+        }
+
+        private readonly IMongoCollection<SalaryInformation> _SalaryInformation;
+        private IMongoCollection<SalaryInformation> GetSalaryInformation()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<SalaryInformation>("SalaryInformation");
+        }
 
         public AddEditStaffVM()
         {
             _Employees = GetStaffCollection();
+            _SalaryInformation = GetSalaryInformation();
             BrowseImageCommand = new RelayCommand<AddStaff>(p => true, p => _BrowseImage(p));
             CancelCommand = new RelayCommand<AddStaff>(p => true, p => _CancelCommand(p));
             ConfirmCommand = new RelayCommand<AddStaff>(p => true, p => _ConfirmCommand(p));
@@ -39,19 +66,6 @@ namespace Restaurant_Management.ViewModels
         public ICommand MinimizeWDCM { get; set; }
         public ICommand MoveWDCM { get; set; }
         public ICommand BrowseImageCommand { get; set; }
-
-        private IMongoCollection<Employees> GetStaffCollection()
-        {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
-
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(databaseName);
-
-            return database.GetCollection<Employees>("Employees");
-        }
 
         private void _BrowseImage(AddStaff parameter)
         {
@@ -82,21 +96,21 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private void _CancelCommand(AddStaff paramater)
+        private void _CancelCommand(AddStaff parameter)
         {
-            paramater.FullName.Clear();
-            paramater.Birthdate.SelectedDate = null;
-            paramater.PhoneNumber.Clear();
-            paramater.GenderComboBox.SelectedItem=null;
-            paramater.DepartmentComboBox.SelectedItem=null;
-            paramater.Email.Clear();
-            paramater.Address.Clear();
-            paramater.loadedImage = null;
+            parameter.FullName.Clear();
+            parameter.Birthdate.SelectedDate = null;
+            parameter.PhoneNumber.Clear();
+            parameter.GenderComboBox.SelectedItem = null;
+            parameter.DepartmentComboBox.SelectedItem = null;
+            parameter.Email.Clear();
+            parameter.Address.Clear();
+            parameter.loadedImage.Source = null;
         }
 
         private void _ConfirmCommand(AddStaff parameter)
         {
-            if (parameter.FullName.Text==""||parameter.PhoneNumber.Text==""||parameter.GenderComboBox.SelectedItem==null||parameter.DepartmentComboBox.SelectedItem==null|| parameter.Address.Text==""||parameter.Email.Text=="")
+            if (parameter.FullName.Text == "" || parameter.PhoneNumber.Text == "" || parameter.GenderComboBox.SelectedItem == null || parameter.DepartmentComboBox.SelectedItem == null || parameter.Address.Text == "" || parameter.Email.Text == "")
             {
                 MessageBox.Show("You did not enter enough information!", "Notification", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -104,7 +118,7 @@ namespace Restaurant_Management.ViewModels
             MessageBoxResult addCusNoti = System.Windows.MessageBox.Show("Do you want to add staff?", "Notification", MessageBoxButton.YesNoCancel);
             if (addCusNoti == MessageBoxResult.Yes)
             {
-                if (string.IsNullOrEmpty(parameter.FullName.Text) || string.IsNullOrEmpty(parameter.PhoneNumber.Text) || string.IsNullOrEmpty(parameter.GenderComboBox.Text) || string.IsNullOrEmpty(parameter.Address.Text) || string.IsNullOrEmpty(parameter.DepartmentComboBox.Text)||string.IsNullOrEmpty(parameter.Email.Text))
+                if (string.IsNullOrEmpty(parameter.FullName.Text) || string.IsNullOrEmpty(parameter.PhoneNumber.Text) || string.IsNullOrEmpty(parameter.GenderComboBox.Text) || string.IsNullOrEmpty(parameter.Address.Text) || string.IsNullOrEmpty(parameter.DepartmentComboBox.Text) || string.IsNullOrEmpty(parameter.Email.Text))
                 {
                     MessageBox.Show("Incomplete information!", "Notification");
                 }
@@ -114,7 +128,7 @@ namespace Restaurant_Management.ViewModels
                     var User = _Employees.Find(filter).FirstOrDefault();
                     if (User != null)
                     {
-                        MessageBox.Show("Customer already exists!", "Notification");
+                        MessageBox.Show("Employee already exists!", "Notification");
                     }
                     else
                     {
@@ -128,38 +142,60 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
-        
-        private void AddStaff(AddStaff paramater)
+
+        private void AddStaff(AddStaff parameter)
         {
-            // convert image into byte array
-            byte[] imageBytes = ConvertImageToBytes(paramater.loadedImage);
-            // Tạo một đối tượng Person mới
+            // Kiểm tra xem ảnh có được chọn hay không
+            byte[] imageBytes = null;
+            if (parameter.loadedImage.Source != null)
+            {
+                // Nếu ảnh được chọn, chuyển đổi ảnh thành byte array
+                imageBytes = ConvertImageToBytes(parameter.loadedImage);
+            }
+
+            // Tạo một đối tượng Employee mới
             var Employee = new Employees
             {
-                EmployeeId = GenerateRandomStaffId((paramater.DepartmentComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() == "Owner"),
-                FullName = paramater.FullName.Text.ToString(),
-                DateOfBirth = paramater.Birthdate.SelectedDate.Value,
-                PhoneNumber = paramater.PhoneNumber.Text.ToString(),
-                Gender = paramater.GenderComboBox.Text.ToString(),
-                Address = paramater.Address.Text.ToString(),
-                Email = paramater.Email.Text.ToString(),
-                Avatar = imageBytes,
+                EmployeeId = GenerateRandomStaffId((parameter.DepartmentComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() == "Owner"),
+                FullName = parameter.FullName.Text.ToString(),
+                DateOfBirth = parameter.Birthdate.SelectedDate.Value,
+                PhoneNumber = parameter.PhoneNumber.Text.ToString(),
+                Gender = parameter.GenderComboBox.Text.ToString(),
+                Address = parameter.Address.Text.ToString(),
+                Email = parameter.Email.Text.ToString(),
+                Avatar = imageBytes, // Ảnh có thể là null
                 DateOfJoining = DateTime.Now,
-                Password = 123.ToString(),
+                Password = "123", // Đổi thành chuỗi
                 IsActive = true,
-                IsAdmin = (paramater.DepartmentComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() == "Owner"
+                IsAdmin = (parameter.DepartmentComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() == "Owner"
             };
+
             // Thêm đối tượng vào collection
             _Employees.InsertOne(Employee);
-            MessageBox.Show("Customer added successfully.", "Notification");
-            paramater.FullName.Clear();
-            paramater.Birthdate.SelectedDate = null;
-            paramater.PhoneNumber.Clear();
-            paramater.GenderComboBox.SelectedItem=null;
-            paramater.DepartmentComboBox.SelectedItem=null;
-            paramater.Email.Clear();
-            paramater.Address.Clear();
+            MessageBox.Show("Employee added successfully.", "Notification");
+
+            // Thêm SalaryInformation
+            var salaryInformation = new SalaryInformation
+            {
+                Employees = Employee,
+                StartDate = DateTime.Now,
+                PayDate = DateTime.Now.AddDays(30),
+                WorkedDays = 0,
+                BasicSalary = 0
+            };
+            _SalaryInformation.InsertOne(salaryInformation);
+
+            // Xóa thông tin trên giao diện
+            parameter.FullName.Clear();
+            parameter.Birthdate.SelectedDate = null;
+            parameter.PhoneNumber.Clear();
+            parameter.GenderComboBox.SelectedItem = null;
+            parameter.DepartmentComboBox.SelectedItem = null;
+            parameter.Email.Clear();
+            parameter.Address.Clear();
+            parameter.loadedImage.Source = null; // Đặt ảnh về null
         }
+
         private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
         {
             // Convert the WPF Image to a MemoryStream
@@ -173,6 +209,7 @@ namespace Restaurant_Management.ViewModels
                 return ms.ToArray();
             }
         }
+
         private string GenerateRandomStaffId(bool isAdmin)
         {
             // Lấy `CustomerId` lớn nhất hiện có

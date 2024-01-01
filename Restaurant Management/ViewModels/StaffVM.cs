@@ -31,6 +31,17 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        private ObservableCollection<Employees> _searchEmployeeList;
+        public ObservableCollection<Employees> SearchEmployeeList
+        {
+            get { return _searchEmployeeList; }
+            set
+            {
+                _searchEmployeeList = value;
+                OnPropertyChanged(nameof(SearchEmployeeList));
+            }
+        }
+
         public ICommand SearchCM { get; set; }
         public ICommand AddStaffCM { get; set; }
         public ICommand ExportStaffCM { get; set; }
@@ -79,7 +90,7 @@ namespace Restaurant_Management.ViewModels
         private void _Search(StaffView parameter)
         {
             // Implementation for searching employees
-            ObservableCollection<Employees> temp = new ObservableCollection<Employees>();
+            SearchEmployeeList = new ObservableCollection<Employees>();
             if (!string.IsNullOrEmpty(parameter.txtSearch.Text))
             {
                 var filterBuilder = Builders<Employees>.Filter;
@@ -93,14 +104,14 @@ namespace Restaurant_Management.ViewModels
                     filterBuilder.Regex("phoneNumber", new BsonRegularExpression(keyword, "i"))
                 );
                 var result = _employees.Find(filter).ToList();
-                temp = new ObservableCollection<Employees>(result);
+                SearchEmployeeList = new ObservableCollection<Employees>(result);
             }
             else
             {
                 var result = _employees.Find(Builders<Employees>.Filter.Empty).ToList();
-                temp = new ObservableCollection<Employees>(result);
+                SearchEmployeeList = new ObservableCollection<Employees>(result);
             }
-            parameter.staffDataGrid.ItemsSource = temp;
+            parameter.staffDataGrid.ItemsSource = SearchEmployeeList;
         }
 
         private void _AddStaff()
@@ -141,9 +152,11 @@ namespace Restaurant_Management.ViewModels
                 csvContent.AppendLine("Employee ID,Full Name, Date of Birth, Phone Number, Gender, Email, Address, Date of Joining, Is Admin");
 
                 // Add employee data to the CSV content
-                foreach (var employee in EmployeeList)
+                foreach (var employee in SearchEmployeeList)
                 {
-                    csvContent.AppendLine($"{employee.EmployeeId},{employee.FullName},{employee.DateOfBirth},{employee.PhoneNumber},{employee.Gender},{employee.Email},{employee.Address},{employee.DateOfJoining},{(employee.IsAdmin ? "Owner" : "Staff")}");
+                    string formattedDateOfBirth = employee.DateOfBirth.ToString("dd/MM/yy");
+                    string formattedDateOfJoining = employee.DateOfJoining.ToString("dd/MM/yy");
+                    csvContent.AppendLine($"{employee.EmployeeId},{employee.FullName},{formattedDateOfBirth},{employee.PhoneNumber},{employee.Gender},{employee.Email},{employee.Address},{formattedDateOfJoining},{(employee.IsAdmin ? "Owner" : "Staff")}");
                 }
 
                 // Write the CSV content to the selected file
@@ -218,8 +231,6 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
-
-
 
         private void _DeleteEmployee(Employees employee)
         {

@@ -87,6 +87,18 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(CustomerList));
             }
         }
+
+        private ObservableCollection<Customers> _searchCustomerList;
+        public ObservableCollection<Customers> SearchCustomerList
+        {
+            get { return _searchCustomerList; }
+            set
+            {
+                _searchCustomerList = value;
+                OnPropertyChanged(nameof(SearchCustomerList));
+            }
+        }
+
         public ICommand SearchCM { get; set; }
         public ICommand AddCustomerCM { get; set; }
         public ICommand ExportCustomerCM { get; set; }
@@ -124,8 +136,8 @@ namespace Restaurant_Management.ViewModels
             CustomerList = new ObservableCollection<Customers>(customers);
         }
         void _Search(CustomerView parameter)
-        {
-            ObservableCollection<Customers> temp = new ObservableCollection<Customers>();
+        {   
+            SearchCustomerList = new ObservableCollection<Customers>();
             if (!string.IsNullOrEmpty(parameter.txtSearch.Text))
             {
                 var filterBuilder = Builders<Customers>.Filter;
@@ -139,14 +151,14 @@ namespace Restaurant_Management.ViewModels
                     filterBuilder.Regex("phoneNumber", new BsonRegularExpression(keyword, "i"))
                 );
                 var result = _Customers.Find(filter).ToList();
-                temp = new ObservableCollection<Customers>(result);
+                SearchCustomerList = new ObservableCollection<Customers>(result);
             }
             else
             {
                 var result = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();
-                temp = new ObservableCollection<Customers>(result);
+                SearchCustomerList = new ObservableCollection<Customers>(result);
             }
-            parameter.DataGridCustomers.ItemsSource = temp;
+            parameter.DataGridCustomers.ItemsSource = SearchCustomerList;
         }
 
         void _AddCustomer()
@@ -187,9 +199,10 @@ namespace Restaurant_Management.ViewModels
                 csvContent.AppendLine("Customer ID,Full Name, Address, Phone Number, Email, Gender, Registration Date, Sales");
 
                 // Add customer data to the CSV content
-                foreach (var customer in CustomerList)
+                foreach (var customer in SearchCustomerList)
                 {
-                    csvContent.AppendLine($"{customer.CustomerId},{customer.FullName},{customer.Address},{customer.PhoneNumber},{customer.Email},{customer.Gender},{customer.RegistrationDate},{customer.Sales}");
+                    string formattedRegistrationDate = customer.RegistrationDate.ToString("dd/MM/yy");
+                    csvContent.AppendLine($"{customer.CustomerId},{customer.FullName},{customer.Address},{customer.PhoneNumber},{customer.Email},{customer.Gender},{formattedRegistrationDate},{(int)customer.Sales}");
                 }
 
                 // Write the CSV content to the selected file

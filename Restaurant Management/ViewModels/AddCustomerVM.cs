@@ -23,15 +23,6 @@ namespace Restaurant_Management.ViewModels
         public ICommand MoveWDCM { get; set; }
 
         private readonly IMongoCollection<Customers> _Customers;
-        public AddCustomerVM()
-        {
-            _Customers = GetCustomers();
-            CancelCommand = new RelayCommand<AddCustomer>((p) => true, (p) => _CancelCommand(p));
-            ConfirmCommand = new RelayCommand<AddCustomer>((p) => true, (p) => _ConfirmCommand(p));
-            CloseWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _CloseWD(p));
-            MinimizeWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _MinimizeWD(p));
-            MoveWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _MoveWD(p));
-        }
         private IMongoCollection<Customers> GetCustomers()
         {
             // Set your MongoDB connection string and database name
@@ -44,6 +35,19 @@ namespace Restaurant_Management.ViewModels
 
             return database.GetCollection<Customers>("Customers");
         }
+
+       
+        public AddCustomerVM()
+        {
+            _Customers = GetCustomers();
+
+            CancelCommand = new RelayCommand<AddCustomer>((p) => true, (p) => _CancelCommand(p));
+            ConfirmCommand = new RelayCommand<AddCustomer>((p) => true, (p) => _ConfirmCommand(p));
+            CloseWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _CloseWD(p));
+            MinimizeWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _MinimizeWD(p));
+            MoveWDCM = new RelayCommand<AddCustomer>((p) => true, (p) => _MoveWD(p));
+        }
+
         void _CancelCommand(AddCustomer paramater)
         {
             paramater.FullName.Clear();
