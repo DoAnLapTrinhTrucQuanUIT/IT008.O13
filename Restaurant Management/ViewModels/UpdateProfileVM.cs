@@ -16,6 +16,7 @@ namespace Restaurant_Management.ViewModels
 {
     public class UpdateProfileVM : Utilities.ViewModelBase
     {
+
         private ObservableCollection<Employees> _employeeList;
         public ObservableCollection<Employees> EmployeeList
         {
@@ -57,7 +58,7 @@ namespace Restaurant_Management.ViewModels
         }
         void _ConfirmCommand(UpdateProfile paramater)
         {
-            MessageBoxResult updateProfileNotification = System.Windows.MessageBox.Show("Do you want to update profile ?", "Notification", MessageBoxButton.YesNoCancel);
+            MessageBoxResult updateProfileNotification = System.Windows.MessageBox.Show("Do you want to update profile ?", "Notification", MessageBoxButton.YesNo);
             if (updateProfileNotification == MessageBoxResult.Yes)
             {
                 var updateDefinitionBuilder = Builders<Employees>.Update;
@@ -99,27 +100,38 @@ namespace Restaurant_Management.ViewModels
                 {
                     MessageBox.Show("Profile updated successfully!", "Notification");
 
-                    var mainWindow = App.Current.MainWindow;
-                    App.Current.MainWindow = null;
-                    mainWindow.Close();
+                    var window = Window.GetWindow(paramater);
+                    if (window != null)
+                    {
+                        window.Close();
+                    }
 
-                    // Tạo mới một MainWindow và hiển thị nó
-                    var newMainWindow = new MainWindow();
-                    App.Current.MainWindow = newMainWindow;
-                    newMainWindow.Show();
+                    ReloadWindow();
                 }
                 else
                 {
                     MessageBox.Show("Failed to update profile.", "Notification");
                 }
-
-                var window = Window.GetWindow(paramater);
-                if (window != null)
-                {
-                    window.Close();
-                }
             }
         }
+
+        private void ReloadWindow()
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                var mainWindow = App.Current.MainWindow;
+                if (mainWindow != null)
+                {
+                    App.Current.MainWindow = null;
+                    mainWindow.Close();
+                }
+
+                var newMainWindow = new MainWindow();
+                App.Current.MainWindow = newMainWindow;
+                newMainWindow.Show();
+            });
+        }
+
         private UpdateDefinition<Employees> UpdateFieldIfNotEmpty<T>(Expression<Func<Employees, T>> field, T value)
         {
             return Builders<Employees>.Update.Set(field, value);
