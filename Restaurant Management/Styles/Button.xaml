@@ -12,7 +12,7 @@
                 <ControlTemplate TargetType="RadioButton">
                     <Border x:Name="border"
                             Height="Auto"
-                            Width="250"
+                            Width="Auto"
                             BorderThickness="0"
                             CornerRadius="10">
                         <Border.Background>

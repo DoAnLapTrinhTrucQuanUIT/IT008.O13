@@ -37,6 +37,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <HintPath>packages\AWSSDK.Core.3.7.100.14\lib\net45\AWSSDK.Core.dll</HintPath>
@@ -346,15 +350,12 @@
     <Compile Include="ViewModels\EditSalaryVM.cs" />
     <Compile Include="ViewModels\EmptyVM.cs" />
     <Compile Include="ViewModels\ForgetPasswordVM.cs" />
-    <Compile Include="ViewModels\InventoryOverviewVM.cs" />
     <Compile Include="ViewModels\InvoicesVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\MenuVM.cs" />
     <Compile Include="ViewModels\NavigationVM.cs" />
     <Compile Include="ViewModels\ProductsVM.cs" />
     <Compile Include="ViewModels\SalaryVM.cs" />
-    <Compile Include="ViewModels\SalesOverviewVM.cs" />
-    <Compile Include="ViewModels\ScheduleVM.cs" />
     <Compile Include="ViewModels\SettingsVM.cs" />
     <Compile Include="ViewModels\StaffInformationVM.cs" />
     <Compile Include="ViewModels\StaffVM.cs" />
@@ -615,7 +616,20 @@
   <ItemGroup>
     <Analyzer Include="packages\AWSSDK.SecurityToken.3.7.100.14\analyzers\dotnet\cs\AWSSDK.SecurityToken.CodeAnalysis.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Images\beverage.png" />
+    <Resource Include="Assets\Images\dessert.png" />
+    <Resource Include="Assets\Images\light-dish.png" />
+    <Resource Include="Assets\Images\appetizer.png" />
+    <Content Include="Assets\Images\main-course.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="icon.ico" />
+    <Resource Include="Views\Assets\Icon.png" />
+    <Resource Include="Views\Assets\Logo_Background.png" />
+    <Resource Include="Views\Assets\Logo_NoBackground.png" />
+    <Content Include="Views\Assets\video_logo.mp4" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\background.jpg" />
   </ItemGroup>

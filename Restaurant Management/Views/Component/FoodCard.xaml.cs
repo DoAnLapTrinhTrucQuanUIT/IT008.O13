@@ -42,14 +42,7 @@ namespace Restaurant_Management.Views
             InitializeComponent();
             AddButton.Click += OnAddButtonClick;
         }
-        public static readonly DependencyProperty FoodImageProperty =
-            DependencyProperty.Register("FoodImage", typeof(ImageSource), typeof(FoodCard));
-
-        public ImageSource FoodImage
-        {
-            get { return (ImageSource)GetValue(FoodImageProperty); }
-            set { SetValue(FoodImageProperty, value); }
-        }
+      
 
         public static readonly DependencyProperty FoodIdProperty =
             DependencyProperty.Register("FoodId", typeof(string), typeof(FoodCard));
@@ -67,6 +60,15 @@ namespace Restaurant_Management.Views
         {
             get { return (string)GetValue(FoodNameProperty); }
             set { SetValue(FoodNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty FoodDescriptionProperty =
+           DependencyProperty.Register("FoodDescription", typeof(string), typeof(FoodCard));
+
+        public string FoodDescription
+        {
+            get { return (string)GetValue(FoodDescriptionProperty); }
+            set { SetValue(FoodDescriptionProperty, value); }
         }
 
         public static readonly DependencyProperty FoodPriceProperty =

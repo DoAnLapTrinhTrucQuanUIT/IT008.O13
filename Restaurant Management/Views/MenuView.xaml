@@ -11,12 +11,21 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              mc:Ignorable="d" 
-             d:DesignWidth="1111"
-             d:DesignHeight="810"
+             d:DesignWidth="1511"
+             d:DesignHeight="1010"
              Style="{StaticResource Page_Style}">
     <UserControl.DataContext>
         <vm:MenuVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <!-- Define resources here -->
+        <BitmapImage x:Key="MainCourseImage" UriSource="/Assets/Images/main-course.png"/>
+        <BitmapImage x:Key="AppetizerImage" UriSource="/Assets/Images/appetizer.png"/>
+        <BitmapImage x:Key="LightDishImage" UriSource="/Assets/Images/light-dish.png"/>
+        <BitmapImage x:Key="DessertImage" UriSource="/Assets/Images/dessert.png"/>
+        <BitmapImage x:Key="BeverageImage" UriSource="/Assets/Images/beverage.png"/>
+    </UserControl.Resources>
+
     <Grid Background="#FFFFFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -57,16 +66,13 @@
                                            VerticalAlignment="Center"/>
                                 </Grid>
 
-                                <!--Sorted by Dropdown-->
-                                <Grid Grid.Column="1">
-                                    
-                                </Grid>
-
+                         
 
                             </Grid>
 
                             <!--Category card-->
-                            <Grid Grid.Row="1" Margin="0 0 0 50">
+                            <Grid Grid.Row="1" Margin="0 0 0 50"
+                                  DataContext="{Binding}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
@@ -76,23 +82,23 @@
                                 </Grid.ColumnDefinitions>
                                 <!--Pizza-->
                                 <local:CategoryCard x:Name="MainCourse"
-                                                    CategoryImage="{Binding}"
+                                                    CategoryImage="{StaticResource MainCourseImage}"
                                                     Text="Main Course" Grid.Column="0"/>
                                 <!--Fruits-->
                                 <local:CategoryCard x:Name="Appetizer"
-                                                    CategoryImage="{Binding}"
+                                                    CategoryImage="{StaticResource AppetizerImage}"
                                                     Text="Appetizer" Grid.Column="1"/>
                                 <!--Snacks-->
                                 <local:CategoryCard x:Name="LightDish"
-                                                    CategoryImage="{Binding}"
+                                                    CategoryImage="{StaticResource LightDishImage}"
                                                     Text="Light Dish" Grid.Column="2"/>
                                 <!--Veggies-->
                                 <local:CategoryCard x:Name="Dessert"
-                                                    CategoryImage="{Binding}"
+                                                    CategoryImage="{StaticResource DessertImage}"
                                                     Text="Dessert" Grid.Column="3"/>
                                 <!--Burger-->
                                 <local:CategoryCard x:Name="Beverage"
-                                                    CategoryImage="{Binding}"
+                                                    CategoryImage="{StaticResource BeverageImage}"
                                                     Text="Beverage" Grid.Column="4"/>
 
                             </Grid>
@@ -125,6 +131,7 @@
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}" 
                                                                 FoodImage="{Binding Image}" 
+                                                                FoodDescription="{Binding Description}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick">
                                                 </local:FoodCard>
@@ -162,6 +169,7 @@
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}" 
                                                                 FoodImage="{Binding Image}" 
+                                                                FoodDescription="{Binding Description}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick">
                                                 </local:FoodCard>
@@ -199,6 +207,7 @@
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}" 
                                                                 FoodImage="{Binding Image}" 
+                                                                FoodDescription="{Binding Description}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick"/>
                                             </Border>
@@ -233,6 +242,7 @@
                                             <Border Margin="0 0 20 0">
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}"
+                                                                FoodDescription="{Binding Description}" 
                                                                 FoodImage="{Binding Image}"
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick" />
@@ -267,6 +277,7 @@
                                         <DataTemplate>
                                             <Border Margin="0 0 20 0">
                                                 <local:FoodCard FoodId="{Binding ItemId}"
+                                                                FoodDescription="{Binding Description}" 
                                                                 FoodName="{Binding Name}"
                                                                 FoodImage="{Binding Image}"
                                                                 FoodPrice="{Binding Price}"
