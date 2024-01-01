@@ -346,15 +346,12 @@
     <Compile Include="ViewModels\EditSalaryVM.cs" />
     <Compile Include="ViewModels\EmptyVM.cs" />
     <Compile Include="ViewModels\ForgetPasswordVM.cs" />
-    <Compile Include="ViewModels\InventoryOverviewVM.cs" />
     <Compile Include="ViewModels\InvoicesVM.cs" />
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\MenuVM.cs" />
     <Compile Include="ViewModels\NavigationVM.cs" />
     <Compile Include="ViewModels\ProductsVM.cs" />
     <Compile Include="ViewModels\SalaryVM.cs" />
-    <Compile Include="ViewModels\SalesOverviewVM.cs" />
-    <Compile Include="ViewModels\ScheduleVM.cs" />
     <Compile Include="ViewModels\SettingsVM.cs" />
     <Compile Include="ViewModels\StaffInformationVM.cs" />
     <Compile Include="ViewModels\StaffVM.cs" />
@@ -377,9 +374,6 @@
     </Compile>
     <Compile Include="Views\Component\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Component\Customer.xaml.cs">
-      <DependentUpon>Customer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\EditItem.xaml.cs">
       <DependentUpon>EditItem.xaml</DependentUpon>
@@ -493,10 +487,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\ChangePassword.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Component\Customer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

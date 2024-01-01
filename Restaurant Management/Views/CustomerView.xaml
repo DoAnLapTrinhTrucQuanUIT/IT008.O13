@@ -14,7 +14,7 @@
              x:Name="CustomerWindow"
              xmlns:Component="clr-namespace:Restaurant_Management.Views.Component">
     <UserControl.DataContext>
-        <vm:CustomerVM/>
+        <vm:CustomerVM />
     </UserControl.DataContext>
 
     <UserControl.Resources>
@@ -94,30 +94,202 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+
+                    <!--Total Customer-->
                     <Grid Grid.Column="0">
-                        <Component:Customer Title="Total Customer"
-                                            Quantity="{Binding TotalCustomer}"
-                                            Percentage="{Binding Percent}"
-                                            Icon="AccountMultiple"
-                                            Foreground="#06F" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <!--Main icon-->
+                        <Grid Grid.Column="0"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="AccountMultiple"
+                                                   Width="80"
+                                                   Height="80"
+                                                   Margin="0 0 50 0"
+                                                   Foreground="#06F" />
+                        </Grid>
 
+                        <!--Main content-->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock Text="Total Customer"
+                                           Foreground="#999"
+                                           FontSize="30"
+                                           FontFamily="Roboto"
+                                           FontWeight="Light"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBlock Text="{Binding TotalCustomerQuantity}"
+                                           Foreground="#000"
+                                           FontSize="50"
+                                           FontFamily="Roboto"
+                                           FontWeight="Medium"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      Height="54">
+                                    <Icon:PackIconMaterial Kind="ArrowUp"
+                                                           HorizontalAlignment="Center"
+                                                           Height="30"
+                                                           VerticalAlignment="Center"
+                                                           Width="24"
+                                                           Foreground="Green">
+                                    </Icon:PackIconMaterial>
+                                </Grid>
+                                <Grid Grid.Column="0"
+                                      VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding TotalCustomerPercent, StringFormat={}{0:F2}%}"
+                                               FontSize="24"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium"
+                                               Foreground="Green">
+                                    </TextBlock>
+                                </Grid>
+
+                                <Grid Grid.Column="2"
+                                      VerticalAlignment="Center">
+                                    <TextBlock Text="this month"
+                                               Foreground="#000"
+                                               FontSize="24"
+                                               FontFamily="Roboto"
+                                               FontWeight="Light" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
 
-                    <Grid Grid.Column="1">
-                        <Component:Customer Title="New Customer"
-                                            Quantity="{Binding TotalCustomer}"
-                                            Percentage="{Binding Percent}"
-                                            Icon="AccountMultipleCheck"
-                                            Foreground="#11D200" />
-                    </Grid>
 
+                    <!--Total Customer-->
                     <Grid Grid.Column="2">
-                        <Component:Customer Title="Potential Customer"
-                                            Quantity="{Binding TotalCustomer}"
-                                            Percentage="{Binding Percent}"
-                                            Icon="AccountStar"
-                                            Foreground="#6100FF" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <!--Main icon-->
+                        <Grid Grid.Column="0"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="AccountMultipleCheck"
+                                                   Width="80"
+                                                   Height="80"
+                                                   Margin="0 0 50 0"
+                                                   Foreground="#06F" />
+                        </Grid>
+
+                        <!--Main content-->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock Text="New Customer"
+                                           Foreground="#999"
+                                           FontSize="30"
+                                           FontFamily="Roboto"
+                                           FontWeight="Light"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBlock Text="{Binding NewCustomerQuantity}"
+                                           Foreground="#000"
+                                           FontSize="50"
+                                           FontFamily="Roboto"
+                                           FontWeight="Medium"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      Height="54">
+                                    <Icon:PackIconMaterial HorizontalAlignment="Center"
+                                                           Height="30"
+                                                           VerticalAlignment="Center"
+                                                           Width="24">
+                                        <!-- Icon:PackIconMaterial Style -->
+                                        <Icon:PackIconMaterial.Style>
+                                            <Style TargetType="Icon:PackIconMaterial">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                 Value="True">
+                                                        <Setter Property="Kind"
+                                                                Value="ArrowUp" />
+                                                        <Setter Property="Foreground"
+                                                                Value="Green" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                 Value="False">
+                                                        <Setter Property="Kind"
+                                                                Value="ArrowDown" />
+                                                        <Setter Property="Foreground"
+                                                                Value="Red" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Icon:PackIconMaterial.Style>
+                                    </Icon:PackIconMaterial>
+                                </Grid>
+                                <Grid Grid.Column="0"
+                                      VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding NewCustomerPercent, StringFormat={}{0}%}"
+                                               FontSize="24"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium">
+                                        <!-- TextBlock Style -->
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                 Value="True">
+                                                        <Setter Property="Foreground"
+                                                                Value="Green" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                 Value="False">
+                                                        <Setter Property="Foreground"
+                                                                Value="Red" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+
+                                <Grid Grid.Column="2"
+                                      VerticalAlignment="Center">
+                                    <TextBlock Text="this month"
+                                               Foreground="#000"
+                                               FontSize="24"
+                                               FontFamily="Roboto"
+                                               FontWeight="Light" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
+
+
                 </Grid>
             </Border>
             <!--Main Section-->
@@ -182,7 +354,7 @@
                                         <TextBlock Grid.Column="1"
                                                    Text="Add new customer"
                                                    FontSize="15"
-                                                   FontWeight="SemiBold"/>
+                                                   FontWeight="SemiBold" />
                                     </Grid>
                                 </Border>
                                 <!--Add new customer trigger-->
@@ -193,7 +365,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Button>
-                            
+
                             <!--Export List of Customer Button-->
                             <Button Grid.Column="1"
                                     Style="{StaticResource addButton}"
@@ -213,7 +385,7 @@
                                         <TextBlock Grid.Column="1"
                                                    Text="Export from CSV"
                                                    FontSize="15"
-                                                   FontWeight="SemiBold"/>
+                                                   FontWeight="SemiBold" />
                                     </Grid>
                                 </Border>
                                 <!--Export customer trigger-->
@@ -244,7 +416,7 @@
                                         <TextBlock Grid.Column="1"
                                                    Text="Import from CSV"
                                                    FontSize="15"
-                                                   FontWeight="SemiBold"/>
+                                                   FontWeight="SemiBold" />
                                     </Grid>
                                 </Border>
                                 <!--Import customer trigger-->

@@ -15,26 +15,67 @@ using System.Windows.Documents;
 using Restaurant_Management.Views.Component;
 using System.Windows;
 using Microsoft.Win32;
+using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Restaurant_Management.ViewModels
 {
     public class CustomerVM : Utilities.ViewModelBase
     {
-        public string TotalCustomer
+        private bool _newStatus;
+        public bool NewStatus
         {
-            get { return GetTotalCustomerCount(); } // Đơn giản là đếm số lượng phần tử trong danh sách
+            get { return _newStatus; }
+            set
+            {
+                _newStatus = value;
+                OnPropertyChanged(nameof(NewStatus));
+            }
         }
 
-        public string Percent
+        private int _totalCustomerQuantity;
+        public int TotalCustomerQuantity
         {
-            get { return CalculatePercentage(); } // Hàm tính toán tỷ lệ phần trăm
+            get { return _totalCustomerQuantity; }
+            set
+            {
+                _totalCustomerQuantity = value;
+                OnPropertyChanged(nameof(TotalCustomerQuantity));
+            }
         }
 
-        public string Status
+        private double _totalCustomerPercent;
+        public double TotalCustomerPercent
         {
-            get { return CalculateStatus(); } // Hàm tính toán trạng thái
+            get { return _totalCustomerPercent; }
+            set
+            {
+                _totalCustomerPercent = value;
+                OnPropertyChanged(nameof(TotalCustomerPercent));
+            }
         }
 
+        private int _newCustomerQuantity;
+        public int NewCustomerQuantity
+        {
+            get { return _newCustomerQuantity; }
+            set
+            {
+                _newCustomerQuantity = value;
+                OnPropertyChanged(nameof(NewCustomerQuantity));
+            }
+        }
+
+        private double _newCustomerPercent;
+        public double NewCustomerPercent
+        {
+            get { return _newCustomerPercent; }
+            set
+            {
+                _newCustomerPercent = value;
+                OnPropertyChanged(nameof(NewCustomerPercent));
+            }
+        }
 
         private ObservableCollection<Customers> _customerList;
         public ObservableCollection<Customers> CustomerList
@@ -56,6 +97,7 @@ namespace Restaurant_Management.ViewModels
         public CustomerVM() 
         {
             _Customers = GetCustomers();
+            LoadCustomerBar();
             LoadCustomers();
             SearchCM = new RelayCommand<CustomerView>((p) => true, (p) => _Search(p));
             AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer());
@@ -119,6 +161,7 @@ namespace Restaurant_Management.ViewModels
             };
             window.ShowDialog();
             LoadCustomers();
+            LoadCustomerBar();
         }
 
         void _ExportCustomer()
@@ -240,18 +283,59 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
-        public string GetTotalCustomerCount()
-        {
-            return "1000";
-        }
-        private string CalculatePercentage()
-        {
-            return "345";
-        }
 
-        private string CalculateStatus()
+        private void LoadCustomerBar()
         {
-            return "57";
+            // Get the first day of the current month
+            DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+            // Get the last day of the previous month
+            DateTime lastDayOfPreviousMonth = firstDayOfMonth.AddDays(-1);
+
+            // Filter for customers registered in the previous month
+            var previousMonthFilter = Builders<Customers>.Filter.Gte("RegistrationDate", firstDayOfMonth.AddMonths(-1)) &
+                                      Builders<Customers>.Filter.Lte("RegistrationDate", lastDayOfPreviousMonth);
+
+            // Count the number of customers registered in the previous month
+            int totalNewCustomersPreviousMonth = (int)_Customers.CountDocuments(previousMonthFilter);
+
+            // Count the number of customers registered in this month
+            int totalCustomersQuantity = (int)_Customers.CountDocuments(Builders<Customers>.Filter.Empty);
+
+            // Count the number of new customers registered in the current month
+            int newCustomerQuantity = (int)_Customers.CountDocuments(Builders<Customers>.Filter.Gte("RegistrationDate", firstDayOfMonth));
+
+            double totalCustomerQuantityPreviousMonth = totalCustomersQuantity - newCustomerQuantity;
+
+            // Calculate the percentage of new customers compared to the previous month
+            double newCustomerPercent = 0;
+
+            if(totalNewCustomersPreviousMonth > 0)
+            {
+                if(totalNewCustomersPreviousMonth < newCustomerQuantity)
+                {
+                    NewStatus = true;
+                }
+                else
+                {
+                    NewStatus = false;
+                }
+                newCustomerPercent = Math.Abs((1- ((double)newCustomerQuantity / totalNewCustomersPreviousMonth))) * 100;
+            }
+            else
+            {
+                NewStatus = true;
+                newCustomerPercent = 100;
+            }
+
+            // Calculate the percentage of total customers compared to the previous month
+            double totalCustomerPercent = ((double)(newCustomerQuantity / totalCustomerQuantityPreviousMonth) * 100);
+
+            // Update properties
+            TotalCustomerQuantity = totalCustomersQuantity;
+            NewCustomerQuantity = newCustomerQuantity;
+            TotalCustomerPercent = totalCustomerPercent;
+            NewCustomerPercent = newCustomerPercent;
         }
     }
 }
