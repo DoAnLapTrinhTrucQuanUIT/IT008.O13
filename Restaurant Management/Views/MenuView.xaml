@@ -130,7 +130,6 @@
                                             <Border Margin="0 0 20 0">
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}" 
-                                                                FoodImage="{Binding Image}" 
                                                                 FoodDescription="{Binding Description}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick">
@@ -168,7 +167,6 @@
                                             <Border Margin="0 0 20 0">
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}" 
-                                                                FoodImage="{Binding Image}" 
                                                                 FoodDescription="{Binding Description}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick">
@@ -206,7 +204,6 @@
                                             <Border Margin="0 0 20 0">
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}" 
-                                                                FoodImage="{Binding Image}" 
                                                                 FoodDescription="{Binding Description}" 
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick"/>
@@ -243,7 +240,6 @@
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodName="{Binding Name}"
                                                                 FoodDescription="{Binding Description}" 
-                                                                FoodImage="{Binding Image}"
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick" />
                                             </Border>
@@ -279,7 +275,6 @@
                                                 <local:FoodCard FoodId="{Binding ItemId}"
                                                                 FoodDescription="{Binding Description}" 
                                                                 FoodName="{Binding Name}"
-                                                                FoodImage="{Binding Image}"
                                                                 FoodPrice="{Binding Price}"
                                                                 AddButtonClick="FoodCard_AddButtonClick" />
                                             </Border>
