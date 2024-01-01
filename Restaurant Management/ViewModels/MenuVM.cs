@@ -6,6 +6,7 @@ using Restaurant_Management.Views.Component;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -156,43 +157,39 @@ namespace Restaurant_Management.ViewModels
 
         private void LoadMenuItem()
         {
-            var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).ToList();
+            var projection = Builders<MenuItems>.Projection
+           .Exclude(item => item.Image);
+
+            var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).Project<MenuItems>(projection).ToList();
+
             ItemList = new ObservableCollection<MenuItems>(items);
 
-            // Sử dụng LINQ để nhóm mục theo danh mục
-            var groupedItems = items.GroupBy(item => item.Category);
-
-            // Khởi tạo danh sách cho mỗi danh mục
             MainCourseList = new ObservableCollection<MenuItems>();
             AppetizerList = new ObservableCollection<MenuItems>();
             LightDishList = new ObservableCollection<MenuItems>();
             DessertList = new ObservableCollection<MenuItems>();
             BeverageList = new ObservableCollection<MenuItems>();
 
-            // Duyệt qua từng nhóm và thêm vào danh sách tương ứng
-            foreach (var group in groupedItems)
+            foreach (var item in ItemList)
             {
-                foreach (var item in group)
+                switch (item.Category)
                 {
-                    switch (group.Key)
-                    {
-                        case "Main Course":
-                            MainCourseList.Add(item);
-                            break;
-                        case "Appetizer":
-                            AppetizerList.Add(item);
-                            break;
-                        case "Light Dish":
-                            LightDishList.Add(item);
-                            break;
-                        case "Dessert":
-                            DessertList.Add(item);
-                            break;
-                        case "Beverage":
-                            BeverageList.Add(item);
-                            break;
-                            // Các trường hợp khác nếu có
-                    }
+                    case "Main Course":
+                        MainCourseList.Add(item);
+                        break;
+                    case "Appetizer":
+                        AppetizerList.Add(item);
+                        break;
+                    case "Light Dish":
+                        LightDishList.Add(item);
+                        break;
+                    case "Dessert":
+                        DessertList.Add(item);
+                        break;
+                    case "Beverage":
+                        BeverageList.Add(item);
+                        break;
+                        // Các trường hợp khác nếu có
                 }
             }
         }
