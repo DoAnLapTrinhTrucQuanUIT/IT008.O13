@@ -33,12 +33,15 @@ namespace Restaurant_Management.ViewModels
         public ICommand AddItemCM { get; set; }
         public ICommand RemoveItemCommand { get; set; }
         public ICommand EditItemCommand { get; set; }
+
+        public ICommand ChangeViewModeCM { get; set; }
         public ProductsVM()
         {
             _MenuItems = GetMenuItems();
             LoadMenuItem();
             SearchCM = new RelayCommand<ProductsView>((p) => true, (p) => _Search(p));
-            AddItemCM = new RelayCommand<ProductsView>((p) => true, (p) => _AddCustomer(p));
+            AddItemCM = new RelayCommand<ProductsView>((p) => true, (p) => _AddItem(p));
+            ChangeViewModeCM = new RelayCommand<ProductsView>((p) => true, (p) =>  ChangeViewMode(p));
             RemoveItemCommand = new RelayCommand<MenuItems>((item) => true, (item) => _RemoveItem(item));
             EditItemCommand = new RelayCommand<MenuItems>((item) => true, (item) => _EditItem(item));
         }
@@ -56,8 +59,13 @@ namespace Restaurant_Management.ViewModels
         }
         private void LoadMenuItem()
         {
-            var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).ToList();
+            var projection = Builders<MenuItems>.Projection
+            .Exclude(item => item.Image);
+
+            var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).Project<MenuItems>(projection).ToList();
+
             ItemList = new ObservableCollection<MenuItems>(items);
+
         }
         private void _Search(ProductsView productsView)
         {
@@ -84,12 +92,12 @@ namespace Restaurant_Management.ViewModels
             }
             productsView.productDataGrid.ItemsSource = temp;
         }
-        private void _AddCustomer(ProductsView productsView)
+        private void _AddItem(ProductsView productsView)
         {
-            AddItem addStaff = new AddItem();
+            AddItem addItem = new AddItem();
             var window = new Window
             {
-                Content = addStaff,
+                Content = addItem,
                 SizeToContent = SizeToContent.WidthAndHeight,
                 WindowStyle = WindowStyle.None,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
@@ -128,5 +136,35 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+        // Trong code-behind của UserControl hoặc ViewModel (tùy thuộc vào thiết kế của bạn)
+        private bool isDataGridMode = true;
+
+        public IEnumerable<MenuItems> DisplayedFoodCards
+        {
+            get
+            {
+                return ItemList;
+            }
+        }
+
+        private void ChangeViewMode(ProductsView parameter)
+        {
+            isDataGridMode = !isDataGridMode;
+
+            if (isDataGridMode)
+            {
+                // Hiển thị DataGrid và ẩn ItemsControl
+                parameter.productDataGrid.Visibility = Visibility.Visible;
+                parameter.foodCardsItemsControl.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                // Hiển thị ItemsControl và ẩn DataGrid
+                parameter.productDataGrid.Visibility = Visibility.Collapsed;
+                parameter.foodCardsItemsControl.Visibility = Visibility.Visible;
+            }
+
+        }
+
     }
 }

@@ -38,6 +38,10 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <ObjectDataProvider x:Key="GreetingDataProvider" 
+                            ObjectType="{x:Type local:GreetingDataProvider}" 
+                            MethodName="GetRandomGreeting"/>
+        <local:AnimatedGradientOffsetConverter x:Key="AnimatedGradientOffsetConverter"/>
     </UserControl.Resources>
     <Border Padding="0 20 20 20"
             Background="#ffffff"
@@ -49,84 +53,113 @@
                                        CommandParameter="{Binding ElementName=NavigationBarWindow}"></i:InvokeCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <Grid HorizontalAlignment="Right">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid HorizontalAlignment="Left"
+                  Margin="100 0 0 0">
+                <!-- Greeting -->
+                <TextBlock Text="{Binding Source={StaticResource GreetingDataProvider}}" 
+           FontSize="16" 
+           FontWeight="Medium"
+           VerticalAlignment="Center"
+           HorizontalAlignment="Center"
+           Margin="0, -10, 0, 0"> <!-- Adjusted margin to raise the text -->
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="#FF9F9F" />
+                        <!-- Light gray color similar to the white background -->
+                    </TextBlock.Foreground>
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                        To="#BF3131" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
+            </Grid>
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <!--Avatar Image-->
-            <Grid Grid.Column="0">
-                <Border x:Name="avatarInnerBorder"
+                <!--Avatar Image-->
+                <Grid Grid.Column="0">
+                    <Border x:Name="avatarInnerBorder"
                         Width="40"
                         Height="40"
                         Background="Transparent"
                         BorderBrush="#D9D9D9"
                         BorderThickness="2"
                         CornerRadius="200">
-                    <Border.Clip>
-                        <EllipseGeometry RadiusX="20"
+                        <Border.Clip>
+                            <EllipseGeometry RadiusX="20"
                                          RadiusY="20"
                                          Center="20 20" />
-                    </Border.Clip>
-                    <Grid>
-                        <Image Stretch="Fill"
+                        </Border.Clip>
+                        <Grid>
+                            <Image Stretch="Fill"
                                Source="{Binding AvatarImageSource}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
 
-            </Grid>
-            <!--Name & Role-->
-            <Grid Grid.Column="1"
+                </Grid>
+                <!--Name & Role-->
+                <Grid Grid.Column="1"
                   Margin="20 0 0 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock Text="{Binding FullName}"
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock Text="{Binding FullName}"
                                Foreground="Black"
                                FontSize="14"
                                FontFamily="Roboto"
                                FontWeight="SemiBold"
                                TextAlignment="Left" />
-                </Grid>
-                <Grid Grid.Row="1">
-                    <TextBlock Text="{Binding IsAdmin}"
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <TextBlock Text="{Binding IsAdmin}"
                                Foreground="Black"
                                FontSize="12"
                                FontFamily="Roboto"
                                FontWeight="Regular"
                                TextAlignment="Left" />
+                    </Grid>
                 </Grid>
-            </Grid>
-            <!--Minimize & Close Button-->
-            <Grid Grid.Column="2"
+                <!--Minimize & Close Button-->
+                <Grid Grid.Column="2"
                   Margin="100 0 0 0"
                   VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <materialDesign:PackIcon x:Name="MinimizeIcon"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <materialDesign:PackIcon x:Name="MinimizeIcon"
                                              Kind="WindowMinimize"
                                              Width="20"
                                              Height="20"
                                              Margin="0 0 10 0"
                                              Style="{StaticResource IconStyle}"
                                              MouseLeftButtonDown="MinimizeButton_Click" />
-                </Grid>
-                <Grid Grid.Column="1">
-                    <materialDesign:PackIcon x:Name="CloseIcon"
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <materialDesign:PackIcon x:Name="CloseIcon"
                                              Kind="CloseThick"
                                              Width="20"
                                              Height="20"
                                              Style="{StaticResource IconStyle}"
                                              MouseLeftButtonDown="CloseButton_Click" />
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>

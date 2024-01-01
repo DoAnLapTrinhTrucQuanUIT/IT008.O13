@@ -11,24 +11,18 @@
     <DataTemplate DataType="{x:Type vm:CustomerVM}">
         <view:CustomerView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:ScheduleVM}">
-        <view:ScheduleView/>
-    </DataTemplate>
+   
     <DataTemplate DataType="{x:Type vm:StaffInformationVM}">
         <view:StaffView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:SalaryVM}">
         <view:SalaryView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:InventoryOverviewVM}">
-        <view:InventoryOverviewView/>
-    </DataTemplate>
+   
     <DataTemplate DataType="{x:Type vm:ProductsVM}">
         <view:ProductsView/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:SalesOverviewVM}">
-        <view:SalesOverviewView/>
-    </DataTemplate>
+  
     <DataTemplate DataType="{x:Type vm:InvoicesVM}">
         <view:InvoicesView/>
     </DataTemplate>

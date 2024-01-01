@@ -13,19 +13,13 @@
             BorderThickness="0 0 1 0">
         <Grid Background="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -33,36 +27,17 @@
 
             <!--Business Title and Logo-->
             <Border Grid.Row="0" 
-                Padding="20">
+                    Padding="20">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock Text="Only Food" 
-                               Foreground="#49454F" 
-                               FontSize="14" 
-                               FontFamily="Roboto" 
-                               FontWeight="Regular"/>
-                    </Grid>
-                    <Grid Grid.Column="1">
-
+                    <Grid>
+                        <Image Stretch="UniformToFill" Source="/Views/Component/Assets/Images/Logo_NoBackground.png"/>
                     </Grid>
                 </Grid>
             </Border>
-            <!--Core Operations-->
-            <Grid Grid.Row="1">
-                <Border Padding="20">
-                    <TextBlock Text="Core Operations" 
-                           Foreground="#49454F" 
-                           FontSize="14" 
-                           FontFamily="Roboto" 
-                           FontWeight="SemiBold"/>
-                </Border>
-            </Grid>
+          
             <!--Menu-->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding MenuCommand}"
                       GroupName="ButtonGroup">
@@ -73,15 +48,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" 
-                              Margin="0 0 6 0">
-                                <Icon:PackIconBoxIcons Kind="RegularFoodMenu"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconBoxIcons Kind="RegularFoodMenu"
+                                                       Width="14"
+                                                       Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1" 
-                              Margin="6 0 0 0">
+                              Margin="20 0 0 0">
                                 <TextBlock Text="Menu" 
                                        Foreground="#49454F" 
-                                       FontSize="12" 
+                                       FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Medium"/>
                             </Grid>
@@ -89,8 +65,10 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
+            
             <!--Table-->
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="2"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding TableCommand}"
                       GroupName="ButtonGroup">
@@ -101,15 +79,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" 
-                                  Margin="0 0 6 0">
-                                <Icon:PackIconMaterial Kind="TableFurniture"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconMaterial Kind="TableFurniture"
+                                                       Width="14"
+                                                       Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1"
-                                  Margin="6 0 0 0">
+                                  Margin="20 0 0 0">
                                 <TextBlock Text="Table" 
                                        Foreground="#49454F"
-                                       FontSize="12"
+                                       FontSize="14"
                                        FontFamily="Roboto" 
                                        FontWeight="Medium"/>
                             </Grid>
@@ -117,8 +96,10 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
+            
             <!--Customer-->
-            <Grid Grid.Row="4">
+            <Grid Grid.Row="3"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding CustomerCommand}"
                       GroupName="ButtonGroup">
@@ -129,15 +110,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0"
-                                  Margin="0 0 6 0">
-                                <Icon:PackIconMaterial Kind="AccountGroupOutline"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconMaterial Kind="AccountGroupOutline"
+                                                       Width="14"
+                                                       Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1"
-                                  Margin="6 0 0 0">
+                                  Margin="20 0 0 0">
                                 <TextBlock Text="Customer" 
                                        Foreground="#49454F"
-                                       FontSize="12"
+                                       FontSize="14"
                                        FontFamily="Roboto" 
                                        FontWeight="Medium"/>
                             </Grid>
@@ -145,48 +127,10 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
-            <!--Staff Management-->
-            <Grid Grid.Row="5">
-                <Border Padding="20"
-                        BorderBrush="#d9d9d9"
-                        BorderThickness="0 1 0 0">
-                    <TextBlock Text="Staff Management" 
-                           Foreground="#49454F" 
-                           FontSize="14" 
-                           FontFamily="Roboto" 
-                           FontWeight="SemiBold"/>
-                </Border>
-            </Grid>
-            <!--Schedule-->
-            <Grid Grid.Row="6">
-                <Menu:Btn Style="{StaticResource BtnStyle}"
-                      Command="{Binding ScheduleCommand}"
-                      GroupName="ButtonGroup">
-                    <Border VerticalAlignment="Center"
-                            Padding="20 15">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0"
-                              Margin="0 0 6 0">
-                                <Icon:PackIconUnicons Kind="CalendarAlt"/>
-                            </Grid>
-                            <Grid Grid.Column="1"
-                              Margin="6 0 0 0">
-                                <TextBlock Text="Schedule" 
-                                       Foreground="#49454F" 
-                                       FontSize="12" 
-                                       FontFamily="Roboto" 
-                                       FontWeight="Medium"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Menu:Btn>
-            </Grid>
+         
             <!--Staff Information-->
-            <Grid Grid.Row="7">
+            <Grid Grid.Row="4"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding StaffInformationCommand}"
                       GroupName="ButtonGroup">
@@ -197,15 +141,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0"
-                              Margin="0 0 6 0">
-                                <Icon:PackIconMaterial Kind="AccountDetailsOutline"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconMaterial Kind="AccountDetailsOutline"
+                                                       Width="14"
+                                                       Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1"
-                              Margin="6 0 0 0">
+                              Margin="20 0 0 0">
                                 <TextBlock Text="Staff Information" 
                                        Foreground="#49454F"
-                                       FontSize="12" 
+                                       FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Medium"/>
                             </Grid>
@@ -213,8 +158,10 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
+            
             <!--Salary-->
-            <Grid Grid.Row="8">
+            <Grid Grid.Row="5"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SalaryCommand}"
                       GroupName="ButtonGroup">
@@ -225,15 +172,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0"
-                              Margin="0 0 6 0">
-                                <Icon:PackIconMaterial Kind="WalletOutline"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconMaterial Kind="WalletOutline"
+                                                       Width="14"
+                                                       Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1"
-                              Margin="6 0 0 0">
+                              Margin="20 0 0 0">
                                 <TextBlock Text="Salary" 
                                        Foreground="#49454F" 
-                                       FontSize="12" 
+                                       FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Medium"/>
                             </Grid>
@@ -241,48 +189,10 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
-            <!--Stocks and Products-->
-            <Grid Grid.Row="9">
-                <Border Padding="20"
-                    BorderBrush="#d9d9d9"
-                    BorderThickness="0 1 0 0">
-                    <TextBlock Text="Stocks and Products" 
-                           Foreground="#49454F" 
-                           FontSize="14" 
-                           FontFamily="Roboto" 
-                           FontWeight="SemiBold"/>
-                </Border>
-            </Grid>
-            <!--Inventory Overview-->
-            <Grid Grid.Row="10">
-                <Menu:Btn Style="{StaticResource BtnStyle}"
-                      Command="{Binding InventoryOverviewCommand}"
-                      GroupName="ButtonGroup">
-                    <Border VerticalAlignment="Center" 
-                            Padding="20 15">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" 
-                              Margin="0 0 6 0">
-                                <Icon:PackIconVaadinIcons Kind="Stock"/>
-                            </Grid>
-                            <Grid Grid.Column="1"
-                              Margin="6 0 0 0">
-                                <TextBlock Text="Inventory" 
-                                       Foreground="#49454F" 
-                                       FontSize="12" 
-                                       FontFamily="Roboto" 
-                                       FontWeight="Medium"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Menu:Btn>
-            </Grid>
+        
             <!--Products-->
-            <Grid Grid.Row="11">
+            <Grid Grid.Row="6"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ProductCommand}"
                       GroupName="ButtonGroup">
@@ -293,15 +203,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0"
-                              Margin="0 0 6 0">
-                                <Icon:PackIconMaterial Kind="Food"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconMaterial Kind="Food"
+                                                       Width="14"
+                                                       Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1"
-                              Margin="6 0 0 0">
+                              Margin="20 0 0 0">
                                 <TextBlock Text="Products" 
                                        Foreground="#49454F" 
-                                       FontSize="12" 
+                                       FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Medium"/>
                             </Grid>
@@ -309,48 +220,10 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
-            <!--Sales and Finances-->
-            <Grid Grid.Row="12">
-                <Border Padding="20"
-                    BorderBrush="#d9d9d9"
-                    BorderThickness="0 1 0 0">
-                    <TextBlock Text="Sales and Finances" 
-                           Foreground="#49454F" 
-                           FontSize="14" 
-                           FontFamily="Roboto" 
-                           FontWeight="SemiBold"/>
-                </Border>
-            </Grid>
-            <!--Sales Overview-->
-            <Grid Grid.Row="13">
-                <Menu:Btn Style="{StaticResource BtnStyle}"
-                      Command="{Binding SalesOverviewCommand}"
-                      GroupName="ButtonGroup">
-                    <Border VerticalAlignment="Center" 
-                            Padding="20">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0"
-                              Margin="0 0 6 0">
-                                <Icon:PackIconUnicons Kind="ChartLine"/>
-                            </Grid>
-                            <Grid Grid.Column="1"
-                              Margin="6 0 0 0">
-                                <TextBlock Text="Sales Overview" 
-                                       Foreground="#49454F" 
-                                       FontSize="12" 
-                                       FontFamily="Roboto" 
-                                       FontWeight="Medium"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Menu:Btn>
-            </Grid>
+    
             <!--Invoices-->
-            <Grid Grid.Row="14">
+            <Grid Grid.Row="7"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InvoiceCommand}"
                       GroupName="ButtonGroup">
@@ -361,15 +234,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0"
-                              Margin="0 0 6 0">
-                                <Icon:PackIconUnicons Kind="Bill"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconUnicons Kind="Bill"
+                                                      Width="14"
+                                                      Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1"
-                              Margin="6 0 0 0">
+                              Margin="20 0 0 0">
                                 <TextBlock Text="Invoices" 
                                        Foreground="#49454F" 
-                                       FontSize="12" 
+                                       FontSize="14" 
                                        FontFamily="Roboto" 
                                        FontWeight="Medium"/>
                             </Grid>
@@ -377,8 +251,10 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
+            
             <!--Settings-->
-            <Grid Grid.Row="15">
+            <Grid Grid.Row="8"
+                  Margin="0 20">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SettingCommand}"
                       GroupName="ButtonGroup">
@@ -389,15 +265,16 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" 
-                              Margin="0 0 6 0">
-                                <Icon:PackIconUnicons Kind="Setting"/>
+                            <Grid Grid.Column="0">
+                                <Icon:PackIconUnicons Kind="Setting"
+                                                      Width="14"
+                                                      Height="14"/>
                             </Grid>
                             <Grid Grid.Column="1" 
-                              Margin="6 0 0 0">
+                              Margin="20 0 0 0">
                                 <TextBlock Text="Settings" 
                                        Foreground="#49454F"
-                                       FontSize="12" 
+                                       FontSize="14" 
                                        FontFamily="Roboto"
                                        FontWeight="Medium"/>
                             </Grid>
@@ -405,6 +282,7 @@
                     </Border>
                 </Menu:Btn>
             </Grid>
+            
         </Grid>
     </Border>
 
