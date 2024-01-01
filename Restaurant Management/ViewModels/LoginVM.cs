@@ -18,6 +18,17 @@ namespace Restaurant_Management.ViewModels
 {
     public class LoginVM : Utilities.ViewModelBase
     {
+        private bool _isAdmin;
+
+        public bool IsAdmin
+        {
+            get { return _isAdmin; }
+            set
+            {
+                _isAdmin = value;
+                OnPropertyChanged(nameof(IsAdmin));
+            }
+        }
         public static bool IsLogin { get; set; }
         private string _employeeId;
         private string _password;
@@ -78,6 +89,7 @@ namespace Restaurant_Management.ViewModels
 
         private void _Login(LoginWindow p)
         {
+            
             if (EmployeeId != null && !string.IsNullOrEmpty(Password))
             {
                 var user = GetUser(EmployeeId);
@@ -88,6 +100,8 @@ namespace Restaurant_Management.ViewModels
                     return;
                 }
 
+                IsAdmin = user.IsAdmin;
+
                 Const.Instance.SetUser(EmployeeId);
 
                 Task.Run(() =>
@@ -96,6 +110,13 @@ namespace Restaurant_Management.ViewModels
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         MainWindow mainWindow = new MainWindow();
+                        App.Current.MainWindow = mainWindow;
+
+                        if (Application.Current.MainWindow.DataContext is NavigationVM navigationVM)
+                        {
+                            navigationVM.CurrentUser = user;
+                        }
+
                         mainWindow.Show();
                     });
 
@@ -106,6 +127,7 @@ namespace Restaurant_Management.ViewModels
                         p.Close();
                     });
                 });
+                
             }
             else
             {
