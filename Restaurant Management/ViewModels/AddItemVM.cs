@@ -23,6 +23,7 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using System.Data.Common;
 using System.Globalization;
+using iTextSharp.text;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -36,7 +37,6 @@ namespace Restaurant_Management.ViewModels
         public ICommand BrowseImageCommand { get; set; }
 
         private readonly IMongoCollection<MenuItems> _MenuItems;
-
         public AddItemVM()
         {
             _MenuItems = GetMenuItems();
@@ -129,11 +129,10 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
-
         private void AddItem(AddItem parameter)
         {
-            // convert image into byte array
             // byte[] imageBytes = ConvertImageToBytes(parameter.loadedImage);
+            
             // Tạo một đối tượng MenuItems mới
             var menuItems = new MenuItems
             {
@@ -155,7 +154,6 @@ namespace Restaurant_Management.ViewModels
             // Clear the image in the loadedImage control
             parameter.loadedImage.Source = null;
         }
-
         private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
         {
             // Convert the WPF Image to a MemoryStream
@@ -169,7 +167,6 @@ namespace Restaurant_Management.ViewModels
                 return ms.ToArray();
             }
         }
-
         string GenerateRandomItemId()
         {
             var maxItemId = _MenuItems.AsQueryable()
@@ -185,7 +182,6 @@ namespace Restaurant_Management.ViewModels
 
             return newItemId;
         }
-
         string GenerateNextItemId(string currentMaxItemId)
         {
             if (string.IsNullOrEmpty(currentMaxItemId))
@@ -202,7 +198,6 @@ namespace Restaurant_Management.ViewModels
 
             return "DISHES1";
         }
-
         bool Check(string itemId)
         {
             return _MenuItems.AsQueryable().Any(temp => temp.ItemId == itemId);
@@ -215,7 +210,6 @@ namespace Restaurant_Management.ViewModels
                 window.Close();
             }
         }
-
         private void _MinimizeWD(AddItem parameter)
         {
             var window = Window.GetWindow(parameter);
@@ -224,7 +218,6 @@ namespace Restaurant_Management.ViewModels
                 window.WindowState = WindowState.Minimized;
             }
         }
-
         private void _MoveWD(AddItem parameter)
         {
             var window = Window.GetWindow(parameter);

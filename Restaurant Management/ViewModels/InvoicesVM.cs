@@ -31,13 +31,13 @@ namespace Restaurant_Management.ViewModels
         public double UNITPRICE { get; set; }
         public double TOTALAMOUNT { get; set; }
 
-        public BoughtItems(string ITEMID = "", string NAME = "", int QUANTITY = 0, double UNITPRICE = 0, double TOTALAMOUNT = 0)
+        public BoughtItems(string _ITEMID = "", string _NAME = "", int _QUANTITY = 0, double _UNITPRICE = 0, double _TOTALAMOUNT = 0)
         {
-            this.ITEMID = ITEMID;
-            this.NAME = NAME;
-            this.QUANTITY = QUANTITY;
-            this.UNITPRICE = UNITPRICE;
-            this.TOTALAMOUNT = TOTALAMOUNT;
+            this.ITEMID = _ITEMID;
+            this.NAME = _NAME;
+            this.QUANTITY = _QUANTITY;
+            this.UNITPRICE = _UNITPRICE;
+            this.TOTALAMOUNT = _TOTALAMOUNT;
         }
 
     }
@@ -64,7 +64,6 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(ListBoughtItems));
             }
         }
-        private readonly IMongoCollection<Invoices> _Invoices;
         public ICommand SearchInvoicesCommand { get; set; }
         public ICommand ExportInvoiceCommand { get; set; }
         public ICommand DeleteInvoiceCommand { get; set; }
@@ -85,6 +84,19 @@ namespace Restaurant_Management.ViewModels
 
             return database.GetCollection<InvoiceDetails>("InvoiceDetails");
         }
+        private readonly IMongoCollection<Invoices> _Invoices;
+        private IMongoCollection<Invoices> GetInvoices()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Invoices>("Invoices");
+        }
 
         public InvoicesVM()
         {
@@ -98,18 +110,7 @@ namespace Restaurant_Management.ViewModels
             PaidInvoicesCommand = new RelayCommand<InvoicesView>((p) => true, (p) => _PaidInvoices(p));
             UnpaidInvoicesCommand = new RelayCommand<InvoicesView>((p) => true, (p) => _UnpaidInvoices(p));
         }
-        private IMongoCollection<Invoices> GetInvoices()
-        {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
 
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(databaseName);
-
-            return database.GetCollection<Invoices>("Invoices");
-        }
         private void Load()
         {
             var invoices = _Invoices.Find(Builders<Invoices>.Filter.Empty).ToList();
@@ -148,7 +149,7 @@ namespace Restaurant_Management.ViewModels
             var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
 
             // Set the height of the PrintInvoiceView
-            print.Height = 300 + 35 * invoiceDetails.Count();
+            print.Height = 350 + 35 * invoiceDetails.Count();
 
             // Set data in the PrintInvoiceView
             print.CustomerID.Text = invoice.Customer.CustomerId.ToString();
@@ -159,17 +160,17 @@ namespace Restaurant_Management.ViewModels
             print.InvoiceID.Text = invoice.InvoiceId.ToString();
 
             ListBoughtItems = new ObservableCollection<BoughtItems>();
+
             foreach (var item in invoiceDetails)
-            { 
+            {
                 BoughtItems boughtItem = new BoughtItems
                 {
                     ITEMID = item.Item.ItemId, // Assumes ItemId is a string; adjust accordingly
                     NAME = item.Item.Name, // Assumes ItemName is the same for items with the same ItemId
-                    QUANTITY = item.Quantity,
+                    QUANTITY = item.Quantity, 
                     UNITPRICE = item.Item.Price, // Assumes UnitPrice is the same for items with the same ItemId
-                    TOTALAMOUNT = item.Amount,
+                    TOTALAMOUNT = item.Amount
                 };
-
                 ListBoughtItems.Add(boughtItem);
             }
             print.ListMenuItem.ItemsSource = ListBoughtItems;

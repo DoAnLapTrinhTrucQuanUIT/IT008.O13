@@ -44,6 +44,15 @@ namespace Restaurant_Management.Views
         }
       
 
+        public static readonly DependencyProperty FoodIdProperty =
+            DependencyProperty.Register("FoodId", typeof(string), typeof(FoodCard));
+
+        public string FoodId
+        {
+            get { return (string)GetValue(FoodIdProperty); }
+            set { SetValue(FoodIdProperty, value); }
+        }
+
         public static readonly DependencyProperty FoodNameProperty =
             DependencyProperty.Register("FoodName", typeof(string), typeof(FoodCard));
 

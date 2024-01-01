@@ -274,6 +274,7 @@ namespace Restaurant_Management.ViewModels
                 {
                     MenuItem = new MenuItems
                     {
+                        ItemId = foodCard.FoodId,
                         Name = foodCard.FoodName,
                         Price = foodCard.FoodPrice,
                         // Các thuộc tính khác nếu cần
@@ -376,7 +377,7 @@ namespace Restaurant_Management.ViewModels
         {
             if (SelectedTableItem == null || CustomerName == null || SelectedCustomerId == null)
             {
-                Console.WriteLine("Please enter complete information.");
+                System.Windows.MessageBox.Show("Please enter complete information!", "Notification");
             }
             else
             {
@@ -434,13 +435,12 @@ namespace Restaurant_Management.ViewModels
                     totalAmount += invoiceDetail.Amount;
                 }
 
-                // Define the filter to find the specific invoice
+                var customerFilter = Builders<Customers>.Filter.Eq(c => c.CustomerId, SelectedCustomerId);
+                var updateCustomerSales = Builders<Customers>.Update.Inc(c => c.Sales, totalAmount);
+                _Customers.UpdateOne(customerFilter, updateCustomerSales);
+
                 var filter = Builders<Invoices>.Filter.Eq(i => i.InvoiceId, invoiceId);
-
-                // Define the update to set the new TotalAmount value
                 var updateTotalAmount = Builders<Invoices>.Update.Set(i => i.TotalAmount, totalAmount);
-
-                // Perform the update operation
                 _Invoices.UpdateOne(filter, updateTotalAmount);
 
                 SelectedTableItem = null;
@@ -448,6 +448,7 @@ namespace Restaurant_Management.ViewModels
                 SelectedCustomerId = null;
                 LoadTable();
                 DeleteAllItem();
+                System.Windows.MessageBox.Show("Invoice created successfully", "Notification");
             }
         }
 
