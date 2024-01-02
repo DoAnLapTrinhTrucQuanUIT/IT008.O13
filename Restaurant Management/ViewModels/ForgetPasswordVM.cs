@@ -113,7 +113,7 @@ namespace Restaurant_Management.ViewModels.ComponentVM
                 {
                     string messageBody = "Please enter password " + newPass + " to log in.";
                     
-                    MailMessage message = new MailMessage("bminhthu85@gmail.com", email, "Password retrieval", messageBody);
+                    MailMessage message = new MailMessage("0nlyfood.corporation@gmail.com", email, "Password retrieval", messageBody);
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 
@@ -121,7 +121,7 @@ namespace Restaurant_Management.ViewModels.ComponentVM
 
                     smtpClient.UseDefaultCredentials = false;
 
-                    smtpClient.Credentials = new NetworkCredential("bminhthu85@gmail.com", "wiln qyzr qhcy zzhv");
+                    smtpClient.Credentials = new NetworkCredential("0nlyfood.corporation@gmail.com", "yhrq sgwp oqgc umbe");
 
                     smtpClient.Send(message);
 
