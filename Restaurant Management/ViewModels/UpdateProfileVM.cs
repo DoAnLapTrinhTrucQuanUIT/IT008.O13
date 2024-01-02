@@ -18,6 +18,7 @@ namespace Restaurant_Management.ViewModels
     {
 
         private ObservableCollection<Employees> _employeeList;
+
         public ObservableCollection<Employees> EmployeeList
         {
             get { return _employeeList; }
@@ -29,50 +30,69 @@ namespace Restaurant_Management.ViewModels
         }
 
         public ICommand ConfirmCommand { get; set; }
+
         public ICommand CloseWDCM { get; set; }
+        
         public ICommand MinimizeWDCM { get; set; }
+        
         public ICommand MoveWDCM { get; set; }
 
         private readonly IMongoCollection<Employees> _Employees;
 
         public IMongoCollection<Employees> Employees;
-        public UpdateProfileVM()
-        {
-            _Employees = GetEmployees();
-            ConfirmCommand = new RelayCommand<UpdateProfile>((p) => true, (p) => _ConfirmCommand(p));
-            CloseWDCM = new RelayCommand<UpdateProfile>((p) => true, (p) => _CloseWD(p));
-            MinimizeWDCM = new RelayCommand<UpdateProfile>((p) => true, (p) => _MinimizeWD(p));
-            MoveWDCM = new RelayCommand<UpdateProfile>((p) => true, (p) => _MoveWD(p));
-        }
+
         private IMongoCollection<Employees> GetEmployees()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<Employees>("Employees");
         }
-        void _ConfirmCommand(UpdateProfile paramater)
+
+        public UpdateProfileVM()
+        {
+            _Employees = GetEmployees();
+
+            InitializeCommand();
+        }
+        private void InitializeCommand()
+        {
+            ConfirmCommand = new RelayCommand<UpdateProfile>((p) => true, (p) => _ConfirmCommand(p));
+            
+            CloseWDCM = new RelayCommand<UpdateProfile>((p) => true, (p) => _CloseWD(p));
+            
+            MinimizeWDCM = new RelayCommand<UpdateProfile>((p) => true, (p) => _MinimizeWD(p));
+            
+            MoveWDCM = new RelayCommand<UpdateProfile>((p) => true, (p) => _MoveWD(p));
+        }
+        
+        private void _ConfirmCommand(UpdateProfile paramater)
         {
             MessageBoxResult updateProfileNotification = System.Windows.MessageBox.Show("Do you want to update profile ?", "Notification", MessageBoxButton.YesNo);
+            
             if (updateProfileNotification == MessageBoxResult.Yes)
             {
                 var updateDefinitionBuilder = Builders<Employees>.Update;
+            
                 var updateDefinition = updateDefinitionBuilder.Set(x => x.EmployeeId, Const.Instance.UserId); // Assuming EmployeeId is not editable
 
-                // Lấy thông tin mới từ giao diện người dùng
                 string newName = paramater.Name.Text;
+                
                 string newEmail = paramater.Email.Text;
+                
                 string newPhoneNumber = paramater.PhoneNumber.Text;
-                string newDateOfBirthString = paramater.DateOfBirth.Text; // Assuming the date is in a string format
+                
+                string newDateOfBirthString = paramater.DateOfBirth.Text; 
+                
                 string newGender = paramater.GenderComboBox.Text;
+                
                 string newAddress = paramater.Address.Text;
 
-                // Thêm các trường mà người dùng muốn cập nhật
                 if (!string.IsNullOrEmpty(newName))
                     updateDefinition = updateDefinition.Set(x => x.FullName, newName);
 
@@ -92,8 +112,8 @@ namespace Restaurant_Management.ViewModels
                 if (!string.IsNullOrEmpty(newAddress))
                     updateDefinition = updateDefinition.Set(x => x.Address, newAddress);
 
-                // Cập nhật đối tượng nhân viên trong MongoDB
                 var filter = Builders<Employees>.Filter.Eq(x => x.EmployeeId, Const.Instance.UserId);
+                
                 var result = _Employees.UpdateOne(filter, updateDefinition);
 
                 if (result.IsModifiedCountAvailable && result.ModifiedCount > 0)
@@ -101,6 +121,7 @@ namespace Restaurant_Management.ViewModels
                     MessageBox.Show("Profile updated successfully!", "Notification");
 
                     var window = Window.GetWindow(paramater);
+                    
                     if (window != null)
                     {
                         window.Close();
@@ -117,29 +138,24 @@ namespace Restaurant_Management.ViewModels
 
         private void ReloadWindow()
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            var navigationVM = (App.Current.MainWindow?.DataContext as NavigationVM);
+
+            var currentUser = navigationVM?.CurrentUser;
+
+            var newMainWindow = new MainWindow();
+
+            if (newMainWindow.DataContext is NavigationVM newNavigationVM)
             {
-                var mainWindow = App.Current.MainWindow;
-                if (mainWindow != null)
-                {
-                    App.Current.MainWindow = null;
-                    mainWindow.Close();
-                }
+                newNavigationVM.CurrentUser = currentUser;
 
-                var newMainWindow = new MainWindow();
-                App.Current.MainWindow = newMainWindow;
-                newMainWindow.Show();
-            });
-        }
+                newNavigationVM.Decentralization(newMainWindow);
+            }
 
-        private UpdateDefinition<Employees> UpdateFieldIfNotEmpty<T>(Expression<Func<Employees, T>> field, T value)
-        {
-            return Builders<Employees>.Update.Set(field, value);
-        }
+            newMainWindow.Show();
 
-        private UpdateDefinition<Employees> UpdateFieldIfNotNull<T>(Expression<Func<Employees, T>> field, T value)
-        {
-            return value != null ? Builders<Employees>.Update.Set(field, value) : null;
+            App.Current.MainWindow?.Close();
+
+            App.Current.MainWindow = newMainWindow;
         }
 
         private void _CloseWD(UpdateProfile parameter)
@@ -150,6 +166,7 @@ namespace Restaurant_Management.ViewModels
                 window.Close();
             }
         }
+
         private void _MinimizeWD(UpdateProfile parameter)
         {
             var window = Window.GetWindow(parameter);

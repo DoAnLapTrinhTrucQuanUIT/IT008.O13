@@ -19,7 +19,6 @@ namespace Restaurant_Management.ViewModels
     public class LoginVM : Utilities.ViewModelBase
     {
         private bool _isAdmin;
-
         public bool IsAdmin
         {
             get { return _isAdmin; }
@@ -29,9 +28,13 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(IsAdmin));
             }
         }
+
         public static bool IsLogin { get; set; }
+
         private string _employeeId;
+
         private string _password;
+
         public string EmployeeId
         {
             get => _employeeId;
@@ -41,6 +44,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(EmployeeId));
             }
         }
+
         public string Password
         {
             get => _password;
@@ -50,28 +54,25 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(Password));
             }
         }
+
         public ICommand LoginCM { get; set; }
+
         public ICommand PasswordchangeCM { get; set; }
+
         public ICommand ForgetpasswordCM { get; set; }
+
         public ICommand CloseWDCM { get; set; }
+
         public ICommand MinimizeWDCM { get; set; }
+
         public ICommand MoveWDCM { get; set; }
 
-        private readonly IMongoCollection<Employees> _Employees;
-        public LoginVM()
+        private Employees GetUser(string employeeId)
         {
-            _Employees = GetMongoCollection();
-            IsLogin = false;
-            Password = "";
-            EmployeeId = "";
-            LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login(p));
-            PasswordchangeCM = new RelayCommand<PasswordBox>((p) => true, (p) => { Password = p.Password; });
-            ForgetpasswordCM = new RelayCommand<LoginWindow>((p) => true, (p) => _ForgetPassword());
-
-            CloseWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _CloseWD(p));
-            MinimizeWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _MinimizeWD(p));
-            MoveWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _MoveWD(p));
+            return _Employees.Find(u => u.EmployeeId == employeeId).FirstOrDefault();
         }
+
+        private readonly IMongoCollection<Employees> _Employees;
 
         private IMongoCollection<Employees> GetMongoCollection()
         {
@@ -85,7 +86,39 @@ namespace Restaurant_Management.ViewModels
 
             return database.GetCollection<Employees>("Employees");
         }
+        
+        public LoginVM()
+        {
+            _Employees = GetMongoCollection();
 
+            InitializeUser();
+
+            InitializeCommand();
+        }
+
+        private void InitializeUser()
+        {
+            IsLogin = false;
+
+            Password = "";
+            
+            EmployeeId = "";
+        }
+
+        private void InitializeCommand()
+        {
+            LoginCM = new RelayCommand<LoginWindow>((p) => true, (p) => _Login(p));
+            
+            PasswordchangeCM = new RelayCommand<PasswordBox>((p) => true, (p) => { Password = p.Password; });
+            
+            ForgetpasswordCM = new RelayCommand<LoginWindow>((p) => true, (p) => _ForgetPassword());
+
+            CloseWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _CloseWD(p));
+            
+            MinimizeWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _MinimizeWD(p));
+            
+            MoveWDCM = new RelayCommand<LoginWindow>((p) => true, (p) => _MoveWD(p));
+        }
 
         private void _Login(LoginWindow p)
         {
@@ -96,7 +129,7 @@ namespace Restaurant_Management.ViewModels
 
                 if (user == null || Password != user.Password)
                 {
-                    MessageBox.Show("Sai tên tài khoản hoặc mật khẩu.");
+                    MessageBox.Show("Wrong account or password name !");
                     return;
                 }
 
@@ -106,10 +139,10 @@ namespace Restaurant_Management.ViewModels
 
                 Task.Run(() =>
                 {
-                    // Hiển thị MainWindow trên luồng UI
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         MainWindow mainWindow = new MainWindow();
+
                         App.Current.MainWindow = mainWindow;
 
                         if (Application.Current.MainWindow.DataContext is NavigationVM navigationVM)
@@ -120,10 +153,10 @@ namespace Restaurant_Management.ViewModels
                         mainWindow.Show();
                     });
 
-                    // Đóng LoginWindow trên luồng UI
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         IsLogin = true;
+                        
                         p.Close();
                     });
                 });
@@ -131,52 +164,54 @@ namespace Restaurant_Management.ViewModels
             }
             else
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin.");
+                MessageBox.Show("Please enter complete information !");
             }
         }
-
-        private Employees GetUser(string employeeId)
-        {
-            return _Employees.Find(u => u.EmployeeId == employeeId).FirstOrDefault();
-        }
-
    
-        public Action CloseAction { get; set; }
-        void _ForgetPassword()
+        private void _ForgetPassword()
         {
             ForgetPasswordView forgetPassControl = new ForgetPasswordView();
 
             Window forgetPassWindow = new Window
             {
                 Content = forgetPassControl,
+                
                 SizeToContent = SizeToContent.WidthAndHeight,
+                
                 WindowStyle = WindowStyle.None,
+                
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
 
             forgetPassWindow.ShowDialog();
         }
-        private void _CloseWD(LoginWindow paramater)
+        
+        private void _CloseWD(LoginWindow parameter)
         {
-            var window = Window.GetWindow(paramater);
+            var window = Window.GetWindow(parameter);
+            
             if (window != null)
             {
                 window.Close();
             }
         }
-        private void _MinimizeWD(LoginWindow paramater)
+        
+        private void _MinimizeWD(LoginWindow parameter)
         {
-            var window = Window.GetWindow(paramater);
+            var window = Window.GetWindow(parameter);
+            
             if (window != null)
             {
                 WindowState originalWindowState = window.WindowState;
+                
                 window.WindowState = WindowState.Minimized;
             }
         }
 
-        private void _MoveWD(LoginWindow paramater)
+        private void _MoveWD(LoginWindow parameter)
         {
-            var window = Window.GetWindow(paramater);
+            var window = Window.GetWindow(parameter);
+            
             if (window != null)
             {
                 window.DragMove();

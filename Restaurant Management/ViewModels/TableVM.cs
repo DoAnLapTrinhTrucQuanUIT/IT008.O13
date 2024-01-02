@@ -122,6 +122,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount1));
             }
         }
+
         private double _totalAmount2;
         public double TotalAmount2
         {
@@ -132,6 +133,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount2));
             }
         }
+
         private double _totalAmount3;
         public double TotalAmount3
         {
@@ -142,6 +144,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount3));
             }
         }
+
         private double _totalAmount4;
         public double TotalAmount4
         {
@@ -152,6 +155,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount4));
             }
         }
+
         private double _totalAmount5;
         public double TotalAmount5
         {
@@ -162,6 +166,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount5));
             }
         }
+
         private double _totalAmount6;
         public double TotalAmount6
         {
@@ -172,6 +177,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount6));
             }
         }
+
         private double _totalAmount7;
         public double TotalAmount7
         {
@@ -182,6 +188,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount7));
             }
         }
+
         private double _totalAmount8;
         public double TotalAmount8
         {
@@ -192,6 +199,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount8));
             }
         }
+
         private double _totalAmount9;
         public double TotalAmount9
         {
@@ -202,82 +210,9 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount9));
             }
         }
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList1 { get; set; }
 
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList2 { get; set; }
-
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList3 { get; set; }
-
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList4 { get; set; }
-
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList5 { get; set; }
-
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList6 { get; set; }
-
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList7 { get; set; }
-
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList8 { get; set; }
-
-        public ObservableCollection<InvoiceDetails> InvoiceDetailsList9 { get; set; }
-      
-        private readonly IMongoCollection<Tables> _tablesCollection;
-        private IMongoCollection<Tables> GetTablesCollection()
+        private void InitializeObservableCollection()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
-
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(databaseName);
-
-            return database.GetCollection<Tables>("Tables");
-        }
-
-        private readonly IMongoCollection<Invoices> _invoicesCollection;
-        private IMongoCollection<Invoices> GetInvoicesCollection()
-        {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
-
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(databaseName);
-
-            return database.GetCollection<Invoices>("Invoices");
-        }
-
-        private readonly IMongoCollection<InvoiceDetails> _invoiceDetailsCollection;
-        private IMongoCollection<InvoiceDetails> GetInvoiceDetailsCollection()
-        {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
-
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(databaseName);
-
-            return database.GetCollection<InvoiceDetails>("InvoiceDetails");
-        }
-
-        public ICommand PaidCommand1 { get; set; }
-        public ICommand PaidCommand2 { get; set; }
-        public ICommand PaidCommand3 { get; set; }
-        public ICommand PaidCommand4 { get; set; }
-        public ICommand PaidCommand5 { get; set; }
-        public ICommand PaidCommand6 { get; set; }
-        public ICommand PaidCommand7 { get; set; }
-        public ICommand PaidCommand8 { get; set; }
-        public ICommand PaidCommand9 { get; set; }
-
-        public TableVM()
-        {
-            _tablesCollection = GetTablesCollection();
-            _invoicesCollection = GetInvoicesCollection();
-            _invoiceDetailsCollection = GetInvoiceDetailsCollection();
-
             InvoiceDetailsList1 = new ObservableCollection<InvoiceDetails>();
             InvoiceDetailsList2 = new ObservableCollection<InvoiceDetails>();
             InvoiceDetailsList3 = new ObservableCollection<InvoiceDetails>();
@@ -287,7 +222,10 @@ namespace Restaurant_Management.ViewModels
             InvoiceDetailsList7 = new ObservableCollection<InvoiceDetails>();
             InvoiceDetailsList8 = new ObservableCollection<InvoiceDetails>();
             InvoiceDetailsList9 = new ObservableCollection<InvoiceDetails>();
+        }
 
+        private void InitializeCommand()
+        {
             PaidCommand1 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand1());
             PaidCommand2 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand2());
             PaidCommand3 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand3());
@@ -297,17 +235,16 @@ namespace Restaurant_Management.ViewModels
             PaidCommand7 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand7());
             PaidCommand8 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand8());
             PaidCommand9 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand9());
-
-            LoadInvoiceDetail();
         }
 
         public void LoadInvoiceDetail()
         {
             var unpaidInvoices = _invoicesCollection.Find(t => t.Status == false).ToList();
 
-            foreach(var invoice in unpaidInvoices)
+            foreach (var invoice in unpaidInvoices)
             {
                 var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
+
                 switch (invoice.Table.TableName)
                 {
                     case "Table 1":
@@ -318,6 +255,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount1 += detail.Amount;
                         }
                         break;
+
                     case "Table 2":
                         foreach (var detail in invoiceDetails)
                         {
@@ -326,6 +264,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount2 += detail.Amount;
                         }
                         break;
+
                     case "Table 3":
                         foreach (var detail in invoiceDetails)
                         {
@@ -334,6 +273,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount3 += detail.Amount;
                         }
                         break;
+
                     case "Table 4":
                         foreach (var detail in invoiceDetails)
                         {
@@ -342,6 +282,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount4 += detail.Amount;
                         }
                         break;
+
                     case "Table 5":
                         foreach (var detail in invoiceDetails)
                         {
@@ -350,6 +291,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount5 += detail.Amount;
                         }
                         break;
+
                     case "Table 6":
                         foreach (var detail in invoiceDetails)
                         {
@@ -358,6 +300,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount6 += detail.Amount;
                         }
                         break;
+
                     case "Table 7":
                         foreach (var detail in invoiceDetails)
                         {
@@ -366,6 +309,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount7 += detail.Amount;
                         }
                         break;
+
                     case "Table 8":
                         foreach (var detail in invoiceDetails)
                         {
@@ -374,6 +318,7 @@ namespace Restaurant_Management.ViewModels
                             TotalAmount8 += detail.Amount;
                         }
                         break;
+
                     case "Table 9":
                         foreach (var detail in invoiceDetails)
                         {
@@ -465,6 +410,7 @@ namespace Restaurant_Management.ViewModels
             if (table != null && table.Status)
             {
                 var updateTable = Builders<Tables>.Update.Set(t => t.Status, false);
+
                 _tablesCollection.UpdateOne(t => t.TableId == tableId, updateTable);
 
                 var unpaidInvoice = _invoicesCollection.Find(i => i.Table.TableId == tableId && i.Status == false).FirstOrDefault();
@@ -472,6 +418,7 @@ namespace Restaurant_Management.ViewModels
                 if (unpaidInvoice != null)
                 {
                     var updateInvoice = Builders<Invoices>.Update.Set(i => i.Status, true);
+
                     _invoicesCollection.UpdateOne(i => i.InvoiceId == unpaidInvoice.InvoiceId, updateInvoice);
 
                     MessageBox.Show($"Payment for {tableId} completed!");
@@ -483,9 +430,105 @@ namespace Restaurant_Management.ViewModels
             }
             else
             {
-                MessageBox.Show($"{tableId} is either not found or already paid.");
+                MessageBox.Show($"{tableId} not found or already paid.");
             }
         }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList1 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList2 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList3 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList4 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList5 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList6 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList7 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList8 { get; set; }
+
+        public ObservableCollection<InvoiceDetails> InvoiceDetailsList9 { get; set; }
+
+        private readonly IMongoCollection<Tables> _tablesCollection;
+
+        private IMongoCollection<Tables> GetTablesCollection()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Tables>("Tables");
+        }
+
+        private readonly IMongoCollection<Invoices> _invoicesCollection;
+
+        private readonly IMongoCollection<InvoiceDetails> _invoiceDetailsCollection;
+
+        private IMongoCollection<Invoices> GetInvoicesCollection()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<Invoices>("Invoices");
+        }
+
+        private IMongoCollection<InvoiceDetails> GetInvoiceDetailsCollection()
+        {
+            // Set your MongoDB connection string and database name
+            string connectionString =
+                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
+            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+
+            var client = new MongoClient(connectionString);
+            var database = client.GetDatabase(databaseName);
+
+            return database.GetCollection<InvoiceDetails>("InvoiceDetails");
+        }
+
+        public ICommand PaidCommand1 { get; set; }
+
+        public ICommand PaidCommand2 { get; set; }
+
+        public ICommand PaidCommand3 { get; set; }
+
+        public ICommand PaidCommand4 { get; set; }
+
+        public ICommand PaidCommand5 { get; set; }
+
+        public ICommand PaidCommand6 { get; set; }
+
+        public ICommand PaidCommand7 { get; set; }
+
+        public ICommand PaidCommand8 { get; set; }
+
+        public ICommand PaidCommand9 { get; set; }
+
+        public TableVM()
+        {
+            _tablesCollection = GetTablesCollection();
+            _invoicesCollection = GetInvoicesCollection();
+            _invoiceDetailsCollection = GetInvoiceDetailsCollection();
+
+            InitializeObservableCollection();
+
+            InitializeCommand();
+
+            LoadInvoiceDetail();
+        }
+
+
 
     }
 }
