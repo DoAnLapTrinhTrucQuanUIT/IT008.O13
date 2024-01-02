@@ -346,6 +346,7 @@
     <Compile Include="ViewModels\ChangePasswordVM.cs" />
     <Compile Include="ViewModels\AddEditStaffVM.cs" />
     <Compile Include="ViewModels\CustomerVM.cs" />
+    <Compile Include="ViewModels\EditCustomerVM.cs" />
     <Compile Include="ViewModels\EditItemVM.cs" />
     <Compile Include="ViewModels\EditSalaryVM.cs" />
     <Compile Include="ViewModels\EmptyVM.cs" />
@@ -375,6 +376,9 @@
     </Compile>
     <Compile Include="Views\Component\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Component\EditCustomer.xaml.cs">
+      <DependentUpon>EditCustomer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Component\EditItem.xaml.cs">
       <DependentUpon>EditItem.xaml</DependentUpon>
@@ -487,6 +491,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Component\EditCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

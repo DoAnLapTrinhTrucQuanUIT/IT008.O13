@@ -402,98 +402,167 @@ namespace Restaurant_Management.ViewModels
 
         private void ConfirmItem()
         {
-            if (SelectedTableItem == null || CustomerName == null || SelectedCustomerId == null)
+            if (SelectedTableItem == null)
             {
                 System.Windows.MessageBox.Show("Please enter complete information!", "Notification");
             }
             else
             {
-                Customers customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
-
-                Employees employee = _Employees.Find(em => em.EmployeeId == Const.Instance.UserId).FirstOrDefault();
-
-                string tableIdSelected = SelectedTableItem.ToString();
-
-                Tables table = _Tables.Find(c => c.TableName == tableIdSelected).FirstOrDefault();
-
-                table.Status = true;
-
-                var tableFilter = Builders<Tables>.Filter.Eq(t => t.TableName, tableIdSelected);
-
-                var update = Builders<Tables>.Update.Set(t => t.Status, true);
-
-                _Tables.UpdateOne(tableFilter, update);
-
-                string invoiceId = GenerateRandomInvoiceId();
-    
-                Invoices Invoice = new Invoices
+                if (CustomerName != null || SelectedCustomerId == null)
                 {
-                    InvoiceId = invoiceId,
-                
-                    Employee = employee,
-                    
-                    Customer = customer,
-                    
-                    Table = table,
-                    
-                    CreatedDate = DateTime.Now,
-                    
-                    Status = false
-                };
-                
-                _Invoices.InsertOne(Invoice);
-
-                double totalAmount = 0;
-
-                foreach (var tempInvoiceDetail in TempMenuItemsList)
-                {
-                    string invoiceDetailsId = GenerateRandomInvoiceDetailId(invoiceId);
-
-                    MenuItems tempMenuItem = tempInvoiceDetail.MenuItem;
-
-                    int tempQuantity = tempInvoiceDetail.Quantity;
-
-                    InvoiceDetails invoiceDetail = new InvoiceDetails
+                    var customer = new Customers
                     {
-                        InvoiceDetailId = invoiceDetailsId,
-
-                        Invoice = Invoice,
-
-                        Item = tempMenuItem,
-
-                        Quantity = tempQuantity,
-
-                        Amount = tempMenuItem.Price * tempQuantity,
+                        CustomerId = GenerateRandomCustomerId(),
+                        FullName = CustomerName,
+                        PhoneNumber = "",
+                        Email = "",
+                        Address = "",
+                        Gender = null,
+                        RegistrationDate = DateTime.Now,
+                        Sales = 0
                     };
 
-                    _InvoiceDetails.InsertOne(invoiceDetail);
+                    _Customers.InsertOne(customer);
 
-                    totalAmount += invoiceDetail.Amount;
+                    Employees employee = _Employees.Find(em => em.EmployeeId == Const.Instance.UserId).FirstOrDefault();
+
+                    string tableIdSelected = SelectedTableItem.ToString();
+
+                    Tables table = _Tables.Find(c => c.TableName == tableIdSelected).FirstOrDefault();
+
+                    // Set the Status to true
+                    table.Status = true;
+
+                    // Update the table status in the MongoDB collection
+                    var tableFilter = Builders<Tables>.Filter.Eq(t => t.TableName, tableIdSelected);
+                    var update = Builders<Tables>.Update.Set(t => t.Status, true);
+                    _Tables.UpdateOne(tableFilter, update);
+
+
+                    string invoiceId = GenerateRandomInvoiceId();
+                    // Create the Invoice with the total amount
+                    Invoices Invoice = new Invoices
+                    {
+                        InvoiceId = invoiceId,
+                        Employee = employee,
+                        Customer = customer,
+                        Table = table,
+                        CreatedDate = DateTime.Now,
+                        Status = false
+                    };
+                    _Invoices.InsertOne(Invoice);
+
+                    // Calculate the total amount
+                    double totalAmount = 0;
+
+                    foreach (var tempInvoiceDetail in TempMenuItemsList)
+                    {
+                        string invoiceDetailsId = GenerateRandomInvoiceDetailId(invoiceId);
+                        MenuItems tempMenuItem = tempInvoiceDetail.MenuItem;
+                        int tempQuantity = tempInvoiceDetail.Quantity;
+
+                        // Create InvoiceDetail
+                        InvoiceDetails invoiceDetail = new InvoiceDetails
+                        {
+                            InvoiceDetailId = invoiceDetailsId,
+                            Invoice = Invoice,
+                            Item = tempMenuItem,
+                            Quantity = tempQuantity,
+                            Amount = tempMenuItem.Price * tempQuantity,
+                        };
+                        _InvoiceDetails.InsertOne(invoiceDetail);
+
+                        // Sum up the Amount
+                        totalAmount += invoiceDetail.Amount;
+                    }
+
+                    var customerFilter = Builders<Customers>.Filter.Eq(c => c.CustomerId, customer.CustomerId);
+                    var updateCustomerSales = Builders<Customers>.Update.Inc(c => c.Sales, totalAmount);
+                    _Customers.UpdateOne(customerFilter, updateCustomerSales);
+
+
+                    var filter = Builders<Invoices>.Filter.Eq(i => i.InvoiceId, invoiceId);
+                    var updateTotalAmount = Builders<Invoices>.Update.Set(i => i.TotalAmount, totalAmount);
+                    _Invoices.UpdateOne(filter, updateTotalAmount);
+
+                    SelectedTableItem = null;
+                    CustomerName = null;
+                    SelectedCustomerId = null;
+                    LoadTable();
+                    DeleteAllItem();
+                    System.Windows.MessageBox.Show("Invoice created successfully", "Notification");
                 }
+                else
+                {
+                    Customers customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
 
-                var customerFilter = Builders<Customers>.Filter.Eq(c => c.CustomerId, SelectedCustomerId);
+                    Employees employee = _Employees.Find(em => em.EmployeeId == Const.Instance.UserId).FirstOrDefault();
 
-                var updateCustomerSales = Builders<Customers>.Update.Inc(c => c.Sales, totalAmount);
+                    string tableIdSelected = SelectedTableItem.ToString();
 
-                _Customers.UpdateOne(customerFilter, updateCustomerSales);
+                    Tables table = _Tables.Find(c => c.TableName == tableIdSelected).FirstOrDefault();
 
-                var filter = Builders<Invoices>.Filter.Eq(i => i.InvoiceId, invoiceId);
+                    // Set the Status to true
+                    table.Status = true;
 
-                var updateTotalAmount = Builders<Invoices>.Update.Set(i => i.TotalAmount, totalAmount);
+                    // Update the table status in the MongoDB collection
+                    var tableFilter = Builders<Tables>.Filter.Eq(t => t.TableName, tableIdSelected);
+                    var update = Builders<Tables>.Update.Set(t => t.Status, true);
+                    _Tables.UpdateOne(tableFilter, update);
 
-                _Invoices.UpdateOne(filter, updateTotalAmount);
 
-                SelectedTableItem = null;
+                    string invoiceId = GenerateRandomInvoiceId();
+                    // Create the Invoice with the total amount
+                    Invoices Invoice = new Invoices
+                    {
+                        InvoiceId = invoiceId,
+                        Employee = employee,
+                        Customer = customer,
+                        Table = table,
+                        CreatedDate = DateTime.Now,
+                        Status = false
+                    };
+                    _Invoices.InsertOne(Invoice);
 
-                CustomerName = null;
+                    // Calculate the total amount
+                    double totalAmount = 0;
 
-                SelectedCustomerId = null;
+                    foreach (var tempInvoiceDetail in TempMenuItemsList)
+                    {
+                        string invoiceDetailsId = GenerateRandomInvoiceDetailId(invoiceId);
+                        MenuItems tempMenuItem = tempInvoiceDetail.MenuItem;
+                        int tempQuantity = tempInvoiceDetail.Quantity;
 
-                LoadTable();
+                        // Create InvoiceDetail
+                        InvoiceDetails invoiceDetail = new InvoiceDetails
+                        {
+                            InvoiceDetailId = invoiceDetailsId,
+                            Invoice = Invoice,
+                            Item = tempMenuItem,
+                            Quantity = tempQuantity,
+                            Amount = tempMenuItem.Price * tempQuantity,
+                        };
+                        _InvoiceDetails.InsertOne(invoiceDetail);
 
-                DeleteAllItem();
+                        // Sum up the Amount
+                        totalAmount += invoiceDetail.Amount;
+                    }
 
-                System.Windows.MessageBox.Show("Invoice created successfully", "Notification");
+                    var customerFilter = Builders<Customers>.Filter.Eq(c => c.CustomerId, SelectedCustomerId);
+                    var updateCustomerSales = Builders<Customers>.Update.Inc(c => c.Sales, totalAmount);
+                    _Customers.UpdateOne(customerFilter, updateCustomerSales);
+
+                    var filter = Builders<Invoices>.Filter.Eq(i => i.InvoiceId, invoiceId);
+                    var updateTotalAmount = Builders<Invoices>.Update.Set(i => i.TotalAmount, totalAmount);
+                    _Invoices.UpdateOne(filter, updateTotalAmount);
+
+                    SelectedTableItem = null;
+                    CustomerName = null;
+                    SelectedCustomerId = null;
+                    LoadTable();
+                    DeleteAllItem();
+                    System.Windows.MessageBox.Show("Invoice created successfully", "Notification");
+                }
             }
         }
 
@@ -572,5 +641,50 @@ namespace Restaurant_Management.ViewModels
         {
             return _InvoiceDetails.AsQueryable().Any(temp => temp.InvoiceDetailId == invoiceDetailId);
         }
+
+
+        string GenerateRandomCustomerId()
+        {
+            // Lấy `CustomerId` lớn nhất hiện có
+            var maxCustomerId = _Customers.AsQueryable()
+                .OrderByDescending(c => c.CustomerId)
+                .FirstOrDefault()?.CustomerId;
+
+            // Tạo `CustomerId` mới với số thứ tự kế tiếp
+            string newCustomerId = GenerateNextCustomerId(maxCustomerId);
+
+            // Kiểm tra nếu `CustomerId` mới đã tồn tại
+            while (Check(newCustomerId))
+            {
+                newCustomerId = GenerateNextCustomerId(newCustomerId);
+            }
+
+            return newCustomerId;
+        }
+
+        string GenerateNextCustomerId(string currentMaxCustomerId)
+        {
+            if (string.IsNullOrEmpty(currentMaxCustomerId))
+            {
+                return "CUS1";
+            }
+
+            // Trích xuất số từ `CustomerId` lớn nhất hiện có
+            string maxNumberStr = currentMaxCustomerId.Substring(3);
+            if (int.TryParse(maxNumberStr, out int maxNumber))
+            {
+                // Tạo `CustomerId` mới với số thứ tự kế tiếp
+                return "CUS" + (maxNumber + 1).ToString();
+            }
+
+            // Trong trường hợp không thành công, trả về `CUS1`
+            return "CUS1";
+        }
+
+        bool Check(string customerId)
+        {
+            return _Customers.AsQueryable().Any(temp => temp.CustomerId == customerId);
+        }
+
     }
 }

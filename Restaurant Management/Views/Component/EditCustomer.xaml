@@ -1,0 +1,288 @@
+﻿<UserControl x:Class="Restaurant_Management.Views.Component.EditCustomer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Restaurant_Management.Views.Component"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
+             mc:Ignorable="d"
+             Width="400"
+             Height="600"
+             x:Name="EditCusWindow">
+    <Border Background="#ffffff"
+            CornerRadius="13"
+            Padding="20">
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding DataContext.LoadWDCM, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                       CommandParameter="{Binding ElementName=EditCusWindow}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <!-- Minimize Button -->
+                <Grid Grid.Column="0">
+                    <MaterialDesign:PackIcon Kind="WindowMinimize"
+                                             Foreground="#999"
+                                             Height="24"
+                                             Width="24"
+                                             Margin="0,0,8,0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding DataContext.MinimizeWDCM, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       CommandParameter="{Binding ElementName=EditCusWindow}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MaterialDesign:PackIcon>
+                </Grid>
+
+                <!-- Close Button -->
+                <Grid Grid.Column="1">
+                    <MaterialDesign:PackIcon Kind="CloseThick"
+                                             Foreground="#999"
+                                             Height="24"
+                                             Width="24">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding DataContext.CloseWDCM, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       CommandParameter="{Binding ElementName=EditCusWindow}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MaterialDesign:PackIcon>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--Name-->
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="Name"
+                                       Foreground="#999"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border Background="#ffff"
+                                    CornerRadius="5"
+                                    BorderThickness="1"
+                                    BorderBrush="#D9D9D9" />
+                            <TextBox x:Name="FullName"
+                                     Padding="15"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#000000"
+                                     FontWeight="SemiBold"
+                                     FontSize="12"
+                                     MaterialDesign:HintAssist.Hint="Enter full name"
+                                     MaterialDesign:HintAssist.Foreground="Transparent"
+                                     MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                        </Grid>
+                    </Grid>
+
+                    <!--Gender-->
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="Gender"
+                                       Foreground="#999"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <ComboBox x:Name="GenderComboBox"
+                                      Padding="15"
+                                      FontFamily="Roboto"
+                                      BorderThickness="1"
+                                      BorderBrush="#D9D9D9"
+                                      Foreground="#000000"
+                                      FontWeight="SemiBold"
+                                      FontSize="12"
+                                      MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                      MaterialDesign:TextFieldAssist.TextFieldCornerRadius="5"
+                                      MaterialDesign:HintAssist.Hint="Choose gender">
+                                <ComboBoxItem Content="Male" />
+                                <ComboBoxItem Content="Female" />
+                                <ComboBoxItem Content="Other" />
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
+
+                    <!--Phone Number-->
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="Phone Number"
+                                       Foreground="#999"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border Background="#ffffff"
+                                    CornerRadius="5"
+                                    BorderThickness="1"
+                                    BorderBrush="#D9D9D9" />
+                            <TextBox x:Name="PhoneNumber"
+                                     BorderThickness="0"
+                                     Padding="15"
+                                     Background="Transparent"
+                                     Foreground="#000000"
+                                     FontWeight="SemiBold"
+                                     FontSize="12"
+                                     MaterialDesign:HintAssist.Hint="Enter phone number"
+                                     MaterialDesign:HintAssist.Foreground="Transparent"
+                                     MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                        </Grid>
+                    </Grid>
+
+                    <!--Email-->
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="Email"
+                                       Foreground="#999"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border Background="#ffff"
+                                    CornerRadius="5"
+                                    BorderThickness="1"
+                                    BorderBrush="#D9D9D9" />
+                            <TextBox x:Name="Email"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="#000000"
+                                     FontWeight="SemiBold"
+                                     FontSize="12"
+                                     Padding="15"
+                                     MaterialDesign:HintAssist.Hint="Enter email"
+                                     MaterialDesign:HintAssist.Foreground="Transparent"
+                                     MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                        </Grid>
+                    </Grid>
+
+                    <!--Address-->
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="Address"
+                                       Foreground="#999"
+                                       FontSize="16"
+                                       FontFamily="Roboto"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Border Background="#ffff"
+                                    CornerRadius="5"
+                                    BorderThickness="1"
+                                    BorderBrush="#D9D9D9" />
+                            <TextBox x:Name="Address"
+                                     BorderThickness="0"
+                                     Padding="15"
+                                     Background="Transparent"
+                                     Foreground="#000000"
+                                     FontWeight="SemiBold"
+                                     FontSize="12"
+                                     MaterialDesign:HintAssist.Hint="Enter address"
+                                     MaterialDesign:HintAssist.Foreground="Transparent"
+                                     MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
+                        </Grid>
+                    </Grid>
+
+                    <!-- Buttons -->
+                    <Grid Grid.Row="5"
+                          Margin="0 30 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <!--Cancel button-->
+                        <Grid Grid.Column="0"
+                              Margin="0 0 10 0">
+                            <Button Style="{StaticResource cancelButton}">
+                                <TextBlock Text="Cancel"
+                                           Foreground="#fff"
+                                           FontSize="18"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           TextAlignment="Center" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                               CommandParameter="{Binding ElementName=EditCusWindow}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                        <!--Confirm button-->
+                        <Grid Grid.Column="1"
+                              Margin="10 0 0 0">
+                            <Button Style="{StaticResource confirmButton}">
+                                <TextBlock Text="Confirm"
+                                           Foreground="#fff"
+                                           FontSize="18"
+                                           FontFamily="Roboto"
+                                           FontWeight="SemiBold"
+                                           TextAlignment="Center" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.ConfirmCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                               CommandParameter="{Binding ElementName=EditCusWindow}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

@@ -7,6 +7,7 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:vm="clr-namespace:Restaurant_Management.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="910"
              d:DesignWidth="1460"
@@ -233,7 +234,8 @@
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0"
                                       VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding NewCustomerPercent, StringFormat={}{0}%}"
+                                    <TextBlock Text="{Binding NewCustomerPercent, StringFormat={}{0:F2}%}"
+
                                                FontSize="24"
                                                FontFamily="Roboto"
                                                FontWeight="Medium"
@@ -486,20 +488,38 @@
                                                 IsReadOnly="true"
                                                 Width="*"
                                                 Binding="{Binding Sales}" />
-                            <DataGridTemplateColumn IsReadOnly="True"
-                                                    Width="50">
+                            
+                            <!--Actions-->
+                            <DataGridTemplateColumn Header="Actions"
+                                                    IsReadOnly="True"
+                                                    Width="100">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="deletedCustomerButton"
-                                                Style="{StaticResource deletedButton}"
-                                                Width="20"
-                                                Height="25"
-                                                Command="{Binding DataContext.DeletedCustomerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                CommandParameter="{Binding}">
-                                            <Icon:PackIconIonicons Kind="TrashMD"
-                                                                   Width="14"
-                                                                   Height="14" />
-                                        </Button>
+                                        <Border>
+                                            <StackPanel x:Name="subMenuGrid"
+                                                        Orientation="Horizontal"
+                                                        Visibility="Visible"
+                                                        Background="Transparent">
+                                                <Button x:Name="editedCustomerButton"
+                                                        Style="{StaticResource gridEditButton}"
+                                                        Command="{Binding DataContext.EditedCustomerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                        CommandParameter="{Binding}">
+                                                    <materialDesign:PackIcon Kind="Edit"  
+                                                                             Width="14"
+                                                                             Height="14"
+                                                                             VerticalAlignment="Center" />
+                                                </Button>
+                                                <Button x:Name="deletedCustomerButton"
+                                                        Style="{StaticResource gridRemoveButton}"
+                                                        Margin="5 0 0 0"
+                                                        Command="{Binding DataContext.DeletedCustomerCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                        CommandParameter="{Binding}">
+                                                    <Icon:PackIconIonicons Kind="TrashMD"
+                                                                           Width="14"
+                                                                           Height="14" />
+                                                </Button>
+                                            </StackPanel>
+                                        </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

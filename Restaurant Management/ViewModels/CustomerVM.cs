@@ -111,8 +111,23 @@ namespace Restaurant_Management.ViewModels
         public ICommand ImportCustomerCM { get; set; }
 
         public ICommand DeletedCustomerCommand { get; set; }
+        public ICommand EditedCustomerCommand { get; set; }
+        
+
 
         private readonly IMongoCollection<Customers> _Customers;
+        public CustomerVM() 
+        {
+            _Customers = GetCustomers();
+            LoadCustomerBar();
+            LoadCustomers();
+            SearchCM = new RelayCommand<CustomerView>((p) => true, (p) => _Search(p));
+            AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer());
+            ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer());
+            ImportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ImportCustomer());
+            DeletedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _DeleteCustomer(customer));
+            EditedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _EditCustomer(customer));
+        }
 
         private IMongoCollection<Customers> GetCustomers()
         {
@@ -343,6 +358,50 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
+        private void _DeleteCustomer(Customers customer)
+        {
+            // Implementation for deleting an employee
+            // You can use _employees collection to perform delete operation
+            // Implement logic to delete the selected employee
+            if (customer != null)
+            {
+                // Confirm deletion with the user
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {customer.FullName}?",
+                                                          "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Perform deletion logic here
+                    _Customers.DeleteOne(Builders<Customers>.Filter.Eq("customerId", customer.CustomerId));
+
+                    // Reload the staff list after deletion
+                    LoadCustomerBar();
+                    LoadCustomers();
+                }
+            }
+        }
+
+        private void _EditCustomer(Customers customer)
+        {
+            if (customer != null)
+            {
+                EditCustomerVM editCustomerViewModel = new EditCustomerVM(customer);
+                EditCustomer editCustomer = new EditCustomer();
+                editCustomer.DataContext = editCustomerViewModel;
+                var window = new Window
+                {
+                    Content = editCustomer,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    WindowStyle = WindowStyle.None,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                };
+                window.Closed += (sender, args) => LoadCustomers();
+                window.ShowDialog();
+            }
+        }    
+
+
 
         private void LoadCustomerBar()
         {
