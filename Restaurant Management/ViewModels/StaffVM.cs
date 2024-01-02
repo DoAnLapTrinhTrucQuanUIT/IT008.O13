@@ -193,7 +193,11 @@ namespace Restaurant_Management.ViewModels
 
                 csvContent.AppendLine("Employee ID,Full Name, Date of Birth, Phone Number, Gender, Email, Address, Date of Joining, Is Admin");
 
-                foreach (var employee in SearchEmployeeList)
+                // Choose the list to export based on SearchEmployeeList
+                var exportList = (SearchEmployeeList != null && SearchEmployeeList.Count > 0) ? SearchEmployeeList : EmployeeList;
+
+                // Add employee data to the CSV content
+                foreach (var employee in exportList)
                 {
                     string formattedDateOfBirth = employee.DateOfBirth.ToString("dd/MM/yy");
                     
@@ -208,7 +212,7 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private void _ImportStaff()
+        void _ImportStaff()
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -237,34 +241,31 @@ namespace Restaurant_Management.ViewModels
                     {
                         var values = line.Split(',');
 
-                        var newEmployee = new Employees
+                        DateTime dateOfBirth, dateOfJoining;
+
+                        if (DateTime.TryParseExact(values[2], "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth) &&
+                            DateTime.TryParseExact(values[7], "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfJoining))
                         {
-                            EmployeeId = values[0],
+                            var newEmployee = new Employees
+                            {
+                                EmployeeId = values[0],
+                                FullName = values[1],
+                                DateOfBirth = dateOfBirth,
+                                PhoneNumber = values[3],
+                                Gender = values[4],
+                                Email = values[5],
+                                Address = values[6],
+                                DateOfJoining = dateOfJoining,
+                                IsActive = true,
+                                IsAdmin = string.Equals(values[8], "owner", StringComparison.OrdinalIgnoreCase)
+                            };
 
-                            FullName = values[1],
+                            var existingEmployee = _employees.Find(Builders<Employees>.Filter.Eq("employeeId", newEmployee.EmployeeId)).FirstOrDefault();
 
-                            DateOfBirth = DateTime.Parse(values[2]),
-
-                            PhoneNumber = values[3],
-
-                            Gender = values[4],
-
-                            Email = values[5],
-
-                            Address = values[6],
-
-                            DateOfJoining = DateTime.Parse(values[7]),
-
-                            IsActive = true,
-
-                            IsAdmin = string.Equals(values[8], "owner", StringComparison.OrdinalIgnoreCase)
-                        };
-
-                        var existingEmployee = _employees.Find(Builders<Employees>.Filter.Eq("employeeId", newEmployee.EmployeeId)).FirstOrDefault();
-
-                        if (existingEmployee == null)
-                        {
-                            newEmployees.Add(newEmployee);
+                            if (existingEmployee == null)
+                            {
+                                newEmployees.Add(newEmployee);
+                            }
                         }
                     }
 

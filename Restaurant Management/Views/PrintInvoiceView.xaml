@@ -134,7 +134,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Width="200"
-                                            Header="Total Amount">
+                                            Header="Amount">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding TOTALAMOUNT}"
