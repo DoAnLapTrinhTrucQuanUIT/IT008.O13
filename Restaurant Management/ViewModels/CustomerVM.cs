@@ -116,18 +116,7 @@ namespace Restaurant_Management.ViewModels
 
 
         private readonly IMongoCollection<Customers> _Customers;
-        public CustomerVM() 
-        {
-            _Customers = GetCustomers();
-            LoadCustomerBar();
-            LoadCustomers();
-            SearchCM = new RelayCommand<CustomerView>((p) => true, (p) => _Search(p));
-            AddCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _AddCustomer());
-            ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer());
-            ImportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ImportCustomer());
-            DeletedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _DeleteCustomer(customer));
-            EditedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _EditCustomer(customer));
-        }
+
 
         private IMongoCollection<Customers> GetCustomers()
         {
@@ -196,25 +185,7 @@ namespace Restaurant_Management.ViewModels
             
             parameter.DataGridCustomers.ItemsSource = SearchCustomerList;
         }
-
-        private void _DeleteCustomer(Customers customer)
-        {
-            if (customer != null)
-            {
-                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {customer.FullName} ?",
-                                                          "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    _Customers.DeleteOne(Builders<Customers>.Filter.Eq("customerId", customer.CustomerId));
-
-                    LoadCustomerBar();
-
-                    LoadCustomers();
-                }
-            }
-        }
-
+       
         private void LoadCustomers()
         {
             var customers = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();

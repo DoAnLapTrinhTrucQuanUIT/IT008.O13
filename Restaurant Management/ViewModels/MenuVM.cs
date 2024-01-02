@@ -408,7 +408,7 @@ namespace Restaurant_Management.ViewModels
             }
             else
             {
-                if (CustomerName != null || SelectedCustomerId == null)
+                if (CustomerName != null && SelectedCustomerId == null)
                 {
                     var customer = new Customers
                     {
