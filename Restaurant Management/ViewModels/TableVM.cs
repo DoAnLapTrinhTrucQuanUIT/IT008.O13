@@ -23,6 +23,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount1));
             }
         }
+
         private double _totalAmount2;
         public double TotalAmount2
         {
@@ -33,6 +34,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount2));
             }
         }
+
         private double _totalAmount3;
         public double TotalAmount3
         {
@@ -43,6 +45,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount3));
             }
         }
+
         private double _totalAmount4;
         public double TotalAmount4
         {
@@ -53,6 +56,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount4));
             }
         }
+
         private double _totalAmount5;
         public double TotalAmount5
         {
@@ -63,6 +67,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount5));
             }
         }
+
         private double _totalAmount6;
         public double TotalAmount6
         {
@@ -73,6 +78,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount6));
             }
         }
+
         private double _totalAmount7;
         public double TotalAmount7
         {
@@ -83,6 +89,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount7));
             }
         }
+
         private double _totalAmount8;
         public double TotalAmount8
         {
@@ -93,6 +100,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount8));
             }
         }
+
         private double _totalAmount9;
         public double TotalAmount9
         {
@@ -103,6 +111,239 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(TotalAmount9));
             }
         }
+
+        private void InitializeObservableCollection()
+        {
+            InvoiceDetailsList1 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList2 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList3 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList4 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList5 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList6 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList7 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList8 = new ObservableCollection<InvoiceDetails>();
+            InvoiceDetailsList9 = new ObservableCollection<InvoiceDetails>();
+        }
+
+        private void InitializeCommand()
+        {
+            PaidCommand1 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand1());
+            PaidCommand2 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand2());
+            PaidCommand3 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand3());
+            PaidCommand4 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand4());
+            PaidCommand5 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand5());
+            PaidCommand6 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand6());
+            PaidCommand7 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand7());
+            PaidCommand8 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand8());
+            PaidCommand9 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand9());
+        }
+
+        public void LoadInvoiceDetail()
+        {
+            var unpaidInvoices = _invoicesCollection.Find(t => t.Status == false).ToList();
+
+            foreach (var invoice in unpaidInvoices)
+            {
+                var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
+
+                switch (invoice.Table.TableName)
+                {
+                    case "Table 1":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList1.Add(detail);
+
+                            TotalAmount1 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 2":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList2.Add(detail);
+
+                            TotalAmount2 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 3":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList3.Add(detail);
+
+                            TotalAmount3 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 4":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList4.Add(detail);
+
+                            TotalAmount4 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 5":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList5.Add(detail);
+
+                            TotalAmount5 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 6":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList6.Add(detail);
+
+                            TotalAmount6 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 7":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList7.Add(detail);
+
+                            TotalAmount7 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 8":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList8.Add(detail);
+
+                            TotalAmount8 += detail.Amount;
+                        }
+                        break;
+
+                    case "Table 9":
+                        foreach (var detail in invoiceDetails)
+                        {
+                            InvoiceDetailsList9.Add(detail);
+
+                            TotalAmount9 += detail.Amount;
+                        }
+                        break;
+                }
+            }
+        }
+
+        public void _PaidCommand1()
+        {
+            ProcessPayment("TABLE1");
+
+            InvoiceDetailsList1.Clear();
+
+            TotalAmount1 = 0;
+        }
+
+        public void _PaidCommand2()
+        {
+            ProcessPayment("TABLE2");
+
+            InvoiceDetailsList2.Clear();
+
+            TotalAmount2 = 0;
+        }
+
+        public void _PaidCommand3()
+        {
+            ProcessPayment("TABLE3");
+
+            InvoiceDetailsList3.Clear();
+
+            TotalAmount3 = 0;
+        }
+
+        public void _PaidCommand4()
+        {
+            ProcessPayment("TABLE4");
+
+            InvoiceDetailsList4.Clear();
+
+            TotalAmount4 = 0;
+        }
+
+        public void _PaidCommand5()
+        {
+            ProcessPayment("TABLE5");
+
+            InvoiceDetailsList5.Clear();
+
+            TotalAmount5 = 0;
+        }
+
+        public void _PaidCommand6()
+        {
+            ProcessPayment("TABLE6");
+
+            InvoiceDetailsList6.Clear();
+
+            TotalAmount6 = 0;
+        }
+
+        public void _PaidCommand7()
+        {
+            ProcessPayment("TABLE7");
+
+            InvoiceDetailsList7.Clear();
+
+            TotalAmount7 = 0;
+        }
+
+        public void _PaidCommand8()
+        {
+            ProcessPayment("TABLE8");
+
+            InvoiceDetailsList8.Clear();
+
+            TotalAmount8 = 0;
+        }
+
+        public void _PaidCommand9()
+        {
+            ProcessPayment("TABLE9");
+
+            InvoiceDetailsList9.Clear();
+
+            TotalAmount9 = 0;
+        }
+
+        private void ProcessPayment(string tableId)
+        {
+            var table = _tablesCollection.Find(t => t.TableId == tableId).FirstOrDefault();
+
+            if (table != null && table.Status)
+            {
+                var updateTable = Builders<Tables>.Update.Set(t => t.Status, false);
+
+                _tablesCollection.UpdateOne(t => t.TableId == tableId, updateTable);
+
+                var unpaidInvoice = _invoicesCollection.Find(i => i.Table.TableId == tableId && i.Status == false).FirstOrDefault();
+
+                if (unpaidInvoice != null)
+                {
+                    var updateInvoice = Builders<Invoices>.Update.Set(i => i.Status, true);
+
+                    _invoicesCollection.UpdateOne(i => i.InvoiceId == unpaidInvoice.InvoiceId, updateInvoice);
+
+                    MessageBox.Show($"Payment for {tableId} completed!");
+                }
+                else
+                {
+                    MessageBox.Show($"No unpaid invoice found for {tableId}.");
+                }
+            }
+            else
+            {
+                MessageBox.Show($"{tableId} not found or already paid.");
+            }
+        }
+
         public ObservableCollection<InvoiceDetails> InvoiceDetailsList1 { get; set; }
 
         public ObservableCollection<InvoiceDetails> InvoiceDetailsList2 { get; set; }
@@ -120,8 +361,9 @@ namespace Restaurant_Management.ViewModels
         public ObservableCollection<InvoiceDetails> InvoiceDetailsList8 { get; set; }
 
         public ObservableCollection<InvoiceDetails> InvoiceDetailsList9 { get; set; }
-      
+
         private readonly IMongoCollection<Tables> _tablesCollection;
+
         private IMongoCollection<Tables> GetTablesCollection()
         {
             // Set your MongoDB connection string and database name
@@ -136,6 +378,9 @@ namespace Restaurant_Management.ViewModels
         }
 
         private readonly IMongoCollection<Invoices> _invoicesCollection;
+
+        private readonly IMongoCollection<InvoiceDetails> _invoiceDetailsCollection;
+
         private IMongoCollection<Invoices> GetInvoicesCollection()
         {
             // Set your MongoDB connection string and database name
@@ -149,7 +394,6 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<Invoices>("Invoices");
         }
 
-        private readonly IMongoCollection<InvoiceDetails> _invoiceDetailsCollection;
         private IMongoCollection<InvoiceDetails> GetInvoiceDetailsCollection()
         {
             // Set your MongoDB connection string and database name
@@ -164,13 +408,21 @@ namespace Restaurant_Management.ViewModels
         }
 
         public ICommand PaidCommand1 { get; set; }
+
         public ICommand PaidCommand2 { get; set; }
+
         public ICommand PaidCommand3 { get; set; }
+
         public ICommand PaidCommand4 { get; set; }
+
         public ICommand PaidCommand5 { get; set; }
+
         public ICommand PaidCommand6 { get; set; }
+
         public ICommand PaidCommand7 { get; set; }
+
         public ICommand PaidCommand8 { get; set; }
+
         public ICommand PaidCommand9 { get; set; }
 
         public TableVM()
@@ -179,196 +431,14 @@ namespace Restaurant_Management.ViewModels
             _invoicesCollection = GetInvoicesCollection();
             _invoiceDetailsCollection = GetInvoiceDetailsCollection();
 
-            InvoiceDetailsList1 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList2 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList3 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList4 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList5 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList6 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList7 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList8 = new ObservableCollection<InvoiceDetails>();
-            InvoiceDetailsList9 = new ObservableCollection<InvoiceDetails>();
+            InitializeObservableCollection();
 
-            PaidCommand1 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand1());
-            PaidCommand2 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand2());
-            PaidCommand3 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand3());
-            PaidCommand4 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand4());
-            PaidCommand5 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand5());
-            PaidCommand6 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand6());
-            PaidCommand7 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand7());
-            PaidCommand8 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand8());
-            PaidCommand9 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand9());
+            InitializeCommand();
 
             LoadInvoiceDetail();
         }
 
-        public void LoadInvoiceDetail()
-        {
-            var unpaidInvoices = _invoicesCollection.Find(t => t.Status == false).ToList();
 
-            foreach(var invoice in unpaidInvoices)
-            {
-                var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
-                switch (invoice.Table.TableName)
-                {
-                    case "Table 1":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList1.Add(detail);
-                            TotalAmount1 += detail.Amount;
-                        }
-                        break;
-                    case "Table 2":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList2.Add(detail);
-                            TotalAmount2 += detail.Amount;
-                        }
-                        break;
-                    case "Table 3":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList3.Add(detail);
-                            TotalAmount3 += detail.Amount;
-                        }
-                        break;
-                    case "Table 4":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList4.Add(detail);
-                            TotalAmount4 += detail.Amount;
-                        }
-                        break;
-                    case "Table 5":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList5.Add(detail);
-                            TotalAmount5 += detail.Amount;
-                        }
-                        break;
-                    case "Table 6":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList6.Add(detail);
-                            TotalAmount6 += detail.Amount;
-                        }
-                        break;
-                    case "Table 7":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList7.Add(detail);
-                            TotalAmount7 += detail.Amount;
-                        }
-                        break;
-                    case "Table 8":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList8.Add(detail);
-                            TotalAmount8 += detail.Amount;
-                        }
-                        break;
-                    case "Table 9":
-                        foreach (var detail in invoiceDetails)
-                        {
-                            InvoiceDetailsList9.Add(detail);
-                            TotalAmount9 += detail.Amount;
-                        }
-                        break;
-                }
-            }
-        }
-
-        public void _PaidCommand1()
-        {
-            ProcessPayment("TABLE1");
-            InvoiceDetailsList1.Clear();
-            TotalAmount1 = 0;
-        }
-
-        public void _PaidCommand2()
-        {
-            ProcessPayment("TABLE2");
-            InvoiceDetailsList2.Clear();
-            TotalAmount2 = 0;
-        }
-
-        public void _PaidCommand3()
-        {
-            ProcessPayment("TABLE3");
-            InvoiceDetailsList3.Clear();
-            TotalAmount3 = 0;
-        }
-
-        public void _PaidCommand4()
-        {
-            ProcessPayment("TABLE4");
-            InvoiceDetailsList4.Clear();
-            TotalAmount4 = 0;
-        }
-
-        public void _PaidCommand5()
-        {
-            ProcessPayment("TABLE5");
-            InvoiceDetailsList5.Clear();
-            TotalAmount5 = 0;
-        }
-
-        public void _PaidCommand6()
-        {
-            ProcessPayment("TABLE6");
-            InvoiceDetailsList6.Clear();
-            TotalAmount6 = 0;
-        }
-
-        public void _PaidCommand7()
-        {
-            ProcessPayment("TABLE7");
-            InvoiceDetailsList7.Clear();
-            TotalAmount7 = 0;
-        }
-
-        public void _PaidCommand8()
-        {
-            ProcessPayment("TABLE8");
-            InvoiceDetailsList8.Clear();
-            TotalAmount8 = 0;
-        }
-
-        public void _PaidCommand9()
-        {
-            ProcessPayment("TABLE9");
-            InvoiceDetailsList9.Clear();
-            TotalAmount9 = 0;
-        }
-
-        private void ProcessPayment(string tableId)
-        {
-            var table = _tablesCollection.Find(t => t.TableId == tableId).FirstOrDefault();
-
-            if (table != null && table.Status)
-            {
-                var updateTable = Builders<Tables>.Update.Set(t => t.Status, false);
-                _tablesCollection.UpdateOne(t => t.TableId == tableId, updateTable);
-
-                var unpaidInvoice = _invoicesCollection.Find(i => i.Table.TableId == tableId && i.Status == false).FirstOrDefault();
-
-                if (unpaidInvoice != null)
-                {
-                    var updateInvoice = Builders<Invoices>.Update.Set(i => i.Status, true);
-                    _invoicesCollection.UpdateOne(i => i.InvoiceId == unpaidInvoice.InvoiceId, updateInvoice);
-
-                    MessageBox.Show($"Payment for {tableId} completed!");
-                }
-                else
-                {
-                    MessageBox.Show($"No unpaid invoice found for {tableId}.");
-                }
-            }
-            else
-            {
-                MessageBox.Show($"{tableId} is either not found or already paid.");
-            }
-        }
 
     }
 }

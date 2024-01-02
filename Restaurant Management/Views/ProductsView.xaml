@@ -139,7 +139,8 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center">
                                 <TextBlock Text="Change view mode"
-                                           FontSize="14"
+                                           FontSize="16"
+                                           Foreground="#04364A"
                                            FontWeight="Medium"/>
                             </Grid>
                             <Grid Grid.Column="1"

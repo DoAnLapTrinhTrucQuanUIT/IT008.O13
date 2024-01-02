@@ -28,8 +28,8 @@ namespace Restaurant_Management.ViewModels
 
         public ObservableCollection<MenuItems> BeverageList { get; set; }
 
-
         private ObservableCollection<String> _emptyTablesList;
+      
         public ObservableCollection<String> EmptyTablesList
         {
             get { return _emptyTablesList; }
@@ -41,6 +41,7 @@ namespace Restaurant_Management.ViewModels
         }
 
         private ObservableCollection<String> _customersList;
+        
         public ObservableCollection<String> CustomersIdList
         {
             get { return _customersList; }
@@ -52,6 +53,7 @@ namespace Restaurant_Management.ViewModels
         }
 
         private ObservableCollection<MenuItems> _itemlist;
+        
         public ObservableCollection<MenuItems> ItemList
         {
             get { return _itemlist; }
@@ -74,8 +76,8 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-
         private string _selectedCustomerId;
+        
         public string SelectedCustomerId
         {
             get { return _selectedCustomerId; }
@@ -83,11 +85,12 @@ namespace Restaurant_Management.ViewModels
             {
                 _selectedCustomerId = value;
                 OnPropertyChanged(nameof(SelectedCustomerId));
-                // Call a method to update the CustomerName based on the selected ID
                 UpdateCustomerName();
             }
         }
+        
         private string _customerName;
+        
         public string CustomerName
         {
             get { return _customerName; }
@@ -99,6 +102,7 @@ namespace Restaurant_Management.ViewModels
         }
 
         private string _selectedTableItem;
+        
         public string SelectedTableItem
         {
             get { return _selectedTableItem; }
@@ -108,8 +112,6 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(SelectedTableItem));
             }
         }
-
-        public ICommand AddToTempMenuCommand { get; set; }
 
         public IEnumerable<MenuItems> MainCourseDisplayedFoodCards
         {
@@ -153,108 +155,146 @@ namespace Restaurant_Management.ViewModels
 
         private readonly IMongoCollection<MenuItems> _MenuItems;
 
+        private readonly IMongoCollection<Tables> _Tables;
+
+        private readonly IMongoCollection<Customers> _Customers;
+
+        private readonly IMongoCollection<Invoices> _Invoices;
+
+        private readonly IMongoCollection<Employees> _Employees;
+
+        private readonly IMongoCollection<InvoiceDetails> _InvoiceDetails;
+
         private IMongoCollection<MenuItems> GetMenuItems()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; 
+            
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+            
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<MenuItems>("MenuItems");
 
         }
-
-
-        private readonly IMongoCollection<Tables> _Tables;
+        
         private IMongoCollection<Tables> GetTables()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<Tables>("Tables");
         }
-
-        private readonly IMongoCollection<Customers> _Customers;
+        
         private IMongoCollection<Customers> GetCustomers()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+            
+            string databaseName = "Restaurant_Management_Application"; 
 
             var client = new MongoClient(connectionString);
+            
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<Customers>("Customers");
         }
 
-        private readonly IMongoCollection<Invoices> _Invoices;
         private IMongoCollection<Invoices> GetInvoices()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<Invoices>("Invoices");
         }
 
-
-        private readonly IMongoCollection<Employees> _Employees;
         private IMongoCollection<Employees> GetEmployees()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<Employees>("Employees");
         }
-        private readonly IMongoCollection<InvoiceDetails> _InvoiceDetails;
+
         private IMongoCollection<InvoiceDetails> GetInvoiceDetails()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+            
+            string databaseName = "Restaurant_Management_Application"; 
 
             var client = new MongoClient(connectionString);
+            
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<InvoiceDetails>("InvoiceDetails");
         }
+        
         public ICommand DeleteItemCommand { get; set; }
+   
         public ICommand DeleteAllItemCommand { get; set; }
+        
         public ICommand ConfirmItemCommand { get; set; }
+
+        public ICommand AddToTempMenuCommand { get; set; }
 
         public MenuVM()
         {
             _MenuItems = GetMenuItems();
+
             _Tables = GetTables();
+
             _Customers = GetCustomers();
+
             _Employees = GetEmployees();
+
             _InvoiceDetails = GetInvoiceDetails();
+
             _Invoices = GetInvoices();
+
             LoadMenuItem();
 
+            InitializeCommand();
+        }
+
+        public void LoadCustomer()
+        {
+            var customer = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();
+            
+            CustomersIdList = new ObservableCollection<string>(customer.Select(cus => cus.CustomerId));
+        }
+        
+        public void LoadTable()
+        {
+            var emptyTables = _Tables.Find(tb => tb.Status == false).ToList();
+            
+            EmptyTablesList = new ObservableCollection<string>(emptyTables.Select(tb => tb.TableName));
+        }
+
+        private void InitializeCommand()
+        {
             TempMenuItemsList = new ObservableCollection<TempMenuItems>();
+
             AddToTempMenuCommand = new RelayCommand<FoodCard>((p) => true, (p) => AddToTempMenu(p));
+
             DeleteItemCommand = new RelayCommand<TempMenuItems>((p) => true, (p) => DeleteItem(p));
+
             DeleteAllItemCommand = new RelayCommand<object>((p) => true, (p) => DeleteAllItem());
+
             ConfirmItemCommand = new RelayCommand<MenuView>((p) => true, (p) => ConfirmItem());
         }
 
@@ -264,12 +304,10 @@ namespace Restaurant_Management.ViewModels
 
             if (existingItem != null)
             {
-                // Nếu mục đã tồn tại, tăng số lượng lên 1
                 existingItem.Quantity++;
             }
             else
             {
-                // Nếu mục chưa tồn tại, thêm một mục mới với Quantity là 1
                 var tempMenuItem = new TempMenuItems
                 {
                     MenuItem = new MenuItems
@@ -277,9 +315,8 @@ namespace Restaurant_Management.ViewModels
                         ItemId = foodCard.FoodId,
                         Name = foodCard.FoodName,
                         Price = foodCard.FoodPrice,
-                        // Các thuộc tính khác nếu cần
                     },
-                    Quantity = 1 // Số lượng mặc định là 1 khi món ăn được thêm vào danh sách tạm thời
+                    Quantity = 1
                 };
                 TempMenuItemsList.Add(tempMenuItem);
             }
@@ -289,19 +326,21 @@ namespace Restaurant_Management.ViewModels
         private void LoadMenuItem()
         {
             var items = _MenuItems.Find(Builders<MenuItems>.Filter.Empty).ToList();
+
             ItemList = new ObservableCollection<MenuItems>(items);
 
-            // Sử dụng LINQ để nhóm mục theo danh mục
             var groupedItems = items.GroupBy(item => item.Category);
 
-            // Khởi tạo danh sách cho mỗi danh mục
             MainCourseList = new ObservableCollection<MenuItems>();
+
             AppetizerList = new ObservableCollection<MenuItems>();
+
             LightDishList = new ObservableCollection<MenuItems>();
+
             DessertList = new ObservableCollection<MenuItems>();
+
             BeverageList = new ObservableCollection<MenuItems>();
 
-            // Duyệt qua từng nhóm và thêm vào danh sách tương ứng
             foreach (var group in groupedItems)
             {
                 foreach (var item in group)
@@ -323,26 +362,14 @@ namespace Restaurant_Management.ViewModels
                         case "Beverage":
                             BeverageList.Add(item);
                             break;
-                            // Các trường hợp khác nếu có
                     }
                 }
             }
 
             LoadCustomer();
+
             LoadTable();
         }
-
-        public void LoadCustomer()
-        {
-            var customer = _Customers.Find(Builders<Customers>.Filter.Empty).ToList();
-            CustomersIdList = new ObservableCollection<string>(customer.Select(cus => cus.CustomerId));
-        }
-        public void LoadTable()
-        {
-            var emptyTables = _Tables.Find(tb => tb.Status == false).ToList();
-            EmptyTablesList = new ObservableCollection<string>(emptyTables.Select(tb => tb.TableName));
-        }
-        
 
         private void DeleteItem(TempMenuItems tempMenuItems)
         {
@@ -358,14 +385,14 @@ namespace Restaurant_Management.ViewModels
             TempMenuItemsList.Clear();
             OnPropertyChanged(nameof(TempMenuItemsList));
         }
+        
         private void UpdateCustomerName()
         {
-            // Use the selected customer ID to retrieve the customer name from your data source
-            // Replace this with your actual logic to fetch customer name based on ID
             var customer = _Customers.Find(c => c.CustomerId == SelectedCustomerId).FirstOrDefault();
+
             if (customer!=null)
             {
-                CustomerName = customer.FullName.ToString(); // Update CustomerName property
+                CustomerName = customer.FullName.ToString();
             }
             else
             {
@@ -389,81 +416,95 @@ namespace Restaurant_Management.ViewModels
 
                 Tables table = _Tables.Find(c => c.TableName == tableIdSelected).FirstOrDefault();
 
-                // Set the Status to true
                 table.Status = true;
 
-                // Update the table status in the MongoDB collection
                 var tableFilter = Builders<Tables>.Filter.Eq(t => t.TableName, tableIdSelected);
+
                 var update = Builders<Tables>.Update.Set(t => t.Status, true);
+
                 _Tables.UpdateOne(tableFilter, update);
 
-
                 string invoiceId = GenerateRandomInvoiceId();
-                // Create the Invoice with the total amount
+    
                 Invoices Invoice = new Invoices
                 {
                     InvoiceId = invoiceId,
+                
                     Employee = employee,
+                    
                     Customer = customer,
+                    
                     Table = table,
+                    
                     CreatedDate = DateTime.Now,
+                    
                     Status = false
                 };
+                
                 _Invoices.InsertOne(Invoice);
 
-                // Calculate the total amount
                 double totalAmount = 0;
 
                 foreach (var tempInvoiceDetail in TempMenuItemsList)
                 {
                     string invoiceDetailsId = GenerateRandomInvoiceDetailId(invoiceId);
+
                     MenuItems tempMenuItem = tempInvoiceDetail.MenuItem;
+
                     int tempQuantity = tempInvoiceDetail.Quantity;
 
-                    // Create InvoiceDetail
                     InvoiceDetails invoiceDetail = new InvoiceDetails
                     {
                         InvoiceDetailId = invoiceDetailsId,
+
                         Invoice = Invoice,
+
                         Item = tempMenuItem,
+
                         Quantity = tempQuantity,
+
                         Amount = tempMenuItem.Price * tempQuantity,
                     };
+
                     _InvoiceDetails.InsertOne(invoiceDetail);
 
-                    // Sum up the Amount
                     totalAmount += invoiceDetail.Amount;
                 }
 
                 var customerFilter = Builders<Customers>.Filter.Eq(c => c.CustomerId, SelectedCustomerId);
+
                 var updateCustomerSales = Builders<Customers>.Update.Inc(c => c.Sales, totalAmount);
+
                 _Customers.UpdateOne(customerFilter, updateCustomerSales);
 
                 var filter = Builders<Invoices>.Filter.Eq(i => i.InvoiceId, invoiceId);
+
                 var updateTotalAmount = Builders<Invoices>.Update.Set(i => i.TotalAmount, totalAmount);
+
                 _Invoices.UpdateOne(filter, updateTotalAmount);
 
                 SelectedTableItem = null;
+
                 CustomerName = null;
+
                 SelectedCustomerId = null;
+
                 LoadTable();
+
                 DeleteAllItem();
+
                 System.Windows.MessageBox.Show("Invoice created successfully", "Notification");
             }
         }
 
-
-        string GenerateRandomInvoiceId()
+        private string GenerateRandomInvoiceId()
         {
-            // Lấy `InvoiceId` lớn nhất hiện có
             var maxInvoiceId = _Invoices.AsQueryable()
                 .OrderByDescending(i => i.InvoiceId)
                 .FirstOrDefault()?.InvoiceId;
 
-            // Tạo `InvoiceId` mới với số thứ tự kế tiếp
             string newInvoiceId = GenerateNextInvoiceId(maxInvoiceId);
 
-            // Kiểm tra nếu `InvoiceId` mới đã tồn tại
             while (CheckInvoice(newInvoiceId))
             {
                 newInvoiceId = GenerateNextInvoiceId(newInvoiceId);
@@ -472,70 +513,64 @@ namespace Restaurant_Management.ViewModels
             return newInvoiceId;
         }
 
-        string GenerateNextInvoiceId(string currentMaxInvoiceId)
+        private string GenerateNextInvoiceId(string currentMaxInvoiceId)
         {
             if (string.IsNullOrEmpty(currentMaxInvoiceId))
             {
                 return "INV1";
             }
 
-            // Trích xuất số từ `InvoiceId` lớn nhất hiện có
             string maxNumberStr = currentMaxInvoiceId.Substring(3);
+
             if (int.TryParse(maxNumberStr, out int maxNumber))
             {
-                // Tạo `InvoiceId` mới với số thứ tự kế tiếp
                 return "INV" + (maxNumber + 1).ToString();
             }
 
-            // Trong trường hợp không thành công, trả về `INV1`
             return "INV1";
         }
 
-        bool CheckInvoice(string invoiceId)
+        private bool CheckInvoice(string invoiceId)
         {
             return _Invoices.AsQueryable().Any(temp => temp.InvoiceId == invoiceId);
         }
 
-        string GenerateInvoiceDetailId(string invoiceId, int detailNumber)
+        private string GenerateInvoiceDetailId(string invoiceId, int detailNumber)
         {
-            // Tạo `InvoiceDetailId` từ `invoiceId` và `detailNumber`
             return $"{invoiceId}_DET{detailNumber}";
         }
 
-        string GenerateRandomInvoiceDetailId(string invoiceId)
+        private string GenerateRandomInvoiceDetailId(string invoiceId)
         {
-            // Lấy `InvoiceDetailId` lớn nhất cho `invoiceId` hiện có
             var maxDetailId = _InvoiceDetails.AsQueryable()
                 .Where(d => d.Invoice.InvoiceId == invoiceId)
                 .OrderByDescending(d => d.InvoiceDetailId)
                 .FirstOrDefault()?.InvoiceDetailId;
 
-            // Trích xuất số từ `InvoiceDetailId` lớn nhất hiện có
             string maxNumberStr = maxDetailId?.Substring(invoiceId.Length + 4);
+
             if (int.TryParse(maxNumberStr, out int maxNumber))
             {
-                // Tạo `InvoiceDetailId` mới với số thứ tự kế tiếp
                 int newDetailNumber = maxNumber + 1;
+
                 string newDetailId = GenerateInvoiceDetailId(invoiceId, newDetailNumber);
 
-                // Kiểm tra nếu `InvoiceDetailId` mới đã tồn tại
                 while (CheckInvoiceDetail(newDetailId))
                 {
                     newDetailNumber++;
+
                     newDetailId = GenerateInvoiceDetailId(invoiceId, newDetailNumber);
                 }
 
                 return newDetailId;
             }
 
-            // Trong trường hợp không thành công, trả về `InvoiceId_DET1`
             return GenerateInvoiceDetailId(invoiceId, 1);
         }
 
-        bool CheckInvoiceDetail(string invoiceDetailId)
+        private bool CheckInvoiceDetail(string invoiceDetailId)
         {
             return _InvoiceDetails.AsQueryable().Any(temp => temp.InvoiceDetailId == invoiceDetailId);
         }
-
     }
 }

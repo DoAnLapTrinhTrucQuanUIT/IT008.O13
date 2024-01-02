@@ -30,23 +30,18 @@ namespace Restaurant_Management.ViewModels
     public class AddItemVM : Utilities.ViewModelBase
     {
         public ICommand CancelCommand { get; set; }
+        
         public ICommand ConfirmCommand { get; set; }
+        
         public ICommand CloseWDCM { get; set; }
+        
         public ICommand MinimizeWDCM { get; set; }
+        
         public ICommand MoveWDCM { get; set; }
+        
         public ICommand BrowseImageCommand { get; set; }
 
         private readonly IMongoCollection<MenuItems> _MenuItems;
-        public AddItemVM()
-        {
-            _MenuItems = GetMenuItems();
-            BrowseImageCommand = new RelayCommand<AddItem>(p => true, p => _BrowseImage(p));
-            CancelCommand = new RelayCommand<AddItem>(p => true, p => _CancelCommand(p));
-            ConfirmCommand = new RelayCommand<AddItem>(p => true, p => _ConfirmCommand(p));
-            CloseWDCM = new RelayCommand<AddItem>(p => true, p => _CloseWD(p));
-            MinimizeWDCM = new RelayCommand<AddItem>(p => true, p => _MinimizeWD(p));
-            MoveWDCM = new RelayCommand<AddItem>(p => true, p => _MoveWD(p));
-        }
 
         private IMongoCollection<MenuItems> GetMenuItems()
         {
@@ -60,6 +55,81 @@ namespace Restaurant_Management.ViewModels
 
             return database.GetCollection<MenuItems>("MenuItems");
         }
+
+        public AddItemVM()
+        {
+            _MenuItems = GetMenuItems();
+
+            InitializeCommand();
+        }
+
+        private void InitializeCommand()
+        {
+            BrowseImageCommand = new RelayCommand<AddItem>(p => true, p => _BrowseImage(p));
+            
+            CancelCommand = new RelayCommand<AddItem>(p => true, p => _CancelCommand(p));
+            
+            ConfirmCommand = new RelayCommand<AddItem>(p => true, p => _ConfirmCommand(p));
+            
+            CloseWDCM = new RelayCommand<AddItem>(p => true, p => _CloseWD(p));
+            
+            MinimizeWDCM = new RelayCommand<AddItem>(p => true, p => _MinimizeWD(p));
+            
+            MoveWDCM = new RelayCommand<AddItem>(p => true, p => _MoveWD(p));
+        }
+
+        private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
+        {
+            // Convert the WPF Image to a MemoryStream
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+                encoder.Save(ms);
+
+                // Get the bytes from the MemoryStream
+                return ms.ToArray();
+            }
+        }
+        
+        private string GenerateRandomItemId()
+        {
+            var maxItemId = _MenuItems.AsQueryable()
+                .OrderByDescending(c => c.ItemId)
+                .FirstOrDefault()?.ItemId;
+
+            string newItemId = GenerateNextItemId(maxItemId);
+
+            while (Check(newItemId))
+            {
+                newItemId = GenerateNextItemId(newItemId);
+            }
+
+            return newItemId;
+        }
+        
+        private string GenerateNextItemId(string currentMaxItemId)
+        {
+            if (string.IsNullOrEmpty(currentMaxItemId))
+            {
+                return "DISHES1";
+            }
+
+            string maxNumberStr = currentMaxItemId.Substring(6);
+            if (int.TryParse(maxNumberStr, out int maxNumber))
+            {
+                // Tạo `CustomerId` mới với số thứ tự kế tiếp
+                return "DISHES" + (maxNumber + 1).ToString();
+            }
+
+            return "DISHES1";
+        }
+        
+        private bool Check(string itemId)
+        {
+            return _MenuItems.AsQueryable().Any(temp => temp.ItemId == itemId);
+        }
+
         private void _BrowseImage(AddItem parameter)
         {
             try
@@ -87,6 +157,7 @@ namespace Restaurant_Management.ViewModels
                 MessageBox.Show($"Error loading image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void _CancelCommand(AddItem parameter)
         {
             parameter.Name.Clear();
@@ -95,6 +166,7 @@ namespace Restaurant_Management.ViewModels
             parameter.Description.Clear();
             parameter.loadedImage.Source = null;
         }
+
         private void _ConfirmCommand(AddItem parameter)
         {
             if (parameter.Name.Text == "" || parameter.CategoryComboBox.SelectedItem == null || parameter.Price.Text == "")
@@ -129,10 +201,11 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
         private void AddItem(AddItem parameter)
         {
             // byte[] imageBytes = ConvertImageToBytes(parameter.loadedImage);
-            
+
             // Tạo một đối tượng MenuItems mới
             var menuItems = new MenuItems
             {
@@ -154,54 +227,7 @@ namespace Restaurant_Management.ViewModels
             // Clear the image in the loadedImage control
             parameter.loadedImage.Source = null;
         }
-        private byte[] ConvertImageToBytes(System.Windows.Controls.Image image)
-        {
-            // Convert the WPF Image to a MemoryStream
-            using (MemoryStream ms = new MemoryStream())
-            {
-                BitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
-                encoder.Save(ms);
 
-                // Get the bytes from the MemoryStream
-                return ms.ToArray();
-            }
-        }
-        string GenerateRandomItemId()
-        {
-            var maxItemId = _MenuItems.AsQueryable()
-                .OrderByDescending(c => c.ItemId)
-                .FirstOrDefault()?.ItemId;
-
-            string newItemId = GenerateNextItemId(maxItemId);
-
-            while (Check(newItemId))
-            {
-                newItemId = GenerateNextItemId(newItemId);
-            }
-
-            return newItemId;
-        }
-        string GenerateNextItemId(string currentMaxItemId)
-        {
-            if (string.IsNullOrEmpty(currentMaxItemId))
-            {
-                return "DISHES1";
-            }
-
-            string maxNumberStr = currentMaxItemId.Substring(6);
-            if (int.TryParse(maxNumberStr, out int maxNumber))
-            {
-                // Tạo `CustomerId` mới với số thứ tự kế tiếp
-                return "DISHES" + (maxNumber + 1).ToString();
-            }
-
-            return "DISHES1";
-        }
-        bool Check(string itemId)
-        {
-            return _MenuItems.AsQueryable().Any(temp => temp.ItemId == itemId);
-        }
         private void _CloseWD(AddItem parameter)
         {
             var window = Window.GetWindow(parameter);
@@ -210,6 +236,7 @@ namespace Restaurant_Management.ViewModels
                 window.Close();
             }
         }
+
         private void _MinimizeWD(AddItem parameter)
         {
             var window = Window.GetWindow(parameter);
@@ -218,6 +245,7 @@ namespace Restaurant_Management.ViewModels
                 window.WindowState = WindowState.Minimized;
             }
         }
+
         private void _MoveWD(AddItem parameter)
         {
             var window = Window.GetWindow(parameter);

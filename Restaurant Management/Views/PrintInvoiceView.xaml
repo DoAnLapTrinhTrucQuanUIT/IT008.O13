@@ -5,75 +5,94 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Restaurant_Management.Views"
              mc:Ignorable="d"
-             d:DesignHeight="350"
+             d:DesignHeight="700"
              d:DesignWidth="800">
     <Border Name="PrintWindow"
             Background="White">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
-                <RowDefinition Height="100" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            <!--Titles-->
             <Grid Grid.Row="0">
                 <TextBlock Text="INVOICE"
-                           FontSize="50"
+                           FontSize="60"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontWeight="Bold" />
             </Grid>
-            <Grid Grid.Row="1">
+            <!--Customer & Staff information-->
+            <Grid Grid.Row="1" Margin="0 30 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <StackPanel Margin="30,0,0,0">
-                        <StackPanel Orientation="Horizontal">
+                    <Grid Margin="30,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal">
                             <TextBlock Text="Customer ID: "
                                        FontSize="14" />
                             <TextBlock x:Name="CustomerID"
                                        FontSize="14" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal">
                             <TextBlock Text="Customer Name: "
                                        FontSize="14" />
                             <TextBlock x:Name="CustomerName"
                                        FontSize="14" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Grid.Row="2"
+                                    Orientation="Horizontal">
                             <TextBlock Text="Phone Number: "
                                        FontSize="14" />
                             <TextBlock x:Name="PhoneNumber"
                                        FontSize="14" />
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <StackPanel Margin="150,0,0,0">
-                        <StackPanel Orientation="Horizontal">
+                    <Grid Margin="150,0,0,0">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
                             <TextBlock Text="Cashier Name: "
                                        FontSize="14" />
                             <TextBlock x:Name="EmployeeName"
                                        FontSize="14" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal">
                             <TextBlock Text="Invoice Date: "
                                        FontSize="14" />
                             <TextBlock x:Name="InvoiceDate"
                                        FontSize="14" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Grid.Row="2"
+                                    Orientation="Horizontal">
                             <TextBlock Text="Invoice ID: "
                                        FontSize="14" />
                             <TextBlock x:Name="InvoiceID"
                                        FontSize="14" />
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2"
+                  Margin="0 30 0 0">
                 <ListView x:Name="ListMenuItem"
                           Background="Transparent"
                           Height="auto">
@@ -127,7 +146,8 @@
                     </ListView.View>
                 </ListView>
             </Grid>
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="3"
+                  Margin="0 30 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
