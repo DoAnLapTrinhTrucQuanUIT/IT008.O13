@@ -13,6 +13,105 @@ namespace Restaurant_Management.ViewModels
 {
     public class TableVM : ViewModelBase
     {
+        private string _customerName1;
+        public string CustomerName1
+        {
+            get => _customerName1;
+            set
+            {
+                _customerName1 = value;
+                OnPropertyChanged(nameof(CustomerName1));
+            }
+        }
+
+        private string _customerName2;
+        public string CustomerName2
+        {
+            get => _customerName2;
+            set
+            {
+                _customerName2 = value;
+                OnPropertyChanged(nameof(CustomerName2));
+            }
+        }
+
+        private string _customerName3;
+        public string CustomerName3
+        {
+            get => _customerName3;
+            set
+            {
+                _customerName3 = value;
+                OnPropertyChanged(nameof(CustomerName3));
+            }
+        }
+
+        private string _customerName4;
+        public string CustomerName4
+        {
+            get => _customerName4;
+            set
+            {
+                _customerName4 = value;
+                OnPropertyChanged(nameof(CustomerName4));
+            }
+        }
+
+        private string _customerName5;
+        public string CustomerName5
+        {
+            get => _customerName5;
+            set
+            {
+                _customerName5 = value;
+                OnPropertyChanged(nameof(CustomerName5));
+            }
+        }
+
+        private string _customerName6;
+        public string CustomerName6
+        {
+            get => _customerName6;
+            set
+            {
+                _customerName6 = value;
+                OnPropertyChanged(nameof(CustomerName6));
+            }
+        }
+
+        private string _customerName7;
+        public string CustomerName7
+        {
+            get => _customerName7;
+            set
+            {
+                _customerName7 = value;
+                OnPropertyChanged(nameof(CustomerName7));
+            }
+        }
+
+        private string _customerName8;
+        public string CustomerName8
+        {
+            get => _customerName8;
+            set
+            {
+                _customerName8 = value;
+                OnPropertyChanged(nameof(CustomerName8));
+            }
+        }
+
+        private string _customerName9;
+        public string CustomerName9
+        {
+            get => _customerName9;
+            set
+            {
+                _customerName9 = value;
+                OnPropertyChanged(nameof(CustomerName9));
+            }
+        }
+
         private double _totalAmount1;
         public double TotalAmount1
         {
@@ -215,6 +314,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList1.Add(detail);
+                            CustomerName1 = detail.Invoice.Customer.FullName;
                             TotalAmount1 += detail.Amount;
                         }
                         break;
@@ -222,6 +322,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList2.Add(detail);
+                            CustomerName2 = detail.Invoice.Customer.FullName;
                             TotalAmount2 += detail.Amount;
                         }
                         break;
@@ -229,6 +330,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList3.Add(detail);
+                            CustomerName3 = detail.Invoice.Customer.FullName;
                             TotalAmount3 += detail.Amount;
                         }
                         break;
@@ -236,6 +338,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList4.Add(detail);
+                            CustomerName4 = detail.Invoice.Customer.FullName;
                             TotalAmount4 += detail.Amount;
                         }
                         break;
@@ -243,6 +346,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList5.Add(detail);
+                            CustomerName5 = detail.Invoice.Customer.FullName;
                             TotalAmount5 += detail.Amount;
                         }
                         break;
@@ -250,6 +354,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList6.Add(detail);
+                            CustomerName6 = detail.Invoice.Customer.FullName;
                             TotalAmount6 += detail.Amount;
                         }
                         break;
@@ -257,6 +362,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList7.Add(detail);
+                            CustomerName7 = detail.Invoice.Customer.FullName;
                             TotalAmount7 += detail.Amount;
                         }
                         break;
@@ -264,6 +370,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList8.Add(detail);
+                            CustomerName8 = detail.Invoice.Customer.FullName;
                             TotalAmount8 += detail.Amount;
                         }
                         break;
@@ -271,6 +378,7 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList9.Add(detail);
+                            CustomerName9 = detail.Invoice.Customer.FullName;
                             TotalAmount9 += detail.Amount;
                         }
                         break;
@@ -282,6 +390,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE1");
             InvoiceDetailsList1.Clear();
+            CustomerName1 = "";
             TotalAmount1 = 0;
         }
 
@@ -289,6 +398,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE2");
             InvoiceDetailsList2.Clear();
+            CustomerName2 = "";
             TotalAmount2 = 0;
         }
 
@@ -296,6 +406,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE3");
             InvoiceDetailsList3.Clear();
+            CustomerName3 = "";
             TotalAmount3 = 0;
         }
 
@@ -303,6 +414,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE4");
             InvoiceDetailsList4.Clear();
+            CustomerName4 = "";
             TotalAmount4 = 0;
         }
 
@@ -310,6 +422,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE5");
             InvoiceDetailsList5.Clear();
+            CustomerName5 = "";
             TotalAmount5 = 0;
         }
 
@@ -317,6 +430,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE6");
             InvoiceDetailsList6.Clear();
+            CustomerName6 = "";
             TotalAmount6 = 0;
         }
 
@@ -324,6 +438,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE7");
             InvoiceDetailsList7.Clear();
+            CustomerName7 = "";
             TotalAmount7 = 0;
         }
 
@@ -331,6 +446,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE8");
             InvoiceDetailsList8.Clear();
+            CustomerName8 = "";
             TotalAmount8 = 0;
         }
 
@@ -338,6 +454,7 @@ namespace Restaurant_Management.ViewModels
         {
             ProcessPayment("TABLE9");
             InvoiceDetailsList9.Clear();
+            CustomerName9 = "";
             TotalAmount9 = 0;
         }
 

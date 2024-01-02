@@ -17,6 +17,7 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -198,19 +199,25 @@ namespace Restaurant_Management.ViewModels
                 // Add the header row to the CSV content
                 csvContent.AppendLine("Customer ID,Full Name, Address, Phone Number, Email, Gender, Registration Date, Sales");
 
+                // Choose the list to export based on SearchCustomerList
+                var exportList = (SearchCustomerList != null && SearchCustomerList.Count > 0) ? SearchCustomerList : CustomerList;
+
                 // Add customer data to the CSV content
-                foreach (var customer in SearchCustomerList)
+                foreach (var customer in exportList)
                 {
                     string formattedRegistrationDate = customer.RegistrationDate.ToString("dd/MM/yy");
-                    csvContent.AppendLine($"{customer.CustomerId},{customer.FullName},{customer.Address},{customer.PhoneNumber},{customer.Email},{customer.Gender},{formattedRegistrationDate},{(int)customer.Sales}");
+                    string formattedSales = customer.Sales.ToString("0.00", CultureInfo.InvariantCulture); // Ensure the dot as a decimal separator
+                    csvContent.AppendLine($"{customer.CustomerId},{customer.FullName},{customer.Address},{customer.PhoneNumber},{customer.Email},{customer.Gender},{formattedRegistrationDate},{formattedSales}");
                 }
 
                 // Write the CSV content to the selected file
                 File.WriteAllText(filePath, csvContent.ToString());
 
+                LoadCustomerBar();
                 MessageBox.Show($"Customer list exported successfully!");
             }
         }
+
 
         void _ImportCustomer()
         {
@@ -250,7 +257,7 @@ namespace Restaurant_Management.ViewModels
                             Email = values[4],
                             Gender = values[5],
                             RegistrationDate = DateTime.Parse(values[6]),
-                            Sales = double.Parse(values[7])
+                            Sales = double.Parse(values[7], CultureInfo.InvariantCulture) // Ensure the dot as a decimal separator
                         };
 
                         var existingCustomer = _Customers.Find(Builders<Customers>.Filter.Eq("customerId", newCustomer.CustomerId)).FirstOrDefault();
@@ -267,6 +274,7 @@ namespace Restaurant_Management.ViewModels
                         _Customers.InsertOne(newCustomer);
                     }
 
+                    LoadCustomerBar();
                     MessageBox.Show($"Customers imported successfully!");
                 }
                 catch (Exception ex)
@@ -275,6 +283,8 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
+
         private void _DeleteCustomer(Customers customer)
         {
             // Implementation for deleting an employee
@@ -292,6 +302,7 @@ namespace Restaurant_Management.ViewModels
                     _Customers.DeleteOne(Builders<Customers>.Filter.Eq("customerId", customer.CustomerId));
 
                     // Reload the staff list after deletion
+                    LoadCustomerBar();
                     LoadCustomers();
                 }
             }
