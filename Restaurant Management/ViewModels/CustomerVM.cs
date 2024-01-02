@@ -105,6 +105,8 @@ namespace Restaurant_Management.ViewModels
         public ICommand ExportCustomerCM { get; set; }
         public ICommand ImportCustomerCM { get; set; }
         public ICommand DeletedCustomerCommand { get; set; }
+        public ICommand EditedCustomerCommand { get; set; }
+        
 
         private readonly IMongoCollection<Customers> _Customers;
         public CustomerVM() 
@@ -117,7 +119,7 @@ namespace Restaurant_Management.ViewModels
             ExportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ExportCustomer());
             ImportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ImportCustomer());
             DeletedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _DeleteCustomer(customer));
-
+            EditedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _EditCustomer(customer));
         }
         private IMongoCollection<Customers> GetCustomers()
         {
@@ -307,6 +309,26 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
+        private void _EditCustomer(Customers customer)
+        {
+            if (customer != null)
+            {
+                EditCustomerVM editCustomerViewModel = new EditCustomerVM(customer);
+                EditCustomer editCustomer = new EditCustomer();
+                editCustomer.DataContext = editCustomerViewModel;
+                var window = new Window
+                {
+                    Content = editCustomer,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    WindowStyle = WindowStyle.None,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                };
+                window.Closed += (sender, args) => LoadCustomers();
+                window.ShowDialog();
+            }
+        }    
+
 
         private void LoadCustomerBar()
         {
