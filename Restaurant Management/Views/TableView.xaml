@@ -106,6 +106,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!--Table information-->
@@ -167,11 +168,39 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Bindind Customer Name-->
+                        <TextBlock Text="{Binding CustomerName1}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -182,8 +211,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
                         <!--Bindind Total Amount-->
                         <TextBlock Text="{Binding TotalAmount1}"
                                    Grid.Column="1"
@@ -192,8 +221,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -201,7 +230,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -230,6 +259,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -292,11 +322,39 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Bindind Customer Name-->
+                        <TextBlock Text="{Binding CustomerName2}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -307,9 +365,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount2}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -317,8 +375,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -326,7 +384,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -355,6 +413,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -417,11 +476,38 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Customer Name-->
+                        <TextBlock Text="{Binding CustomerName3}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -432,9 +518,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount3}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -442,8 +528,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -451,7 +537,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -480,6 +566,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -542,11 +629,38 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Customer Name-->
+                        <TextBlock Text="{Binding CustomerName4}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -557,9 +671,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount4}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -567,8 +681,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -576,7 +690,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -605,6 +719,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -667,11 +782,38 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Customer Name-->
+                        <TextBlock Text="{Binding CustomerName5}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -682,9 +824,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount5}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -692,8 +834,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -701,7 +843,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -730,6 +872,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -792,11 +935,38 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Customer Name-->
+                        <TextBlock Text="{Binding CustomerName6}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -807,9 +977,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount6}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -817,8 +987,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -826,7 +996,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -855,6 +1025,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -917,11 +1088,38 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Customer Name-->
+                        <TextBlock Text="{Binding CustomerName7}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -932,9 +1130,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount7}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -942,8 +1140,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -951,7 +1149,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -980,6 +1178,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -1042,11 +1241,38 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Customer Name-->
+                        <TextBlock Text="{Binding CustomerName8}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -1057,9 +1283,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount8}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -1067,8 +1293,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -1076,7 +1302,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
@@ -1105,6 +1331,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -1167,11 +1394,38 @@
                             </Border>
                         </Grid>
                     </Grid>
-                    <!--Total money-->
+                    <!--Customer Name-->
                     <Grid Grid.Row="1"
                           Margin="0 0 0 30">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Cusomer Name:"
+                                   Grid.Column="0"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Customer Name-->
+                        <TextBlock Text="{Binding CustomerName9}"
+                                   Grid.Column="1"
+                                   Foreground="#000"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
+                    </Grid>
+                    <!--Total money-->
+                    <Grid Grid.Row="2"
+                          Margin="0 0 0 30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -1182,9 +1436,9 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="16, 8, 10, 8" />
-                        <!--Bindind Total Amount-->
+                                   HorizontalAlignment="Left"
+                                   Margin="8" />
+                        <!--Binding Total Amount-->
                         <TextBlock Text="{Binding TotalAmount9}"
                                    Grid.Column="1"
                                    Foreground="#000"
@@ -1192,8 +1446,8 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Margin="0, 8, 10, 8" />
+                                   HorizontalAlignment="Left"
+                                   Margin="30 8" />
                         <TextBlock Text="VND"
                                    Grid.Column="2"
                                    Foreground="#000"
@@ -1201,7 +1455,7 @@
                                    FontFamily="Roboto"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   HorizontalAlignment="Left"
                                    Margin="0, 8, 30, 8" />
                     </Grid>
                     <!--Paid Button-->
