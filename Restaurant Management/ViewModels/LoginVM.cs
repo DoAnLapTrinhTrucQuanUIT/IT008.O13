@@ -164,7 +164,7 @@ namespace Restaurant_Management.ViewModels
             }
             else
             {
-                MessageBox.Show("Please enter complete information !");
+                MessageBox.Show("Please enter completely information !");
             }
         }
    
