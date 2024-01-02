@@ -65,20 +65,23 @@ namespace Restaurant_Management.ViewModels
         }
         public void Decentralization(MainWindow mainWindow)
         {
-            if (mainWindow.DataContext is NavigationVM navigationVM)
+            if (CurrentUser == null && mainWindow.DataContext is NavigationVM navigationVM)
             {
-                if (navigationVM.CurrentUser != null && navigationVM.CurrentUser.IsAdmin)
-                {
-                    mainWindow.AdminLeftSidebar.Visibility = Visibility.Visible;
-                    mainWindow.StaffLeftSidebar.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    mainWindow.AdminLeftSidebar.Visibility = Visibility.Collapsed;
-                    mainWindow.StaffLeftSidebar.Visibility = Visibility.Visible;
-                }
+                CurrentUser = navigationVM.CurrentUser;
+            }
+
+            if (CurrentUser != null && CurrentUser.IsAdmin)
+            {
+                mainWindow.AdminLeftSidebar.Visibility = Visibility.Visible;
+                mainWindow.StaffLeftSidebar.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                mainWindow.AdminLeftSidebar.Visibility = Visibility.Collapsed;
+                mainWindow.StaffLeftSidebar.Visibility = Visibility.Visible;
             }
         }
+
 
     }
 }

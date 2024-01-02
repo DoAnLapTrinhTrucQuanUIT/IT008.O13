@@ -33,6 +33,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(UserID));
             }
         }
+        
         private string _name;
         public string Name
         {
@@ -109,6 +110,7 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(Address));
             }
         }
+        
         private BitmapImage _avatarimagesource;
         public BitmapImage AvatarImageSource
         {
@@ -119,91 +121,140 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(AvatarImageSource));
             }
         }
+        
         public ICommand BrowseImageButton { get; set; }
+        
         public ICommand LogoutCommand { get; set; }
+        
         public ICommand LoadWindowCommand { get; set; }
+        
         public ICommand UpdateProfileCommand { get; set; }
+        
         public ICommand ChangePassCommand { get; set; }
 
         private readonly IMongoCollection<Employees> _Employees;
-        public SettingsVM()
-        {
-            _Employees = GetMongoCollection();
-            BrowseImageButton= new RelayCommand<SettingsView>((p) => true, (p) => _BrowseImage(p));
-            LogoutCommand = new RelayCommand<SettingsView>((p) => true, (p) => _Logout(p));
-            LoadWindowCommand = new RelayCommand<SettingsView>((p) => true, (p) => _LoadWindow(p));
-            UpdateProfileCommand = new RelayCommand<SettingsView>((p) => true, (p) => _UpdateProfile());
-            ChangePassCommand = new RelayCommand<SettingsView>((p) => true, (p) => _ChangePass());
-        }
-        private void OnReloadRequested(object sender, EventArgs e)
-        {
-            MessageBox.Show("Profile update");
-        }
 
         private IMongoCollection<Employees> GetMongoCollection()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; 
+            
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+            
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<Employees>("Employees");
         }
-        void _LoadWindow(SettingsView p)
+
+        public SettingsVM()
+        {
+            _Employees = GetMongoCollection();
+
+            InitializeCommand();
+        }
+        
+        private void InitializeCommand()
+        {
+            BrowseImageButton = new RelayCommand<SettingsView>((p) => true, (p) => _BrowseImage(p));
+            
+            LogoutCommand = new RelayCommand<SettingsView>((p) => true, (p) => _Logout(p));
+            
+            LoadWindowCommand = new RelayCommand<SettingsView>((p) => true, (p) => _LoadWindow(p));
+            
+            UpdateProfileCommand = new RelayCommand<SettingsView>((p) => true, (p) => _UpdateProfile());
+            
+            ChangePassCommand = new RelayCommand<SettingsView>((p) => true, (p) => _ChangePass());
+        }
+
+        private void _LoadWindow(SettingsView p)
         {
             string employeeId = Const.Instance.UserId;
 
             var filter = Builders<Employees>.Filter.Eq(x => x.EmployeeId, employeeId);
+            
             var User = _Employees.Find(filter).FirstOrDefault();
 
             if (User != null)
             {
                 Name = User.FullName;
+            
                 switch (User.IsAdmin)
                 {
                     case true:
                         IsAdmin = "Admin";
                         break;
+                
                     case false:
                         IsAdmin = "Employee";
                         break;
                 }
+                
                 Email = User.Email;
+                
                 DateOfBirth = User.DateOfBirth;
+                
                 PhoneNumber = User.PhoneNumber;
+                
                 Gender = User.Gender;
+                
                 Address = User.Address;
+                
                 AvatarImageSource = User.AvatarImageSource;
             }
         }
-        void _Logout(SettingsView mainWindow)
+
+        private void _Logout(SettingsView mainWindow)
         {
             LoginWindow loginView = new LoginWindow();
+
             loginView.Show();
 
             var window = Window.GetWindow(mainWindow);
+            
             if (window != null)
             {
                 window.Close();
             }
         }
-        void _UpdateProfile()
+
+        private void _ChangePass()
+        {
+            ChangePassword changePassword = new ChangePassword();
+            
+            var window = new Window
+            {
+                Content = changePassword,
+                
+                SizeToContent = SizeToContent.WidthAndHeight,
+                
+                WindowStyle = WindowStyle.None,
+                
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            
+            };
+            
+            window.ShowDialog();
+        }
+
+        private void _UpdateProfile()
         {
             UpdateProfileVM updateProfileVM = new UpdateProfileVM();
 
-            // Populate the properties of updateProfileVM with data from SettingsVM
             updateProfileVM.EmployeeList = new ObservableCollection<Employees>
             {
                 new Employees
                 {
                     FullName = Name,
+                    
                     Email = Email,
+                    
                     DateOfBirth = DateOfBirth,
+                    
                     PhoneNumber = PhoneNumber,
+                    
                     Gender = Gender,
+                    
                     Address = Address,
                 }
             };
@@ -216,23 +267,14 @@ namespace Restaurant_Management.ViewModels
             var window = new Window
             {
                 Content = updateProfile,
+               
                 SizeToContent = SizeToContent.WidthAndHeight,
+                
                 WindowStyle = WindowStyle.None,
+                
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
-            window.ShowDialog();
-        }
 
-        void _ChangePass()
-        {
-            ChangePassword changePassword = new ChangePassword();
-            var window = new Window
-            {
-                Content = changePassword,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStyle = WindowStyle.None,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
             window.ShowDialog();
         }
 
@@ -243,6 +285,7 @@ namespace Restaurant_Management.ViewModels
                 OpenFileDialog openFileDialog = new OpenFileDialog
                 {
                     Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*",
+                    
                     Title = "Select an image file"
                 };
 
@@ -254,16 +297,16 @@ namespace Restaurant_Management.ViewModels
                     {
                         string imagePath = openFileDialog.FileName;
 
-                        // Load the image and set it to the Image control
                         BitmapImage bitmapImage = new BitmapImage();
+
                         bitmapImage.BeginInit();
+
                         bitmapImage.UriSource = new Uri(imagePath);
+
                         bitmapImage.EndInit();
 
-                        // Update local AvatarImageSource
                         AvatarImageSource = bitmapImage;
 
-                        // Update AvatarImageSource in MongoDB
                         UpdateAvatarInMongoDB(ConvertBitmapImageToByteArray(bitmapImage));
 
                         ReloadWindow();
@@ -282,14 +325,24 @@ namespace Restaurant_Management.ViewModels
 
         private void ReloadWindow()
         {
-            var currentMainWindow = App.Current.MainWindow;
-            App.Current.MainWindow = null;
+            var navigationVM = (App.Current.MainWindow?.DataContext as NavigationVM);
+
+            var currentUser = navigationVM?.CurrentUser;
 
             var newMainWindow = new MainWindow();
-            App.Current.MainWindow = newMainWindow;
+
+            if (newMainWindow.DataContext is NavigationVM newNavigationVM)
+            {
+                newNavigationVM.CurrentUser = currentUser;
+
+                newNavigationVM.Decentralization(newMainWindow);
+            }
+
             newMainWindow.Show();
 
-            currentMainWindow.Close();
+            App.Current.MainWindow?.Close();
+
+            App.Current.MainWindow = newMainWindow;
         }
 
         private void UpdateAvatarInMongoDB(byte[] newAvatarBytes)
@@ -297,7 +350,9 @@ namespace Restaurant_Management.ViewModels
             try
             {
                 string employeeId = Const.Instance.UserId;
+
                 var filter = Builders<Employees>.Filter.Eq(x => x.EmployeeId, employeeId);
+
                 var updateDefinition = Builders<Employees>.Update.Set(x => x.Avatar, newAvatarBytes);
 
                 _Employees.UpdateOne(filter, updateDefinition);
@@ -309,6 +364,7 @@ namespace Restaurant_Management.ViewModels
                 MessageBox.Show($"Error updating avatar image in MongoDB: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private byte[] ConvertBitmapImageToByteArray(BitmapImage bitmapImage)
         {
             if (bitmapImage == null)
@@ -317,8 +373,11 @@ namespace Restaurant_Management.ViewModels
             using (MemoryStream stream = new MemoryStream())
             {
                 BitmapEncoder encoder = new PngBitmapEncoder();
+
                 encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
                 encoder.Save(stream);
+
                 return stream.ToArray();
             }
         }

@@ -32,53 +32,78 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(MenuItem));
             }
         }
+
         public ICommand CancelCommand { get; set; }
+        
         public ICommand ConfirmCommand { get; set; }
+        
         public ICommand LoadWDCM { get; set; }
+        
         public ICommand CloseWDCM { get; set; }
+        
         public ICommand MinimizeWDCM { get; set; }
+        
         public ICommand MoveWDCM { get; set; }
+        
         public ICommand BrowseImageCommand { get; set; }
 
         private readonly IMongoCollection<MenuItems> _MenuItems;
 
-        public EditItemVM(MenuItems menuItem)
-        {
-            MenuItem = menuItem;
-            _MenuItems = GetMenuItems();
-            LoadWDCM = new RelayCommand<EditItem>(p => true, p => _LoadWinDow(p));
-            BrowseImageCommand = new RelayCommand<EditItem>(p => true, p => _BrowseImage(p));
-            CancelCommand = new RelayCommand<EditItem>(p => true, p => _CancelCommand(p));
-            ConfirmCommand = new RelayCommand<EditItem>(p => true, p => _ConfirmCommand(p));
-            CloseWDCM = new RelayCommand<EditItem>(p => true, p => _CloseWD(p));
-            MinimizeWDCM = new RelayCommand<EditItem>(p => true, p => _MinimizeWD(p));
-            MoveWDCM = new RelayCommand<EditItem>(p => true, p => _MoveWD(p));
-        }
-
         private IMongoCollection<MenuItems> GetMenuItems()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+            
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+            
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<MenuItems>("MenuItems");
         }
 
-        private void _LoadWinDow(EditItem item)
+        public EditItemVM(MenuItems menuItem)
+        {
+            MenuItem = menuItem;
+            
+            _MenuItems = GetMenuItems();
+
+            InitializeOommand();
+        }
+
+        private void InitializeOommand()
+        {
+            LoadWDCM = new RelayCommand<EditItem>(p => true, p => _LoadWindow(p));
+            
+            BrowseImageCommand = new RelayCommand<EditItem>(p => true, p => _BrowseImage(p));
+            
+            CancelCommand = new RelayCommand<EditItem>(p => true, p => _CancelCommand(p));
+            
+            ConfirmCommand = new RelayCommand<EditItem>(p => true, p => _ConfirmCommand(p));
+            
+            CloseWDCM = new RelayCommand<EditItem>(p => true, p => _CloseWD(p));
+            
+            MinimizeWDCM = new RelayCommand<EditItem>(p => true, p => _MinimizeWD(p));
+            
+            MoveWDCM = new RelayCommand<EditItem>(p => true, p => _MoveWD(p));
+        }
+
+        private void _LoadWindow(EditItem item)
         {
             if (item != null)
             {
                 item.Name.Text = MenuItem.Name.ToString();
+                
                 item.CategoryComboBox.Text = MenuItem.Category;
+                
                 item.Price.Text = MenuItem.Price.ToString();
+                
                 item.Description.Text = MenuItem.Description.ToString();
+                
                 item.loadedImage.Source = ConvertByteArrayToImageSource(MenuItem.Image);
             }
         }
+       
         private System.Windows.Media.ImageSource ConvertByteArrayToImageSource(byte[] byteArray)
         {
             if (byteArray == null || byteArray.Length == 0)
@@ -89,10 +114,15 @@ namespace Restaurant_Management.ViewModels
                 using (MemoryStream stream = new MemoryStream(byteArray))
                 {
                     BitmapImage imageSource = new BitmapImage();
+                    
                     imageSource.BeginInit();
+                    
                     imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                    
                     imageSource.StreamSource = stream;
+                    
                     imageSource.EndInit();
+                    
                     return imageSource;
                 }
             }
@@ -102,6 +132,7 @@ namespace Restaurant_Management.ViewModels
                 return null;
             }
         }
+        
         private void _BrowseImage(EditItem parameter)
         {
             try
@@ -109,6 +140,7 @@ namespace Restaurant_Management.ViewModels
                 OpenFileDialog openFileDialog = new OpenFileDialog
                 {
                     Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*",
+                    
                     Title = "Select an image file"
                 };
 
@@ -116,17 +148,18 @@ namespace Restaurant_Management.ViewModels
                 {
                     string imagePath = openFileDialog.FileName;
 
-                    // Kiểm tra null trước khi sử dụng
                     if (parameter != null && parameter.iconBrowseImage != null && parameter.loadedImage != null)
                     {
-                        // Load the image and set it to the Image control
                         BitmapImage bitmapImage = new BitmapImage();
+
                         bitmapImage.BeginInit();
+
                         bitmapImage.UriSource = new Uri(imagePath);
+
                         bitmapImage.EndInit();
 
-                        // Ẩn iconBrowseImage và thiết lập nguồn ảnh cho loadedImage
                         parameter.iconBrowseImage.Visibility = Visibility.Hidden;
+
                         parameter.loadedImage.Source = bitmapImage;
                     }
                 }
@@ -141,15 +174,18 @@ namespace Restaurant_Management.ViewModels
         {
             if (parameter != null)
             {
-                // Khôi phục lại giá trị ban đầu của các trường trong EditItem
                 parameter.Name.Text = MenuItem.Name;
+
                 parameter.CategoryComboBox.Text = MenuItem.Category;
+
                 parameter.Price.Text = MenuItem.Price.ToString();
+
                 parameter.Description.Text = MenuItem.Description;
+
                 parameter.loadedImage.Source = ConvertByteArrayToImageSource(MenuItem.Image);
 
-                // Đóng cửa sổ khi hủy bỏ lệnh sửa
                 var window = Window.GetWindow(parameter);
+
                 if (window != null)
                 {
                     window.Close();
@@ -163,7 +199,6 @@ namespace Restaurant_Management.ViewModels
             {
                 if (parameter != null)
                 {
-                    // Kiểm tra xem người dùng đã nhập đủ thông tin hay chưa
                     if (string.IsNullOrEmpty(parameter.Name.Text) || string.IsNullOrEmpty(parameter.CategoryComboBox.Text) ||
                         string.IsNullOrEmpty(parameter.Price.Text) || string.IsNullOrEmpty(parameter.Description.Text) ||
                         parameter.loadedImage.Source == null)
@@ -172,11 +207,9 @@ namespace Restaurant_Management.ViewModels
                         return;
                     }
 
-                    // Cập nhật thông tin của MenuItem từ giao diện
                     MenuItem.Name = parameter.Name.Text;
                     MenuItem.Category = parameter.CategoryComboBox.Text;
 
-                    // Kiểm tra và chuyển đổi giá tiền
                     if (double.TryParse(parameter.Price.Text, out double price))
                     {
                         MenuItem.Price = price;
@@ -189,13 +222,10 @@ namespace Restaurant_Management.ViewModels
 
                     MenuItem.Description = parameter.Description.Text;
 
-                    // Chuyển đổi ảnh từ ImageSource sang byte array
                     MenuItem.Image = ConvertImageSourceToByteArray(parameter.loadedImage.Source);
 
-                    // Create a filter based on the unique identifier (ItemId)
                     var filter = Builders<MenuItems>.Filter.Eq(x => x.ItemId, MenuItem.ItemId);
 
-                    // Create an update with the fields you want to modify
                     var update = Builders<MenuItems>.Update
                         .Set(x => x.Name, MenuItem.Name)
                         .Set(x => x.Category, MenuItem.Category)
@@ -203,10 +233,8 @@ namespace Restaurant_Management.ViewModels
                         .Set(x => x.Description, MenuItem.Description)
                         .Set(x => x.Image, MenuItem.Image);
 
-                    // Apply the update to the MongoDB document without modifying the _id field
                     _MenuItems.UpdateOne(filter, update);
 
-                    // Đóng cửa sổ khi cập nhật thành công
                     var window = Window.GetWindow(parameter);
                     if (window != null)
                     {
@@ -220,8 +248,6 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-
-
         private byte[] ConvertImageSourceToByteArray(System.Windows.Media.ImageSource imageSource)
         {
             if (imageSource == null)
@@ -232,8 +258,11 @@ namespace Restaurant_Management.ViewModels
                 using (MemoryStream stream = new MemoryStream())
                 {
                     BitmapEncoder encoder = new PngBitmapEncoder();
+                    
                     encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imageSource));
+                    
                     encoder.Save(stream);
+                    
                     return stream.ToArray();
                 }
             }
@@ -246,6 +275,7 @@ namespace Restaurant_Management.ViewModels
         private void _CloseWD(EditItem parameter)
         {
             var window = Window.GetWindow(parameter);
+            
             if (window != null && Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 window.Close();
@@ -255,6 +285,7 @@ namespace Restaurant_Management.ViewModels
         private void _MinimizeWD(EditItem parameter)
         {
             var window = Window.GetWindow(parameter);
+            
             if (window != null && Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 window.WindowState = WindowState.Minimized;
@@ -264,6 +295,7 @@ namespace Restaurant_Management.ViewModels
         private void _MoveWD(EditItem parameter)
         {
             var window = Window.GetWindow(parameter);
+            
             if (window != null && Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 window.DragMove();

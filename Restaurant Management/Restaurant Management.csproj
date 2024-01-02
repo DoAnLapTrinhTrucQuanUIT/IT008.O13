@@ -371,9 +371,6 @@
     <Compile Include="Views\Component\AddStaff.xaml.cs">
       <DependentUpon>AddStaff.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Component\Add_EditProduct.xaml.cs">
-      <DependentUpon>Add_EditProduct.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Component\CategoryCard.xaml.cs">
       <DependentUpon>CategoryCard.xaml</DependentUpon>
     </Compile>
@@ -486,10 +483,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Component\AddStaff.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Component\Add_EditProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

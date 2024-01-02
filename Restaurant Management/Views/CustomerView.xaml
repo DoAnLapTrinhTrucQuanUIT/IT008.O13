@@ -9,8 +9,8 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             d:DesignHeight="989"
-             d:DesignWidth="1560"
+             d:DesignHeight="910"
+             d:DesignWidth="1460"
              Style="{StaticResource Page_Style}"
              x:Name="CustomerWindow"
              xmlns:Component="clr-namespace:Restaurant_Management.Views.Component">
@@ -45,7 +45,7 @@
                                     BorderBrush="#d9d9d9">
                                 <TextBlock x:Name="placeholder"
                                            Margin="20 0 0 0"
-                                           Text="Search Customers"
+                                           Text="Search by customer ID"
                                            FontSize="18"
                                            FontWeight="Normal"
                                            Foreground="#808080"
@@ -86,209 +86,223 @@
             </Grid.RowDefinitions>
             <!--Overview-->
             <Border Grid.Row="0"
-                    Background="#fff"
-                    CornerRadius="20"
-                    Padding="30">
+                    HorizontalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
+                    
                     <!--Total Customer-->
-                    <Grid Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <!--Main icon-->
-                        <Grid Grid.Column="0"
+                    <Border  Grid.Column="0"
+                             HorizontalAlignment="Center"
+                             Margin="0 0 50 0"
+                             CornerRadius="24"
+                             Background="#FFFFFF"
+                             Padding="30">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!--Main icon-->
+                            <Grid Grid.Column="0"
                               VerticalAlignment="Center"
-                              HorizontalAlignment="Center">
-                            <Icon:PackIconMaterial Kind="AccountMultiple"
-                                                   Width="80"
-                                                   Height="80"
-                                                   Margin="0 0 50 0"
+                              HorizontalAlignment="Center"
+                              Margin="0 0 60 0">
+                                <Icon:PackIconMaterial Kind="AccountMultiple"
+                                                   Width="100"
+                                                   Height="100"
                                                    Foreground="#06F" />
-                        </Grid>
+                            </Grid>
 
-                        <!--Main content-->
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <TextBlock Text="Total Customer"
+                            <!--Main content-->
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock Text="Total Customer"
                                            Foreground="#999"
                                            FontSize="30"
                                            FontFamily="Roboto"
                                            FontWeight="Light"
                                            VerticalAlignment="Center" />
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <TextBlock Text="{Binding TotalCustomerQuantity}"
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <TextBlock Text="{Binding TotalCustomerQuantity}"
                                            Foreground="#000"
                                            FontSize="50"
                                            FontFamily="Roboto"
                                            FontWeight="Medium"
                                            VerticalAlignment="Center" />
-                            </Grid>
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="2*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="1"
-                                      VerticalAlignment="Center"
-                                      Height="54">
-                                    <Icon:PackIconMaterial Kind="ArrowUp"
-                                                           HorizontalAlignment="Center"
-                                                           Height="30"
-                                                           VerticalAlignment="Center"
-                                                           Width="24"
-                                                           Foreground="Green">
-                                    </Icon:PackIconMaterial>
                                 </Grid>
-                                <Grid Grid.Column="0"
-                                      VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding TotalCustomerPercent, StringFormat={}{0:F2}%}"
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      Margin="0 0 20 0">
+                                        <TextBlock Text="{Binding TotalCustomerPercent, StringFormat={}{0:F2}%}"
                                                FontSize="24"
                                                FontFamily="Roboto"
                                                FontWeight="Medium"
                                                Foreground="Green">
-                                    </TextBlock>
-                                </Grid>
-
-                                <Grid Grid.Column="2"
+                                        </TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      Margin="0 0 20 0">
+                                        <Icon:PackIconMaterial Kind="ArrowUp"
+                                                           HorizontalAlignment="Center"
+                                                           Height="20"
+                                                           VerticalAlignment="Center"
+                                                           Width="24"
+                                                           Foreground="Green">
+                                        </Icon:PackIconMaterial>
+                                    </Grid>
+                                    <Grid Grid.Column="2"
                                       VerticalAlignment="Center">
-                                    <TextBlock Text="this month"
+                                        <TextBlock Text="this month"
                                                Foreground="#000"
                                                FontSize="24"
                                                FontFamily="Roboto"
                                                FontWeight="Light" />
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Border>
 
 
                     <!--Total Customer-->
-                    <Grid Grid.Column="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <!--Main icon-->
-                        <Grid Grid.Column="0"
+                    <Border  Grid.Column="1"
+                             HorizontalAlignment="Center"
+                             Margin="50 0 0 0"
+                             CornerRadius="24"
+                             Background="#FFFFFF"
+                             Padding="30">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!--Main icon-->
+                            <Grid Grid.Column="0"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Center">
-                            <Icon:PackIconMaterial Kind="AccountMultipleCheck"
-                                                   Width="80"
-                                                   Height="80"
+                                <Icon:PackIconMaterial Kind="AccountMultipleCheck"
+                                                   Width="120"
+                                                   Height="120"
                                                    Margin="0 0 50 0"
-                                                   Foreground="#06F" />
-                        </Grid>
+                                                   Foreground="#11D200" />
+                            </Grid>
 
-                        <!--Main content-->
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <TextBlock Text="New Customer"
+                            <!--Main content-->
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <TextBlock Text="New Customer"
                                            Foreground="#999"
                                            FontSize="30"
                                            FontFamily="Roboto"
                                            FontWeight="Light"
                                            VerticalAlignment="Center" />
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <TextBlock Text="{Binding NewCustomerQuantity}"
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <TextBlock Text="{Binding NewCustomerQuantity}"
                                            Foreground="#000"
                                            FontSize="50"
                                            FontFamily="Roboto"
                                            FontWeight="Medium"
                                            VerticalAlignment="Center" />
-                            </Grid>
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="2*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="1"
-                                      VerticalAlignment="Center"
-                                      Height="54">
-                                    <Icon:PackIconMaterial HorizontalAlignment="Center"
-                                                           Height="30"
-                                                           VerticalAlignment="Center"
-                                                           Width="24">
-                                        <!-- Icon:PackIconMaterial Style -->
-                                        <Icon:PackIconMaterial.Style>
-                                            <Style TargetType="Icon:PackIconMaterial">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                                 Value="True">
-                                                        <Setter Property="Kind"
-                                                                Value="ArrowUp" />
-                                                        <Setter Property="Foreground"
-                                                                Value="Green" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                                 Value="False">
-                                                        <Setter Property="Kind"
-                                                                Value="ArrowDown" />
-                                                        <Setter Property="Foreground"
-                                                                Value="Red" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Icon:PackIconMaterial.Style>
-                                    </Icon:PackIconMaterial>
                                 </Grid>
-                                <Grid Grid.Column="0"
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0"
                                       VerticalAlignment="Center">
                                     <TextBlock Text="{Binding NewCustomerPercent, StringFormat={}{0:F2}%}"
+
                                                FontSize="24"
                                                FontFamily="Roboto"
-                                               FontWeight="Medium">
+                                               FontWeight="Medium"
+                                               Margin="0 0 20 0">
                                         <!-- TextBlock Style -->
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                                  Value="True">
-                                                        <Setter Property="Foreground"
+                                                            <Setter Property="Foreground"
                                                                 Value="Green" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                                  Value="False">
-                                                        <Setter Property="Foreground"
+                                                            <Setter Property="Foreground"
                                                                 Value="Red" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Grid>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
 
-                                <Grid Grid.Column="2"
+                                    <Grid Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      Margin="0 0 20 0">
+                                        <Icon:PackIconMaterial HorizontalAlignment="Center"
+                                                           Height="24"
+                                                           VerticalAlignment="Center"
+                                                           Width="24">
+                                            <!-- Icon:PackIconMaterial Style -->
+                                            <Icon:PackIconMaterial.Style>
+                                                <Style TargetType="Icon:PackIconMaterial">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                 Value="True">
+                                                            <Setter Property="Kind"
+                                                                Value="ArrowUp" />
+                                                            <Setter Property="Foreground"
+                                                                Value="Green" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding DataContext.NewStatus, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                 Value="False">
+                                                            <Setter Property="Kind"
+                                                                Value="ArrowDown" />
+                                                            <Setter Property="Foreground"
+                                                                Value="Red" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Icon:PackIconMaterial.Style>
+                                        </Icon:PackIconMaterial>
+                                    </Grid>
+
+                                    <Grid Grid.Column="2"
                                       VerticalAlignment="Center">
-                                    <TextBlock Text="this month"
+                                        <TextBlock Text="this month"
                                                Foreground="#000"
                                                FontSize="24"
                                                FontFamily="Roboto"
                                                FontWeight="Light" />
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Border>
 
 
                 </Grid>

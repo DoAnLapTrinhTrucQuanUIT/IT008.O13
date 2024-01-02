@@ -64,35 +64,44 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(ListBoughtItems));
             }
         }
+        
         public ICommand SearchInvoicesCommand { get; set; }
+        
         public ICommand ExportInvoiceCommand { get; set; }
+        
         public ICommand DeleteInvoiceCommand { get; set; }
+        
         public ICommand AllInvoicesCommand { get; set; }
+        
         public ICommand PaidInvoicesCommand { get; set; }
+        
         public ICommand UnpaidInvoicesCommand { get; set; }
 
         private readonly IMongoCollection<InvoiceDetails> _invoiceDetailsCollection;
+        
         private IMongoCollection<InvoiceDetails> GetInvoiceDetailsCollection()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; 
+            
+            string databaseName = "Restaurant_Management_Application"; 
 
             var client = new MongoClient(connectionString);
+            
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<InvoiceDetails>("InvoiceDetails");
         }
+        
         private readonly IMongoCollection<Invoices> _Invoices;
+        
         private IMongoCollection<Invoices> GetInvoices()
         {
-            // Set your MongoDB connection string and database name
-            string connectionString =
-                "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/"; // Update with your MongoDB server details
-            string databaseName = "Restaurant_Management_Application"; // Update with your database name
+            string connectionString = "mongodb+srv://taint04:H20YQ9j6nvKXiaoA@tai-server.0x4tojd.mongodb.net/";
+            
+            string databaseName = "Restaurant_Management_Application";
 
             var client = new MongoClient(connectionString);
+            
             var database = client.GetDatabase(databaseName);
 
             return database.GetCollection<Invoices>("Invoices");
@@ -101,27 +110,44 @@ namespace Restaurant_Management.ViewModels
         public InvoicesVM()
         {
             _Invoices = GetInvoices();
+
             _invoiceDetailsCollection = GetInvoiceDetailsCollection();
-            Load();
+
+            LoadInvoicesList();
+
+            InitializeCommmand();
+        }
+
+        private void InitializeCommmand()
+        {
             SearchInvoicesCommand = new RelayCommand<InvoicesView>((p) => true, (p) => _SearchInvoices(p));
+            
             ExportInvoiceCommand = new RelayCommand<Invoices>((invoice) => true, (invoice) => _ExportInvoices(invoice));
+            
             DeleteInvoiceCommand = new RelayCommand<Invoices>((invoice) => true, (invoice) => _DeleteInvoice(invoice));
+            
             AllInvoicesCommand = new RelayCommand<InvoicesView>((p) => true, (p) => _AllInvoices(p));
+            
             PaidInvoicesCommand = new RelayCommand<InvoicesView>((p) => true, (p) => _PaidInvoices(p));
+            
             UnpaidInvoicesCommand = new RelayCommand<InvoicesView>((p) => true, (p) => _UnpaidInvoices(p));
         }
 
-        private void Load()
+        private void LoadInvoicesList()
         {
             var invoices = _Invoices.Find(Builders<Invoices>.Filter.Empty).ToList();
+            
             InvoicesList = new ObservableCollection<Invoices>(invoices);
         }
-        void _SearchInvoices(InvoicesView parameter)
+        
+        private void _SearchInvoices(InvoicesView parameter)
         {
             ObservableCollection<Invoices> temp = new ObservableCollection<Invoices>();
+            
             if (!string.IsNullOrEmpty(parameter.txtSearch.Text))
             {
                 var filterBuilder = Builders<Invoices>.Filter;
+            
                 FilterDefinition<Invoices> filter;
 
                 var keyword = parameter.txtSearch.Text;
@@ -131,14 +157,18 @@ namespace Restaurant_Management.ViewModels
                     filterBuilder.Regex("employee.employeeId", new BsonRegularExpression(keyword, "i")),
                     filterBuilder.Regex("customer.customerId", new BsonRegularExpression(keyword, "i"))
                 );
+                
                 var result = _Invoices.Find(filter).ToList();
+                
                 temp = new ObservableCollection<Invoices>(result);
             }
             else
             {
                 var result = _Invoices.Find(Builders<Invoices>.Filter.Empty).ToList();
+                
                 temp = new ObservableCollection<Invoices>(result);
             }
+            
             parameter.invoicesDataGrid.ItemsSource = temp;
         }
 
@@ -148,15 +178,18 @@ namespace Restaurant_Management.ViewModels
 
             var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
 
-            // Set the height of the PrintInvoiceView
             print.Height = 350 + 35 * invoiceDetails.Count();
 
-            // Set data in the PrintInvoiceView
             print.CustomerID.Text = invoice.Customer.CustomerId.ToString();
+
             print.CustomerName.Text = invoice.Customer.FullName.ToString();
+
             print.PhoneNumber.Text = invoice.Customer.PhoneNumber.ToString();
+
             print.EmployeeName.Text = invoice.Employee.FullName.ToString();
+
             print.InvoiceDate.Text = invoice.CreatedDate.ToString();
+
             print.InvoiceID.Text = invoice.InvoiceId.ToString();
 
             ListBoughtItems = new ObservableCollection<BoughtItems>();
@@ -165,33 +198,39 @@ namespace Restaurant_Management.ViewModels
             {
                 BoughtItems boughtItem = new BoughtItems
                 {
-                    ITEMID = item.Item.ItemId, // Assumes ItemId is a string; adjust accordingly
-                    NAME = item.Item.Name, // Assumes ItemName is the same for items with the same ItemId
+                    ITEMID = item.Item.ItemId,
+
+                    NAME = item.Item.Name, 
+
                     QUANTITY = item.Quantity, 
-                    UNITPRICE = item.Item.Price, // Assumes UnitPrice is the same for items with the same ItemId
+
+                    UNITPRICE = item.Item.Price, 
+
                     TOTALAMOUNT = item.Amount
                 };
                 ListBoughtItems.Add(boughtItem);
             }
+            
             print.ListMenuItem.ItemsSource = ListBoughtItems;
+            
             print.TotalAmount.Text = invoice.TotalAmount.ToString();
 
             try
             {
-                // Create a SaveFileDialog to allow the user to choose the location to save the PDF
                 Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog
                 {
                     FileName = $"Invoice_{invoice.InvoiceId}.pdf",
+             
                     DefaultExt = ".pdf",
+                    
                     Filter = "PDF documents (.pdf)|*.pdf"
                 };
 
                 if (saveFileDialog.ShowDialog() == true)
                 {
-                    // Use iTextSharp to export the PrintInvoiceView content to a PDF file
                     ExportToPdf(print.PrintWindow, saveFileDialog.FileName);
 
-                    MessageBox.Show($"Invoice exported Successfully", "Export Successful");
+                    MessageBox.Show($"Export invoice successfully", "Successful");
                 }
             }
             catch (Exception ex)
@@ -204,8 +243,8 @@ namespace Restaurant_Management.ViewModels
         {
             try
             {
-                // Set the desired size for rendering
                 element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
                 element.Arrange(new Rect(new Point(0, 0), element.DesiredSize));
 
                 var renderTargetBitmap = new RenderTargetBitmap(
@@ -219,22 +258,26 @@ namespace Restaurant_Management.ViewModels
 
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    var encoder = new PngBitmapEncoder(); // Use PngBitmapEncoder for better quality
+                    var encoder = new PngBitmapEncoder();
+
                     encoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+
                     encoder.Save(stream);
+
                     byte[] byteArray = stream.ToArray();
 
-                    // Convert the byte array to iTextSharp Image
                     iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(byteArray);
-                    image.ScaleToFit(PageSize.A4.Width, PageSize.A4.Height); // Adjust scaling as needed
+                    
+                    image.ScaleToFit(PageSize.A4.Width, PageSize.A4.Height); 
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         var document = new iTextSharp.text.Document();
+                    
                         PdfWriter.GetInstance(document, fileStream);
+                        
                         document.Open();
 
-                        // Add the image to the PDF document
                         document.Add(image);
 
                         document.Close();
@@ -249,19 +292,21 @@ namespace Restaurant_Management.ViewModels
 
         private void _DeleteInvoice(Invoices invoice)
         {
-            MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete Invoice ID {invoice.InvoiceId}?",
-                                                                      "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete Invoice ID {invoice.InvoiceId}?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 _Invoices.DeleteOne(Builders<Invoices>.Filter.Eq("invoiceId", invoice.InvoiceId));
-                Load();
+                
+                LoadInvoicesList();
             }
         }
 
         private void _AllInvoices(InvoicesView parameter)
         {
             var result = _Invoices.Find(Builders<Invoices>.Filter.Empty).ToList();
+            
             var filteredInvoices = new ObservableCollection<Invoices>(result);
+            
             parameter.invoicesDataGrid.ItemsSource = filteredInvoices;
         }
 
@@ -274,12 +319,15 @@ namespace Restaurant_Management.ViewModels
         {
             FilterInvoicesByStatus(false, parameter);
         }
+        
         private void FilterInvoicesByStatus(bool isPaid, InvoicesView parameter)
         {
             var filterBuilder = Builders<Invoices>.Filter;
+            
             var filter = filterBuilder.Eq("status", isPaid);
 
             var result = _Invoices.Find(filter).ToList();
+            
             var filteredInvoices = new ObservableCollection<Invoices>(result);
 
             parameter.invoicesDataGrid.ItemsSource = filteredInvoices;

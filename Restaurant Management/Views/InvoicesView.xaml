@@ -44,8 +44,8 @@
                                     BorderBrush="#d9d9d9">
                                 <TextBlock x:Name="placeholder"
                                            Margin="20 0 0 0"
-                                           Text="Search Customers"
-                                           FontSize="18"
+                                           Text="Search by invoice ID"
+                                           FontSize="16"
                                            FontWeight="Normal"
                                            Foreground="#808080"
                                            VerticalAlignment="Center"
@@ -204,8 +204,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border Width="60"
-                                            Height="25"
-                                            CornerRadius="10"
+                                            Height="30"
+                                            CornerRadius="5"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             Background="{Binding Status, Converter={StaticResource BooleanToColorConverter}}">
@@ -213,6 +213,8 @@
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    Margin="0 0 0 1"
+                                                   FontWeight="Medium"
+                                                   FontSize="12"
                                                    Foreground="#00235B">
                                         </TextBlock>
                                     </Border>
@@ -239,8 +241,8 @@
                                                     Command="{Binding DataContext.ExportInvoiceCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                     CommandParameter="{Binding}">
                                                 <materialDesign:PackIcon Kind="FileExport"
-                                                                         Width="14"
-                                                                         Height="14"
+                                                                         Width="16"
+                                                                         Height="16"
                                                                          VerticalAlignment="Center" />
                                             </Button>
                                             <Button Style="{StaticResource gridRemoveButton}"
@@ -248,8 +250,8 @@
                                                     Command="{Binding DataContext.DeleteInvoiceCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                     CommandParameter="{Binding}">
                                                 <Icon:PackIconIonicons Kind="TrashMD"
-                                                                       Width="14"
-                                                                       Height="14"
+                                                                       Width="16"
+                                                                       Height="16"
                                                                        VerticalAlignment="Center" />
                                             </Button>
                                         </StackPanel>

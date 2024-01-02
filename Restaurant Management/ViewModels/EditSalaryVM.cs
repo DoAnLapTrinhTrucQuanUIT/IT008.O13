@@ -9,11 +9,6 @@ namespace Restaurant_Management.ViewModels
 {
     public class EditSalaryVM : Utilities.ViewModelBase
     {
-        public ICommand CloseWDCM { get; set; }
-        public ICommand MinimizeWDCM { get; set; }
-        public ICommand MoveWDCM { get; set; }
-        public ICommand ConfirmCM { get; set; }
-
         public event EventHandler<decimal> BasicSalaryUpdated;
 
         private decimal _editedBasicSalary;
@@ -33,6 +28,14 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        public ICommand CloseWDCM { get; set; }
+        
+        public ICommand MinimizeWDCM { get; set; }
+        
+        public ICommand MoveWDCM { get; set; }
+        
+        public ICommand ConfirmCM { get; set; }
+
         private SalaryInformation _selectedSalary;
 
         public SalaryInformation SelectedSalary
@@ -50,20 +53,26 @@ namespace Restaurant_Management.ViewModels
 
         public EditSalaryVM()
         {
-            CloseWDCM = new RelayCommand<EditSalary>((p) => true, (p) => _CloseWD(p));
-            MinimizeWDCM = new RelayCommand<EditSalary>((p) => true, (p) => _MinimizeWD(p));
-            MoveWDCM = new RelayCommand<EditSalary>((p) => true, (p) => _MoveWD(p));
-            ConfirmCM = new RelayCommand<EditSalary>((p) => true, (p) => ConfirmCommand(p));
+            InitializeCommand();
         }
 
+        private void InitializeCommand()
+        {
+            CloseWDCM = new RelayCommand<EditSalary>((p) => true, (p) => _CloseWD(p));
+            
+            MinimizeWDCM = new RelayCommand<EditSalary>((p) => true, (p) => _MinimizeWD(p));
+            
+            MoveWDCM = new RelayCommand<EditSalary>((p) => true, (p) => _MoveWD(p));
+            
+            ConfirmCM = new RelayCommand<EditSalary>((p) => true, (p) => ConfirmCommand(p));
+        }
+        
         private void ConfirmCommand(EditSalary parameter)
         {
             if (SelectedSalary != null)
             {
-                // Gán giá trị mới cho BasicSalary của SelectedSalary
                 SelectedSalary.BasicSalary = EditedBasicSalary;
 
-                // Gọi sự kiện để thông báo việc cập nhật lương
                 BasicSalaryUpdated?.Invoke(this, SelectedSalary.BasicSalary);
 
             }
@@ -72,6 +81,7 @@ namespace Restaurant_Management.ViewModels
                 return;
             }
             var window = System.Windows.Window.GetWindow(parameter as EditSalary);
+            
             if (window != null)
             {
                 window.Close();
@@ -81,6 +91,7 @@ namespace Restaurant_Management.ViewModels
         private void _CloseWD(EditSalary paramater)
         {
             var window = System.Windows.Window.GetWindow(paramater);
+           
             if (window != null)
             {
                 window.Close();
@@ -90,9 +101,11 @@ namespace Restaurant_Management.ViewModels
         private void _MinimizeWD(EditSalary paramater)
         {
             var window = System.Windows.Window.GetWindow(paramater);
+            
             if (window != null)
             {
                 System.Windows.WindowState originalWindowState = window.WindowState;
+                
                 window.WindowState = System.Windows.WindowState.Minimized;
             }
         }
@@ -100,6 +113,7 @@ namespace Restaurant_Management.ViewModels
         private void _MoveWD(EditSalary paramater)
         {
             var window = System.Windows.Window.GetWindow(paramater);
+           
             if (window != null)
             {
                 window.DragMove();
