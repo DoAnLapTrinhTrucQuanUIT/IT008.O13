@@ -102,10 +102,10 @@
                                                  BorderThickness="0"
                                                  Margin="13 0 13 0"
                                                  Background="Transparent"
-                                                 Foreground="#999"
+                                                 Foreground="#000000"
                                                  FontWeight="SemiBold"
                                                  FontSize="12"
-                                                 MaterialDesign:HintAssist.Hint="Enter name's item"
+                                                 MaterialDesign:HintAssist.Hint="Enter item's name"
                                                  MaterialDesign:HintAssist.Foreground="Transparent"
                                                  MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                                     </Grid>
@@ -132,12 +132,12 @@
                                               Height="41"
                                               BorderThickness="1"
                                               BorderBrush="#D9D9D9"
-                                              Foreground="#999"
+                                              Foreground="#000000"
                                               FontWeight="SemiBold"
                                               FontSize="12"
                                               MaterialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                               MaterialDesign:TextFieldAssist.TextFieldCornerRadius="8"
-                                              MaterialDesign:HintAssist.Hint="Choose Category">
+                                              MaterialDesign:HintAssist.Hint="Choose category">
                                         <ComboBoxItem Content="Main Course" />
                                         <ComboBoxItem Content="Appetizer" />
                                         <ComboBoxItem Content="Light Dish" />
@@ -186,10 +186,10 @@
                                                      BorderThickness="0"
                                                      Margin="13 0 13 0"
                                                      Background="Transparent"
-                                                     Foreground="#999"
+                                                     Foreground="#000000"
                                                      FontWeight="SemiBold"
                                                      FontSize="12"
-                                                     MaterialDesign:HintAssist.Hint="Enter Price"
+                                                     MaterialDesign:HintAssist.Hint="Enter price"
                                                      MaterialDesign:HintAssist.Foreground="Transparent"
                                                      MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                                         </Grid>
@@ -218,12 +218,12 @@
                                                      BorderThickness="0"
                                                      Margin="13 5 5 5"
                                                      Background="Transparent"
-                                                     Foreground="#999"
+                                                     Foreground="#000000"
                                                      FontWeight="Normal"
                                                      FontSize="14"
                                                      TextWrapping="Wrap"
                                                      AcceptsReturn="True"
-                                                     MaterialDesign:HintAssist.Hint="Enter Description"
+                                                     MaterialDesign:HintAssist.Hint="Enter description"
                                                      MaterialDesign:HintAssist.Foreground="#999"
                                                      MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                                                      Height="120" />

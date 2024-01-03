@@ -13,20 +13,6 @@ using System.Windows.Input;
 
 namespace Restaurant_Management.ViewModels
 {
-    public class MonthItem
-    {
-        public int MonthNumber { get; set; }
-
-        public string MonthName { get; set; }
-    }
-
-    public class YearItem
-    {
-        public int YearNumber { get; set; }
-
-        public string YearName { get; set; }
-    }
-
     public class SalaryVM : Utilities.ViewModelBase
     {
         private bool _isPaidButtonClicked;
@@ -66,45 +52,6 @@ namespace Restaurant_Management.ViewModels
             OnPropertyChanged(nameof(IsEditSalaryButtonVisible));
         }
 
-        private int selectedMonth;
-        
-        public int SelectedMonth
-        {
-            get { return selectedMonth; }
-            set
-            {
-                if (selectedMonth != value)
-                {
-                    selectedMonth = value;
-                    OnPropertyChanged(nameof(SelectedMonth));
-                    RefreshSalaryList();
-                }
-            }
-        }
-
-        private int selectedYear;
-
-        public int SelectedYear
-        {
-            get { return selectedYear; }
-            set
-            {
-                if (selectedYear != value)
-                {
-                    selectedYear = value;
-
-                    if (YearList.Count > value)
-                    {
-                        int actualYear = YearList[value].YearNumber;
-                        selectedYear = actualYear;
-                    }
-
-                    OnPropertyChanged(nameof(SelectedYear));
-                    RefreshSalaryList();
-                }
-            }
-        }
-
         private decimal _filteredSelectedBasicSalary;
 
         public decimal FilteredSelectedBasicSalary
@@ -117,30 +64,6 @@ namespace Restaurant_Management.ViewModels
                     _filteredSelectedBasicSalary = value;
                     OnPropertyChanged(nameof(FilteredSelectedBasicSalary));
                 }
-            }
-        }
-
-        private ObservableCollection<MonthItem> _monthList;
-
-        public ObservableCollection<MonthItem> MonthList
-        {
-            get { return _monthList; }
-            set
-            {
-                _monthList = value;
-                OnPropertyChanged(nameof(MonthList));
-            }
-        }
-
-        private ObservableCollection<YearItem> _yearList;
-
-        public ObservableCollection<YearItem> YearList
-        {
-            get { return _yearList; }
-            set
-            {
-                _yearList = value;
-                OnPropertyChanged(nameof(YearList));
             }
         }
 
@@ -265,10 +188,6 @@ namespace Restaurant_Management.ViewModels
             _employees = GetEmployees();
             
             _salary = GetSalaryInformation();
-
-            InitializeMonthList();
-            
-            InitializeYearList();
             
             LoadEmployees();
 
@@ -282,6 +201,7 @@ namespace Restaurant_Management.ViewModels
             
             ShowSalaryInformationCommand = new RelayCommand<SalaryInformation>((p) => true, p => ShowSalaryInformation(p));
         }
+
         private void Confirm(object parameter)
         {
             if (IsPaidButtonClicked == false)
@@ -299,6 +219,8 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(SelectedSalaryItem));
 
                 UpdateSalaryInformationInDatabase(SelectedSalaryItem);
+
+                MessageBox.Show($"Successfully paid salary to employee {SelectedSalaryItem.Employees.FullName}.");
             }
         }
 
@@ -430,71 +352,5 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-
-        private void InitializeMonthList()
-        {
-            MonthList = new ObservableCollection<MonthItem>();
-
-            for (int month = 12; month >= 1; month--)
-            {
-                var monthItem = new MonthItem
-                {
-                    MonthNumber = month,
-                    
-                    MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)
-                };
-
-                MonthList.Add(monthItem);
-            }
-        }
-
-        private void InitializeYearList()
-        {
-            YearList = new ObservableCollection<YearItem>();
-            
-            int currentYear = DateTime.Now.Year;
-
-            for (int year = currentYear; year >= currentYear - 5; year--)
-            {
-                var yearItem = new YearItem
-                {
-                    YearNumber = year,
-            
-                    YearName = year.ToString()
-                };
-
-                YearList.Add(yearItem);
-            }
-        }
-
-        private void RefreshSalaryList()
-        {
-            if (SelectedMonth == 0 || SelectedYear == 0)
-            {
-                return;
-            }
-
-            if (SalaryList?.Any() == true)
-            {
-                SalaryList.Clear();
-            }
-            else
-            {
-                SalaryList = new ObservableCollection<SalaryInformation>();
-            }
-
-            foreach (var employee in EmployeeList)
-            {
-                if (!employee.IsAdmin && employee.DateOfJoining.Month == SelectedMonth && employee.DateOfJoining.Year == SelectedYear)
-                {
-                    var salaryInfo = new SalaryInformation
-                    {
-                        Employees = employee,
-                    };
-
-                    SalaryList.Add(salaryInfo);
-                }
-            }
-        }
     }
 }
