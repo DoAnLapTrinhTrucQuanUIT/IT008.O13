@@ -288,10 +288,6 @@ namespace Restaurant_Management.ViewModels
             {
                 MessageBox.Show("Please select an employee before confirming the changes.", "Information", MessageBoxButton.OK);
             }
-            else if (SelectedSalaryItem.WorkedDays == 0)
-            {
-                MessageBox.Show("This employee has not worked, so cannot confirm the salary.", "Information", MessageBoxButton.OK);
-            }
             else if (SelectedSalaryItem != null)
             {
                 SelectedSalaryItem.StartDate = SelectedSalaryItem.PayDate.AddDays(1);
@@ -379,43 +375,39 @@ namespace Restaurant_Management.ViewModels
 
         private void ShowSalaryInformation(SalaryInformation parameter)
         {
-            if (parameter != null)
+            var filter = Builders<SalaryInformation>.Filter.Eq("employeeInfo.employeeId", parameter.Employees.EmployeeId);
+
+            var salary = _salary.Find(filter).FirstOrDefault();
+
+            SelectedSalaryItem = salary;
+
+            IsPaidButtonClicked = true;
+
+            if (salary != null)
             {
-                SelectedSalaryItem = parameter;
-
-                IsPaidButtonClicked = true;
-
-                var filter = Builders<SalaryInformation>.Filter.Eq("employeeInfo.employeeId", SelectedSalaryItem.Employees.EmployeeId);
-
-                var salary = _salary.Find(filter).FirstOrDefault();
-
-                if (salary != null)
+                FilteredSelectedSalaryItem = new SalaryInformation
                 {
-                    FilteredSelectedSalaryItem = new SalaryInformation
-                    {
-                        Employees = salary.Employees,
+                    Employees = salary.Employees,
 
-                        StartDate = salary.StartDate,
+                    StartDate = salary.StartDate,
 
-                        PayDate = salary.PayDate,
+                    PayDate = salary.PayDate,
 
-                        WorkedDays = salary.WorkedDays,
+                    WorkedDays = salary.WorkedDays,
 
-                        BasicSalary = salary.BasicSalary,
+                    BasicSalary = salary.BasicSalary,
 
-                        TotalSalary = salary.WorkedDays * salary.BasicSalary,
-                    };
-                }
-                else
-                {
-                    FilteredSelectedSalaryItem = new SalaryInformation();
-                }
+                    TotalSalary = salary.WorkedDays * salary.BasicSalary,
+                };
+            }
+            else
+            {
+                FilteredSelectedSalaryItem = new SalaryInformation();
             }
         }
 
         private void LoadEmployees()
         {
-            // Filter to exclude admin employees
             var filter = Builders<Employees>.Filter.Eq("IsAdmin", false);
 
             var employees = _employees.Find(filter).ToList();
