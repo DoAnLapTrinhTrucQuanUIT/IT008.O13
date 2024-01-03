@@ -199,11 +199,11 @@ namespace Restaurant_Management.ViewModels
                 // Add employee data to the CSV content
                 foreach (var employee in exportList)
                 {
-                    string formattedDateOfBirth = employee.DateOfBirth.ToString("dd/MM/yy");
-                    
-                    string formattedDateOfJoining = employee.DateOfJoining.ToString("dd/MM/yy");
-                    
-                    csvContent.AppendLine($"{employee.EmployeeId},{employee.FullName},{formattedDateOfBirth},{employee.PhoneNumber},{employee.Gender},{employee.Email},{employee.Address},{formattedDateOfJoining},{(employee.IsAdmin ? "Owner" : "Staff")}");
+                    string formattedDateOfBirth = employee.DateOfBirth.ToString("dd/MM/yyyy");
+                    string formattedDateOfJoining = employee.DateOfJoining.ToString("dd/MM/yyyy");
+                    string formattedAddress = $"\"{employee.Address}\"";
+
+                    csvContent.AppendLine($"{employee.EmployeeId},{employee.FullName},{formattedDateOfBirth},{employee.PhoneNumber},{employee.Gender},{employee.Email},{formattedAddress},{formattedDateOfJoining},{(employee.IsAdmin ? "Owner" : "Staff")}");
                 }
 
                 File.WriteAllText(filePath, csvContent.ToString());
@@ -217,9 +217,7 @@ namespace Restaurant_Management.ViewModels
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
-
                 DefaultExt = "csv",
-
                 Title = "Import Staff List"
             };
 
@@ -243,8 +241,10 @@ namespace Restaurant_Management.ViewModels
 
                         DateTime dateOfBirth, dateOfJoining;
 
-                        if (DateTime.TryParseExact(values[2], "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth) &&
-                            DateTime.TryParseExact(values[7], "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfJoining))
+                        // Check if the values array has enough elements
+                        if (values.Length >= 9 &&
+                            DateTime.TryParseExact(values[2], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth) &&
+                            DateTime.TryParseExact(values[7], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfJoining))
                         {
                             var newEmployee = new Employees
                             {
@@ -254,9 +254,9 @@ namespace Restaurant_Management.ViewModels
                                 PhoneNumber = values[3],
                                 Gender = values[4],
                                 Email = values[5],
-                                Address = values[6],
+                                Address = values[6].Trim('"'),  // Remove double quotes from the address
                                 DateOfJoining = dateOfJoining,
-                                IsActive = true,
+                                IsActive = true,  // Assuming IsActive is always true upon import
                                 IsAdmin = string.Equals(values[8], "owner", StringComparison.OrdinalIgnoreCase)
                             };
 
@@ -272,7 +272,6 @@ namespace Restaurant_Management.ViewModels
                     foreach (var newEmployee in newEmployees)
                     {
                         EmployeeList.Add(newEmployee);
-
                         _employees.InsertOne(newEmployee);
                     }
 
@@ -284,6 +283,7 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
 
     }
 }

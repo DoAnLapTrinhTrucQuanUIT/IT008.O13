@@ -111,6 +111,7 @@ namespace Restaurant_Management.ViewModels
         public ICommand ImportCustomerCM { get; set; }
 
         public ICommand DeletedCustomerCommand { get; set; }
+
         public ICommand EditedCustomerCommand { get; set; }
         
 
@@ -153,6 +154,8 @@ namespace Restaurant_Management.ViewModels
             ImportCustomerCM = new RelayCommand<CustomerView>((p) => true, (p) => _ImportCustomer());
             
             DeletedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _DeleteCustomer(customer));
+
+            EditedCustomerCommand = new RelayCommand<Customers>((customer) => true, (customer) => _EditCustomer(customer));
         }
         private void _Search(CustomerView parameter)
         {   
@@ -241,11 +244,11 @@ namespace Restaurant_Management.ViewModels
 
                 foreach (var customer in exportList)
                 {
-                    string formattedRegistrationDate = customer.RegistrationDate.ToString("dd/MM/yy");
-                    
+                    string formattedRegistrationDate = customer.RegistrationDate.ToString("dd/MM/yyyy");
                     string formattedSales = customer.Sales.ToString("0.00", CultureInfo.InvariantCulture);
+                    string formattedAddress = $"\"{customer.Address}\"";
 
-                    csvContent.AppendLine($"{customer.CustomerId},{customer.FullName},{customer.Address},{customer.PhoneNumber},{customer.Email},{customer.Gender},{formattedRegistrationDate},{formattedSales}");
+                    csvContent.AppendLine($"{customer.CustomerId},{customer.FullName},{formattedAddress},{customer.PhoneNumber},{customer.Email},{customer.Gender},{formattedRegistrationDate},{formattedSales}");
                 }
 
                 File.WriteAllText(filePath, csvContent.ToString());
@@ -261,9 +264,7 @@ namespace Restaurant_Management.ViewModels
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
-
                 DefaultExt = "csv",
-
                 Title = "Import Customer List"
             };
 
@@ -285,42 +286,41 @@ namespace Restaurant_Management.ViewModels
                     {
                         var values = line.Split(',');
 
-                        var newCustomer = new Customers
-                        {
-                            CustomerId = values[0],
-                      
-                            FullName = values[1],
-                            
-                            Address = values[2],
-                            
-                            PhoneNumber = values[3],
-                            
-                            Email = values[4],
-                            
-                            Gender = values[5],
-                            
-                            RegistrationDate = DateTime.Parse(values[6]),
-                            
-                            Sales = double.Parse(values[7], CultureInfo.InvariantCulture)
-                        };
+                        DateTime registrationDate;
 
-                        var existingCustomer = _Customers.Find(Builders<Customers>.Filter.Eq("customerId", newCustomer.CustomerId)).FirstOrDefault();
-
-                        if (existingCustomer == null)
+                        // Check if the values array has enough elements
+                        if (values.Length >= 8 &&
+                            DateTime.TryParseExact(values[6].Trim('"'), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out registrationDate))
                         {
-                            newCustomers.Add(newCustomer);
+                            var newCustomer = new Customers
+                            {
+                                CustomerId = values[0],
+                                FullName = values[1],
+                                Address = values[2].Trim('"'),  // Remove double quotes from the address
+                                PhoneNumber = values[3],
+                                Email = values[4],
+                                Gender = values[5],
+                                RegistrationDate = registrationDate,
+                                Sales = double.Parse(values[7], CultureInfo.InvariantCulture)
+                            };
+
+                            var existingCustomer = _Customers.Find(Builders<Customers>.Filter.Eq("customerId", newCustomer.CustomerId)).FirstOrDefault();
+
+                            if (existingCustomer == null)
+                            {
+                                newCustomers.Add(newCustomer);
+                            }
                         }
                     }
 
                     foreach (var newCustomer in newCustomers)
                     {
                         CustomerList.Add(newCustomer);
-                        
                         _Customers.InsertOne(newCustomer);
                     }
 
                     LoadCustomerBar();
-                   
+
                     MessageBox.Show($"Import file successfully!");
                 }
                 catch (Exception ex)
@@ -329,6 +329,7 @@ namespace Restaurant_Management.ViewModels
                 }
             }
         }
+
 
         private void _DeleteCustomer(Customers customer)
         {
