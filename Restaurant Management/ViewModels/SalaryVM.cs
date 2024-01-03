@@ -415,25 +415,29 @@ namespace Restaurant_Management.ViewModels
 
         private void LoadEmployees()
         {
-            var employee = _employees.Find(Builders<Employees>.Filter.Empty).ToList();
+            // Filter to exclude admin employees
+            var filter = Builders<Employees>.Filter.Eq("IsAdmin", false);
 
-            EmployeeList = new ObservableCollection<Employees>(employee);
+            var employees = _employees.Find(filter).ToList();
+
+            EmployeeList = new ObservableCollection<Employees>(employees);
 
             if (EmployeeList.Any())
             {
                 SalaryList = new ObservableCollection<SalaryInformation>();
 
-                foreach (var parameter in EmployeeList)
+                foreach (var employee in EmployeeList)
                 {
                     var salaryInfo = new SalaryInformation
                     {
-                        Employees = parameter,
+                        Employees = employee,
                     };
 
                     SalaryList.Add(salaryInfo);
                 }
             }
         }
+
 
         private void InitializeMonthList()
         {
@@ -489,7 +493,7 @@ namespace Restaurant_Management.ViewModels
 
             foreach (var employee in EmployeeList)
             {
-                if (employee.DateOfJoining.Month == SelectedMonth && employee.DateOfJoining.Year == SelectedYear)
+                if (!employee.IsAdmin && employee.DateOfJoining.Month == SelectedMonth && employee.DateOfJoining.Year == SelectedYear)
                 {
                     var salaryInfo = new SalaryInformation
                     {

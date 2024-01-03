@@ -102,7 +102,7 @@
                                                  Foreground="#000000"
                                                  FontWeight="SemiBold"
                                                  FontSize="12"
-                                                 MaterialDesign:HintAssist.Hint="Enter customer's full name"
+                                                 MaterialDesign:HintAssist.Hint="Enter employee name"
                                                  MaterialDesign:HintAssist.Foreground="Transparent"
                                                  MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                                     </Grid>
@@ -283,7 +283,7 @@
                                              Foreground="#000000"
                                              FontWeight="SemiBold"
                                              FontSize="12"
-                                             MaterialDesign:HintAssist.Hint="Enter customer's phone number"
+                                             MaterialDesign:HintAssist.Hint="Enter employee phone number"
                                              MaterialDesign:HintAssist.Foreground="Transparent"
                                              MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                                 </Grid>
@@ -318,7 +318,7 @@
                                              Foreground="#000000"
                                              FontWeight="SemiBold"
                                              FontSize="12"
-                                             MaterialDesign:HintAssist.Hint="Enter customer's email"
+                                             MaterialDesign:HintAssist.Hint="Enter employee email"
                                              MaterialDesign:HintAssist.Foreground="Transparent"
                                              MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                                 </Grid>
@@ -353,7 +353,7 @@
                                              Foreground="#000000"
                                              FontWeight="SemiBold"
                                              FontSize="12"
-                                             MaterialDesign:HintAssist.Hint="Enter customer's address"
+                                             MaterialDesign:HintAssist.Hint="Enter employee address"
                                              MaterialDesign:HintAssist.Foreground="Transparent"
                                              MaterialDesign:TextFieldAssist.UnderlineBrush="Transparent" />
                                 </Grid>
