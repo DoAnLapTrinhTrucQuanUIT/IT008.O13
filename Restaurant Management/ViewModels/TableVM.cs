@@ -229,6 +229,97 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        private bool _table1Status;
+        public bool Table1Status
+        {
+            get => _table1Status;
+            set
+            {
+                _table1Status = value;
+                OnPropertyChanged(nameof(Table1Status));
+            }
+        }
+        private bool _table2Status;
+        public bool Table2Status
+        {
+            get => _table2Status;
+            set
+            {
+                _table2Status = value;
+                OnPropertyChanged(nameof(Table2Status));
+            }
+        }
+        private bool _table3Status;
+        public bool Table3Status
+        {
+            get => _table3Status;
+            set
+            {
+                _table3Status = value;
+                OnPropertyChanged(nameof(Table3Status));
+            }
+        }
+        private bool _table4Status;
+        public bool Table4Status
+        {
+            get => _table4Status;
+            set
+            {
+                _table4Status = value;
+                OnPropertyChanged(nameof(Table4Status));
+            }
+        }
+        private bool _table5Status;
+        public bool Table5Status
+        {
+            get => _table5Status;
+            set
+            {
+                _table5Status = value;
+                OnPropertyChanged(nameof(Table5Status));
+            }
+        }
+        private bool _table6Status;
+        public bool Table6Status
+        {
+            get => _table6Status;
+            set
+            {
+                _table6Status = value;
+                OnPropertyChanged(nameof(Table6Status));
+            }
+        }
+        private bool _table7Status;
+        public bool Table7Status
+        {
+            get => _table7Status;
+            set
+            {
+                _table7Status = value;
+                OnPropertyChanged(nameof(Table7Status));
+            }
+        }
+        private bool _table8Status;
+        public bool Table8Status
+        {
+            get => _table8Status;
+            set
+            {
+                _table8Status = value;
+                OnPropertyChanged(nameof(Table8Status));
+            }
+        }
+        private bool _table9Status;
+        public bool Table9Status
+        {
+            get => _table9Status;
+            set
+            {
+                _table9Status = value;
+                OnPropertyChanged(nameof(Table9Status));
+            }
+        }
+
         public ObservableCollection<InvoiceDetails> InvoiceDetailsList1 { get; set; }
 
         public ObservableCollection<InvoiceDetails> InvoiceDetailsList2 { get; set; }
@@ -313,14 +404,20 @@ namespace Restaurant_Management.ViewModels
         public TableVM()
         {
             _tablesCollection = GetTablesCollection();
+
             _invoicesCollection = GetInvoicesCollection();
+
             _invoiceDetailsCollection = GetInvoiceDetailsCollection();
+
+            Table1Status = true;
 
             InitializeObservableCollection();
 
             InitializeCommand();
 
             LoadInvoiceDetail();
+
+
         }
 
         private void InitializeObservableCollection()
@@ -365,6 +462,57 @@ namespace Restaurant_Management.ViewModels
             PaidCommand9 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand9());
         }
 
+        public void UpdateAllTableStatus()
+        {
+            var allTables = _tablesCollection.Find(_ => true).ToList();
+
+            foreach (var table in allTables)
+            {
+                UpdateTableStatus(table.TableId);
+            }
+        }
+
+        public void UpdateTableStatus(string tableId)
+        {
+            var table = _tablesCollection.Find(t => t.TableId == tableId).FirstOrDefault();
+
+            if (table != null)
+            {
+                switch (tableId)
+                {
+                    case "TABLE1":
+                        Table1Status = table.Status;
+                        break;
+                    case "TABLE2":
+                        Table2Status = table.Status;
+                        break;
+                    case "TABLE3":
+                        Table3Status = table.Status;
+                        break;
+                    case "TABLE4":
+                        Table4Status = table.Status;
+                        break;
+                    case "TABLE5":
+                        Table5Status = table.Status;
+                        break;
+                    case "TABLE6":
+                        Table6Status = table.Status;
+                        break;
+                    case "TABLE7":
+                        Table7Status = table.Status;
+                        break;
+                    case "TABLE8":
+                        Table8Status = table.Status;
+                        break;
+                    case "TABLE9":
+                        Table9Status = table.Status;
+                        break;
+
+                }
+            }
+        }
+
+
         public void LoadInvoiceDetail()
         {
             var unpaidInvoices = _invoicesCollection.Find(t => t.Status == false).ToList();
@@ -372,7 +520,7 @@ namespace Restaurant_Management.ViewModels
             foreach (var invoice in unpaidInvoices)
             {
                 var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
-
+                UpdateAllTableStatus();
                 switch (invoice.Table.TableName)
                 {
                     case "Table 1":
