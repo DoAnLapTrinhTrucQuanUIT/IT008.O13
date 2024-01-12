@@ -52,12 +52,15 @@
                                 </Border.Effect>
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked" 
-                                         Value="True">
-                                    <Setter TargetName="TableBorder" 
-                                            Property="Background" 
-                                            Value="#FFBAB0"/>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="TableBorder" Property="Background" Value="#FFBAB0"/>
                                 </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Background" Value="#FFBAB0"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding TableStatus}" Value="True">
+                                    <Setter TargetName="TableBorder" Property="Background" Value="#FFBAB0"/>
+                                </DataTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>

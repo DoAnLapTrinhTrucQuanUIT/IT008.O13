@@ -42,55 +42,64 @@
                     <components:Table Text="Table 1"
                                       Grid.Column="0"
                                       Grid.Row="0"
-                                      x:Name="Table1" />
+                                      x:Name="Table1"
+                                      TableStatus="{Binding Table1Status}"/>
 
                     <!--Table 2-->
                     <components:Table Text="Table 2"
                                       Grid.Column="1"
                                       Grid.Row="0"
-                                      x:Name="Table2" />
+                                      x:Name="Table2"
+                                      TableStatus="{Binding Table2Status}"/>
 
                     <!--Table 3-->
                     <components:Table Text="Table 3"
                                       Grid.Column="2"
                                       Grid.Row="0"
-                                      x:Name="Table3" />
+                                      x:Name="Table3"
+                                      TableStatus="{Binding Table3Status}"/>
 
                     <!--Table 4-->
                     <components:Table Text="Table 4"
                                       Grid.Column="0"
                                       Grid.Row="1"
-                                      x:Name="Table4" />
+                                      x:Name="Table4"
+                                      TableStatus="{Binding Table4Status}"/>
 
                     <!--Table 5-->
                     <components:Table Text="Table 5"
                                       Grid.Column="1"
                                       Grid.Row="1"
-                                      x:Name="Table5" />
+                                      x:Name="Table5"
+                                      TableStatus="{Binding Table5Status}"/>
 
                     <!--Table 6-->
                     <components:Table Text="Table 6"
                                       Grid.Column="2"
                                       Grid.Row="1"
-                                      x:Name="Table6" />
+                                      x:Name="Table6"
+                                      TableStatus="{Binding Table6Status}"/>
 
                     <!--Table 7-->
                     <components:Table Text="Table 7"
                                       Grid.Column="0"
                                       Grid.Row="2"
-                                      x:Name="Table7" />
+                                      x:Name="Table7"
+                                      TableStatus="{Binding Table7Status}"/>
 
                     <!--Table 8-->
                     <components:Table Text="Table 8"
                                       Grid.Column="1"
                                       Grid.Row="2"
-                                      x:Name="Table8" />
+                                      x:Name="Table8"
+                                      TableStatus="{Binding Table8Status}"/>
 
                     <!--Table 9-->
                     <components:Table Text="Table 9"
                                       Grid.Column="2"
                                       Grid.Row="2"
-                                      x:Name="Table9" />
+                                      x:Name="Table9"
+                                      TableStatus="{Binding Table9Status}"/>
 
                 </Grid>
             </Border>
