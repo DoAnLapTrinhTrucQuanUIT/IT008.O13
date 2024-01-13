@@ -13,20 +13,6 @@ using System.Windows.Input;
 
 namespace Restaurant_Management.ViewModels
 {
-    public class MonthItem
-    {
-        public int MonthNumber { get; set; }
-
-        public string MonthName { get; set; }
-    }
-
-    public class YearItem
-    {
-        public int YearNumber { get; set; }
-
-        public string YearName { get; set; }
-    }
-
     public class SalaryVM : Utilities.ViewModelBase
     {
         private bool _isPaidButtonClicked;
@@ -66,45 +52,6 @@ namespace Restaurant_Management.ViewModels
             OnPropertyChanged(nameof(IsEditSalaryButtonVisible));
         }
 
-        private int selectedMonth;
-        
-        public int SelectedMonth
-        {
-            get { return selectedMonth; }
-            set
-            {
-                if (selectedMonth != value)
-                {
-                    selectedMonth = value;
-                    OnPropertyChanged(nameof(SelectedMonth));
-                    RefreshSalaryList();
-                }
-            }
-        }
-
-        private int selectedYear;
-
-        public int SelectedYear
-        {
-            get { return selectedYear; }
-            set
-            {
-                if (selectedYear != value)
-                {
-                    selectedYear = value;
-
-                    if (YearList.Count > value)
-                    {
-                        int actualYear = YearList[value].YearNumber;
-                        selectedYear = actualYear;
-                    }
-
-                    OnPropertyChanged(nameof(SelectedYear));
-                    RefreshSalaryList();
-                }
-            }
-        }
-
         private decimal _filteredSelectedBasicSalary;
 
         public decimal FilteredSelectedBasicSalary
@@ -117,30 +64,6 @@ namespace Restaurant_Management.ViewModels
                     _filteredSelectedBasicSalary = value;
                     OnPropertyChanged(nameof(FilteredSelectedBasicSalary));
                 }
-            }
-        }
-
-        private ObservableCollection<MonthItem> _monthList;
-
-        public ObservableCollection<MonthItem> MonthList
-        {
-            get { return _monthList; }
-            set
-            {
-                _monthList = value;
-                OnPropertyChanged(nameof(MonthList));
-            }
-        }
-
-        private ObservableCollection<YearItem> _yearList;
-
-        public ObservableCollection<YearItem> YearList
-        {
-            get { return _yearList; }
-            set
-            {
-                _yearList = value;
-                OnPropertyChanged(nameof(YearList));
             }
         }
 
@@ -265,10 +188,6 @@ namespace Restaurant_Management.ViewModels
             _employees = GetEmployees();
             
             _salary = GetSalaryInformation();
-
-            InitializeMonthList();
-            
-            InitializeYearList();
             
             LoadEmployees();
 
@@ -282,15 +201,12 @@ namespace Restaurant_Management.ViewModels
             
             ShowSalaryInformationCommand = new RelayCommand<SalaryInformation>((p) => true, p => ShowSalaryInformation(p));
         }
+
         private void Confirm(object parameter)
         {
             if (IsPaidButtonClicked == false)
             {
                 MessageBox.Show("Please select an employee before confirming the changes.", "Information", MessageBoxButton.OK);
-            }
-            else if (SelectedSalaryItem.WorkedDays == 0)
-            {
-                MessageBox.Show("This employee has not worked, so cannot confirm the salary.", "Information", MessageBoxButton.OK);
             }
             else if (SelectedSalaryItem != null)
             {
@@ -303,6 +219,8 @@ namespace Restaurant_Management.ViewModels
                 OnPropertyChanged(nameof(SelectedSalaryItem));
 
                 UpdateSalaryInformationInDatabase(SelectedSalaryItem);
+
+                MessageBox.Show($"Successfully paid salary to employee {SelectedSalaryItem.Employees.FullName}.");
             }
         }
 
@@ -379,43 +297,39 @@ namespace Restaurant_Management.ViewModels
 
         private void ShowSalaryInformation(SalaryInformation parameter)
         {
-            if (parameter != null)
+            var filter = Builders<SalaryInformation>.Filter.Eq("employeeInfo.employeeId", parameter.Employees.EmployeeId);
+
+            var salary = _salary.Find(filter).FirstOrDefault();
+
+            SelectedSalaryItem = salary;
+
+            IsPaidButtonClicked = true;
+
+            if (salary != null)
             {
-                SelectedSalaryItem = parameter;
-
-                IsPaidButtonClicked = true;
-
-                var filter = Builders<SalaryInformation>.Filter.Eq("employeeInfo.employeeId", SelectedSalaryItem.Employees.EmployeeId);
-
-                var salary = _salary.Find(filter).FirstOrDefault();
-
-                if (salary != null)
+                FilteredSelectedSalaryItem = new SalaryInformation
                 {
-                    FilteredSelectedSalaryItem = new SalaryInformation
-                    {
-                        Employees = salary.Employees,
+                    Employees = salary.Employees,
 
-                        StartDate = salary.StartDate,
+                    StartDate = salary.StartDate,
 
-                        PayDate = salary.PayDate,
+                    PayDate = salary.PayDate,
 
-                        WorkedDays = salary.WorkedDays,
+                    WorkedDays = salary.WorkedDays,
 
-                        BasicSalary = salary.BasicSalary,
+                    BasicSalary = salary.BasicSalary,
 
-                        TotalSalary = salary.WorkedDays * salary.BasicSalary,
-                    };
-                }
-                else
-                {
-                    FilteredSelectedSalaryItem = new SalaryInformation();
-                }
+                    TotalSalary = salary.WorkedDays * salary.BasicSalary,
+                };
+            }
+            else
+            {
+                FilteredSelectedSalaryItem = new SalaryInformation();
             }
         }
 
         private void LoadEmployees()
         {
-            // Filter to exclude admin employees
             var filter = Builders<Employees>.Filter.Eq("IsAdmin", false);
 
             var employees = _employees.Find(filter).ToList();
@@ -438,71 +352,5 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-
-        private void InitializeMonthList()
-        {
-            MonthList = new ObservableCollection<MonthItem>();
-
-            for (int month = 12; month >= 1; month--)
-            {
-                var monthItem = new MonthItem
-                {
-                    MonthNumber = month,
-                    
-                    MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)
-                };
-
-                MonthList.Add(monthItem);
-            }
-        }
-
-        private void InitializeYearList()
-        {
-            YearList = new ObservableCollection<YearItem>();
-            
-            int currentYear = DateTime.Now.Year;
-
-            for (int year = currentYear; year >= currentYear - 5; year--)
-            {
-                var yearItem = new YearItem
-                {
-                    YearNumber = year,
-            
-                    YearName = year.ToString()
-                };
-
-                YearList.Add(yearItem);
-            }
-        }
-
-        private void RefreshSalaryList()
-        {
-            if (SelectedMonth == 0 || SelectedYear == 0)
-            {
-                return;
-            }
-
-            if (SalaryList?.Any() == true)
-            {
-                SalaryList.Clear();
-            }
-            else
-            {
-                SalaryList = new ObservableCollection<SalaryInformation>();
-            }
-
-            foreach (var employee in EmployeeList)
-            {
-                if (!employee.IsAdmin && employee.DateOfJoining.Month == SelectedMonth && employee.DateOfJoining.Year == SelectedYear)
-                {
-                    var salaryInfo = new SalaryInformation
-                    {
-                        Employees = employee,
-                    };
-
-                    SalaryList.Add(salaryInfo);
-                }
-            }
-        }
     }
 }

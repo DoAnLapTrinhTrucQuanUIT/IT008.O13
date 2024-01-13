@@ -441,14 +441,20 @@ namespace Restaurant_Management.ViewModels
         public TableVM()
         {
             _tablesCollection = GetTablesCollection();
+
             _invoicesCollection = GetInvoicesCollection();
+
             _invoiceDetailsCollection = GetInvoiceDetailsCollection();
+
+            Table1Status = true;
 
             InitializeObservableCollection();
 
             InitializeCommand();
 
             LoadInvoiceDetail();
+
+
         }
 
         private void InitializeObservableCollection()
@@ -493,6 +499,57 @@ namespace Restaurant_Management.ViewModels
             PaidCommand9 = new RelayCommand<TableView>((p) => true, (p) => _PaidCommand9());
         }
 
+        public void UpdateAllTableStatus()
+        {
+            var allTables = _tablesCollection.Find(_ => true).ToList();
+
+            foreach (var table in allTables)
+            {
+                UpdateTableStatus(table.TableId);
+            }
+        }
+
+        public void UpdateTableStatus(string tableId)
+        {
+            var table = _tablesCollection.Find(t => t.TableId == tableId).FirstOrDefault();
+
+            if (table != null)
+            {
+                switch (tableId)
+                {
+                    case "TABLE1":
+                        Table1Status = table.Status;
+                        break;
+                    case "TABLE2":
+                        Table2Status = table.Status;
+                        break;
+                    case "TABLE3":
+                        Table3Status = table.Status;
+                        break;
+                    case "TABLE4":
+                        Table4Status = table.Status;
+                        break;
+                    case "TABLE5":
+                        Table5Status = table.Status;
+                        break;
+                    case "TABLE6":
+                        Table6Status = table.Status;
+                        break;
+                    case "TABLE7":
+                        Table7Status = table.Status;
+                        break;
+                    case "TABLE8":
+                        Table8Status = table.Status;
+                        break;
+                    case "TABLE9":
+                        Table9Status = table.Status;
+                        break;
+
+                }
+            }
+        }
+
+
         public void LoadInvoiceDetail()
         {
             var unpaidInvoices = _invoicesCollection.Find(t => t.Status == false).ToList();
@@ -500,7 +557,7 @@ namespace Restaurant_Management.ViewModels
             foreach (var invoice in unpaidInvoices)
             {
                 var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
-
+                UpdateAllTableStatus();
                 switch (invoice.Table.TableName)
                 {
                     case "Table 1":

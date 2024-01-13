@@ -28,39 +28,6 @@
                     CornerRadius="20"
                     Padding="20">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Margin="0 0 10 0">
-                            <ComboBox Width="Auto"
-                                    Height="Auto"
-                                    materialDesign:HintAssist.Hint="Month"
-                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                    ItemsSource="{Binding MonthList}"
-                                    DisplayMemberPath="MonthName"
-                                    SelectedValuePath="MonthNumber"
-                                    SelectedValue="{Binding SelectedMonth}"/>
-
-                        </Grid>
-
-                        <Grid Grid.Column="1" Margin="10 0 0 0">
-                            <ComboBox Width="Auto"
-                                    Height="Auto"
-                                    materialDesign:HintAssist.Hint="Year"
-                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                    ItemsSource="{Binding YearList}"
-                                    DisplayMemberPath="YearName"
-                                    SelectedValuePath="YearNumber"
-                                    SelectedValue="{Binding SelectedYear}"/>
-
-                        </Grid>
-                    </Grid>
                     <DataGrid x:Name="DataGridSalary"
                               Margin="0 10 0 0"
                               ItemsSource="{Binding SalaryList}"
@@ -160,7 +127,7 @@
                                                             VerticalAlignment="Center">
                                                         <TextBlock x:Name="ProfileName" Text="{Binding SelectedSalaryItem.Employees.FullName}"
                                                            Foreground="#fff"
-                                                           FontSize="24"
+                                                           FontSize="18"
                                                            FontFamily="Roboto"
                                                            FontWeight="Bold"
                                                            VerticalAlignment="Center"

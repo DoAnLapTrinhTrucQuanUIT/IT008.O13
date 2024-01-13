@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Restaurant_Management.Views.Component
     /// <summary>
     /// Interaction logic for Table.xaml
     /// </summary>
-    public partial class Table : UserControl
+    public partial class Table : UserControl, INotifyPropertyChanged
     {
         public Table()
         {
@@ -32,7 +33,6 @@ namespace Restaurant_Management.Views.Component
             get { return (string)GetValue(TextProperty);}
             set { SetValue(TextProperty, value); }
         }
-
 
         public static readonly DependencyProperty IsSelectedProperty =
             DependencyProperty.Register("IsSelected", typeof(bool), typeof(Table), new PropertyMetadata(false));
@@ -54,7 +54,6 @@ namespace Restaurant_Management.Views.Component
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            // Lấy parent của CategoryCard là MenuView
             TableView tableView = FindVisualParent<TableView>(this);
 
             if (tableView != null)
@@ -68,6 +67,27 @@ namespace Restaurant_Management.Views.Component
                 }
             }
         }
+
+        public static readonly DependencyProperty TableStatusProperty = DependencyProperty.Register("TableStatus", typeof(bool), typeof(Table), new PropertyMetadata(false));
+
+        private bool _tableStatus;
+
+        public bool TableStatus
+        {
+            get { return (bool)GetValue(TableStatusProperty); }
+            set
+            {
+                SetValue(TableStatusProperty, value);   
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         private static T FindVisualParent<T>(DependencyObject obj) where T : DependencyObject
         {

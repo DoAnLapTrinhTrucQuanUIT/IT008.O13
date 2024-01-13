@@ -34,70 +34,8 @@
                 </Grid>
             </Border>
           
-            <!--Menu-->
-            <Grid Grid.Row="1"
-                  Margin="0 10">
-                <Menu:Btn Style="{StaticResource BtnStyle}"
-                      Command="{Binding MenuCommand}"
-                      GroupName="ButtonGroup">
-                    <Border VerticalAlignment="Center"
-                            Padding="20 10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Icon:PackIconBoxIcons Kind="RegularFoodMenu"
-                                                       Width="14"
-                                                       Height="14"/>
-                            </Grid>
-                            <Grid Grid.Column="1" 
-                              Margin="20 0 0 0">
-                                <TextBlock Text="Menu" 
-                                       Foreground="#49454F" 
-                                       FontSize="14" 
-                                       FontFamily="Roboto" 
-                                       FontWeight="Medium"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Menu:Btn>
-            </Grid>
-            
-            <!--Table-->
-            <Grid Grid.Row="2"
-                  Margin="0 10">
-                <Menu:Btn Style="{StaticResource BtnStyle}"
-                      Command="{Binding TableCommand}"
-                      GroupName="ButtonGroup">
-                    <Border VerticalAlignment="Center"
-                            Padding="20 15">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Icon:PackIconMaterial Kind="TableFurniture"
-                                                       Width="14"
-                                                       Height="14"/>
-                            </Grid>
-                            <Grid Grid.Column="1"
-                                  Margin="20 0 0 0">
-                                <TextBlock Text="Table" 
-                                       Foreground="#49454F"
-                                       FontSize="14"
-                                       FontFamily="Roboto" 
-                                       FontWeight="Medium"/>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Menu:Btn>
-            </Grid>
-            
             <!--Customer-->
-            <Grid Grid.Row="3"
+            <Grid Grid.Row="2"
                   Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding CustomerCommand}"
@@ -128,7 +66,7 @@
             </Grid>
          
             <!--Staff Information-->
-            <Grid Grid.Row="4"
+            <Grid Grid.Row="3"
                   Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding StaffInformationCommand}"
@@ -159,7 +97,7 @@
             </Grid>
             
             <!--Salary-->
-            <Grid Grid.Row="5"
+            <Grid Grid.Row="4"
                   Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SalaryCommand}"
@@ -190,7 +128,7 @@
             </Grid>
         
             <!--Products-->
-            <Grid Grid.Row="6"
+            <Grid Grid.Row="5"
                   Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding ProductCommand}"
@@ -221,7 +159,7 @@
             </Grid>
     
             <!--Invoices-->
-            <Grid Grid.Row="7"
+            <Grid Grid.Row="6"
                   Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding InvoiceCommand}"
@@ -252,7 +190,7 @@
             </Grid>
             
             <!--Settings-->
-            <Grid Grid.Row="8"
+            <Grid Grid.Row="7"
                   Margin="0 10">
                 <Menu:Btn Style="{StaticResource BtnStyle}"
                       Command="{Binding SettingCommand}"

@@ -82,6 +82,7 @@
                                             Property="Background"
                                             Value="#FFFFFF" />
                                 </MultiDataTrigger>
+
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>

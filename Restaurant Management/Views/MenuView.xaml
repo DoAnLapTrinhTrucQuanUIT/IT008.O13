@@ -18,7 +18,6 @@
         <vm:MenuVM/>
     </UserControl.DataContext>
     <UserControl.Resources>
-        <!-- Define resources here -->
         <BitmapImage x:Key="MainCourseImage" UriSource="/Assets/Images/main-course.png"/>
         <BitmapImage x:Key="AppetizerImage" UriSource="/Assets/Images/appetizer.png"/>
         <BitmapImage x:Key="LightDishImage" UriSource="/Assets/Images/light-dish.png"/>
