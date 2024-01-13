@@ -1,4 +1,5 @@
 ﻿using Restaurant_Management.Models;
+using Restaurant_Management.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Restaurant_Management.Views
     {
         public TableView()
         {
-            InitializeComponent();
+            InitializeComponent();        
         }
     }
 }

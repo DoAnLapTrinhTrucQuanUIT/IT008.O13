@@ -25,7 +25,8 @@ namespace Restaurant_Management.Views.Component
             InitializeComponent();
             DataContext = this;
         }
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(Table), new PropertyMetadata(""));
+        public static readonly DependencyProperty TextProperty = 
+            DependencyProperty.Register("Text", typeof(string), typeof(Table), new PropertyMetadata(""));
         public string Text
         {
             get { return (string)GetValue(TextProperty);}
@@ -34,13 +35,23 @@ namespace Restaurant_Management.Views.Component
 
 
         public static readonly DependencyProperty IsSelectedProperty =
-        DependencyProperty.Register("IsSelected", typeof(bool), typeof(Table), new PropertyMetadata(false));
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(Table), new PropertyMetadata(false));
 
         public bool IsSelected
         {
             get { return (bool)GetValue(IsSelectedProperty); }
             set { SetValue(IsSelectedProperty, value); }
         }
+
+        public static readonly DependencyProperty StatusProperty =
+            DependencyProperty.Register("Status", typeof(bool), typeof(Table), new PropertyMetadata(false));
+
+        public bool Status
+        {
+            get { return (bool)GetValue(StatusProperty); }
+            set { SetValue(StatusProperty, value); }
+        }
+
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             // Lấy parent của CategoryCard là MenuView
