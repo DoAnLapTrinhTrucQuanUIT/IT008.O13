@@ -52,15 +52,37 @@
                                 </Border.Effect>
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Setter TargetName="TableBorder" Property="Background" Value="#FFBAB0"/>
+                                <Trigger Property="IsChecked"
+                                         Value="True">
+                                    <Setter TargetName="TableBorder"
+                                            Property="Background"
+                                            Value="#FFBAB0" />
                                 </Trigger>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Setter Property="Background" Value="#FFBAB0"/>
-                                </Trigger>
-                                <DataTrigger Binding="{Binding TableStatus}" Value="True">
-                                    <Setter TargetName="TableBorder" Property="Background" Value="#FFBAB0"/>
-                                </DataTrigger>
+
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Status, RelativeSource={RelativeSource AncestorType={x:Type local:Table}}}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
+                                                   Value="False" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter TargetName="TableBorder"
+                                            Property="Background"
+                                            Value="#FFBAB0" />
+                                </MultiDataTrigger>
+
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Status, RelativeSource={RelativeSource AncestorType={x:Type local:Table}}}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
+                                                   Value="False" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter TargetName="TableBorder"
+                                            Property="Background"
+                                            Value="#FFFFFF" />
+                                </MultiDataTrigger>
+
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>

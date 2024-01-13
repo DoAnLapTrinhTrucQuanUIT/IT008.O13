@@ -245,7 +245,8 @@
                                                                          Height="16"
                                                                          VerticalAlignment="Center" />
                                             </Button>
-                                            <Button Style="{StaticResource gridRemoveButton}"
+                                            <Button x:Name="removeButton"
+                                                    Style="{StaticResource gridRemoveButton}"
                                                     Margin="3 0 0 0"
                                                     Command="{Binding DataContext.DeleteInvoiceCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                     CommandParameter="{Binding}">
@@ -256,6 +257,20 @@
                                             </Button>
                                         </StackPanel>
                                     </Border>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Status}"
+                                                     Value="True">
+                                            <Setter TargetName="removeButton"
+                                                    Property="Visibility"
+                                                    Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}"
+                                                     Value="False">
+                                            <Setter TargetName="removeButton"
+                                                    Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

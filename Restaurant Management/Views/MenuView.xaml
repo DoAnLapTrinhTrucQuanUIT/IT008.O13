@@ -415,6 +415,7 @@
                                         CornerRadius="10"
                                         Margin="0 15">
                                     <TextBox x:Name="CustomerName"
+                                             IsReadOnly="False"
                                              Text="{Binding CustomerName}"
                                              BorderThickness="0"
                                              Padding="15"

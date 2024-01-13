@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 using MongoDB.Driver;
 using Restaurant_Management.Models;
 using Restaurant_Management.Utilities;
 using Restaurant_Management.Views;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Restaurant_Management.ViewModels
 {
@@ -229,96 +235,114 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
-        private bool _table1Status;
-        public bool Table1Status
+        private bool _status1;
+
+        public bool Status1
         {
-            get => _table1Status;
+            get => _status1;
             set
             {
-                _table1Status = value;
-                OnPropertyChanged(nameof(Table1Status));
+                _status1 = value;
+                OnPropertyChanged(nameof(Status1));
             }
         }
-        private bool _table2Status;
-        public bool Table2Status
+
+        private bool _status2;
+
+        public bool Status2
         {
-            get => _table2Status;
+            get => _status2;
             set
             {
-                _table2Status = value;
-                OnPropertyChanged(nameof(Table2Status));
+                _status2 = value;
+                OnPropertyChanged(nameof(Status2));
             }
         }
-        private bool _table3Status;
-        public bool Table3Status
+
+        private bool _status3;
+
+        public bool Status3
         {
-            get => _table3Status;
+            get => _status3;
             set
             {
-                _table3Status = value;
-                OnPropertyChanged(nameof(Table3Status));
+                _status3 = value;
+                OnPropertyChanged(nameof(Status3));
             }
         }
-        private bool _table4Status;
-        public bool Table4Status
+
+        private bool _status4;
+
+        public bool Status4
         {
-            get => _table4Status;
+            get => _status4;
             set
             {
-                _table4Status = value;
-                OnPropertyChanged(nameof(Table4Status));
+                _status4 = value;
+                OnPropertyChanged(nameof(Status4));
             }
         }
-        private bool _table5Status;
-        public bool Table5Status
+
+        private bool _status5;
+
+        public bool Status5
         {
-            get => _table5Status;
+            get => _status5;
             set
             {
-                _table5Status = value;
-                OnPropertyChanged(nameof(Table5Status));
+                _status5 = value;
+                OnPropertyChanged(nameof(Status5));
             }
         }
-        private bool _table6Status;
-        public bool Table6Status
+
+        private bool _status6;
+
+        public bool Status6
         {
-            get => _table6Status;
+            get => _status6;
             set
             {
-                _table6Status = value;
-                OnPropertyChanged(nameof(Table6Status));
+                _status6 = value;
+                OnPropertyChanged(nameof(Status6));
             }
         }
-        private bool _table7Status;
-        public bool Table7Status
+
+        private bool _status7;
+
+        public bool Status7
         {
-            get => _table7Status;
+            get => _status7;
             set
             {
-                _table7Status = value;
-                OnPropertyChanged(nameof(Table7Status));
+                _status7 = value;
+                OnPropertyChanged(nameof(Status7));
             }
         }
-        private bool _table8Status;
-        public bool Table8Status
+
+        private bool _status8;
+
+        public bool Status8
         {
-            get => _table8Status;
+            get => _status8;
             set
             {
-                _table8Status = value;
-                OnPropertyChanged(nameof(Table8Status));
+                _status8 = value;
+                OnPropertyChanged(nameof(Status8));
             }
         }
-        private bool _table9Status;
-        public bool Table9Status
+
+        private bool _status9;
+
+        public bool Status9
         {
-            get => _table9Status;
+            get => _status9;
             set
             {
-                _table9Status = value;
-                OnPropertyChanged(nameof(Table9Status));
+                _status9 = value;
+                OnPropertyChanged(nameof(Status9));
             }
         }
+
 
         public ObservableCollection<InvoiceDetails> InvoiceDetailsList1 { get; set; }
 
@@ -383,6 +407,18 @@ namespace Restaurant_Management.ViewModels
             return database.GetCollection<InvoiceDetails>("InvoiceDetails");
         }
 
+
+        private ObservableCollection<BoughtItems> _listBoughtItems;
+        public ObservableCollection<BoughtItems> ListBoughtItems
+        {
+            get { return _listBoughtItems; }
+            set
+            {
+                _listBoughtItems = value;
+                OnPropertyChanged(nameof(ListBoughtItems));
+            }
+        }
+
         public ICommand PaidCommand1 { get; set; }
 
         public ICommand PaidCommand2 { get; set; }
@@ -400,6 +436,7 @@ namespace Restaurant_Management.ViewModels
         public ICommand PaidCommand8 { get; set; }
 
         public ICommand PaidCommand9 { get; set; }
+
 
         public TableVM()
         {
@@ -527,81 +564,90 @@ namespace Restaurant_Management.ViewModels
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList1.Add(detail);
-                            CustomerName1 = detail.Invoice.Customer.FullName;
                             TotalAmount1 += detail.Amount;
                         }
+                        CustomerName1 = invoice.Customer.FullName;
+                        Status1 = invoice.Table.Status;
                         break;
 
                     case "Table 2":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList2.Add(detail);
-                            CustomerName2 = detail.Invoice.Customer.FullName;
                             TotalAmount2 += detail.Amount;
                         }
+                        Status2 = invoice.Table.Status;
+                        CustomerName2 = invoice.Customer.FullName;
                         break;
 
                     case "Table 3":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList3.Add(detail);
-                            CustomerName3 = detail.Invoice.Customer.FullName;
                             TotalAmount3 += detail.Amount;
                         }
+                        Status3 = invoice.Table.Status;
+                        CustomerName3 = invoice.Customer.FullName;
                         break;
 
                     case "Table 4":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList4.Add(detail);
-                            CustomerName4 = detail.Invoice.Customer.FullName;
                             TotalAmount4 += detail.Amount;
                         }
+                        Status4 = invoice.Table.Status;
+                        CustomerName4 = invoice.Customer.FullName;
                         break;
 
                     case "Table 5":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList5.Add(detail);
-                            CustomerName5 = detail.Invoice.Customer.FullName;
                             TotalAmount5 += detail.Amount;
                         }
+                        Status5 = invoice.Table.Status;
+                        CustomerName5 = invoice.Customer.FullName;
                         break;
 
                     case "Table 6":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList6.Add(detail);
-                            CustomerName6 = detail.Invoice.Customer.FullName;
                             TotalAmount6 += detail.Amount;
                         }
+                        Status6 = invoice.Table.Status;
+                        CustomerName6 = invoice.Customer.FullName;
                         break;
 
                     case "Table 7":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList7.Add(detail);
-                            CustomerName7 = detail.Invoice.Customer.FullName;
                             TotalAmount7 += detail.Amount;
                         }
+                        Status7 = invoice.Table.Status;
+                        CustomerName7 = invoice.Customer.FullName;
                         break;
 
                     case "Table 8":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList8.Add(detail);
-                            CustomerName8 = detail.Invoice.Customer.FullName;
                             TotalAmount8 += detail.Amount;
                         }
+                        Status8 = invoice.Table.Status;
+                        CustomerName8 = invoice.Customer.FullName;
                         break;
 
                     case "Table 9":
                         foreach (var detail in invoiceDetails)
                         {
                             InvoiceDetailsList9.Add(detail);
-                            CustomerName9 = detail.Invoice.Customer.FullName;
                             TotalAmount9 += detail.Amount;
                         }
+                        Status9 = invoice.Table.Status;
+                        CustomerName9 = invoice.Customer.FullName;
                         break;
                 }
             }
@@ -609,74 +655,92 @@ namespace Restaurant_Management.ViewModels
 
         public void _PaidCommand1()
         {
+            ExportInvoices("TABLE1");
             ProcessPayment("TABLE1");
             InvoiceDetailsList1.Clear();
             CustomerName1 = "";
             TotalAmount1 = 0;
+            Status1 = false;
         }
 
         public void _PaidCommand2()
         {
+            ExportInvoices("TABLE2");
             ProcessPayment("TABLE2");
             InvoiceDetailsList2.Clear();
             CustomerName2 = "";
             TotalAmount2 = 0;
+            Status2 = false;
         }
 
         public void _PaidCommand3()
         {
+            ExportInvoices("TABLE3");
             ProcessPayment("TABLE3");
             InvoiceDetailsList3.Clear();
             CustomerName3 = "";
             TotalAmount3 = 0;
+            Status3 = false;
         }
 
         public void _PaidCommand4()
         {
+            ExportInvoices("TABLE4");
             ProcessPayment("TABLE4");
             InvoiceDetailsList4.Clear();
             CustomerName4 = "";
             TotalAmount4 = 0;
+            Status4 = false;
         }
 
         public void _PaidCommand5()
         {
+            ExportInvoices("TABLE5");
             ProcessPayment("TABLE5");
             InvoiceDetailsList5.Clear();
             CustomerName5 = "";
             TotalAmount5 = 0;
+            Status5 = false;
         }
 
         public void _PaidCommand6()
         {
+            ExportInvoices("TABLE6");
             ProcessPayment("TABLE6");
             InvoiceDetailsList6.Clear();
             CustomerName6 = "";
             TotalAmount6 = 0;
+            Status6 = false;
         }
 
         public void _PaidCommand7()
         {
+            ExportInvoices("TABLE7");
             ProcessPayment("TABLE7");
             InvoiceDetailsList7.Clear();
             CustomerName7 = "";
             TotalAmount7 = 0;
+            Status7 = false;
         }
 
         public void _PaidCommand8()
         {
+            ExportInvoices("TABLE8");
             ProcessPayment("TABLE8");
             InvoiceDetailsList8.Clear();
             CustomerName8 = "";
             TotalAmount8 = 0;
+            Status8 = false;
         }
 
         public void _PaidCommand9()
         {
+            ExportInvoices("TABLE9");
             ProcessPayment("TABLE9");
             InvoiceDetailsList9.Clear();
             CustomerName9 = "";
             TotalAmount9 = 0;
+            Status9 = false;
         }
 
         private void ProcessPayment(string tableId)
@@ -710,5 +774,122 @@ namespace Restaurant_Management.ViewModels
             }
         }
 
+        private void ExportInvoices(string tableId)
+        {
+            var invoice = _invoicesCollection.Find(i => i.Table.TableId == tableId && i.Status == false).FirstOrDefault();
+
+            PrintInvoiceView print = new PrintInvoiceView();
+
+            var invoiceDetails = _invoiceDetailsCollection.Find(id => id.Invoice.InvoiceId == invoice.InvoiceId).ToList();
+
+            print.Height = 350 + 35 * invoiceDetails.Count();
+
+            print.CustomerID.Text = invoice.Customer.CustomerId.ToString();
+
+            print.CustomerName.Text = invoice.Customer.FullName.ToString();
+
+            print.PhoneNumber.Text = invoice.Customer.PhoneNumber.ToString();
+
+            print.EmployeeName.Text = invoice.Employee.FullName.ToString();
+
+            print.InvoiceDate.Text = invoice.CreatedDate.ToString();
+
+            print.InvoiceID.Text = invoice.InvoiceId.ToString();
+
+            ListBoughtItems = new ObservableCollection<BoughtItems>();
+
+            foreach (var item in invoiceDetails)
+            {
+                BoughtItems boughtItem = new BoughtItems
+                {
+                    ITEMID = item.Item.ItemId,
+
+                    NAME = item.Item.Name,
+
+                    QUANTITY = item.Quantity,
+
+                    UNITPRICE = item.Item.Price,
+
+                    TOTALAMOUNT = item.Amount
+                };
+                ListBoughtItems.Add(boughtItem);
+            }
+
+            print.ListMenuItem.ItemsSource = ListBoughtItems;
+
+            print.TotalAmount.Text = invoice.TotalAmount.ToString();
+
+            try
+            {
+                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    FileName = $"Invoice_{invoice.InvoiceId}.pdf",
+
+                    DefaultExt = ".pdf",
+
+                    Filter = "PDF documents (.pdf)|*.pdf"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    ExportToPdf(print.PrintWindow, saveFileDialog.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ExportToPdf(UIElement element, string filePath)
+        {
+            try
+            {
+                element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+                element.Arrange(new Rect(new Point(0, 0), element.DesiredSize));
+
+                var renderTargetBitmap = new RenderTargetBitmap(
+                    (int)element.RenderSize.Width,
+                    (int)element.RenderSize.Height,
+                    80,
+                    80,
+                    PixelFormats.Pbgra32);
+
+                renderTargetBitmap.Render(element);
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    var encoder = new PngBitmapEncoder();
+
+                    encoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+
+                    encoder.Save(stream);
+
+                    byte[] byteArray = stream.ToArray();
+
+                    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(byteArray);
+
+                    image.ScaleToFit(PageSize.A4.Width, PageSize.A4.Height);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        var document = new iTextSharp.text.Document();
+
+                        PdfWriter.GetInstance(document, fileStream);
+
+                        document.Open();
+
+                        document.Add(image);
+
+                        document.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
