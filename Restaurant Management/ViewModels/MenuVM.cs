@@ -375,7 +375,15 @@ namespace Restaurant_Management.ViewModels
         {
             if (tempMenuItems != null)
             {
-                TempMenuItemsList.Remove(tempMenuItems);
+                if (tempMenuItems.Quantity > 1)
+                {
+                    tempMenuItems.Quantity--;
+                }
+                else
+                {
+                    TempMenuItemsList.Remove(tempMenuItems);
+                }
+
                 OnPropertyChanged(nameof(TempMenuItemsList));
             }
         }
